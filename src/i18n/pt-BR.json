@@ -5,7 +5,9 @@
         "form": {
           "username": "Nome de usuário",
           "password": "Digite sua senha"
-        }
+        },
+        "forgotPassword": "Esqueci minha senha",
+        "submit": "Acessar"
       }
     }
   }
