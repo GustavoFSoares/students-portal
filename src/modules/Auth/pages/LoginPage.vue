@@ -61,6 +61,8 @@
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 import AvCard from "atoms/AvCard.vue";
 
 const I18N_PATH = "modules.auth.login";
@@ -72,6 +74,7 @@ export default {
   },
   setup() {
     const $store = useStore();
+    const $route = useRouter();
 
     const username = ref("");
     const password = ref("");
@@ -96,7 +99,7 @@ export default {
         return;
       }
 
-      console.info("Go to home");
+      $route.push({ name: "home" });
     };
 
     return {
