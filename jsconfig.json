@@ -5,6 +5,10 @@
     "paths": {
       "src/*": ["src/*"],
       "app/*": ["*"],
+      "modules/*": ["src/modules/*"],
+      "atoms/*": ["src/components/atoms/*"],
+      "molecules/*": ["src/components/molecules/*"],
+      "organisms/*": ["src/components/organisms/*"],
       "components/*": ["src/components/*"],
       "layouts/*": ["src/layouts/*"],
       "pages/*": ["src/pages/*"],
