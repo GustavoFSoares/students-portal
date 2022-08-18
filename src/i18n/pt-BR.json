@@ -1,0 +1,12 @@
+{
+  "modules": {
+    "auth": {
+      "login": {
+        "form": {
+          "username": "Nome de usuário",
+          "password": "Digite sua senha"
+        }
+      }
+    }
+  }
+}
