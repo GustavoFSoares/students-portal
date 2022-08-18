@@ -44,7 +44,8 @@ module.exports = configure(function (/* ctx */) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       "roboto-font", // optional, you are not bound to it
-      "material-icons", // optional, you are not bound to it
+      "material-icons",
+      "material-icons-outlined",
     ],
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
@@ -52,6 +53,12 @@ module.exports = configure(function (/* ctx */) {
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",
+      },
+      alias: {
+        modules: path.join(__dirname, "./src/modules"),
+        atoms: path.join(__dirname, "src/components/atoms"),
+        molecules: path.join(__dirname, "src/components/molecules"),
+        organisms: path.join(__dirname, "src/components/organisms"),
       },
 
       vueRouterMode: "history", // available values: 'hash', 'history'
@@ -104,7 +111,7 @@ module.exports = configure(function (/* ctx */) {
       // (like functional components as one of the examples),
       // you can manually specify Quasar components/directives to be available everywhere:
       //
-      // components: [],
+      components: ["QInput"],
       // directives: [],
 
       // Quasar plugins
