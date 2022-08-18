@@ -6,6 +6,7 @@
           "username": "Nome de usuário",
           "password": "Digite sua senha"
         },
+        "failedValidation": "Por favor, verifique se o email e senha estão corretos.",
         "forgotPassword": "Esqueci minha senha",
         "submit": "Acessar"
       }

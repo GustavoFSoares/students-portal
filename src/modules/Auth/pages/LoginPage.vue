@@ -27,6 +27,12 @@
           </QInput>
         </article>
 
+        <transition name="login-page__error-message">
+          <p class="login-page__error-message" v-if="hadFailedValidation">
+            {{ $t(`${I18N_PATH}.failedValidation`) }}
+          </p>
+        </transition>
+
         <article class="login-page__forgot-password">
           <router-link :to="{ name: 'auth.forgot' }">
             <QBtn
@@ -34,6 +40,7 @@
               color="primary"
               size="xs"
               :label="$t(`${I18N_PATH}.forgotPassword`)"
+              :disable="isLoading"
             />
           </router-link>
         </article>
@@ -43,6 +50,7 @@
           color="primary"
           :label="$t(`${I18N_PATH}.submit`)"
           :disable="!allowSubmit"
+          :loading="isLoading"
           @click="handleClick"
         />
       </div>
@@ -51,9 +59,10 @@
 </template>
 
 <script>
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import AvCard from "atoms/AvCard.vue";
 
-import { computed, ref } from "vue";
 const I18N_PATH = "modules.auth.login";
 
 export default {
@@ -62,13 +71,32 @@ export default {
     AvCard,
   },
   setup() {
+    const $store = useStore();
+
     const username = ref("");
     const password = ref("");
     const showPassword = ref(false);
-    const allowSubmit = computed(() => !!username.value && !!password.value);
+    const hadFailedValidation = ref(false);
 
-    const handleClick = () => {
-      console.log("handleClick");
+    const allowSubmit = computed(() => !!username.value && !!password.value);
+    const isLoading = computed(() => {
+      return $store.state.AuthModule.loading;
+    });
+
+    const handleClick = async () => {
+      hadFailedValidation.value = false;
+
+      const loginResponse = await $store.dispatch("AuthModule/doLogin", {
+        username: username.value,
+        password: password.value,
+      });
+
+      if (!loginResponse) {
+        hadFailedValidation.value = true;
+        return;
+      }
+
+      console.info("Go to home");
     };
 
     return {
@@ -76,8 +104,9 @@ export default {
       username,
       password,
       showPassword,
+      hadFailedValidation,
       allowSubmit,
-
+      isLoading,
       handleClick,
     };
   },
@@ -96,6 +125,41 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+  &__error-message {
+    color: $negative;
+    text-align: center;
+
+    @keyframes shake {
+      10%,
+      90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+
+      20%,
+      80% {
+        transform: translate3d(2px, 0, 0);
+      }
+
+      30%,
+      50%,
+      70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+
+      40%,
+      60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+
+    &-enter-active {
+      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+    &-leave-active {
+      transition: opacity 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+      opacity: 0;
+    }
   }
 
   &__forgot-password {
