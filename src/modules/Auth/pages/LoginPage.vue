@@ -4,10 +4,10 @@
       <div class="login-page__wrapper">
         <article class="login-page__form">
           <QInput
-            v-model="username"
+            v-model="email"
             dense
             filled
-            :label="$t(`${I18N_PATH}.form.username`)"
+            :label="$t(`${I18N_PATH}.form.email`)"
           />
 
           <QInput
@@ -76,12 +76,12 @@ export default {
     const $store = useStore();
     const $route = useRouter();
 
-    const username = ref("");
+    const email = ref("");
     const password = ref("");
     const showPassword = ref(false);
     const hadFailedValidation = ref(false);
 
-    const allowSubmit = computed(() => !!username.value && !!password.value);
+    const allowSubmit = computed(() => !!email.value && !!password.value);
     const isLoading = computed(() => {
       return $store.state.AuthModule.loading;
     });
@@ -90,7 +90,7 @@ export default {
       hadFailedValidation.value = false;
 
       const loginResponse = await $store.dispatch("AuthModule/doLogin", {
-        username: username.value,
+        email: email.value,
         password: password.value,
       });
 
@@ -104,7 +104,7 @@ export default {
 
     return {
       I18N_PATH,
-      username,
+      email,
       password,
       showPassword,
       hadFailedValidation,

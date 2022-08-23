@@ -3,12 +3,20 @@
     "auth": {
       "login": {
         "form": {
-          "username": "Nome de usuário",
+          "email": "Email",
           "password": "Digite sua senha"
         },
         "failedValidation": "Por favor, verifique se o email e senha estão corretos.",
         "forgotPassword": "Esqueci minha senha",
         "submit": "Acessar"
+      },
+      "forgotPassword": {
+        "form": {
+          "email": "Email"
+        },
+        "responseMessage": "Se o usuário informado existir, você receberá um e-mail de recuperação na sua caixa de entrada",
+        "submit": "Recuperar senha",
+        "goBack": "Voltar ao login"
       }
     }
   }
