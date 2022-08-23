@@ -22,4 +22,14 @@ export default {
       }, 3000);
     });
   },
+  doRestartPassword: async ({ dispatch }, { username }) => {
+    dispatch("setLoading", true);
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        dispatch("setLoading", false);
+        resolve(true);
+      }, 3000);
+    });
+  },
 };

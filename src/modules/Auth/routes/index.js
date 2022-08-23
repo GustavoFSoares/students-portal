@@ -17,7 +17,7 @@ export default [
       {
         path: "",
         name: "auth.forgot",
-        // component: () => import("modules/Auth/pages/LoginPage.vue"),
+        component: () => import("modules/Auth/pages/ForgotPasswordPage.vue"),
       },
     ],
   },
