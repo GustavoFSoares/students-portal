@@ -1,6 +1,14 @@
 <template>
   <div class="av-card">
-    <slot />
+    <div class="av-card__header">
+      <slot name="header" />
+    </div>
+
+    <div class="av-card__content">
+      <slot />
+    </div>
+
+    <slot name="footer" />
   </div>
 </template>
 
@@ -14,6 +22,10 @@ export default {
 .av-card {
   background: #fff;
   border-radius: 8px;
-  padding: 15px 20px;
+  overflow: hidden;
+
+  &__content {
+    padding: 15px 20px;
+  }
 }
 </style>
