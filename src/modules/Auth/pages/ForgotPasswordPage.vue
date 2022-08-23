@@ -5,10 +5,10 @@
         <article class="forgot-password-page__form">
           <QInput
             class="forgot-password-page__input"
-            v-model="username"
+            v-model="email"
             dense
             filled
-            :label="$t(`${I18N_PATH}.form.username`)"
+            :label="$t(`${I18N_PATH}.form.email`)"
           />
 
           <transition name="forgot-password-page__response-message">
@@ -37,6 +37,7 @@
             flat
             :label="$t(`${I18N_PATH}.goBack`)"
             :to="{ name: 'auth.login' }"
+            :disable="isLoading"
           />
         </div>
       </div>
@@ -47,7 +48,6 @@
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 
 import AvCard from "atoms/AvCard.vue";
 
@@ -61,19 +61,19 @@ export default {
   setup() {
     const $store = useStore();
 
-    const username = ref();
+    const email = ref();
     const hadRequestSended = ref(false);
 
-    const allowSubmit = computed(() => !!username.value);
+    const allowSubmit = computed(() => !!email.value);
     const isLoading = computed(() => {
       return $store.state.AuthModule.loading;
     });
 
     const handleClick = async () => {
-      username.value = undefined;
+      email.value = undefined;
 
       await $store.dispatch("AuthModule/doRestartPassword", {
-        username: username.value,
+        email: email.value,
       });
 
       hadRequestSended.value = true;
@@ -81,7 +81,7 @@ export default {
 
     return {
       I18N_PATH,
-      username,
+      email,
       hadRequestSended,
       allowSubmit,
       isLoading,
