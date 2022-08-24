@@ -1,28 +1,32 @@
 <template>
   <div class="user-card-header">
-    <q-avatar class="user-card-header__avatar" size="90px" color="green" />
-
-    <div class="user">
-      <div class="user-info">
-        <h5 class="user-info__name">Selatiel</h5>
-        <h6 class="user-info__level">Nível 2 Sábio</h6>
-      </div>
-
-      <div class="user-edit">
-        <QBtn flat round icon="edit" color="primary" />
-      </div>
+    <div class="avatar">
+      <q-avatar size="90px" color="green" />
     </div>
 
-    <div class="level-bar" :style="{ '--bar-progress': `${barProgress}%` }">
-      <div class="level-bar-progress" />
-
-      <div class="level-bar-index">
-        <div class="level-bar-index__start">
-          {{ levelFormatter(indexes.start) }}
+    <div class="user-card-header__container">
+      <div class="user">
+        <div class="user-info">
+          <h5 class="user-info__name">Selatiel</h5>
+          <h6 class="user-info__level">Nível 2 Sábio</h6>
         </div>
 
-        <div class="level-bar-index__end">
-          {{ levelFormatter(indexes.end) }}
+        <div class="user-edit">
+          <QBtn flat round icon="edit" color="primary" />
+        </div>
+      </div>
+
+      <div class="level-bar" :style="{ '--bar-progress': `${barProgress}%` }">
+        <div class="level-bar-progress" />
+
+        <div class="level-bar-index">
+          <div class="level-bar-index__start">
+            {{ levelFormatter(indexes.start) }}
+          </div>
+
+          <div class="level-bar-index__end">
+            {{ levelFormatter(indexes.end) }}
+          </div>
         </div>
       </div>
     </div>
@@ -56,13 +60,41 @@ export default {
 
 <style lang="scss" scoped>
 .user-card-header {
-  // background-color: $primary;
-  padding: 20px;
+  padding: 20px 0;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  &__container {
+    padding: 0 20px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .avatar {
+    z-index: 0;
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    &:before {
+      content: "";
+      background: $primary;
+
+      position: absolute;
+      z-index: -1;
+      top: -50%;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
 
   .user {
     width: 100%;
@@ -122,9 +154,6 @@ export default {
       color: $secondary;
       font-weight: bold;
     }
-  }
-
-  &__background {
   }
 }
 </style>
