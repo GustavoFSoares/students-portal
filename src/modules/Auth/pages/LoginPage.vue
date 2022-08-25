@@ -18,7 +18,7 @@
             :label="$t(`${I18N_PATH}.form.password`)"
           >
             <template v-slot:append>
-              <q-icon
+              <QIcon
                 :name="showPassword ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
                 @click="showPassword = !showPassword"

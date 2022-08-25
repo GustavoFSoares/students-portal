@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import UserCard from "../components/UserCard.vue";
+import UserCard from "../components/UserCard/index.vue";
 
 export default {
   name: "HomeLayout",
@@ -26,9 +26,10 @@ export default {
   display: flex;
   max-width: 1127px;
   margin: 0 auto;
+  padding: 20px 0;
 
   &__user-navigation {
-    max-width: 300px;
+    // max-width: 300px;
   }
 
   &__page-content {

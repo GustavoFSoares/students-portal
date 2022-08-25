@@ -1,5 +1,4 @@
 export default {
   loading: false,
-  isAuth: false,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };

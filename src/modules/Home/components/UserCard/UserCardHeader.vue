@@ -12,7 +12,13 @@
         </div>
 
         <div class="user-edit">
-          <QBtn flat round icon="edit" color="primary" />
+          <QBtn
+            flat
+            round
+            icon="edit"
+            color="primary"
+            @click="handleEditUser"
+          />
         </div>
       </div>
 
@@ -29,12 +35,35 @@
           </div>
         </div>
       </div>
+
+      <div class="card-reward">
+        <div
+          v-for="(rewardValue, rewardKey) in rewards"
+          :key="rewardKey"
+          :class="['card-reward-item', `card-reward-item--${rewardKey}`]"
+        >
+          <QIcon
+            class="card-reward-item__icon"
+            :name="getRewardIcon(rewardKey)"
+          />
+
+          <h6 class="card-reward-item__value">
+            {{ levelFormatter(rewardValue) }}
+          </h6>
+
+          <h6 class="card-reward-item__label">
+            {{ $t(`${I18N_PATH}.rewards.${rewardKey}`) }}
+          </h6>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
+
+const I18N_PATH = "modules.home.userCard";
 
 export default {
   name: "UserCardHeader",
@@ -44,15 +73,38 @@ export default {
       end: 2000,
     });
     const barProgress = ref(50);
+    const rewards = ref({
+      points: 1400,
+      coins: 0,
+    });
 
     const levelFormatter = (val) => {
       return val.toLocaleString("pt-BR");
     };
 
+    const getRewardIcon = (rewardName) => {
+      const rewards = {
+        coins: "o_paid",
+        points: "o_grade",
+      };
+
+      console.log(rewards[rewardName], rewardName);
+
+      return rewards[rewardName] || null;
+    };
+
+    const handleEditUser = () => {
+      alert("edit user");
+    };
+
     return {
       indexes,
       barProgress,
+      rewards,
       levelFormatter,
+      getRewardIcon,
+      handleEditUser,
+      I18N_PATH,
     };
   },
 };
@@ -118,9 +170,6 @@ export default {
         font-weight: bold;
       }
     }
-
-    &-edit {
-    }
   }
 
   .level-bar {
@@ -134,7 +183,7 @@ export default {
       border-radius: 4px;
       overflow: hidden;
 
-      background-color: #e8e8e8;
+      background-color: $grey-transparent;
 
       position: relative;
 
@@ -153,6 +202,55 @@ export default {
       justify-content: space-between;
       color: $secondary;
       font-weight: bold;
+    }
+  }
+
+  .card-reward {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+
+    &-item {
+      width: 100%;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      border: 2px solid $grey-transparent;
+      border-radius: 8px;
+
+      padding: 5px;
+      transition: border-color 0.4s ease-in;
+
+      &__icon {
+        font-size: 22px;
+      }
+
+      &__value {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      &__label {
+        color: $secondary;
+        flex-grow: 1;
+        text-align: end;
+        font-size: 12px;
+      }
+
+      $rewards: (
+        coins: $yellow-14,
+        points: $primary,
+      );
+
+      @each $rewardItem, $rewardColor in $rewards {
+        &--#{$rewardItem} {
+          color: $rewardColor;
+
+          &:hover {
+            border-color: $rewardColor;
+          }
+        }
+      }
     }
   }
 }

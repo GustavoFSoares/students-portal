@@ -18,6 +18,14 @@
         "submit": "Recuperar senha",
         "goBack": "Voltar ao login"
       }
+    },
+    "home": {
+      "userCard": {
+        "rewards": {
+          "coins": "moedas",
+          "points": "pontos"
+        }
+      }
     }
   }
 }
