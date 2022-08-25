@@ -1,18 +1,9 @@
 import AuthRoutes from "modules/Auth/routes";
+import HomeRoutes from "modules/Home/routes";
 
 const routes = [
-  {
-    path: "/",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("pages/IndexPage.vue"),
-        name: "home",
-      },
-    ],
-  },
   ...AuthRoutes,
+  ...HomeRoutes,
   {
     path: "/test",
     component: () => import("pages/Test.vue"),
