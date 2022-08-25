@@ -37,10 +37,11 @@
       </div>
 
       <div class="card-reward">
-        <div
-          v-for="(rewardValue, rewardKey) in rewards"
+        <router-link
+          v-for="(rewardItem, rewardKey) in rewards"
           :key="rewardKey"
           :class="['card-reward-item', `card-reward-item--${rewardKey}`]"
+          :to="{ name: rewardItem.route }"
         >
           <QIcon
             class="card-reward-item__icon"
@@ -48,13 +49,13 @@
           />
 
           <h6 class="card-reward-item__value">
-            {{ levelFormatter(rewardValue) }}
+            {{ levelFormatter(rewardItem.value) }}
           </h6>
 
           <h6 class="card-reward-item__label">
             {{ $t(`${I18N_PATH}.rewards.${rewardKey}`) }}
           </h6>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -74,8 +75,14 @@ export default {
     });
     const barProgress = ref(50);
     const rewards = ref({
-      points: 1400,
-      coins: 0,
+      points: {
+        route: "home",
+        value: 1400,
+      },
+      coins: {
+        route: "home",
+        value: 0,
+      },
     });
 
     const levelFormatter = (val) => {
@@ -217,9 +224,10 @@ export default {
       align-items: center;
       border: 2px solid $grey-transparent;
       border-radius: 8px;
+      text-decoration: none;
 
       padding: 5px;
-      transition: border-color 0.4s ease-in;
+      transition: border-color, background-color 0.4s ease-in;
 
       &__icon {
         font-size: 22px;
@@ -245,9 +253,10 @@ export default {
       @each $rewardItem, $rewardColor in $rewards {
         &--#{$rewardItem} {
           color: $rewardColor;
+          border-color: rgba($rewardColor, 0.4);
 
           &:hover {
-            border-color: $rewardColor;
+            background-color: rgba($rewardColor, 0.1);
           }
         }
       }
