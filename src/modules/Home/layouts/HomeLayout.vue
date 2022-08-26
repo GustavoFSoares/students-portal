@@ -27,6 +27,7 @@ export default {
   max-width: 1127px;
   margin: 0 auto;
   padding: 20px 0;
+  gap: 25px;
 
   &__user-navigation {
     // max-width: 300px;
@@ -34,7 +35,7 @@ export default {
 
   &__page-content {
     flex-grow: 1;
-    background: red;
+    align-self: center;
   }
 }
 </style>

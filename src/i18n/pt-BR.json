@@ -26,6 +26,36 @@
           "points": "pontos"
         }
       }
+    },
+    "insights": {
+      "seo": {
+        "title": "Insights"
+      }
+    },
+    "courses": {
+      "seo": {
+        "title": "Cursos"
+      }
+    },
+    "feed": {
+      "seo": {
+        "title": "Feed's"
+      }
+    },
+    "library": {
+      "seo": {
+        "title": "Biblioteca"
+      }
+    },
+    "events": {
+      "seo": {
+        "title": "Eventos"
+      }
+    },
+    "missions": {
+      "seo": {
+        "title": "Missões"
+      }
     }
   }
 }
