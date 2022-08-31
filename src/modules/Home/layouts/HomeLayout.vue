@@ -24,7 +24,7 @@ export default {
 <style lang="scss" scoped>
 .home-layout {
   display: flex;
-  max-width: 1127px;
+  max-width: 1290px;
   margin: 0 auto;
   padding: 20px 0;
   gap: 25px;

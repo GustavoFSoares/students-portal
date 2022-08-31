@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 .av-card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: $defaultBorderRadius;
   overflow: hidden;
 
   &__content {
