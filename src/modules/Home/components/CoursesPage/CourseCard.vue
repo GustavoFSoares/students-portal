@@ -15,7 +15,17 @@
           </div>
 
           <div class="course-card__cta-wrapper">
-            <QBtn size="sm" label="Comece agora" color="primary" />
+            <QBtn
+              size="sm"
+              :label="
+                isCompleted
+                  ? $t(`${I18N_PATH}.completed`)
+                  : $t(`${I18N_PATH}.startNow`)
+              "
+              color="primary"
+              @click="handleStartNow"
+              :disable="isCompleted"
+            />
           </div>
         </div>
       </template>
@@ -25,8 +35,13 @@
 
 <script>
 import AvCard from "atoms/AvCard.vue";
+import { computed } from "vue";
+
+const I18N_PATH = "modules.home.coursesPage.courseCard";
+
 export default {
   name: "course-card",
+  emits: ["start-now"],
   components: {
     AvCard,
   },
@@ -39,6 +54,19 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  setup(props, ctx) {
+    const isCompleted = computed(() => props.progress === 100);
+
+    const handleStartNow = () => {
+      ctx.emit("start-now");
+    };
+
+    return {
+      I18N_PATH,
+      isCompleted,
+      handleStartNow,
+    };
   },
 };
 </script>
