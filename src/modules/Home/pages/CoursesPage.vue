@@ -1,20 +1,21 @@
 <template>
   <article class="courses-page">
     <SearchBar v-model="searchText" />
-    {{ searchText }}
 
-    <div>courses-page</div>
+    <AvailableCourses />
   </article>
 </template>
 
 <script>
 import { ref } from "vue";
 import SearchBar from "../components/CoursesPage/SearchBar.vue";
+import AvailableCourses from "../partials/CoursesPage/AvailableCourses.vue";
 
 export default {
   name: "courses-page",
   components: {
     SearchBar,
+    AvailableCourses,
   },
   setup() {
     const searchText = ref(null);
@@ -30,6 +31,6 @@ export default {
 .courses-page {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 30px;
 }
 </style>

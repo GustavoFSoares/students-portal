@@ -95,8 +95,6 @@ export default {
         points: "o_grade",
       };
 
-      console.log(rewards[rewardName], rewardName);
-
       return rewards[rewardName] || null;
     };
 
