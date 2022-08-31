@@ -25,6 +25,21 @@
           "coins": "moedas",
           "points": "pontos"
         }
+      },
+      "coursesPage": {
+        "courseCard": {
+          "startNow": "Comece agora",
+          "completed": "Concluído"
+        },
+        "coursesList": {
+          "seeMore": "Ver mais"
+        },
+        "availableCourses": {
+          "title": "Cursos Disponíveis"
+        },
+        "completedCourses": {
+          "title": "Cursos Concluídos"
+        }
       }
     },
     "insights": {
