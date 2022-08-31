@@ -9,7 +9,7 @@
 
 <script>
 import { ref } from "vue";
-import SearchBar from "../components/SearchBar.vue";
+import SearchBar from "../components/CoursesPage/SearchBar.vue";
 
 export default {
   name: "courses-page",
@@ -17,7 +17,7 @@ export default {
     SearchBar,
   },
   setup() {
-    const searchText = ref("321");
+    const searchText = ref(null);
 
     return {
       searchText,

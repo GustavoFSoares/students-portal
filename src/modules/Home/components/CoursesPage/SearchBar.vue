@@ -40,7 +40,6 @@ export default {
   },
   emits: ["update:modelValue"],
   setup(props, ctx) {
-    const searchInput = ref(null);
     const showActiveBar = ref(!!props.modelValue);
     const inputElement = ref(null);
 
@@ -62,8 +61,6 @@ export default {
     };
 
     return {
-      searchInput,
-      showActiveBar,
       inputElement,
       isActiveShowBar,
       handleInput,
