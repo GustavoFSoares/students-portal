@@ -35,7 +35,6 @@ export default {
 
   &__page-content {
     flex-grow: 1;
-    align-self: center;
   }
 }
 </style>
