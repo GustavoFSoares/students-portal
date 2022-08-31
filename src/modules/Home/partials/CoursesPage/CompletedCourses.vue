@@ -1,10 +1,9 @@
 <template>
-  <div class="available-courses">
+  <div class="completed-courses">
     <CoursesList
       :title="$t(`${I18N_PATH}.title`)"
       :courses="courses"
       see-more-url="home"
-      @startCourse="handleStartCourse"
     />
   </div>
 </template>
@@ -13,28 +12,23 @@
 import { ref } from "vue";
 import CoursesList from "../../components/CoursesPage/CoursesList.vue";
 
-const I18N_PATH = "modules.home.coursesPage.availableCourses";
+const I18N_PATH = "modules.home.coursesPage.completedCourses";
 
 export default {
-  name: "available-courses",
+  name: "completed-courses",
   components: {
     CoursesList,
   },
   setup() {
     const courses = ref([
-      { title: "Crianças", progress: 0 },
-      { title: "Crianças", progress: 10 },
-      { title: "Crianças", progress: 99 },
+      { title: "Cidadão", progress: 100 },
+      { title: "Profissionais", progress: 100 },
+      { title: "Crianças", progress: 100 },
     ]);
-
-    const handleStartCourse = (courseId) => {
-      alert("AvailableCourse: " + courseId);
-    };
 
     return {
       I18N_PATH,
       courses,
-      handleStartCourse,
     };
   },
 };

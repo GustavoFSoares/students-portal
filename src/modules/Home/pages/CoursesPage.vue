@@ -3,6 +3,8 @@
     <SearchBar v-model="searchText" />
 
     <AvailableCourses />
+
+    <CompletedCourses />
   </article>
 </template>
 
@@ -10,12 +12,14 @@
 import { ref } from "vue";
 import SearchBar from "../components/CoursesPage/SearchBar.vue";
 import AvailableCourses from "../partials/CoursesPage/AvailableCourses.vue";
+import CompletedCourses from "../partials/CoursesPage/CompletedCourses.vue";
 
 export default {
   name: "courses-page",
   components: {
     SearchBar,
     AvailableCourses,
+    CompletedCourses,
   },
   setup() {
     const searchText = ref(null);
