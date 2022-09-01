@@ -25,7 +25,7 @@ export default {
   overflow: hidden;
 
   &__content {
-    padding: 15px 20px;
+    padding: 10px 12px;
   }
 }
 </style>

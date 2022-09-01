@@ -104,7 +104,7 @@ export default {
         background: rgba($primary, 0.1);
       }
 
-      &.router-link-exact-active {
+      &.router-link-active {
         background-color: rgba($primary, 0.9);
         color: $white;
       }
