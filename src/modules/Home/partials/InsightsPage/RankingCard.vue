@@ -64,7 +64,7 @@ export default {
 .ranking-card {
   &__ranking-list {
     display: grid;
-    gap: 8px;
+    gap: 12px;
 
     list-style: none;
   }

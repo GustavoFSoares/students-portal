@@ -11,27 +11,27 @@ export default [
       {
         path: "courses",
         name: "home.courses",
-        component: import("../pages/CoursesPage.vue"),
+        component: () => import("../pages/CoursesPage.vue"),
       },
       {
         path: "feed",
         name: "home.feed",
-        component: import("../pages/FeedPage.vue"),
+        component: () => import("../pages/FeedPage.vue"),
       },
       {
         path: "library",
         name: "home.library",
-        component: import("../pages/LibraryPage.vue"),
+        component: () => import("../pages/LibraryPage.vue"),
       },
       {
         path: "events",
         name: "home.events",
-        component: import("../pages/EventsPage.vue"),
+        component: () => import("../pages/EventsPage.vue"),
       },
       {
         path: "missions",
         name: "home.missions",
-        component: import("../pages/MissionsPage.vue"),
+        component: () => import("../pages/MissionsPage.vue"),
       },
     ],
   },
