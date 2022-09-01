@@ -1,15 +1,13 @@
+import insightRoutes from "./insight.routes";
+
 export default [
   {
     path: "/",
     component: () => import("modules/Home/layouts/HomeLayout.vue"),
     name: "home",
-    redirect: { name: "home.insights" },
+    redirect: { name: "home.courses" },
     children: [
-      {
-        path: "insights",
-        name: "home.insights",
-        component: import("../pages/InsightsPage.vue"),
-      },
+      ...insightRoutes,
       {
         path: "courses",
         name: "home.courses",
