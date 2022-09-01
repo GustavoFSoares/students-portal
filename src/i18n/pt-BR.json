@@ -45,6 +45,14 @@
         "rankingCard": {
           "title": "Ranking",
           "moreItems": "Ranking"
+        },
+        "conquestCard": {
+          "title": "Últimas Conquistas",
+          "moreItems": "Conquistas"
+        },
+        "certificateCard": {
+          "title": "Últimos Certificados",
+          "moreItems": "Certificados"
         }
       }
     },
