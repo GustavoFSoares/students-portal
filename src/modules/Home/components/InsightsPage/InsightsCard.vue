@@ -61,7 +61,7 @@ export default {
   &__container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 15px;
   }
 
   &__header {

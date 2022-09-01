@@ -40,6 +40,12 @@
         "completedCourses": {
           "title": "Cursos Concluídos"
         }
+      },
+      "insightsPage": {
+        "rankingCard": {
+          "title": "Ranking",
+          "moreItems": "Ranking"
+        }
       }
     },
     "insights": {
