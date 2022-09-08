@@ -16,5 +16,21 @@ p {
 }
 
 body {
-  background-color: #d7d7f5;
+  animation: 10s linear 0s normal none infinite animate;
+  background: #2980b9 url("assets/background.png") repeat 0 0;
+
+  @keyframes animate {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 500px 0;
+    }
+  }
+}
+
+.app-container {
+  @media (max-width: map-get($breakpoints, "mobile")) {
+    padding: 20px;
+  }
 }
