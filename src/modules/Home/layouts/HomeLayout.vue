@@ -1,5 +1,5 @@
 <template>
-  <div class="home-layout">
+  <div class="home-layout app-container">
     <article class="home-layout__user-navigation">
       <UserCard />
     </article>
