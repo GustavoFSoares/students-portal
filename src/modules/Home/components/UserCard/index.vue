@@ -71,7 +71,9 @@ export default {
 
 <style lang="scss" scoped>
 .user-card {
-  min-width: 360px;
+  @media (min-width: map-get($breakpoints, "tablet")) {
+    min-width: 360px;
+  }
 
   .navigation {
     display: flex;

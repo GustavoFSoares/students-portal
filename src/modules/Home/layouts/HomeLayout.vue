@@ -23,14 +23,13 @@ export default {
 
 <style lang="scss" scoped>
 .home-layout {
-  display: flex;
   max-width: 1290px;
   margin: 0 auto;
-  padding: 20px 0;
-  gap: 25px;
 
-  &__user-navigation {
-    // max-width: 300px;
+  @media (min-width: map-get($breakpoints, "tablet")) {
+    display: flex;
+    gap: 25px;
+    padding: 20px 0;
   }
 
   &__page-content {
