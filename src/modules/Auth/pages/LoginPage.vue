@@ -169,6 +169,10 @@ export default {
     text-align: end;
     text-decoration: underline;
     color: $primary;
+
+    a {
+      text-decoration-color: $primary;
+    }
   }
 
   &__submit {

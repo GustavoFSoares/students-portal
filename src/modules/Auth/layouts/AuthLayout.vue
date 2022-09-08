@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-layout">
+  <div class="auth-layout app-container">
     <div class="auth-layout__container">
       <router-view />
     </div>
@@ -16,7 +16,6 @@ export default {
 .auth-layout {
   width: 100vw;
   height: 100vh;
-  background: #d7d7f5;
 
   display: flex;
   justify-content: center;

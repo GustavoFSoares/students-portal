@@ -28,3 +28,10 @@ $info: #31ccec;
 $warning: #f2c037;
 
 $defaultBorderRadius: 12px;
+
+$breakpoints: (
+  mobile: 425px,
+  tablet: 768px,
+  laptop: 1024px,
+  l_laptop: 1440px,
+);
