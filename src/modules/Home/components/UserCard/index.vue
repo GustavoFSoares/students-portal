@@ -1,5 +1,9 @@
 <template>
-  <AvCard class="user-card" header-color="primary">
+  <AvCard
+    class="user-card"
+    header-color="primary"
+    :no-border-radius="noBorderRadius"
+  >
     <template #header>
       <UserCardHeader />
     </template>
@@ -24,6 +28,9 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useQuasar } from "quasar";
+
 import AvCard from "atoms/AvCard.vue";
 
 import UserCardHeader from "./UserCardHeader.vue";
@@ -35,6 +42,8 @@ export default {
     UserCardHeader,
   },
   setup() {
+    const $q = useQuasar();
+
     const routes = {
       insights: {
         route: "home.insights",
@@ -62,8 +71,13 @@ export default {
       },
     };
 
+    const noBorderRadius = computed(() => {
+      return $q.screen.sm || $q.screen.xs;
+    });
+
     return {
       routes,
+      noBorderRadius,
     };
   },
 };
@@ -71,6 +85,8 @@ export default {
 
 <style lang="scss" scoped>
 .user-card {
+  height: 100%;
+
   @media (min-width: map-get($breakpoints, "tablet")) {
     min-width: 360px;
   }
