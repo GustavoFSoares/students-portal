@@ -1,21 +1,28 @@
 <template>
-  <div class="home-layout app-container">
-    <article
-      v-on="userCardListners"
-      id="user-navigation"
-      :class="[
-        'home-layout__user-navigation',
-        { 'home-layout__user-navigation--active': showMenu },
-      ]"
-    >
-      <div class="home-layout__user-navigation-container">
-        <UserCard />
-      </div>
-    </article>
+  <div class="home-layout">
+    <QToolbar class="home-layout__topbar" v-if="isMobile">
+      <QBtn flat round dense icon="menu" @click="openMenu" />
+      <QToolbarTitle shrink>Selatiel</QToolbarTitle>
+    </QToolbar>
 
-    <aside class="home-layout__page-content">
-      <router-view />
-    </aside>
+    <div class="app-container">
+      <article
+        v-on="userCardListners"
+        id="user-navigation"
+        :class="[
+          'home-layout__user-navigation',
+          { 'home-layout__user-navigation--active': showMenu },
+        ]"
+      >
+        <div class="home-layout__user-navigation-container">
+          <UserCard @navigating="hideMenu" @closeMenu="hideMenu" />
+        </div>
+      </article>
+
+      <aside class="home-layout__page-content">
+        <router-view />
+      </aside>
+    </div>
   </div>
 </template>
 
@@ -33,7 +40,7 @@ export default {
   setup() {
     const $q = useQuasar();
 
-    const showMenu = ref(true);
+    const showMenu = ref(false);
 
     const isMobile = computed(() => {
       return $q.screen.sm || $q.screen.xs;
@@ -49,9 +56,17 @@ export default {
       return events;
     });
 
+    const openMenu = () => {
+      showMenu.value = true;
+    };
+
+    const hideMenu = () => {
+      showMenu.value = false;
+    };
+
     const handleCloseMenu = ({ currentTarget, target }) => {
       if (currentTarget === target) {
-        showMenu.value = false;
+        hideMenu();
       }
     };
 
@@ -59,6 +74,8 @@ export default {
       showMenu,
       isMobile,
       userCardListners,
+      openMenu,
+      hideMenu,
       handleCloseMenu,
     };
   },
@@ -67,19 +84,27 @@ export default {
 
 <style lang="scss" scoped>
 .home-layout {
-  position: relative;
-
-  max-width: 1290px;
-  margin: 0 auto;
-
-  @media (min-width: map-get($breakpoints, "tablet")) {
+  &__topbar {
+    background: #fff;
     display: flex;
-    gap: 25px;
-    padding: 20px 0;
+    justify-content: space-between;
+  }
+
+  .app-container {
+    position: relative;
+
+    max-width: 1290px;
+    margin: 0 auto;
+
+    @media (min-width: map-get($breakpoints, "laptop")) {
+      display: flex;
+      gap: 25px;
+      padding: 20px 0;
+    }
   }
 
   &__user-navigation {
-    @media (max-width: map-get($breakpoints, "mobile")) {
+    @media (max-width: map-get($breakpoints, "tablet")) {
       z-index: 1;
       position: fixed;
       top: 0;
