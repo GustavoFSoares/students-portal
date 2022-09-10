@@ -33,6 +33,11 @@ export default {
     border-radius: initial;
   }
 
+  &__header,
+  &__content {
+    position: relative;
+  }
+
   &__content {
     padding: 10px 12px;
   }
