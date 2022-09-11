@@ -43,8 +43,13 @@ export default {
 .insights-page {
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+
+    grid-template-columns: 1fr;
+
+    @media (min-width: map-get($breakpoints, "tablet")) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 </style>
