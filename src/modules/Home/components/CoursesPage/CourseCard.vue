@@ -1,6 +1,6 @@
 <template>
   <div class="course-card">
-    <AvCard>
+    <AvCard class="course-card__wrapper">
       <template #header>
         <div class="course-card__image" />
       </template>
@@ -75,11 +75,35 @@ export default {
 .course-card {
   width: 100%;
 
+  &__wrapper {
+    display: flex;
+
+    flex-direction: row;
+    @media (min-width: map-get($breakpoints, "tablet")) {
+      flex-direction: column;
+    }
+
+    &::v-deep .av-card__header {
+      flex-grow: 1;
+    }
+
+    @media (max-width: map-get($breakpoints, "mobile")) {
+      &::v-deep .av-card__content {
+        width: 60%;
+      }
+    }
+  }
+
   &__image {
-    width: 100%;
-    height: 196px;
     background: rgba(255, 0, 0, 0.562);
     border-radius: 8px;
+
+    width: 100%;
+    height: 100%;
+
+    @media (min-width: map-get($breakpoints, "tablet")) {
+      height: 196px;
+    }
   }
 
   &__content {
