@@ -1,36 +1,11 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-// app global css in SCSS form
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  line-height: 1;
-  margin: 0;
-}
+@import "fonts.scss";
 
 body {
-  // animation: 10s linear 0s normal none infinite animate;
   background: #2980b9 url("assets/background.png") repeat 0 0;
-
-  @keyframes animate {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: 500px 0;
-    }
-  }
 }
 
 .app-container {
-  @media (max-width: map-get($breakpoints, "tablet")) {
+  @media (max-width: $breakpoint-tablet) {
     padding: 20px;
   }
 }
