@@ -47,7 +47,7 @@ export default {
 
     grid-template-columns: 1fr;
 
-    @media (min-width: map-get($breakpoints, "tablet")) {
+    @media (min-width: $breakpoint-tablet) {
       grid-template-columns: repeat(3, 1fr);
     }
   }

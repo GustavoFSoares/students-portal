@@ -77,7 +77,7 @@ export default {
     &__position,
     &__user,
     &__score {
-      font-weight: bold;
+      font-weight: $font-weight-bold;
     }
 
     &__user {

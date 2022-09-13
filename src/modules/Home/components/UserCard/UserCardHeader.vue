@@ -172,7 +172,7 @@ export default {
       &__level {
         font-size: 12px;
         color: $secondary;
-        font-weight: bold;
+        font-weight: $font-weight-bold;
       }
     }
   }
@@ -206,7 +206,7 @@ export default {
       display: flex;
       justify-content: space-between;
       color: $secondary;
-      font-weight: bold;
+      font-weight: $font-weight-bold;
     }
   }
 
@@ -233,7 +233,7 @@ export default {
 
       &__value {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $font-weight-semibold;
       }
 
       &__label {

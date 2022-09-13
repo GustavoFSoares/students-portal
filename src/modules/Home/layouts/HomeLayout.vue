@@ -96,7 +96,7 @@ export default {
     max-width: 1290px;
     margin: 0 auto;
 
-    @media (min-width: map-get($breakpoints, "laptop")) {
+    @media (min-width: $breakpoint-laptop) {
       display: flex;
       gap: 25px;
       padding: 20px 0;
@@ -104,7 +104,7 @@ export default {
   }
 
   &__user-navigation {
-    @media (max-width: map-get($breakpoints, "tablet")) {
+    @media (max-width: $breakpoint-tablet) {
       z-index: 1;
       position: fixed;
       top: 0;

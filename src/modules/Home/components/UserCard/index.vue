@@ -105,7 +105,7 @@ export default {
 .user-card {
   height: 100%;
 
-  @media (min-width: map-get($breakpoints, "tablet")) {
+  @media (min-width: $breakpoint-tablet) {
     min-width: 360px;
   }
 
@@ -139,7 +139,7 @@ export default {
 
       &__text {
         font-size: 15px;
-        font-weight: bold;
+        font-weight: $font-weight-bold;
       }
 
       &:hover {

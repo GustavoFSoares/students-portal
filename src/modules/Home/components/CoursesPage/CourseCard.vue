@@ -79,16 +79,16 @@ export default {
     display: flex;
 
     flex-direction: row;
-    @media (min-width: map-get($breakpoints, "tablet")) {
+    @media (min-width: $breakpoint-tablet) {
       flex-direction: column;
     }
 
-    &::v-deep .av-card__header {
+    &:deep(.av-card__header) {
       flex-grow: 1;
     }
 
-    @media (max-width: map-get($breakpoints, "mobile")) {
-      &::v-deep .av-card__content {
+    @media (max-width: $breakpoint-mobile) {
+      &:deep(.av-card__content) {
         width: 60%;
       }
     }
@@ -101,7 +101,7 @@ export default {
     width: 100%;
     height: 100%;
 
-    @media (min-width: map-get($breakpoints, "tablet")) {
+    @media (min-width: $breakpoint-tablet) {
       height: 196px;
     }
   }
