@@ -29,9 +29,12 @@ $warning: #f2c037;
 
 $defaultBorderRadius: 12px;
 
-$breakpoints: (
-  mobile: 425px,
-  tablet: 768px,
-  laptop: 1024px,
-  l_laptop: 1440px,
-);
+$breakpoint-mobile: 425px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 1024px;
+$breakpoint-l_laptop: 1440px;
+
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-normal: 500;
+$font-weight-light: 400;
