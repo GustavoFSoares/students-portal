@@ -85,7 +85,11 @@ export default {
     display: grid;
     gap: 15px;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+
+    @media (min-width: map-get($breakpoints, "tablet")) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 </style>

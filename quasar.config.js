@@ -111,7 +111,14 @@ module.exports = configure(function (/* ctx */) {
       // (like functional components as one of the examples),
       // you can manually specify Quasar components/directives to be available everywhere:
       //
-      components: ["QInput", "QBtn", "QAvatar", "QIcon"],
+      components: [
+        "QInput",
+        "QBtn",
+        "QAvatar",
+        "QIcon",
+        "QToolbar",
+        "QToolbarTitle",
+      ],
       // directives: [],
 
       // Quasar plugins

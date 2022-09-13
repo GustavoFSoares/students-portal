@@ -1,7 +1,17 @@
 <template>
-  <AvCard class="user-card" header-color="primary">
+  <AvCard class="user-card" header-color="primary" :no-border-radius="isMobile">
     <template #header>
       <UserCardHeader />
+
+      <QBtn
+        v-if="isMobile"
+        class="user-card__close-button"
+        flat
+        round
+        icon="close"
+        color="white"
+        @click="handleCloseMenu"
+      />
     </template>
 
     <template #default>
@@ -11,6 +21,7 @@
           v-for="(routeItem, routeKey) in routes"
           :key="routeKey"
           :to="{ name: routeItem.route }"
+          @click="handleClickNavigationItem"
         >
           <QIcon class="navigation-item__icon" :name="routeItem.icon" />
 
@@ -24,17 +35,23 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useQuasar } from "quasar";
+
 import AvCard from "atoms/AvCard.vue";
 
 import UserCardHeader from "./UserCardHeader.vue";
 
 export default {
   name: "UserCard",
+  emits: ["navigating", "closeMenu"],
   components: {
     AvCard,
     UserCardHeader,
   },
-  setup() {
+  setup(_, ctx) {
+    const $q = useQuasar();
+
     const routes = {
       insights: {
         route: "home.insights",
@@ -62,8 +79,23 @@ export default {
       },
     };
 
+    const isMobile = computed(() => {
+      return $q.screen.sm || $q.screen.xs;
+    });
+
+    const handleCloseMenu = () => {
+      ctx.emit("closeMenu");
+    };
+
+    const handleClickNavigationItem = () => {
+      ctx.emit("navigating");
+    };
+
     return {
       routes,
+      isMobile,
+      handleCloseMenu,
+      handleClickNavigationItem,
     };
   },
 };
@@ -71,7 +103,17 @@ export default {
 
 <style lang="scss" scoped>
 .user-card {
-  min-width: 360px;
+  height: 100%;
+
+  @media (min-width: map-get($breakpoints, "tablet")) {
+    min-width: 360px;
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 
   .navigation {
     display: flex;

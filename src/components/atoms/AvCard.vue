@@ -1,5 +1,5 @@
 <template>
-  <div class="av-card">
+  <div :class="['av-card', { 'av-card--no-border-radius': noBorderRadius }]">
     <div class="av-card__header">
       <slot name="header" />
     </div>
@@ -15,6 +15,11 @@
 <script>
 export default {
   name: "av-card",
+  props: {
+    noBorderRadius: {
+      type: Boolean,
+    },
+  },
 };
 </script>
 
@@ -23,6 +28,15 @@ export default {
   background: #fff;
   border-radius: $defaultBorderRadius;
   overflow: hidden;
+
+  &--no-border-radius {
+    border-radius: initial;
+  }
+
+  &__header,
+  &__content {
+    position: relative;
+  }
 
   &__content {
     padding: 10px 12px;

@@ -16,7 +16,7 @@ p {
 }
 
 body {
-  animation: 10s linear 0s normal none infinite animate;
+  // animation: 10s linear 0s normal none infinite animate;
   background: #2980b9 url("assets/background.png") repeat 0 0;
 
   @keyframes animate {
@@ -30,7 +30,7 @@ body {
 }
 
 .app-container {
-  @media (max-width: map-get($breakpoints, "mobile")) {
+  @media (max-width: map-get($breakpoints, "tablet")) {
     padding: 20px;
   }
 }
