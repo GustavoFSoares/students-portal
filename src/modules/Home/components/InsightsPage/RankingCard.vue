@@ -8,23 +8,20 @@
           </div>
 
           <QIcon
-            v-if="false && isWinner && !isFirst"
+            v-if="isWinner && !isFirst"
             class="rank-medal"
-            name="img:/svg/medal.svg"
+            name="svguse:/icons.svg#medal"
           />
         </div>
 
         <div class="ranking-card__user-image">
           <QIcon
-            v-if="false && isFirst"
+            v-if="isFirst"
+            name="svguse:/icons.svg#crown"
             class="ranking-card__user-image-crown"
-            name="img:/svg/crown.svg"
           />
 
-          <img
-            src="https://png.pngtree.com/png-clipart/20190924/original/pngtree-businessman-user-avatar-free-vector-png-image_4827807.jpg"
-            :alt="userName"
-          />
+          <img :src="userImage" :alt="userName" />
         </div>
 
         <div class="ranking-card__points">{{ userPoints }}pts</div>
@@ -53,7 +50,7 @@ export default {
     },
     userImage: {
       type: String,
-      default: null,
+      required: true,
     },
     userPoints: {
       type: Number,
@@ -93,13 +90,17 @@ export default {
   }
 
   &__content {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     flex-grow: 1;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 
   &__rank {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -131,6 +132,9 @@ export default {
 
     .rank-medal {
       font-size: 20px;
+
+      position: absolute;
+      top: calc(100% + 8px);
     }
 
     &:has(.rank-medal) {
@@ -141,7 +145,19 @@ export default {
   &__user-image {
     display: flex;
     flex-direction: column;
-    // padding: 20px 0;
+    align-items: center;
+
+    position: relative;
+
+    &-crown {
+      position: absolute;
+      top: -25px;
+
+      width: 28px;
+      height: 20px;
+
+      fill: $yellow-8;
+    }
 
     img {
       width: 50px;
@@ -200,9 +216,15 @@ export default {
         border-color: map-get($rank-data, "default");
       }
 
-      &__rank .rank-number {
-        background: map-get($rank-data, "default");
-        box-shadow: 0 3px map-get($rank-data, "boxShadow");
+      &__rank {
+        .rank-number {
+          background: map-get($rank-data, "default");
+          box-shadow: 0 3px map-get($rank-data, "boxShadow");
+        }
+
+        .rank-medal {
+          fill: map-get($rank-data, "boxShadow");
+        }
       }
 
       &__user-image img {

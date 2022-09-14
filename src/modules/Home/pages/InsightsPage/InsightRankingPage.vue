@@ -9,6 +9,7 @@
             :user-rank="user.rank"
             :user-name="user.name"
             :user-points="user.points"
+            :user-image="user.image"
           />
         </div>
       </template>
@@ -33,9 +34,27 @@ export default {
     const $q = useQuasar();
 
     const users = ref([
-      { name: "Selatiel", rank: 1, points: 1400 },
-      { name: "Bruno", rank: 2, points: 100 },
-      { name: "Pedro", rank: 3, points: 0 },
+      {
+        name: "Selatiel",
+        rank: 1,
+        points: 1400,
+        image:
+          "https://png.pngtree.com/png-clipart/20190924/original/pngtree-businessman-user-avatar-free-vector-png-image_4827807.jpg",
+      },
+      {
+        name: "Bruno",
+        rank: 2,
+        points: 100,
+        image:
+          "https://png.pngtree.com/png-clipart/20190924/original/pngtree-businessman-user-avatar-free-vector-png-image_4827807.jpg",
+      },
+      {
+        name: "Pedro",
+        rank: 3,
+        points: 0,
+        image:
+          "https://png.pngtree.com/png-clipart/20190924/original/pngtree-businessman-user-avatar-free-vector-png-image_4827807.jpg",
+      },
     ]);
 
     const isMobile = computed(() => {
