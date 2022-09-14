@@ -72,7 +72,12 @@ export default {
 <style lang="scss" scoped>
 .ranking-card {
   width: 100%;
-  height: 165px;
+
+  height: 120px;
+
+  @media (min-width: $breakpoint-tablet) {
+    height: 165px;
+  }
 
   display: grid;
   align-items: flex-end;
@@ -86,7 +91,10 @@ export default {
     display: flex;
     flex-direction: column;
 
-    height: 65%;
+    height: 100%;
+    @media (min-width: $breakpoint-tablet) {
+      height: 65%;
+    }
   }
 
   &__content {
@@ -168,6 +176,10 @@ export default {
     }
   }
 
+  &__points {
+    text-align: center;
+  }
+
   &__user-name {
     position: relative;
     display: flex;
@@ -211,7 +223,9 @@ export default {
   @each $rank, $rank-data in $rank-colors {
     &--rank-#{$rank} & {
       &__wrapper {
-        height: map-get($rank-data, "height");
+        @media (min-width: $breakpoint-tablet) {
+          height: map-get($rank-data, "height");
+        }
 
         border-color: map-get($rank-data, "default");
       }

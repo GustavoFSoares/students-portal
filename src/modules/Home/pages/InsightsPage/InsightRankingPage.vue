@@ -58,7 +58,7 @@ export default {
     ]);
 
     const isMobile = computed(() => {
-      return $q.screen.sm || $q.screen.xs;
+      return $q.screen.xs;
     });
 
     const orderedUsers = computed(() => {
@@ -80,11 +80,16 @@ export default {
 .insights-ranking-page {
   &__ranking-list {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
     gap: 10px;
 
     margin-bottom: 60px;
+
+    @media (min-width: $breakpoint-tablet) {
+      flex-direction: row;
+    }
   }
 }
 </style>
