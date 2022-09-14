@@ -53,6 +53,11 @@
         "certificateCard": {
           "title": "Últimos Certificados",
           "moreItems": "Certificados"
+        },
+        "pages": {
+          "rankingPage": {
+            "title": "Ranking"
+          }
         }
       }
     },
