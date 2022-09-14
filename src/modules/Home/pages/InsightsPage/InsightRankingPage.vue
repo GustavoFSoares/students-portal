@@ -1,6 +1,6 @@
 <template>
   <article class="insights-ranking-page">
-    <AvPageSection :title="$t(`${I18N_PATH}.title`)">
+    <AvPageSection :title="$t(`${I18N_PATH}.title`)" @close="handleGoBackPage">
       <template #default>
         <div class="insights-ranking-page__ranking-list">
           <RankingCard
@@ -20,6 +20,7 @@
 <script>
 import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
 import AvPageSection from "molecules/AvPageSection.vue";
 import RankingCard from "../../components/InsightsPage/RankingCard.vue";
@@ -32,8 +33,9 @@ export default {
     AvPageSection,
     RankingCard,
   },
-  setup() {
+  setup(_, ctx) {
     const $q = useQuasar();
+    const $route = useRouter();
 
     const users = ref([
       {
@@ -71,9 +73,14 @@ export default {
       return [users.value[1], users.value[0], users.value[2]];
     });
 
+    const handleGoBackPage = () => {
+      $route.push({ name: "home.insights" });
+    };
+
     return {
       I18N_PATH,
       orderedUsers,
+      handleGoBackPage,
     };
   },
 };
