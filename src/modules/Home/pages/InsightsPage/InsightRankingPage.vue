@@ -1,10 +1,10 @@
 <template>
   <article class="insights-ranking-page">
-    <AvPageSection title="header">
+    <AvPageSection :title="$t(`${I18N_PATH}.title`)">
       <template #default>
         <div class="insights-ranking-page__ranking-list">
           <RankingCard
-            v-for="(user, userIndex) in users"
+            v-for="(user, userIndex) in orderedUsers"
             :key="userIndex"
             :user-rank="user.rank"
             :user-name="user.name"
@@ -23,6 +23,8 @@ import { ref, computed } from "vue";
 
 import AvPageSection from "molecules/AvPageSection.vue";
 import RankingCard from "../../components/InsightsPage/RankingCard.vue";
+
+const I18N_PATH = "modules.home.insightsPage.pages.rankingPage";
 
 export default {
   name: "InsigtRankingPage",
@@ -70,7 +72,8 @@ export default {
     });
 
     return {
-      users: orderedUsers,
+      I18N_PATH,
+      orderedUsers,
     };
   },
 };
