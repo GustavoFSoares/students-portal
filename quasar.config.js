@@ -118,6 +118,13 @@ module.exports = configure(function (/* ctx */) {
         "QIcon",
         "QToolbar",
         "QToolbarTitle",
+        "QTab",
+        "QTabs",
+        "QBtnDropdown",
+        "QList",
+        "QItem",
+        "QItemLabel",
+        "QItemSection",
       ],
       // directives: [],
 
