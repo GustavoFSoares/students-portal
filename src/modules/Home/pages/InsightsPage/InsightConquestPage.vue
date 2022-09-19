@@ -55,8 +55,14 @@ export default {
 .insights-conquest-page {
   &__list {
     display: grid;
-    gap: 30px 15px;
-    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+    grid-template-columns: 1fr;
+
+    @media (min-width: $breakpoint-tablet) {
+      gap: 30px 15px;
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 </style>

@@ -39,9 +39,12 @@ export default {
 
 <style lang="scss" scoped>
 .conquest-card {
-  min-height: 115px;
   display: flex;
   gap: 20px;
+
+  @media (min-width: $breakpoint-tablet) {
+    min-height: 90px;
+  }
 
   &--obtained & {
     &__image img {
