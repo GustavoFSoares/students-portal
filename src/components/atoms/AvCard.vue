@@ -1,5 +1,13 @@
 <template>
-  <div :class="['av-card', { 'av-card--no-border-radius': noBorderRadius }]">
+  <div
+    :class="[
+      'av-card',
+      {
+        'av-card--no-border-radius': noBorderRadius,
+        'av-card--bordered': bordered,
+      },
+    ]"
+  >
     <div class="av-card__header">
       <slot name="header" />
     </div>
@@ -19,6 +27,9 @@ export default {
     noBorderRadius: {
       type: Boolean,
     },
+    bordered: {
+      type: Boolean,
+    },
   },
 };
 </script>
@@ -31,6 +42,10 @@ export default {
 
   &--no-border-radius {
     border-radius: initial;
+  }
+
+  &--bordered {
+    border: 2px solid rgba($secondary, 0.25);
   }
 
   &__header,
