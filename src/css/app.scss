@@ -8,4 +8,8 @@ body {
   @media (max-width: $breakpoint-tablet) {
     padding: 20px;
   }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 20px 5px;
+  }
 }
