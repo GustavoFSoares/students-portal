@@ -57,6 +57,9 @@
         "pages": {
           "rankingPage": {
             "title": "Ranking"
+          },
+          "conquestPage": {
+            "title": "Conquistas"
           }
         }
       }
