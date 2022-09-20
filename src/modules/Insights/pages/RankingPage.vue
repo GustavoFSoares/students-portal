@@ -23,7 +23,8 @@ import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
 import AvPageSection from "molecules/AvPageSection.vue";
-import RankingCard from "../../components/InsightsPage/RankingCard.vue";
+
+import RankingCard from "../components/RankingCard.vue";
 
 const I18N_PATH = "modules.home.insightsPage.pages.rankingPage";
 

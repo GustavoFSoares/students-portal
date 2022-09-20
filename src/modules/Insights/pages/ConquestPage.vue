@@ -19,7 +19,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 import AvPageSection from "molecules/AvPageSection.vue";
-import ConquestCard from "../../components/InsightsPage/ConquestCard.vue";
+import ConquestCard from "../components/ConquestCard.vue";
 
 const I18N_PATH = "modules.home.insightsPage.pages.conquestPage";
 export default {

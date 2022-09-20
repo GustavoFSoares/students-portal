@@ -1,4 +1,9 @@
-import insightRoutes from "./insight.routes";
+import insightHomeSubpagesRoutes from "modules/Insights/routes/homeSubpages.routes";
+import coursesHomeSubpagesRoutes from "modules/Courses/routes/homeSubpages.routes";
+import feedHomeSubpagesRoutes from "modules/Feed/routes/homeSubpages.routes";
+import libraryHomeSubpagesRoutes from "modules/Library/routes/homeSubpages.routes";
+import eventsHomeSubpagesRoutes from "modules/Events/routes/homeSubpages.routes";
+import missionsHomeSubpagesRoutes from "modules/Missions/routes/homeSubpages.routes";
 
 export default [
   {
@@ -7,32 +12,12 @@ export default [
     name: "home",
     redirect: { name: "home.courses" },
     children: [
-      ...insightRoutes,
-      {
-        path: "courses",
-        name: "home.courses",
-        component: () => import("../pages/CoursesPage.vue"),
-      },
-      {
-        path: "feed",
-        name: "home.feed",
-        component: () => import("../pages/FeedPage.vue"),
-      },
-      {
-        path: "library",
-        name: "home.library",
-        component: () => import("../pages/LibraryPage.vue"),
-      },
-      {
-        path: "events",
-        name: "home.events",
-        component: () => import("../pages/EventsPage.vue"),
-      },
-      {
-        path: "missions",
-        name: "home.missions",
-        component: () => import("../pages/MissionsPage.vue"),
-      },
+      ...insightHomeSubpagesRoutes,
+      ...coursesHomeSubpagesRoutes,
+      ...feedHomeSubpagesRoutes,
+      ...libraryHomeSubpagesRoutes,
+      ...eventsHomeSubpagesRoutes,
+      ...missionsHomeSubpagesRoutes,
     ],
   },
 ];

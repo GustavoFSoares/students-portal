@@ -27,7 +27,7 @@
 <script>
 import { ref } from "vue";
 
-import InsightsCard from "../../components/InsightsPage/InsightsCard.vue";
+import InsightsCard from "../components/InsightsCard.vue";
 
 const I18N_PATH = "modules.home.insightsPage.conquestCard";
 
