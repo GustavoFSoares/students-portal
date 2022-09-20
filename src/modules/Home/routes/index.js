@@ -1,4 +1,5 @@
-import insightRoutes from "modules/Insights/routes";
+import insightHomeSubpagesRoutes from "src/modules/Insights/routes/homeSubpages.routes";
+import coursesHomeSubpagesRoutes from "src/modules/Courses/routes/homeSubpages.routes";
 
 export default [
   {
@@ -7,12 +8,8 @@ export default [
     name: "home",
     redirect: { name: "home.courses" },
     children: [
-      ...insightRoutes,
-      {
-        path: "courses",
-        name: "home.courses",
-        component: () => import("../pages/CoursesPage.vue"),
-      },
+      ...insightHomeSubpagesRoutes,
+      ...coursesHomeSubpagesRoutes,
       {
         path: "feed",
         name: "home.feed",

@@ -10,9 +10,9 @@
 
 <script>
 import { ref } from "vue";
-import SearchBar from "../components/CoursesPage/SearchBar.vue";
-import AvailableCourses from "../partials/CoursesPage/AvailableCourses.vue";
-import CompletedCourses from "../partials/CoursesPage/CompletedCourses.vue";
+import SearchBar from "../components/SearchBar.vue";
+import AvailableCourses from "../partials/AvailableCourses.vue";
+import CompletedCourses from "../partials/CompletedCourses.vue";
 
 export default {
   name: "courses-page",

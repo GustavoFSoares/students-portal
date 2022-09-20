@@ -11,7 +11,7 @@
 
 <script>
 import { ref } from "vue";
-import CoursesList from "../../components/CoursesPage/CoursesList.vue";
+import CoursesList from "../components/CoursesList.vue";
 
 const I18N_PATH = "modules.home.coursesPage.availableCourses";
 
