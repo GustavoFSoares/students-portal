@@ -1,4 +1,4 @@
-import insightRoutes from "./insight.routes";
+import insightRoutes from "modules/Insights/routes";
 
 export default [
   {

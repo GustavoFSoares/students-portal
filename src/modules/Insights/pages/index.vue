@@ -16,9 +16,9 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-import RankingCard from "../../partials/InsightsPage/RankingCard.vue";
-import ConquestCard from "../../partials/InsightsPage/ConquestCard.vue";
-import CertificateCard from "../../partials/InsightsPage/CertificateCard.vue";
+import RankingCard from "../partials/RankingCard.vue";
+import ConquestCard from "../partials/ConquestCard.vue";
+import CertificateCard from "../partials/CertificateCard.vue";
 
 export default {
   name: "insights-page",

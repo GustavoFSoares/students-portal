@@ -39,9 +39,9 @@ import { useRouter } from "vue-router";
 
 import AvPageSection from "molecules/AvPageSection.vue";
 
-import CertificatesPageCard from "../../components/InsightsPage/CertificatesPageCard.vue";
+import CertificatesPageCard from "../components/CertificatesPageCard.vue";
 
-import CertificatesPageHeader from "../../partials/InsightsPage/CertificatesPageHeader.vue";
+import CertificatesPageHeader from "../partials/CertificatesPageHeader.vue";
 
 const I18N_PATH = "modules.home.insightsPage.pages.certificatesPage";
 
