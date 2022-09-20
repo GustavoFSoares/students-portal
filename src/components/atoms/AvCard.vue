@@ -5,6 +5,7 @@
       {
         'av-card--no-border-radius': noBorderRadius,
         'av-card--bordered': bordered,
+        'av-card--shadows': shadows,
       },
     ]"
   >
@@ -30,6 +31,9 @@ export default {
     bordered: {
       type: Boolean,
     },
+    shadows: {
+      type: Boolean,
+    },
   },
 };
 </script>
@@ -46,6 +50,10 @@ export default {
 
   &--bordered {
     border: 2px solid rgba($secondary, 0.25);
+  }
+
+  &--shadows {
+    box-shadow: rgba(0, 0, 0, 0.15) 3px 3px 10px;
   }
 
   &__header,

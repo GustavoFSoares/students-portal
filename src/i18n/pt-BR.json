@@ -60,6 +60,22 @@
           },
           "conquestPage": {
             "title": "Conquistas"
+          },
+          "certificatesPage": {
+            "title": "Meus Certificados",
+            "header": {
+              "tabs": {
+                "inProgress": "Em andamento",
+                "completed": "Conquistados"
+              },
+              "orderOptions": {
+                "relevance": "Relevancia",
+                "dateGrowing": "Data: Crescente",
+                "dateDescending": "Data: Decrestente",
+                "default": "Sem filtro"
+              }
+            },
+            "noCertificates": "Nenhum certificado foi encontrado"
           }
         }
       }

@@ -2,7 +2,7 @@
   <div class="certificate-card">
     <InsightsCard
       :title="$t(`${I18N_PATH}.title`)"
-      see-more-url="home.insights.certificate"
+      see-more-url="home.insights.certificates"
       :see-more-text="$t(`${I18N_PATH}.moreItems`)"
     >
       <template #default>
