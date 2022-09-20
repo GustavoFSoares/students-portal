@@ -49,7 +49,7 @@
 <script>
 import { onBeforeMount, ref } from "vue";
 
-const I18N_PATH = "modules.home.insightsPage.pages.certificatesPage";
+const I18N_PATH = "modules.home.insightsPage.pages.certificatesPage.header";
 const ORDER_OPTIONS = ["relevance", "dateGrowing", "dateDescending", "default"];
 
 export default {
@@ -114,16 +114,14 @@ export default {
   .q-tab {
     padding: 0 5px;
 
-    :deep {
-      .q-tab__indicator {
-        display: none !important;
-      }
+    :deep(.q-tab__indicator) {
+      display: none !important;
+    }
 
-      .q-tab__label {
-        font-weight: $font-weight-bold;
-        font-size: 12px;
-        text-transform: initial;
-      }
+    :deep(.q-tab__label) {
+      font-weight: $font-weight-bold;
+      font-size: 12px;
+      text-transform: initial;
     }
   }
 
