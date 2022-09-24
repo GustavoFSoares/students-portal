@@ -2,7 +2,23 @@
   <section class="channels-container-section">
     <div class="channels-container-section__content">
       <AvCard v-if="$slots['top-bar']">
-        <slot name="top-bar" />
+        <div class="top-bar">
+          <div class="top-bar__container">
+            <slot name="top-bar" />
+          </div>
+
+          <div class="top-bar__controls">
+            <QBtn
+              v-if="!hideOrderButton"
+              round
+              flat
+              size="sm"
+              padding="xs"
+              :icon="`fa-solid fa-${listOrderIcon}`"
+              @click="handleListOrder"
+            />
+          </div>
+        </div>
       </AvCard>
 
       <div>
@@ -78,6 +94,9 @@ export default {
       type: Array,
       required: true,
     },
+    hideOrderButton: {
+      type: Boolean,
+    },
   },
   watch: {
     currentChannel: {
@@ -91,10 +110,12 @@ export default {
       },
     },
   },
-  setup(props) {
+  setup(props, ctx) {
     const $q = useQuasar();
     const $route = useRoute();
     const $router = useRouter();
+
+    const listOrder = ref("down");
     const showChannels = ref(false);
 
     const channelsList = ref(null);
@@ -111,6 +132,19 @@ export default {
     });
 
     const currentChannel = computed(() => $route.hash);
+
+    const listOrderIcon = computed(() => {
+      const icons = {
+        up: "arrow-up-wide-short",
+        down: "arrow-down-wide-short",
+      };
+
+      return icons[listOrder.value];
+    });
+
+    const handleListOrder = () => {
+      listOrder.value = listOrder.value === "up" ? "down" : "up";
+    };
 
     const handleAccordion = () => {
       console.log(channelsList.value);
@@ -129,17 +163,26 @@ export default {
     watch(
       () => showChannels.value,
       () => {
-        console.log("watch");
         handleAccordion();
+      }
+    );
+
+    watch(
+      () => listOrder.value,
+      (val) => {
+        ctx.emit("order-list", val);
       }
     );
 
     return {
       I18N_PATH,
+      listOrder,
       showChannels,
       channelsList,
       isMobile,
       currentChannel,
+      listOrderIcon,
+      handleListOrder,
       handleOpenAccordion,
     };
   },
@@ -173,6 +216,15 @@ export default {
     grid-area: channels_list;
   }
 
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+
+    &__container {
+      flex-grow: 1;
+    }
+  }
+
   .channel-card {
     $transitionTime: 0.2s;
 
@@ -181,11 +233,15 @@ export default {
     }
 
     &__title {
-      padding: 16px;
-
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      padding: 10px 12px;
+
+      @media (min-width: $breakpoint-tablet) {
+        padding: 16px;
+      }
 
       &-text {
         color: $primary;
