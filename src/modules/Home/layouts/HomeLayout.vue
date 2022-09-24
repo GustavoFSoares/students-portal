@@ -98,7 +98,7 @@ export default {
 
     @media (min-width: $breakpoint-laptop) {
       display: flex;
-      gap: 25px;
+      gap: 20px;
       padding: 20px 0;
     }
   }
