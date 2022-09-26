@@ -14,6 +14,7 @@
               flat
               size="sm"
               padding="xs"
+              color="secondary"
               :icon="`fa-solid fa-${listOrderIcon}`"
               @click="handleListOrder"
             />
@@ -21,7 +22,7 @@
         </div>
       </AvCard>
 
-      <div>
+      <div class="content">
         <slot />
       </div>
     </div>
@@ -208,8 +209,13 @@ export default {
   &__content {
     grid-area: content;
 
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+
+    .content {
+      flex-grow: 1;
+    }
   }
 
   &__channels-list {
