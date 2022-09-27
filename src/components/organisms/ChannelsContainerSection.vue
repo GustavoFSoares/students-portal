@@ -29,7 +29,10 @@
 
     <div class="channels-container-section__channels-list">
       <AvCard class="channel-card">
-        <div class="channel-card__title">
+        <div
+          class="channel-card__title"
+          v-on="isMobile ? { click: handleOpenAccordion } : {}"
+        >
           <h2 class="channel-card__title-text">
             {{ $t(`${I18N_PATH}.channels`) }}
           </h2>
@@ -44,7 +47,6 @@
             flat
             padding="xs"
             icon="expand_more"
-            @click="handleOpenAccordion"
           />
         </div>
 
@@ -148,7 +150,6 @@ export default {
     };
 
     const handleAccordion = () => {
-      console.log(channelsList.value);
       if (showChannels.value) {
         channelsList.value.style.maxHeight =
           channelsList.value.scrollHeight + 1 + "px";

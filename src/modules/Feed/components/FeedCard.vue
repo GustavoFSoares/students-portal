@@ -67,7 +67,7 @@ export default {
       required: true,
     },
     newsDate: {
-      type: Date,
+      type: String,
     },
   },
   setup(props) {
