@@ -1,7 +1,7 @@
 <template>
   <section class="channels-container-section">
     <div class="channels-container-section__content">
-      <AvCard v-if="$slots['top-bar']">
+      <AvCard v-if="$slots['top-bar'] || !hideOrderButton">
         <div class="top-bar">
           <div class="top-bar__container">
             <slot name="top-bar" />
@@ -203,7 +203,7 @@ export default {
   @media (min-width: $breakpoint-tablet) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas: "content content channels_list";
-    gap: 40px;
+    gap: 35px;
   }
 
   &__content {
