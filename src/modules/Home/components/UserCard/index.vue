@@ -106,7 +106,7 @@ export default {
   height: 100%;
 
   @media (min-width: $breakpoint-tablet) {
-    min-width: 360px;
+    min-width: 320px;
   }
 
   &__close-button {

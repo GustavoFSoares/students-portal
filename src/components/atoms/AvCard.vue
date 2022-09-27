@@ -4,6 +4,7 @@
       'av-card',
       {
         'av-card--no-border-radius': noBorderRadius,
+        'av-card--rounded-header': roundedHeader,
         'av-card--bordered': bordered,
         'av-card--shadows': shadows,
       },
@@ -31,6 +32,9 @@ export default {
     bordered: {
       type: Boolean,
     },
+    roundedHeader: {
+      type: Boolean,
+    },
     shadows: {
       type: Boolean,
     },
@@ -46,6 +50,13 @@ export default {
 
   &--no-border-radius {
     border-radius: initial;
+  }
+
+  &--rounded-header & {
+    &__header {
+      border-radius: 0 0 $defaultBorderRadius $defaultBorderRadius;
+      overflow: hidden;
+    }
   }
 
   &--bordered {

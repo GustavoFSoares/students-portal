@@ -93,12 +93,12 @@ export default {
   .app-container {
     position: relative;
 
-    max-width: 1290px;
+    max-width: 1430px;
     margin: 0 auto;
 
     @media (min-width: $breakpoint-laptop) {
       display: flex;
-      gap: 25px;
+      gap: 15px;
       padding: 20px 0;
     }
   }

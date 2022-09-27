@@ -1,4 +1,9 @@
 {
+  "components": {
+    "channelsContainerSection": {
+      "channels": "Canais"
+    }
+  },
   "modules": {
     "auth": {
       "login": {
