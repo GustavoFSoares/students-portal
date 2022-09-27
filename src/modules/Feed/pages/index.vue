@@ -4,7 +4,7 @@
     :channels="channels"
     v-model:channel="currentChannel"
   >
-    <template #top-bar>topbar</template>
+    <template #top-bar></template>
 
     <template #default>
       <div class="feed-page__list">
@@ -19,6 +19,8 @@
             :key="`news-${newsColumnIndex}-${newsIndex}`"
             :title="newsData.title"
             :image="newsData.image"
+            :news-date="newsData.date"
+            :content="newsData.content"
           />
         </div>
       </div>
@@ -89,7 +91,7 @@ export default {
 .feed-page {
   &__list {
     display: grid;
-    gap: 20px;
+    gap: 30px;
     grid-template-columns: 1fr;
 
     @media (min-width: $breakpoint-tablet) {
