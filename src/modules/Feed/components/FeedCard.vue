@@ -18,7 +18,6 @@
           {{ title }}
         </h6>
 
-        {{ isOpen }}
         <div
           :class="[
             'feed-card__content',
