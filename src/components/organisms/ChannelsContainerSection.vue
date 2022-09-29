@@ -17,6 +17,7 @@
               color="secondary"
               :icon="`fa-solid fa-${listOrderIcon}`"
               @click="handleListOrder"
+              :title="`order-${listOrder}`"
             />
           </div>
         </div>
