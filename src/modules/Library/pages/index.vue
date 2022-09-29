@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { useQuasar } from "quasar";
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 
 import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
@@ -45,6 +45,7 @@ import LibraryCard from "../components/LibraryCard.vue";
 import Courses from "../data/courses.json";
 import IconsLibrary from "../data/iconsLibrary.json";
 
+const I18N_PATH = "modules.library";
 export default {
   name: "library-page",
   components: {
@@ -52,13 +53,13 @@ export default {
     LibraryCard,
   },
   setup() {
-    const $q = useQuasar();
+    const $i18n = useI18n();
 
     const channels = ref([
-      { label: "Todas as sessões", id: "all-sections" },
-      { label: "Favoritos", id: "bockmarks" },
-      { label: "Apostilas", id: "handbooks" },
-      { label: "Vídeos", id: "videos" },
+      { label: $i18n.t(`${I18N_PATH}.channels.all`), id: "all" },
+      { label: $i18n.t(`${I18N_PATH}.channels.bockmarks`), id: "bockmarks" },
+      { label: $i18n.t(`${I18N_PATH}.channels.handbooks`), id: "handbooks" },
+      { label: $i18n.t(`${I18N_PATH}.channels.videos`), id: "videos" },
     ]);
     const coursesList = ref(Courses);
     const currentChannel = ref(null);
@@ -67,6 +68,7 @@ export default {
     const filtersList = computed(() =>
       Object.entries(IconsLibrary).map(([ItemIndex, itemIcon]) => ({
         value: ItemIndex,
+        title: ItemIndex,
         icon: itemIcon,
       }))
     );

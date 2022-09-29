@@ -30,6 +30,7 @@
 
 <script>
 import { useQuasar } from "quasar";
+import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 
 import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
@@ -37,6 +38,8 @@ import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
 import FeedCard from "../components/FeedCard.vue";
 
 import FeedsData from "../data/feeds.json";
+
+const I18N_PATH = "modules.feed";
 export default {
   name: "feed-page",
   components: {
@@ -45,11 +48,12 @@ export default {
   },
   setup() {
     const $q = useQuasar();
+    const $i18n = useI18n();
 
     const newsList = ref(FeedsData);
     const channels = ref([
-      { label: "Todas as notícias", id: "all-news" },
-      { label: "Notícia!", id: "news" },
+      { label: $i18n.t(`${I18N_PATH}.channels.all`), id: "all" },
+      { label: $i18n.t(`${I18N_PATH}.channels.news`), id: "news" },
     ]);
     const currentChannel = ref(null);
 

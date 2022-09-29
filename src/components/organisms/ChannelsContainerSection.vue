@@ -17,6 +17,7 @@
               color="secondary"
               :icon="`fa-solid fa-${listOrderIcon}`"
               @click="handleListOrder"
+              :title="`order-${listOrder}`"
             />
           </div>
         </div>
@@ -226,6 +227,7 @@ export default {
   .top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 15px;
 
     &__container {
