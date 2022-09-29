@@ -226,6 +226,7 @@ export default {
   .top-bar {
     display: flex;
     justify-content: space-between;
+    gap: 15px;
 
     &__container {
       flex-grow: 1;
