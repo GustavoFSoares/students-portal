@@ -98,16 +98,31 @@
     "feed": {
       "seo": {
         "title": "Feed's"
+      },
+      "channels": {
+        "all": "Todas as notícias",
+        "news": "Notícia!"
       }
     },
     "library": {
       "seo": {
         "title": "Biblioteca"
+      },
+      "channels": {
+        "all": "Todas as sessões",
+        "bockmarks": "Favoritos",
+        "handbooks": "Apostilas",
+        "videos": "Vídeos"
       }
     },
     "events": {
       "seo": {
         "title": "Eventos"
+      },
+      "title": "Todos os eventos",
+      "channels": {
+        "all": "Todas as sessões",
+        "bockmarks": "Favoritos"
       }
     },
     "missions": {

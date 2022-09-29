@@ -5,7 +5,7 @@
     v-model:channel="currentChannel"
   >
     <template #top-bar>
-      <h1 class="events-page__title">Todos Eventos</h1>
+      <h1 class="events-page__title">{{ $t(`${I18N_PATH}.title`) }}</h1>
     </template>
 
     <template #default>
@@ -29,6 +29,7 @@
 
 <script>
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
 
@@ -36,6 +37,7 @@ import EventsCard from "../components/EventsCard.vue";
 
 import Events from "../data/events.json";
 
+const I18N_PATH = "modules.events";
 export default {
   name: "events-page",
   components: {
@@ -43,9 +45,11 @@ export default {
     EventsCard,
   },
   setup() {
+    const $i18n = useI18n();
+
     const channels = ref([
-      { label: "Todas as sessões", id: "all-sections" },
-      { label: "Favoritos", id: "bockmarks" },
+      { label: $i18n.t(`${I18N_PATH}.channels.all`), id: "all" },
+      { label: $i18n.t(`${I18N_PATH}.channels.bockmarks`), id: "bockmarks" },
     ]);
     const eventsList = ref(Events);
     const currentChannel = ref(null);
@@ -59,6 +63,7 @@ export default {
     };
 
     return {
+      I18N_PATH,
       channels,
       eventsList,
       currentChannel,
