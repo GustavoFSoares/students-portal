@@ -90,7 +90,6 @@ export default {
     });
 
     const handleClickDocumentType = () => {
-      console.log("click");
       ctx.emit("click-course");
     };
 
