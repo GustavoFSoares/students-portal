@@ -116,6 +116,7 @@ module.exports = configure(function (/* ctx */) {
         "QInput",
         "QBtn",
         "QBtnToggle",
+        "QBadge",
         "QAvatar",
         "QIcon",
         "QToolbar",

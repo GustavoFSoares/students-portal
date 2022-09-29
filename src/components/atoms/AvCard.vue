@@ -48,6 +48,9 @@ export default {
   border-radius: $defaultBorderRadius;
   overflow: hidden;
 
+  display: flex;
+  flex-direction: column;
+
   &--no-border-radius {
     border-radius: initial;
   }
@@ -74,6 +77,7 @@ export default {
 
   &__content {
     padding: 10px 12px;
+    flex-grow: 1;
   }
 }
 </style>
