@@ -226,6 +226,7 @@ export default {
   .top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 15px;
 
     &__container {

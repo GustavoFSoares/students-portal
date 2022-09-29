@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { useQuasar } from "quasar";
 import { computed, ref } from "vue";
 
 import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
@@ -52,8 +51,6 @@ export default {
     LibraryCard,
   },
   setup() {
-    const $q = useQuasar();
-
     const channels = ref([
       { label: "Todas as sessões", id: "all-sections" },
       { label: "Favoritos", id: "bockmarks" },
