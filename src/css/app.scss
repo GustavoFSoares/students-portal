@@ -4,6 +4,19 @@ body {
   background: #2980b9 url("assets/background.png") repeat 0 0;
 }
 
+button {
+  border: initial;
+  background: initial;
+  display: initial;
+  font: initial;
+  font-family: initial;
+  align-items: initial;
+  text-align: initial;
+  color: initial;
+
+  cursor: pointer;
+}
+
 .app-container {
   @media (max-width: $breakpoint-tablet) {
     padding: 20px;
