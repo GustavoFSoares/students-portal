@@ -32,7 +32,7 @@
             class="feed-card__content-button"
             color="primary"
             flat
-            label="Continuar lendo"
+            :label="$t(`${I18N_PATH}.button.${isOpen ? 'close' : 'open'}`)"
             size="sm"
             padding="2px"
             @click="handleOpenNews"
@@ -47,6 +47,7 @@
 import AvCard from "atoms/AvCard.vue";
 import { computed, ref } from "vue";
 
+const I18N_PATH = "modules.feed.card";
 export default {
   name: "CertificatesPageCard",
   components: {
@@ -81,6 +82,7 @@ export default {
     };
 
     return {
+      I18N_PATH,
       isOpen,
       preparedNewsDate,
       handleOpenNews,

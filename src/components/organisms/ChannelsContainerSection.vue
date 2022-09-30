@@ -126,7 +126,7 @@ export default {
 
     if (
       !$route.hash ||
-      !props.channels.find((channel) => channel.id === $route.hash)
+      !props.channels.find((channel) => `#${channel.id}` === $route.hash)
     ) {
       $router.push(`#${props.channels[0].id}`);
     }

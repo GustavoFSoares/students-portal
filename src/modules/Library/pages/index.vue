@@ -107,10 +107,7 @@ export default {
       }
 
       &[aria-pressed="true"] {
-        .q-focus-helper {
-          background: currentColor;
-          opacity: 0.15;
-        }
+        background: rgba(#6e7273, 0.2);
       }
     }
   }

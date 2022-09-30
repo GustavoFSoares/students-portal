@@ -102,6 +102,12 @@
       "channels": {
         "all": "Todas as notícias",
         "news": "Notícia!"
+      },
+      "card": {
+        "button": {
+          "open": "Continuar lendo",
+          "close": "Fechar"
+        }
       }
     },
     "library": {
