@@ -114,6 +114,7 @@ module.exports = configure(function (/* ctx */) {
       //
       components: [
         "QInput",
+        "QCircularProgress",
         "QBtn",
         "QBtnToggle",
         "QBadge",
