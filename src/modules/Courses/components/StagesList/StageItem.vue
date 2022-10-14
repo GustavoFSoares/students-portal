@@ -8,9 +8,7 @@
         ]"
         v-for="rankItem in TOTAL_STARS"
         :key="rankItem"
-        size="18px"
         name="svguse:/icons.svg#star"
-        color="orange"
       />
     </div>
 
@@ -69,6 +67,7 @@ export default {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  position: relative;
 
   &__container {
     border-radius: 100%;
@@ -77,16 +76,18 @@ export default {
   }
 
   &__content {
-    // background: white;
-    // border-radius: 100%;
-    // border: 7px solid red;
     padding: 3px;
-    // border: 1px solid red;
+
+    &:deep(.q-circular-progress__circle) {
+      stroke-linecap: round;
+    }
   }
 
   &__stars {
     display: flex;
     gap: 4px;
+    position: absolute;
+    bottom: calc(100% + 6px);
 
     &-icon {
       font-size: 18px;
