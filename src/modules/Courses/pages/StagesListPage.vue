@@ -6,6 +6,21 @@
         v-for="(stageLine, stageLineIndex) in preparedStagesList"
         :key="stageLineIndex"
       >
+        <QIcon
+          v-if="stageLineIndex === 0"
+          class="stages-list-page__decoration-half-start-curve"
+          name="svguse:/icons.svg#course__half-curve"
+        />
+
+        <QIcon
+          v-if="
+            stageLineIndex % 2 !== 0 &&
+            stageLineIndex !== preparedStagesList.length - 1
+          "
+          class="stages-list-page__decoration-start-curve"
+          name="svguse:/icons.svg#course__curve"
+        />
+
         <div class="stages-list-page__line-wrapper">
           <li
             class="stages-list-page__item"
@@ -21,6 +36,12 @@
             <StageItemSeparation v-if="stageLine.length - 1 !== stageIndex" />
           </li>
         </div>
+
+        <QIcon
+          v-if="stageLineIndex % 2 === 0"
+          class="stages-list-page__decoration-end-curve"
+          name="svguse:/icons.svg#course__curve"
+        />
       </ul>
     </ol>
   </div>
@@ -129,8 +150,7 @@ export default {
   }
 
   &__line {
-    // display: flex;
-    // flex-direction: row;
+    position: relative;
     width: 100%;
 
     &-wrapper {
@@ -149,6 +169,30 @@ export default {
       &-wrapper {
         justify-content: flex-end;
       }
+    }
+  }
+
+  &__decoration {
+    &-half-start-curve {
+      position: absolute;
+      right: 100%;
+      bottom: 40%;
+      font-size: 90px;
+    }
+
+    &-start-curve {
+      position: absolute;
+      top: 45%;
+      right: calc(95% + -2px);
+      font-size: 150px;
+      transform: rotate(180deg);
+    }
+
+    &-end-curve {
+      position: absolute;
+      left: 90%;
+      top: 45%;
+      font-size: 150px;
     }
   }
 

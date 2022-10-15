@@ -12,4 +12,18 @@
   <symbol id="star" viewBox="0 0 20 20">
     <path d="M10 1l2.781 5.634L19 7.543l-4.5 4.383 1.062 6.192L10 15.193l-5.562 2.925L5.5 11.926 1 7.543l6.219-.909L10 1z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
   </symbol>
+
+  <symbol id="course__half-curve" fill="none" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_2_2)" width="100" height="90" stroke-linecap="round">
+      <path d="M100 87H90C41.951 87 3 48.049 3 0v0" stroke="#fff" stroke-width="6" />
+      <path d="M3 5.5v0c2.837 44.547 39 79.68 83.612 81.226L94.5 87" stroke="#0062BE" stroke-width="3" stroke-linejoin="round" stroke-dasharray="0.1 0" />
+    </g>
+  </symbol>
+
+  <symbol id="course__curve" fill="none" viewBox="0 0 90 150" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_2_3)" stroke-linejoin="round" stroke-dasharray="0.1 0">
+      <path d="M3 3h12c39.764 0 72 32.236 72 72v0c0 39.765-32.236 72-72 72H3" stroke="#fff" stroke-width="6" stroke-linecap="square" />
+      <path d="M4 3l12.21.174c33.744.482 62.602 24.388 69.355 57.453v0a71.835 71.835 0 0 1 0 28.746v0c-6.753 33.065-35.611 56.971-69.355 57.453L4 147" stroke="#0062BE" stroke-width="3" stroke-linecap="round" />
+    </g>
+  </symbol>
 </svg>
