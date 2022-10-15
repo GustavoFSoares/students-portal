@@ -1,26 +1,28 @@
 <template>
   <div class="stages-list-page">
-    <ul class="stages-list-page__list">
-      <ol
+    <ol class="stages-list-page__list">
+      <ul
         class="stages-list-page__line"
         v-for="(stageLine, stageLineIndex) in preparedStagesList"
         :key="stageLineIndex"
       >
-        <li
-          class="stages-list-page__item"
-          v-for="(stage, stageIndex) in stageLine"
-          :key="stageIndex"
-        >
-          <StageItem
-            :position="stage.position"
-            :rank="stage.rank"
-            :completed="stage.completed"
-          />
+        <div class="stages-list-page__line-wrapper">
+          <li
+            class="stages-list-page__item"
+            v-for="(stage, stageIndex) in stageLine"
+            :key="stageIndex"
+          >
+            <StageItem
+              :position="stage.position"
+              :rank="stage.rank"
+              :completed="stage.completed"
+            />
 
-          <StageItemSeparation v-if="stageLine.length - 1 !== stageIndex" />
-        </li>
-      </ol>
-    </ul>
+            <StageItemSeparation v-if="stageLine.length - 1 !== stageIndex" />
+          </li>
+        </div>
+      </ul>
+    </ol>
   </div>
 </template>
 
@@ -127,25 +129,35 @@ export default {
   }
 
   &__line {
-    display: flex;
-    flex-direction: row;
+    // display: flex;
+    // flex-direction: row;
     width: 100%;
 
-    &:nth-of-type(odd) {
-      justify-content: flex-start;
+    &-wrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
     }
 
-    &:nth-of-type(even) {
-      justify-content: flex-end;
+    &:nth-of-type(odd) & {
+      &-wrapper {
+        justify-content: flex-start;
+      }
+    }
+
+    &:nth-of-type(even) & {
+      &-wrapper {
+        justify-content: flex-end;
+      }
     }
   }
 
   &__item {
     display: flex;
     align-items: center;
-    // width: 100%;
-    // max-width: 116px;
-    // flex-grow: 1;
+    width: 100%;
+    max-width: 116px;
+    flex-grow: 1;
   }
 }
 </style>
