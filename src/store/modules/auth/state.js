@@ -1,6 +1,7 @@
+import { SessionStorage } from "quasar";
+
 export default {
   loading: false,
-  isLoggedIn: true,
   user: null,
-  token: null,
+  token: SessionStorage.getItem("avag-token"),
 };

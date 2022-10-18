@@ -7,7 +7,7 @@
     <div class="user-card-header__container">
       <div class="user">
         <div class="user-info">
-          <h5 class="user-info__name">Selatiel</h5>
+          <h5 class="user-info__name">{{ userData.name }}</h5>
           <h6 class="user-info__level">Nível 2 Sábio</h6>
         </div>
 
@@ -62,17 +62,23 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 const I18N_PATH = "modules.home.userCard";
 
 export default {
   name: "UserCardHeader",
   setup() {
+    const $store = useStore();
+
+    const userData = computed(() => $store.getters["AuthModule/userData"]);
+
     const indexes = ref({
       start: 1000,
       end: 2000,
     });
+
     const barProgress = ref(50);
     const rewards = ref({
       points: {
@@ -103,6 +109,7 @@ export default {
     };
 
     return {
+      userData,
       indexes,
       barProgress,
       rewards,

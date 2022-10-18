@@ -1,5 +1,11 @@
 export default {
   userIsLoggedIn: (state) => {
-    return state.isLoggedIn;
+    return !!state.token;
+  },
+  userToken: (state) => {
+    return state.token;
+  },
+  userData: (state) => {
+    return state.user;
   },
 };
