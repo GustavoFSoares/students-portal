@@ -2,7 +2,14 @@
   <div class="course-card">
     <AvCard class="course-card__wrapper">
       <template #header>
-        <div class="course-card__image" />
+        <div class="course-card__image-wrapper">
+          <img
+            class="course-card__image"
+            v-if="cover"
+            :src="$appStorage + cover.path"
+            :alt="cover.tipo"
+          />
+        </div>
       </template>
 
       <template #default>
@@ -50,9 +57,14 @@ export default {
       type: String,
       required: true,
     },
+    cover: {
+      type: Object,
+      required: false,
+    },
     progress: {
       type: Number,
       required: true,
+      default: 50,
     },
   },
   setup(props, ctx) {
@@ -95,15 +107,21 @@ export default {
   }
 
   &__image {
-    background: rgba(255, 0, 0, 0.562);
-    border-radius: 8px;
+    &-wrapper {
+      width: 100%;
+      height: 100%;
+
+      background: rgba(255, 0, 0, 0.562);
+      border-radius: 8px;
+      overflow: hidden;
+
+      @media (min-width: $breakpoint-tablet) {
+        height: 196px;
+      }
+    }
 
     width: 100%;
     height: 100%;
-
-    @media (min-width: $breakpoint-tablet) {
-      height: 196px;
-    }
   }
 
   &__content {

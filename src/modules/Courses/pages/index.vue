@@ -10,6 +10,7 @@
 
 <script>
 import { ref } from "vue";
+
 import SearchBar from "../components/SearchBar.vue";
 import AvailableCourses from "../partials/AvailableCourses.vue";
 import CompletedCourses from "../partials/CompletedCourses.vue";
