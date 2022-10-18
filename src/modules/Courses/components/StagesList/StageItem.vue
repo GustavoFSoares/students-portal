@@ -68,6 +68,12 @@ export default {
   gap: 10px;
   align-items: center;
   position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   &__container {
     border-radius: 100%;
