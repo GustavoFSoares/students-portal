@@ -30,9 +30,13 @@ export default {
   getUserByToken: ({ commit }, token) => {
     return new Promise((resolve, reject) => {
       api
-        .post("api/user", { token })
-        .then(({ data: { data } }) => {
-          commit("SET_USER", data.user);
+        .get("auth/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          commit("SET_USER", data.data);
 
           resolve();
         })
