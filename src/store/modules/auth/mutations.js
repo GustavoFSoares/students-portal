@@ -5,4 +5,15 @@ export default {
   SET_LOGGED_IN(state, isLoggedIn) {
     state.isLoggedIn = isLoggedIn;
   },
+  SET_USER(state, user) {
+    state.user = {
+      id: user.id,
+      cpf: user.cpf,
+      email: user.email,
+      name: user.nome,
+    };
+  },
+  SET_TOKEN(state, token) {
+    state.token = token;
+  },
 };

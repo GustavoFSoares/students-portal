@@ -1,25 +1,30 @@
+import { api } from "boot/axios";
+
 export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
   },
-  doLogin: async ({ commit, dispatch }, { username, password }) => {
+  doLogin: async ({ commit, dispatch }, { email, password }) => {
     dispatch("setLoading", true);
 
     return new Promise((resolve) => {
-      if (password !== "123") {
-        setTimeout(() => {
-          dispatch("setLoading", false);
+      api
+        .post("api/v1/auth/login", {
+          email,
+          password,
+        })
+        .then(({ data: { data } }) => {
+          commit("SET_USER", data.user);
+          commit("SET_TOKEN", data.access_token);
+
+          resolve(true);
+        })
+        .catch((err) => {
           resolve(false);
-        }, 1000);
-        return;
-      }
-
-      setTimeout(() => {
-        commit("SET_LOGGED_IN", true);
-
-        dispatch("setLoading", false);
-        resolve(true);
-      }, 3000);
+        })
+        .finally(() => {
+          dispatch("setLoading", false);
+        });
     });
   },
   doRestartPassword: async ({ dispatch }, { username }) => {
