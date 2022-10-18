@@ -32,8 +32,6 @@ export default {
     onMounted(async () => {
       const coursesData = await $store.dispatch("CourseModule/getData");
       courses.value = coursesData;
-
-      console.log(process.env);
     });
 
     const handleStartCourse = (courseId) => {
