@@ -28,7 +28,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
-    boot: ["i18n", "axios"],
+    boot: ["app-env", "i18n", "axios"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ["default.scss", "app.scss"],
@@ -51,6 +51,7 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      env: require("dotenv").config().parsed,
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",

@@ -9,7 +9,7 @@ import { SessionStorage } from "quasar";
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const URL = "https://9147-2804-14c-75aa-8059-c025-e748-e6bd-5dd2.sa.ngrok.io";
+const URL = process.env.BASE_URL;
 const TOKEN = SessionStorage.getItem("avag-token");
 
 const api = axios.create({
