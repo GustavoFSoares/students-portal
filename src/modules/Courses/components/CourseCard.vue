@@ -125,12 +125,16 @@ export default {
   }
 
   &__content {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
+    height: 100%;
   }
 
   &__title {
     font-size: 15px;
+    flex-grow: 1;
+    height: 100%;
   }
 
   .progress-bar {
