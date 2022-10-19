@@ -41,7 +41,7 @@
         </div>
 
         <QIcon
-          v-if="stageLineIndex % 2 === 0"
+          v-if="stageLineIndex % 2 === 0 && existListBelow(stageLineIndex)"
           class="stages-list__decoration stages-list__decoration-end-curve"
           name="svguse:/icons.svg#course__curve"
         />
@@ -114,10 +114,15 @@ export default {
       ctx.emit("open-stage", position);
     };
 
+    const existListBelow = (lineIndex) => {
+      return !!preparedStagesList.value[lineIndex + 1];
+    };
+
     return {
       stagesList,
       preparedStagesList,
       handleClickStage,
+      existListBelow,
     };
   },
 };

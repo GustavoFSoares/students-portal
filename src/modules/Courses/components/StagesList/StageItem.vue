@@ -72,7 +72,7 @@ export default {
   transition: transform 0.3s ease;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
   }
 
   &__container {

@@ -95,6 +95,7 @@
         "title": "Cursos"
       },
       "stagesList": {
+        "activities": "atividades",
         "detail": {
           "rewards": {
             "points": "Pontos",
