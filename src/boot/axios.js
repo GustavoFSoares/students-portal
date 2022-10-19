@@ -10,16 +10,17 @@ import { SessionStorage } from "quasar";
 // "export default () => {}" function below (which runs individually
 // for each client)
 const URL = process.env.BASE_URL;
-const TOKEN = SessionStorage.getItem("avag-token");
-
 const api = axios.create({
   baseURL: `${URL}/api/v1/`,
-  headers: {
-    Authorization: `Bearer ${TOKEN}`,
-  },
 });
 
 export default boot(({ app }) => {
+  api.interceptors.request.use((config) => {
+    const token = SessionStorage.getItem("avag-token");
+    config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
+  });
   // for use inside Vue files (Options API) through this.$axios and this.$api
 
   app.config.globalProperties.$axios = axios;
