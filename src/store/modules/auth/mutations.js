@@ -1,3 +1,5 @@
+import { SessionStorage } from "quasar";
+
 export default {
   SET_LOADING(state, isLoading) {
     state.loading = isLoading;
@@ -6,6 +8,11 @@ export default {
     state.isLoggedIn = isLoggedIn;
   },
   SET_USER(state, user) {
+    if (!user) {
+      state.user = null;
+      return;
+    }
+
     state.user = {
       id: user.id,
       cpf: user.cpf,
@@ -14,6 +21,8 @@ export default {
     };
   },
   SET_TOKEN(state, token) {
+    SessionStorage.set("avag-token", token);
+
     state.token = token;
   },
 };

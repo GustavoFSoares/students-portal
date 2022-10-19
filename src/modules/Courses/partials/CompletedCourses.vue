@@ -9,7 +9,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
+
 import CoursesList from "../components/CoursesList.vue";
 
 const I18N_PATH = "modules.home.coursesPage.completedCourses";
@@ -20,11 +22,14 @@ export default {
     CoursesList,
   },
   setup() {
-    const courses = ref([
-      { title: "Cidadão", progress: 100 },
-      { title: "Profissionais", progress: 100 },
-      { title: "Crianças", progress: 100 },
-    ]);
+    const $store = useStore();
+
+    const courses = ref([]);
+
+    onMounted(async () => {
+      const coursesData = await $store.dispatch("CourseModule/getData");
+      courses.value = coursesData;
+    });
 
     return {
       I18N_PATH,

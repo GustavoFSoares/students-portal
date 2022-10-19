@@ -2,6 +2,7 @@
   <div class="courses-list">
     <div class="courses-list__header">
       <h2 class="courses-list__title">{{ title }}</h2>
+
       <QBtn
         flat
         icon="add"
@@ -16,9 +17,10 @@
       <CourseCard
         v-for="(course, courseKey) in courses"
         :key="`course-${courseKey}`"
-        :title="course.title"
+        :title="course.nome"
+        :cover="course.capa"
         :progress="course.progress"
-        @startNow="handleStartCourse(courseKey)"
+        @startNow="handleStartCourse(course.id)"
       />
     </div>
   </div>

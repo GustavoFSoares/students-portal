@@ -1,6 +1,6 @@
 <template>
   <section class="login-page">
-    <AvCard>
+    <AvCard @keyup.enter="handleSubmit">
       <div class="login-page__wrapper">
         <article class="login-page__form">
           <QInput
@@ -51,7 +51,7 @@
           :label="$t(`${I18N_PATH}.submit`)"
           :disable="!allowSubmit"
           :loading="isLoading"
-          @click="handleClick"
+          @click="handleSubmit"
         />
       </div>
     </AvCard>
@@ -86,7 +86,11 @@ export default {
       return $store.state.AuthModule.loading;
     });
 
-    const handleClick = async () => {
+    const handleSubmit = async () => {
+      if (!allowSubmit.value) {
+        return;
+      }
+
       hadFailedValidation.value = false;
 
       const loginResponse = await $store.dispatch("AuthModule/doLogin", {
@@ -110,7 +114,7 @@ export default {
       hadFailedValidation,
       allowSubmit,
       isLoading,
-      handleClick,
+      handleSubmit,
     };
   },
 };

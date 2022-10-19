@@ -10,6 +10,7 @@
 
 const { configure } = require("quasar/wrappers");
 const path = require("path");
+const env = require("dotenv").config().parsed;
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -28,7 +29,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
-    boot: ["i18n", "axios"],
+    boot: ["app-env", "i18n", "axios"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ["default.scss", "app.scss"],
@@ -51,6 +52,9 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      env: {
+        BASE_URL: env.BASE_URL || "http://localhost:8000",
+      },
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",
@@ -113,6 +117,8 @@ module.exports = configure(function (/* ctx */) {
       // you can manually specify Quasar components/directives to be available everywhere:
       //
       components: [
+        "QDrawer",
+        "QLayout",
         "QInput",
         "QCircularProgress",
         "QBtn",

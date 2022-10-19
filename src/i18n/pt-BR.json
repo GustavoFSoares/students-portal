@@ -93,6 +93,15 @@
     "courses": {
       "seo": {
         "title": "Cursos"
+      },
+      "stagesList": {
+        "detail": {
+          "rewards": {
+            "points": "Pontos",
+            "coins": "Moedas"
+          },
+          "startActivity": "Iniciar atividade"
+        }
       }
     },
     "feed": {

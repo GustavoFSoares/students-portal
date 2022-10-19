@@ -4,12 +4,12 @@ export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
   },
-  doLogin: async ({ commit, dispatch }, { email, password }) => {
+  doLogin: ({ commit, dispatch }, { email, password }) => {
     dispatch("setLoading", true);
 
     return new Promise((resolve) => {
       api
-        .post("api/v1/auth/login", {
+        .post("auth/login", {
           email,
           password,
         })
@@ -26,6 +26,28 @@ export default {
           dispatch("setLoading", false);
         });
     });
+  },
+  getUserByToken: ({ commit }, token) => {
+    return new Promise((resolve, reject) => {
+      api
+        .get("auth/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          commit("SET_USER", data.data);
+
+          resolve();
+        })
+        .catch((err) => {
+          reject();
+        });
+    });
+  },
+  invalidateUser: ({ commit }) => {
+    commit("SET_USER", null);
+    commit("SET_TOKEN", null);
   },
   doRestartPassword: async ({ dispatch }, { username }) => {
     dispatch("setLoading", true);

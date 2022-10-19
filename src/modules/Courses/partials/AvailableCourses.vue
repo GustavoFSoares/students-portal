@@ -10,7 +10,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 import CoursesList from "../components/CoursesList.vue";
 
 const I18N_PATH = "modules.home.coursesPage.availableCourses";
@@ -21,14 +24,23 @@ export default {
     CoursesList,
   },
   setup() {
-    const courses = ref([
-      { title: "Crianças", progress: 0 },
-      { title: "Crianças", progress: 10 },
-      { title: "Crianças", progress: 99 },
-    ]);
+    const $store = useStore();
+    const $router = useRouter();
+
+    const courses = ref([]);
+
+    onMounted(async () => {
+      const coursesData = await $store.dispatch("CourseModule/getData");
+      courses.value = coursesData;
+    });
 
     const handleStartCourse = (courseId) => {
-      alert("AvailableCourse: " + courseId);
+      $router.push({
+        name: "courses.stages-list",
+        params: {
+          id: courseId,
+        },
+      });
     };
 
     return {
