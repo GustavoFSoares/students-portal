@@ -127,7 +127,6 @@ export default {
 .stages-list {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
 
   ul,
   ol {
