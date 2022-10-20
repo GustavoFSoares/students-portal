@@ -119,6 +119,7 @@ module.exports = configure(function (/* ctx */) {
       components: [
         "QDrawer",
         "QLayout",
+        "QDialog",
         "QInput",
         "QCircularProgress",
         "QBtn",

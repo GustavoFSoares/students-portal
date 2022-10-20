@@ -1,54 +1,39 @@
 <template>
-  <header class="stages-list-header">
-    <div class="stages-list-header__title-wrapper">
+  <header class="stage-header">
+    <div class="stage-header__title-wrapper">
       <QBtn
-        class="stages-list-header__back-button"
+        class="stage-header__back-button"
         icon="arrow_back"
         flat
         round
         size="13px"
         padding="4px"
-        :to="{ name: 'home.courses' }"
+        :to="{ name: 'courses.stages-list', params: { id: stageId } }"
       />
 
-      <h1 class="stages-list-header__title">{{ title }}</h1>
+      <h1 class="stage-header__title">{{ title }}</h1>
     </div>
 
-    <div class="stages-list-header__content">
-      <AvProgressBar
-        class="stages-list-header__progress-bar"
-        :progress="progress"
-        inline
-      />
-
-      <AvReward
-        class="stages-list-header__rewards"
-        :points="points"
-        :coins="coins"
-      />
-    </div>
+    <AvReward class="stage-header__rewards" :points="points" :coins="coins" />
   </header>
 </template>
 
 <script>
-import AvProgressBar from "atoms/AvProgressBar.vue";
-
 import AvReward from "molecules/AvReward.vue";
 
 export default {
   name: "StagesListHeader",
   components: {
-    AvProgressBar,
     AvReward,
   },
   props: {
+    stageId: {
+      type: Number,
+      required: true,
+    },
     title: {
       type: String,
       default: null,
-    },
-    progress: {
-      type: Number,
-      default: 0,
     },
     points: {
       type: Number,
@@ -63,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stages-list-header {
+.stage-header {
   padding: 5px;
   background-color: $white;
   box-shadow: 0 1px 10px $secondary;
@@ -80,19 +65,6 @@ export default {
       gap: 10px;
       align-items: center;
     }
-  }
-
-  &__content {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-
-    flex-grow: 1;
-    max-width: 50%;
-  }
-
-  &__progress-bar {
-    flex-grow: 1;
   }
 
   &__rewards {
