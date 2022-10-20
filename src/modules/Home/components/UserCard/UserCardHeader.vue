@@ -73,23 +73,29 @@ export default {
     const $store = useStore();
 
     const userData = computed(() => $store.getters["AuthModule/userData"]);
+    const rewardsData = computed(
+      () => $store.getters["AuthModule/rewardsData"]
+    );
 
     const indexes = ref({
       start: 1000,
       end: 2000,
     });
 
-    const barProgress = ref(50);
-    const rewards = ref({
+    const barProgress = computed(
+      () => (rewardsData.value.points / indexes.value.end) * 100
+    );
+
+    const rewards = computed(() => ({
       points: {
         route: "home",
-        value: 1400,
+        value: rewardsData.value.points,
       },
       coins: {
         route: "home",
-        value: 0,
+        value: rewardsData.value.coins,
       },
-    });
+    }));
 
     const levelFormatter = (val) => {
       return val.toLocaleString("pt-BR");
