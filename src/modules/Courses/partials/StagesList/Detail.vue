@@ -63,7 +63,7 @@ const I18N_PATH = "modules.courses.stagesList.detail";
 
 export default {
   emits: ["close"],
-  name: "StagesDetail",
+  name: "StagesListDetail",
   props: {
     stage: {
       type: Object,

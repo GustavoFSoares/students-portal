@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
 
 const I18N_PATH = "components.molecules.rewards";
 
@@ -36,7 +36,7 @@ export default {
     },
   },
   setup(props, ctx) {
-    const rewards = ref({
+    const rewards = computed(() => ({
       points: {
         route: "home",
         value: props.points,
@@ -45,7 +45,7 @@ export default {
         route: "home",
         value: props.coins,
       },
-    });
+    }));
 
     const getRewardIcon = (rewardName) => {
       const rewards = {
