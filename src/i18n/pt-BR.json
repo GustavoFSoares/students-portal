@@ -2,6 +2,12 @@
   "components": {
     "channelsContainerSection": {
       "channels": "Canais"
+    },
+    "molecules": {
+      "rewards": {
+        "points": "pontos",
+        "coins": "moedas"
+      }
     }
   },
   "modules": {
