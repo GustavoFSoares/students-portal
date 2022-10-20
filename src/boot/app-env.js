@@ -10,6 +10,7 @@ export default boot(({ app }) => {
     folder: "fa-solid fa-folder",
     music: "fa-solid fa-music",
     document: "fa-solid fa-file",
+    image: "fa-solid fa-image",
     video: "fa-solid fa-video",
     link: "fa-solid fa-link",
   };

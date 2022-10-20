@@ -138,7 +138,7 @@ export default {
         },
       };
 
-      console.log(stage);
+      // console.log(stage);
 
       stagesList.value = stage.map((stage) => ({
         ...stage,

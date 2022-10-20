@@ -22,13 +22,13 @@
 import AvReward from "molecules/AvReward.vue";
 
 export default {
-  name: "StagesListHeader",
+  name: "StagesHeader",
   components: {
     AvReward,
   },
   props: {
     stageId: {
-      type: Number,
+      type: String,
       required: true,
     },
     title: {

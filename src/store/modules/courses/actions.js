@@ -21,7 +21,7 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
-      console.log(data);
+      // console.log(data);
 
       return data;
     } catch (err) {
@@ -36,7 +36,7 @@ export default {
         id: stageId,
       });
 
-      console.log(data);
+      // console.log(data);
 
       return {
         name: data.nome,
@@ -68,7 +68,7 @@ export default {
         }
       );
 
-      console.log(data);
+      // console.log(data);
 
       // return {
       //   files: data.files,

@@ -12,7 +12,7 @@
       <div class="stage-page__items-list">
         <button
           class="stage-item"
-          v-for="stageFile in stageData.files"
+          v-for="(stageFile, stageFileIndex) in stageData.files"
           :key="stageFile.id"
           @click="handleOpenStage(stageFile.path)"
         >
@@ -24,7 +24,7 @@
 
           <div class="stage-item__content">
             <h4 class="stage-item__title">
-              {{ stageData.name }} - {{ stageFile.id }}
+              {{ stageData.name }} - {{ stageFileIndex + 1 }}
             </h4>
 
             <h5 class="file-type">
@@ -44,11 +44,13 @@
     </div>
 
     <q-dialog :model-value="showFileData" @hide="handleHideFileData">
-      <component
-        v-if="stageFileTypeComponent"
-        :is="stageFileTypeComponent"
-        :path="selectedFile"
-      />
+      <QCard>
+        <component
+          v-if="stageFileTypeComponent"
+          :is="stageFileTypeComponent"
+          :path="selectedFile"
+        />
+      </QCard>
     </q-dialog>
   </article>
 </template>
@@ -83,8 +85,8 @@ export default {
     const $store = useStore();
 
     const stageFilesMap = {
-      audio: "StageFileTypeAudio",
-      image: "StageFileTypeImage",
+      áudio: "StageFileTypeAudio",
+      imagens: "StageFileTypeImage",
       pdf: "StageFileTypePdf",
       video: "StageFileTypeVideo",
     };
@@ -93,6 +95,7 @@ export default {
       pdf: "document",
       áudio: "music",
       video: "video",
+      imagens: "image",
     };
 
     const { stageId } = $route.params;
@@ -112,7 +115,6 @@ export default {
     });
 
     const handleOpenStage = (path) => {
-      console.log(path);
       selectedFile.value = path;
     };
 
@@ -148,6 +150,7 @@ export default {
   flex-direction: column;
 
   &__wrapper {
+    width: 100%;
     max-width: 840px;
     margin: auto;
 
@@ -178,6 +181,7 @@ export default {
     }
 
     &__image {
+      padding: 10px;
       z-index: 2;
       height: 100%;
     }
