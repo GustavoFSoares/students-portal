@@ -9,7 +9,7 @@
       @click="handleClose"
     />
 
-    <div class="stages-list-detail__position">{{ stage.position }}</div>
+    <div class="stages-list-detail__position">{{ positionLabel }}</div>
 
     <h1 class="stages-list-detail__title">{{ stage.nome }}</h1>
 
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+
 import AvReward from "molecules/AvReward.vue";
 
 const TOTAL_STARS = 3;
@@ -53,7 +55,9 @@ export default {
       default: () => {},
     },
   },
-  setup(_, ctx) {
+  setup(props, ctx) {
+    const positionLabel = computed(() => Number(props.stage.position) + 1);
+
     const handleClose = () => {
       ctx.emit("close");
     };
@@ -61,6 +65,7 @@ export default {
     return {
       TOTAL_STARS,
       I18N_PATH,
+      positionLabel,
       handleClose,
     };
   },

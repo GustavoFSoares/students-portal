@@ -23,7 +23,7 @@
         center-color="transparent"
         track-color="transparent"
       >
-        <div class="stage-item__position">{{ position }}</div>
+        <div class="stage-item__position">{{ positionLabel }}</div>
         <div class="stage-item__badgse"></div>
       </QCircularProgress>
     </div>
@@ -52,9 +52,11 @@ export default {
   },
   setup(props) {
     const itemProgress = computed(() => (100 * props.rank) / TOTAL_STARS);
+    const positionLabel = computed(() => Number(props.position) + 1);
 
     return {
       itemProgress,
+      positionLabel,
       TOTAL_STARS,
     };
   },

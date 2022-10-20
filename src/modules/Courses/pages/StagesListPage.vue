@@ -74,12 +74,12 @@ export default {
     const selectedStage = ref(null);
 
     const stagesList = ref([
-      { position: "1", title: "Texto 1", rank: 1, completed: true },
-      { position: "2", title: "Texto 2", rank: 3, completed: true },
-      { position: "3", title: "Texto 3", rank: 2, completed: true },
-      { position: "4", title: "Texto 4", rank: 3, completed: true },
-      { position: "5", title: "Texto 5", rank: 2, completed: true },
-      { position: "6", title: "Texto 6", rank: 2, completed: true },
+      // { position: "1", title: "Texto 1", rank: 1, completed: true },
+      // { position: "2", title: "Texto 2", rank: 3, completed: true },
+      // { position: "3", title: "Texto 3", rank: 2, completed: true },
+      // { position: "4", title: "Texto 4", rank: 3, completed: true },
+      // { position: "5", title: "Texto 5", rank: 2, completed: true },
+      // { position: "6", title: "Texto 6", rank: 2, completed: true },
       // { position: "7", title: "Texto 7", rank: 2, completed: true },
       // { position: "8", title: "Texto 8", rank: 2, completed: true },
       // { position: "9", title: "Texto 9", rank: 2, completed: true },
@@ -126,10 +126,11 @@ export default {
         },
       };
 
+      console.log(stage);
+
       stagesList.value = stage.map((stage) => ({
         ...stage,
-        position: "6",
-        title: "Texto 6",
+        position: stage.ordem + "",
         rank: 2,
         completed: true,
       }));
