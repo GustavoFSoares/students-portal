@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf" class="stages-list-page">
     <StageListHeader
       class="stages-list-page__header"
-      title="O que por aqui?"
+      :title="trail.title"
       :progress="80"
       :points="1100"
       :coins="0"
@@ -20,7 +20,7 @@
         </div>
 
         <h2 class="course-header__title">
-          {{ trail.title }}
+          {{ trail.description }}
         </h2>
 
         <h3 class="course-header__activities">
@@ -103,9 +103,16 @@ export default {
     });
 
     const handleOpenStage = (position) => {
+      const stageSelectedStage = selectedStage.value;
       selectedStage.value = null;
 
-      selectedStage.value = position;
+      if (stageSelectedStage) {
+        setTimeout(() => {
+          selectedStage.value = position;
+        }, 350);
+      } else {
+        selectedStage.value = position;
+      }
     };
 
     const handleCloseDetail = () => {
@@ -113,13 +120,14 @@ export default {
     };
 
     onMounted(async () => {
-      const { nome, capa, stage } = await $store.dispatch(
+      const { nome, descricao, capa, stage } = await $store.dispatch(
         "CourseModule/getTrailById",
         id
       );
 
       trail.value = {
         title: nome,
+        description: descricao,
         cover: {
           url: appContext.config.globalProperties.$appStorage + capa?.path,
           description: nome,
