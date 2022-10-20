@@ -25,7 +25,7 @@ export default {
 
       return data;
     } catch (err) {
-      console.error("Courses Data Error", err);
+      console.error("Courses Data by ID Error", err);
     }
   },
 };
