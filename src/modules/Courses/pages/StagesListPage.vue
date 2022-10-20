@@ -1,16 +1,29 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="stages-list-page">
-    <div>here</div>
+    <StageListHeader
+      class="stages-list-page__header"
+      title="O que por aqui?"
+      :progress="80"
+      :points="1100"
+      :coins="0"
+    />
 
     <div class="stages-list-page__wrapper">
-      <div class="stages-list-page__course-header">
-        <div class="stages-list-page__course-header-cover"></div>
+      <div class="course-header">
+        <div class="course-header__cover">
+          <img
+            v-if="trail.cover"
+            class="course-header__cover-image"
+            :src="trail.cover.url"
+            :alt="trail.cover.description"
+          />
+        </div>
 
-        <h1 class="stages-list-page__course-header-title">
-          {{ course.title }}
-        </h1>
+        <h2 class="course-header__title">
+          {{ trail.title }}
+        </h2>
 
-        <h3 class="stages-list-page__course-header-activities">
+        <h3 class="course-header__activities">
           {{ stagesList.length }} {{ $t(`${I18N_PATH}.activities`) }}
         </h3>
       </div>
@@ -24,30 +37,41 @@
         bordered
         @hide="handleCloseDetail"
       >
-        <StageDetail :stage="selectedStageData" @close="handleCloseDetail" />
+        <StageListDetail
+          :stage="selectedStageData"
+          @close="handleCloseDetail"
+        />
       </QDrawer>
     </div>
   </q-layout>
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import { computed, onMounted, ref, getCurrentInstance } from "vue";
 
 import StagesList from "../partials/StagesList.vue";
-import StageDetail from "../partials/StagesList/Detail.vue";
+import StageListHeader from "../partials/StagesList/Header.vue";
+import StageListDetail from "../partials/StagesList/Detail.vue";
 
 const I18N_PATH = "modules.courses.stagesList";
 export default {
   name: "StagesListPage",
   components: {
     StagesList,
-    StageDetail,
+    StageListHeader,
+    StageListDetail,
   },
-  setup(_, ctx) {
-    const selectedStage = ref();
-    const course = ref({
-      title: "Prevenção Ambiental",
-    });
+  setup(_) {
+    const $route = useRoute();
+    const $store = useStore();
+    const { appContext } = getCurrentInstance();
+
+    const { id } = $route.params;
+
+    const trail = ref({});
+    const selectedStage = ref(null);
 
     const stagesList = ref([
       { position: "1", title: "Texto 1", rank: 1, completed: true },
@@ -88,9 +112,32 @@ export default {
       selectedStage.value = null;
     };
 
+    onMounted(async () => {
+      const { nome, capa, stage } = await $store.dispatch(
+        "CourseModule/getTrailById",
+        id
+      );
+
+      trail.value = {
+        title: nome,
+        cover: {
+          url: appContext.config.globalProperties.$appStorage + capa?.path,
+          description: nome,
+        },
+      };
+
+      stagesList.value = stage.map((stage) => ({
+        ...stage,
+        position: "6",
+        title: "Texto 6",
+        rank: 2,
+        completed: true,
+      }));
+    });
+
     return {
       I18N_PATH,
-      course,
+      trail,
       selectedStage,
       stagesList,
       openStageDetail,
@@ -109,7 +156,7 @@ export default {
     margin: auto;
   }
 
-  &__course-header {
+  .course-header {
     position: relative;
     background: $white;
     border-radius: 10px;
@@ -122,21 +169,26 @@ export default {
     margin: 20px 0 32px;
     width: 100%;
 
-    &-cover {
+    &__cover {
       width: 55px;
       height: 55px;
       border-radius: 50%;
       overflow: hidden;
-      background: red;
+      background: #ff00008f;
+
+      &-image {
+        width: 100%;
+        height: 100%;
+      }
     }
 
-    &-title {
+    &__title {
       font-size: 12px;
       font-weight: $font-weight-semibold;
       color: $secondary;
     }
 
-    &-activities {
+    &__activities {
       position: absolute;
       top: 15px;
       right: 15px;

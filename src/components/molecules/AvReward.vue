@@ -28,11 +28,11 @@ export default {
   props: {
     coins: {
       type: Number,
-      required: true,
+      default: 0,
     },
     points: {
       type: Number,
-      required: true,
+      default: 0,
     },
   },
   setup(props, ctx) {
