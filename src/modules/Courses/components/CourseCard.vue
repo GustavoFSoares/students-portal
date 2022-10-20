@@ -6,7 +6,7 @@
           <img
             class="course-card__image"
             v-if="cover"
-            :src="$appStorage + cover.path"
+            :src="`${$appStorage}/${cover.path}`"
             :alt="cover.tipo"
           />
         </div>

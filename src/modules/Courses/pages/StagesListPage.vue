@@ -133,7 +133,7 @@ export default {
         title: nome,
         description: descricao,
         cover: {
-          url: appContext.config.globalProperties.$appStorage + capa?.path,
+          url: `${appContext.config.globalProperties.$appStorage}/${capa?.path}`,
           description: nome,
         },
       };

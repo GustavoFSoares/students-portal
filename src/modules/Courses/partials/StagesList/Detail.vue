@@ -31,12 +31,14 @@
       class="stages-list-detail__start-activity"
       :label="$t(`${I18N_PATH}.startActivity`)"
       color="primary"
+      @click="handleStartActivity"
     />
   </aside>
 </template>
 
 <script>
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 import AvReward from "molecules/AvReward.vue";
 
@@ -56,10 +58,23 @@ export default {
     },
   },
   setup(props, ctx) {
+    const $router = useRouter();
     const positionLabel = computed(() => Number(props.stage.position) + 1);
 
     const handleClose = () => {
       ctx.emit("close");
+    };
+
+    const handleStartActivity = () => {
+      const { id: stageId, trilha_id: id } = props.stage;
+
+      $router.push({
+        name: "courses.stage",
+        params: {
+          id,
+          stageId,
+        },
+      });
     };
 
     return {
@@ -67,6 +82,7 @@ export default {
       I18N_PATH,
       positionLabel,
       handleClose,
+      handleStartActivity,
     };
   },
 };

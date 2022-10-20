@@ -28,4 +28,23 @@ export default {
       console.error("Courses Data by ID Error", err);
     }
   },
+  getStageData: async (_, { stageId }) => {
+    try {
+      const {
+        data: { data },
+      } = await api.post("alunos/estagio", {
+        id: stageId,
+      });
+
+      console.log(data);
+
+      return {
+        files: data.files,
+        type: data.tipo.descricao,
+        cover: data.tipo.path,
+      };
+    } catch (err) {
+      console.error("Stage Data by ID Error", err);
+    }
+  },
 };
