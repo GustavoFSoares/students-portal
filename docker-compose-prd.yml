@@ -8,4 +8,4 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile-prd
     ports:
-      - '80:9000'
+      - '80:80'
