@@ -9,3 +9,5 @@ services:
       dockerfile: ./docker/Dockerfile-prd
     ports:
       - '80:80'
+    volumes:
+      - ./:/usr/share/nginx/html:cached
