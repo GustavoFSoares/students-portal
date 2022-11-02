@@ -10,7 +10,7 @@ RUN npm install -s @vue/cli@3.7.0 -g
 
 COPY . /app
 
-RUN npm run dev
+RUN npm run quasar
 
 # production environment
 FROM nginx:1.16.0-alpine
