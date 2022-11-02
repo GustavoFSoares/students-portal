@@ -1,26 +1,15 @@
-# build environment
-FROM node:14.19 as build
+# develop stage
+FROM node:14.19-alpine as develop-stage
 WORKDIR /app
-
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json /app/package.json
-
-RUN npm install --silent
-RUN npm install -s @vue/cli@3.7.0 -g
-
-COPY . /app
-
-RUN npm run quasar
-
-# production environment
-FROM nginx:1.16.0-alpine
-
-COPY --from=build /app/dist /usr/share/nginx/html
-
-RUN rm /etc/nginx/conf.d/default.conf
-
-COPY docker/nginx/nginx.conf /etc/nginx/conf.d
-
+COPY package*.json ./
+RUN yarn global add @quasar/cli
+COPY . .
+# build stage
+FROM develop-stage as build-stage
+RUN yarn
+RUN quasar build
+# production stage
+FROM nginx:1.17.5-alpine as production-stage
+COPY --from=build-stage /app/dist/spa /usr/share/nginx/html
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
