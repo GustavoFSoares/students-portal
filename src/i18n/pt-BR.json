@@ -2,6 +2,12 @@
   "components": {
     "channelsContainerSection": {
       "channels": "Canais"
+    },
+    "molecules": {
+      "rewards": {
+        "points": "pontos",
+        "coins": "moedas"
+      }
     }
   },
   "modules": {
@@ -95,6 +101,7 @@
         "title": "Cursos"
       },
       "stagesList": {
+        "activities": "atividades",
         "detail": {
           "rewards": {
             "points": "Pontos",

@@ -9,9 +9,9 @@
       @click="handleClose"
     />
 
-    <div class="stages-list-detail__position">{{ stage.position }}</div>
+    <div class="stages-list-detail__position">{{ positionLabel }}</div>
 
-    <h1 class="stages-list-detail__title">{{ stage.title }}</h1>
+    <h1 class="stages-list-detail__title">{{ stage.nome }}</h1>
 
     <div class="stages-list-detail__stars">
       <QIcon
@@ -25,27 +25,7 @@
       />
     </div>
 
-    <div class="card-reward">
-      <router-link
-        v-for="(rewardItem, rewardKey) in rewards"
-        :key="rewardKey"
-        :class="['card-reward-item', `card-reward-item--${rewardKey}`]"
-        :to="{ name: rewardItem.route }"
-      >
-        <QIcon
-          class="card-reward-item__icon"
-          :name="getRewardIcon(rewardKey)"
-        />
-
-        <h6 class="card-reward-item__value">
-          {{ levelFormatter(rewardItem.value) }}
-        </h6>
-
-        <h6 class="card-reward-item__label">
-          {{ $t(`${I18N_PATH}.rewards.${rewardKey}`) }}
-        </h6>
-      </router-link>
-    </div>
+    <AvReward :points="stage.pontos" :coins="stage.moedas" />
 
     <QBtn
       class="stages-list-detail__start-activity"
@@ -56,44 +36,27 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
+
+import AvReward from "molecules/AvReward.vue";
 
 const TOTAL_STARS = 3;
 const I18N_PATH = "modules.courses.stagesList.detail";
 
 export default {
   emits: ["close"],
-  name: "StagesDetail",
+  name: "StagesListDetail",
+  components: {
+    AvReward,
+  },
   props: {
     stage: {
       type: Object,
       default: () => {},
     },
   },
-  setup(_, ctx) {
-    const rewards = ref({
-      points: {
-        route: "home",
-        value: 1400,
-      },
-      coins: {
-        route: "home",
-        value: 0,
-      },
-    });
-
-    const getRewardIcon = (rewardName) => {
-      const rewards = {
-        coins: "o_paid",
-        points: "o_grade",
-      };
-
-      return rewards[rewardName] || null;
-    };
-
-    const levelFormatter = (val) => {
-      return val.toLocaleString("pt-BR");
-    };
+  setup(props, ctx) {
+    const positionLabel = computed(() => Number(props.stage.position) + 1);
 
     const handleClose = () => {
       ctx.emit("close");
@@ -102,9 +65,7 @@ export default {
     return {
       TOTAL_STARS,
       I18N_PATH,
-      rewards,
-      getRewardIcon,
-      levelFormatter,
+      positionLabel,
       handleClose,
     };
   },

@@ -111,7 +111,7 @@ export default {
       width: 100%;
       height: 100%;
 
-      background: rgba(255, 0, 0, 0.562);
+      background: #ff00008f;
       border-radius: 8px;
       overflow: hidden;
 
