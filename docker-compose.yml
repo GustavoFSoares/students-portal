@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+
+  avag-front:
+    container_name: avag-front
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '8081:9000'
+    environment:
+      - CHOKIDAR_USEPOLLING=true

@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  avag-fron-prod:
+    container_name: avag-front-prod
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-prd
+    ports:
+      - '80:9000'
