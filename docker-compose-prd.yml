@@ -9,3 +9,7 @@ services:
       dockerfile: ./docker/Dockerfile-prd
     ports:
       - '80:9000'
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:cached
+      - ./:/var/www:cached
