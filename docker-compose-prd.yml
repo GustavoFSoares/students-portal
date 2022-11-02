@@ -2,8 +2,8 @@ version: '3.7'
 
 services:
 
-  avag-fron-prod:
-    container_name: avag-front-prod
+  avag-fron:
+    container_name: avag-front
     build:
       context: .
       dockerfile: ./docker/Dockerfile-prd
