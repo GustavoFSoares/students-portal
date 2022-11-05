@@ -15,7 +15,7 @@ export default {
       console.error("Courses Data Error", err);
     }
   },
-  getTrailById: async (id) => {
+  getTrailById: async (_, id) => {
     try {
       const {
         data: { data },
