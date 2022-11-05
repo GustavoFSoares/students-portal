@@ -127,8 +127,8 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
+
 .user-card-header {
   padding: 20px 0;
 

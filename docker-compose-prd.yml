@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+
+  avag:
+    container_name: avag
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-prd
+    networks:
+      - app-net
+      - proxy
+
+  caddy:
+      image: caddy:2.4.3-alpine
+      restart: unless-stopped
+      command: caddy reverse-proxy --from https://www.avag.agr.br:443 --to avag:80
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - caddy:/data
+      depends_on:
+        - avag
+      networks:
+        - app-net
+        - proxy
+
+networks:
+  app-net:
+    driver: bridge
+  proxy:
+    external:
+      name: proxy
+#Volumes
+volumes:
+  caddy:
+    driver: local
