@@ -45,11 +45,14 @@
         "coursesList": {
           "seeMore": "Ver mais"
         },
-        "availableCourses": {
-          "title": "Cursos Disponíveis"
+        "availableTrails": {
+          "title": "Disponíveis"
         },
-        "completedCourses": {
-          "title": "Cursos Concluídos"
+        "inProgressTrails": {
+          "title": "Em Andamento"
+        },
+        "completedTrails": {
+          "title": "Concluídos"
         }
       },
       "insightsPage": {

@@ -37,7 +37,7 @@ export default {
 
       commit("STORE_TRAILS_GROUP", preparedTrailsGroup);
 
-      return trails;
+      return preparedTrailsGroup;
     } catch (err) {
       console.error("Courses Data Error", err);
     }
