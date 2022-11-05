@@ -11,7 +11,7 @@
 
     <div class="stages-list-detail__position">{{ positionLabel }}</div>
 
-    <h1 class="stages-list-detail__title">{{ stage.nome }}</h1>
+    <h1 class="stages-list-detail__title">{{ stage.name }}</h1>
 
     <div class="stages-list-detail__stars">
       <QIcon
@@ -25,7 +25,11 @@
       />
     </div>
 
-    <AvReward :points="stage.pontos" :coins="stage.moedas" />
+    <AvReward
+      v-if="stage.reward"
+      :points="stage.reward.points"
+      :coins="stage.reward.coins"
+    />
 
     <QBtn
       class="stages-list-detail__start-activity"
@@ -66,7 +70,7 @@ export default {
     };
 
     const handleStartActivity = () => {
-      const { id: stageId, trilha_id: id } = props.stage;
+      const { id: stageId, trailId: id } = props.stage;
 
       $router.push({
         name: "courses.stage",

@@ -48,9 +48,23 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
-      // console.log(data);
-
-      return data;
+      return {
+        name: data.nome,
+        description: data.descricao,
+        cover: data.capa,
+        stages: data.stage.map((stage) => ({
+          id: stage.id,
+          trailId: stage.trilha_id,
+          name: stage.nome,
+          reward: {
+            coins: stage.moedas,
+            points: stage.pontos,
+          },
+          position: stage.ordem + "",
+          rank: 2,
+          completed: true,
+        })),
+      };
     } catch (err) {
       console.error("Courses Data by ID Error", err);
     }
@@ -62,8 +76,6 @@ export default {
       } = await api.post("alunos/estagio", {
         id: stageId,
       });
-
-      // console.log(data);
 
       return {
         name: data.nome,

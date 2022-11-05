@@ -79,7 +79,7 @@ export default {
     const isMobile = computed(() => Screen.xs);
 
     const BREAK_LINE = computed(() => {
-      return isMobile.value ? 4 : 5;
+      return Screen.xs ? 4 : 5;
     });
 
     const stagesList = computed(() => props.stages);
