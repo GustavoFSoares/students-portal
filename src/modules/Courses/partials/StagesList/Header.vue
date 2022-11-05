@@ -44,19 +44,19 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
+      default: null,
     },
     progress: {
       type: Number,
-      required: true,
+      default: 0,
     },
     points: {
       type: Number,
-      required: true,
+      default: 0,
     },
     coins: {
       type: Number,
-      required: true,
+      default: 0,
     },
   },
 };

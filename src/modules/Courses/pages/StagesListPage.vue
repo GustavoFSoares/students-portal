@@ -4,8 +4,8 @@
       class="stages-list-page__header"
       :title="trail.title"
       :progress="80"
-      :points="1100"
-      :coins="0"
+      :points="rewardsData.points"
+      :coins="rewardsData.coins"
     />
 
     <div class="stages-list-page__wrapper">
@@ -93,6 +93,10 @@ export default {
       // { position: "17", title: "Texto 17", rank: 2, completed: true },
     ]);
 
+    const rewardsData = computed(
+      () => $store.getters["AuthModule/rewardsData"]
+    );
+
     const openStageDetail = computed(() => !!selectedStage.value);
     const selectedStageData = computed(() => {
       const matchStage = stagesList.value.find(
@@ -129,12 +133,12 @@ export default {
         title: nome,
         description: descricao,
         cover: {
-          url: appContext.config.globalProperties.$appStorage + capa?.path,
+          url: `${appContext.config.globalProperties.$appStorage}/${capa?.path}`,
           description: nome,
         },
       };
 
-      console.log(stage);
+      // console.log(stage);
 
       stagesList.value = stage.map((stage) => ({
         ...stage,
@@ -149,6 +153,7 @@ export default {
       trail,
       selectedStage,
       stagesList,
+      rewardsData,
       openStageDetail,
       selectedStageData,
       handleOpenStage,

@@ -25,4 +25,10 @@ export default {
 
     state.token = token;
   },
+  SET_REWARDS(state, rewards) {
+    state.rewards = {
+      coins: rewards.coins,
+      points: rewards.points,
+    };
+  },
 };

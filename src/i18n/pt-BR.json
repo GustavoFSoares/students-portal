@@ -109,6 +109,15 @@
           },
           "startActivity": "Iniciar atividade"
         }
+      },
+      "stagePage": {
+        "documentType": "Tipo",
+        "types": {
+          "pdf": "PDF",
+          "áudio": "Áudio",
+          "viode": "Vídeo",
+          "imagens": "Imagem"
+        }
       }
     },
     "feed": {

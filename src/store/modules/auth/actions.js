@@ -13,12 +13,23 @@ export default {
           email,
           password,
         })
-        .then(({ data: { data } }) => {
-          commit("SET_USER", data.user);
-          commit("SET_TOKEN", data.access_token);
+        .then(
+          ({
+            data: {
+              data: { access_token, user: userData },
+            },
+          }) => {
+            commit("SET_USER", userData.user);
+            commit("SET_REWARDS", {
+              coins: userData.profile.moedas,
+              points: userData.profile.pontos,
+            });
 
-          resolve(true);
-        })
+            commit("SET_TOKEN", access_token);
+
+            resolve(true);
+          }
+        )
         .catch((err) => {
           resolve(false);
         })
@@ -35,8 +46,12 @@ export default {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then(({ data }) => {
-          commit("SET_USER", data.data);
+        .then(({ data: { data: userData } }) => {
+          commit("SET_USER", userData.user);
+          commit("SET_REWARDS", {
+            coins: userData.profile.moedas,
+            points: userData.profile.pontos,
+          });
 
           resolve();
         })

@@ -27,7 +27,7 @@ export default {
     const courses = ref([]);
 
     onMounted(async () => {
-      const coursesData = await $store.dispatch("CourseModule/getData");
+      const coursesData = await $store.dispatch("CourseModule/getTrails");
       courses.value = coursesData;
     });
 
