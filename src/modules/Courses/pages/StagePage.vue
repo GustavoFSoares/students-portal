@@ -2,7 +2,7 @@
   <article class="stage-page">
     <StagePageHeader
       class="stage-page__header"
-      :stage-id="stageId"
+      :trail-id="trailId"
       :title="stageData.name"
       :coins="stageData.coins"
       :points="stageData.points"
@@ -98,7 +98,7 @@ export default {
       imagens: "image",
     };
 
-    const { stageId } = $route.params;
+    const { id: trailId, stageId } = $route.params;
 
     const stageData = ref({});
     const selectedFile = ref(null);
@@ -129,6 +129,7 @@ export default {
     });
 
     return {
+      trailId,
       stageId,
       stageData,
       selectedFile,

@@ -124,28 +124,21 @@ export default {
     };
 
     onMounted(async () => {
-      const { nome, descricao, capa, stage } = await $store.dispatch(
+      const { name, description, cover, stages } = await $store.dispatch(
         "CourseModule/getTrailById",
         id
       );
 
       trail.value = {
-        title: nome,
-        description: descricao,
+        title: name,
+        description,
         cover: {
-          url: `${appContext.config.globalProperties.$appStorage}/${capa?.path}`,
-          description: nome,
+          url: `${appContext.config.globalProperties.$appStorage}/${cover?.path}`,
+          description: name,
         },
       };
 
-      // console.log(stage);
-
-      stagesList.value = stage.map((stage) => ({
-        ...stage,
-        position: stage.ordem + "",
-        rank: 2,
-        completed: true,
-      }));
+      stagesList.value = stages;
     });
 
     return {
