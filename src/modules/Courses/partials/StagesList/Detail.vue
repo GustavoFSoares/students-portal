@@ -139,57 +139,6 @@ export default {
     }
   }
 
-  .card-reward {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-
-    &-item {
-      width: 100%;
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      border: 2px solid $grey-transparent;
-      border-radius: 8px;
-      text-decoration: none;
-
-      padding: 5px;
-      transition: border-color, background-color 0.4s ease-in;
-
-      &__icon {
-        font-size: 22px;
-      }
-
-      &__value {
-        font-size: 14px;
-        font-weight: $font-weight-semibold;
-      }
-
-      &__label {
-        color: $secondary;
-        flex-grow: 1;
-        text-align: end;
-        font-size: 12px;
-      }
-
-      $rewards: (
-        coins: $yellow-14,
-        points: $primary,
-      );
-
-      @each $rewardItem, $rewardColor in $rewards {
-        &--#{$rewardItem} {
-          color: $rewardColor;
-          border-color: rgba($rewardColor, 0.4);
-
-          &:hover {
-            background-color: rgba($rewardColor, 0.1);
-          }
-        }
-      }
-    }
-  }
-
   &__start-activity {
     text-transform: none !important;
     margin-top: 40px;

@@ -36,46 +36,29 @@
         </div>
       </div>
 
-      <div class="card-reward">
-        <router-link
-          v-for="(rewardItem, rewardKey) in rewards"
-          :key="rewardKey"
-          :class="['card-reward-item', `card-reward-item--${rewardKey}`]"
-          :to="{ name: rewardItem.route }"
-        >
-          <QIcon
-            class="card-reward-item__icon"
-            :name="getRewardIcon(rewardKey)"
-          />
-
-          <h6 class="card-reward-item__value">
-            {{ levelFormatter(rewardItem.value) }}
-          </h6>
-
-          <h6 class="card-reward-item__label">
-            {{ $t(`${I18N_PATH}.rewards.${rewardKey}`) }}
-          </h6>
-        </router-link>
-      </div>
+      <AvReward :points="rewardsData.points" :coins="rewardsData.coins" />
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
+
+import AvReward from "molecules/AvReward.vue";
 
 const I18N_PATH = "modules.home.userCard";
 
 export default {
   name: "UserCardHeader",
+  components: {
+    AvReward,
+  },
   setup() {
     const $store = useStore();
 
     const userData = computed(() => $store.getters["AuthModule/userData"]);
-    const rewardsData = computed(
-      () => $store.getters["AuthModule/rewardsData"]
-    );
+    const rewardsData = ref({ points: 0, coints: 0 });
 
     const indexes = ref({
       start: 1000,
@@ -85,17 +68,6 @@ export default {
     const barProgress = computed(
       () => (rewardsData.value.points / indexes.value.end) * 100
     );
-
-    const rewards = computed(() => ({
-      points: {
-        route: "home",
-        value: rewardsData.value.points,
-      },
-      coins: {
-        route: "home",
-        value: rewardsData.value.coins,
-      },
-    }));
 
     const levelFormatter = (val) => {
       return val.toLocaleString("pt-BR");
@@ -114,11 +86,15 @@ export default {
       alert("edit user");
     };
 
+    onMounted(async () => {
+      rewardsData.value = $store.getters["AuthModule/rewardsData"];
+    });
+
     return {
       userData,
       indexes,
       barProgress,
-      rewards,
+      rewardsData,
       levelFormatter,
       getRewardIcon,
       handleEditUser,
@@ -127,8 +103,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
 
+<style lang="scss" scoped>
 .user-card-header {
   padding: 20px 0;
 
@@ -220,57 +196,6 @@ export default {
       justify-content: space-between;
       color: $secondary;
       font-weight: $font-weight-bold;
-    }
-  }
-
-  .card-reward {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-
-    &-item {
-      width: 100%;
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      border: 2px solid $grey-transparent;
-      border-radius: 8px;
-      text-decoration: none;
-
-      padding: 5px;
-      transition: border-color, background-color 0.4s ease-in;
-
-      &__icon {
-        font-size: 22px;
-      }
-
-      &__value {
-        font-size: 14px;
-        font-weight: $font-weight-semibold;
-      }
-
-      &__label {
-        color: $secondary;
-        flex-grow: 1;
-        text-align: end;
-        font-size: 12px;
-      }
-
-      $rewards: (
-        coins: $yellow-14,
-        points: $primary,
-      );
-
-      @each $rewardItem, $rewardColor in $rewards {
-        &--#{$rewardItem} {
-          color: $rewardColor;
-          border-color: rgba($rewardColor, 0.4);
-
-          &:hover {
-            background-color: rgba($rewardColor, 0.1);
-          }
-        }
-      }
     }
   }
 }
