@@ -4,13 +4,40 @@ export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
   },
-  getTrails: async () => {
+  getTrails: async ({ commit }) => {
     try {
       const {
         data: { data },
       } = await api.post("alunos/trilhas");
 
-      return data.turma.trilhas.map((trilhas) => trilhas.detail);
+      const trailsMap = {
+        available: "disponivel",
+        inProgress: "em_andamento",
+        completed: "finalizados",
+      };
+
+      const trails = data.turma.trilhas.map((trilhas) => trilhas.detail);
+      const trailsGroups = data.trilhas;
+
+      const preparedTrailsGroup = Object.entries(trailsMap).reduce(
+        (amount, [mapIndex, originIndex]) => {
+          const groupTrails = trailsGroups[originIndex].map((trailId) => {
+            return trails.find((trail) => trail.id === trailId);
+          });
+
+          amount[mapIndex] = groupTrails;
+          return amount;
+        },
+        {
+          available: [],
+          inProgress: [],
+          completed: [],
+        }
+      );
+
+      commit("STORE_TRAILS_GROUP", preparedTrailsGroup);
+
+      return trails;
     } catch (err) {
       console.error("Courses Data Error", err);
     }
