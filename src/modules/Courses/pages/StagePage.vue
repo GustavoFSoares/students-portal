@@ -35,7 +35,7 @@
               </strong>
 
               <span class="file-type__text">
-                {{ $t(`${I18N_PATH}.types.${stageData.type}`) }}
+                {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageData.type}`) }}
               </span>
             </h5>
           </div>
@@ -68,6 +68,7 @@ import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
 import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
 
 const I18N_PATH = "modules.courses.stagePage";
+const I18N_STAGE_TYPE_PATH = "modules.courses.stageType";
 
 export default {
   name: "StagePage",
@@ -139,6 +140,7 @@ export default {
       handleOpenStage,
       handleHideFileData,
       I18N_PATH,
+      I18N_STAGE_TYPE_PATH,
     };
   },
 };

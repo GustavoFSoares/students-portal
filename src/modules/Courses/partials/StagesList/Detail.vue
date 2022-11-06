@@ -43,7 +43,13 @@
       class="stages-list-detail__start-activity"
       :label="$t(`${I18N_PATH}.startActivity`)"
       color="primary"
-      @click="handleStartActivity"
+      :to="{
+        name: 'courses.stage',
+        params: {
+          id: stage.trailId,
+          stageId: stage.id,
+        },
+      }"
     />
   </aside>
 </template>
@@ -93,18 +99,6 @@ export default {
       ctx.emit("close");
     };
 
-    const handleStartActivity = () => {
-      const { id: stageId, trailId: id } = props.stage;
-
-      $router.push({
-        name: "courses.stage",
-        params: {
-          id,
-          stageId,
-        },
-      });
-    };
-
     return {
       TOTAL_STARS,
       I18N_PATH,
@@ -112,7 +106,6 @@ export default {
       stageType,
       positionLabel,
       handleClose,
-      handleStartActivity,
     };
   },
 };

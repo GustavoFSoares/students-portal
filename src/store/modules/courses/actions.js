@@ -54,8 +54,6 @@ export default {
         description: data.descricao,
         cover: data.capa,
         stages: data.stage.map((stage) => {
-          // console.log("stage", stage);
-
           return {
             id: stage.id,
             trailId: stage.trilha_id,
@@ -90,6 +88,7 @@ export default {
         name: data.nome,
         files: data.files,
         type: data.tipo.descricao,
+        type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
         cover: data.tipo.path,
         coins: data.moedas,
         points: data.pontos,
