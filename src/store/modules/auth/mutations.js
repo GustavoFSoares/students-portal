@@ -1,4 +1,4 @@
-import { SessionStorage } from "quasar";
+import { LocalStorage } from "quasar";
 
 export default {
   SET_LOADING(state, isLoading) {
@@ -21,7 +21,7 @@ export default {
     };
   },
   SET_TOKEN(state, token) {
-    SessionStorage.set("avag-token", token);
+    LocalStorage.set("avag-token", token);
 
     state.token = token;
   },
