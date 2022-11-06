@@ -54,6 +54,7 @@ export default {
   video {
     width: 100%;
     border-radius: $defaultBorderRadius;
+    overflow: hidden;
   }
 }
 </style>
