@@ -25,6 +25,14 @@
       />
     </div>
 
+    <div v-if="stageType" class="stages-list-detail__type">
+      <QIcon class="stages-list-detail__type-icon" :name="stageType.icon" />
+
+      <h4 class="stages-list-detail__type-name">
+        {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageType.name}`) }}
+      </h4>
+    </div>
+
     <AvReward
       v-if="stage.reward"
       :points="stage.reward.points"
@@ -41,13 +49,14 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, getCurrentInstance } from "vue";
 import { useRouter } from "vue-router";
 
 import AvReward from "molecules/AvReward.vue";
 
 const TOTAL_STARS = 3;
 const I18N_PATH = "modules.courses.stagesList.detail";
+const I18N_STAGE_TYPE_PATH = "modules.courses.stageType";
 
 export default {
   emits: ["close"],
@@ -62,7 +71,22 @@ export default {
     },
   },
   setup(props, ctx) {
+    const { appContext } = getCurrentInstance();
     const $router = useRouter();
+
+    const stageType = computed(() => {
+      if (!props.stage.type) {
+        return null;
+      }
+
+      return {
+        icon:
+          appContext.config.globalProperties.$iconsMap[props.stage.type] ||
+          props.stage.type,
+        name: props.stage.type,
+      };
+    });
+
     const positionLabel = computed(() => Number(props.stage.position) + 1);
 
     const handleClose = () => {
@@ -84,6 +108,8 @@ export default {
     return {
       TOTAL_STARS,
       I18N_PATH,
+      I18N_STAGE_TYPE_PATH,
+      stageType,
       positionLabel,
       handleClose,
       handleStartActivity,
@@ -140,6 +166,21 @@ export default {
         stroke: $primary;
         fill: $primary;
       }
+    }
+  }
+
+  &__type {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+
+    &-name {
+      font-size: 12px;
+    }
+
+    &-icon {
+      font-size: 20px;
     }
   }
 

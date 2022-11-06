@@ -1,4 +1,5 @@
 import { api } from "boot/axios";
+import { iconsMapReplations } from "maps/iconsMaps.json";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
@@ -52,18 +53,24 @@ export default {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
-        stages: data.stage.map((stage) => ({
-          id: stage.id,
-          trailId: stage.trilha_id,
-          name: stage.nome,
-          reward: {
-            coins: stage.moedas,
-            points: stage.pontos,
-          },
-          position: stage.ordem + "",
-          rank: 2,
-          completed: true,
-        })),
+        stages: data.stage.map((stage) => {
+          // console.log("stage", stage);
+
+          return {
+            id: stage.id,
+            trailId: stage.trilha_id,
+            name: stage.nome,
+            reward: {
+              coins: stage.moedas,
+              points: stage.pontos,
+            },
+            type:
+              iconsMapReplations[stage.tipo.descricao] || stage.tipo.descricao,
+            position: stage.ordem + "",
+            rank: 2,
+            completed: true,
+          };
+        }),
       };
     } catch (err) {
       console.error("Courses Data by ID Error", err);
@@ -76,6 +83,8 @@ export default {
       } = await api.post("alunos/estagio", {
         id: stageId,
       });
+
+      console.log(data);
 
       return {
         name: data.nome,

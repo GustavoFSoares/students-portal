@@ -103,6 +103,14 @@
       "seo": {
         "title": "Cursos"
       },
+      "stageType": {
+        "document": "PDF",
+        "music": "Áudio",
+        "video": "Vídeo",
+        "image": "Imagem",
+        "game-internal": "Jogo interno",
+        "game-external": "Jogo externo"
+      },
       "stagesList": {
         "activities": "atividades",
         "detail": {

@@ -60,6 +60,7 @@ module.exports = configure(function (/* ctx */) {
         node: "node16",
       },
       alias: {
+        maps: path.join(__dirname, "./src/maps"),
         modules: path.join(__dirname, "./src/modules"),
         atoms: path.join(__dirname, "src/components/atoms"),
         molecules: path.join(__dirname, "src/components/molecules"),
@@ -103,7 +104,7 @@ module.exports = configure(function (/* ctx */) {
     devServer: {
       // https: true
       open: true, // opens browser window automatically,
-      proxy: "http://localhost:9000"
+      proxy: "http://localhost:9000",
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
