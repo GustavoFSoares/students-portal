@@ -1,10 +1,7 @@
 <template>
   <section class="stage-file-type-audio">
-    <audio controls="" ref="audio">
-      <source
-        src="https://www.w3schools.com/html/horse.mp3"
-        type="audio/mpeg"
-      />
+    <audio controls="" ref="player">
+      <source :src="`${$appStorage}/${path}`" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
   </section>
@@ -21,14 +18,14 @@ export default {
     },
   },
   setup() {
-    const audio = ref();
+    const player = ref();
 
     onMounted(() => {
-      // audio.value?.play();
+      player.value?.play();
     });
 
     return {
-      audio,
+      player,
     };
   },
 };
