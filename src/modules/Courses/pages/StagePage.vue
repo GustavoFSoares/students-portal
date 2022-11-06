@@ -44,11 +44,12 @@
     </div>
 
     <q-dialog :model-value="showFileData" @hide="handleHideFileData">
-      <QCard>
+      <QCard class="stage-page__modal">
         <component
           v-if="stageFileTypeComponent"
           :is="stageFileTypeComponent"
           :path="selectedFile"
+          @close="handleHideFileData"
         />
       </QCard>
     </q-dialog>
@@ -86,9 +87,9 @@ export default {
     const $store = useStore();
 
     const stageFilesMap = {
-      áudio: "StageFileTypeAudio",
-      imagens: "StageFileTypeImage",
-      pdf: "StageFileTypePdf",
+      music: "StageFileTypeAudio",
+      image: "StageFileTypeImage",
+      document: "StageFileTypePdf",
       video: "StageFileTypeVideo",
     };
 
@@ -104,16 +105,13 @@ export default {
     const stageData = ref({});
     const selectedFile = ref(null);
 
-    const fileIcon = computed(
-      () =>
-        appContext.config.globalProperties.$iconsMap[
-          iconsMap[stageData.value.type]
-        ]
-    );
     const showFileData = computed(() => !!selectedFile.value);
     const stageFileTypeComponent = computed(() => {
       return stageFilesMap[stageData.value.type] || null;
     });
+    const fileIcon = computed(
+      () => appContext.config.globalProperties.$iconsMap[stageData.value.type]
+    );
 
     const handleOpenStage = (path) => {
       selectedFile.value = path;
@@ -217,6 +215,10 @@ export default {
     &__icon {
       font-size: 20px;
     }
+  }
+
+  &__modal {
+    border-radius: $defaultBorderRadius;
   }
 }
 </style>

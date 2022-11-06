@@ -82,8 +82,6 @@ export default {
         id: stageId,
       });
 
-      console.log(data);
-
       return {
         name: data.nome,
         files: data.files,
