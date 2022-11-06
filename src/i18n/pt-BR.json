@@ -45,11 +45,14 @@
         "coursesList": {
           "seeMore": "Ver mais"
         },
-        "availableCourses": {
-          "title": "Cursos Disponíveis"
+        "availableTrails": {
+          "title": "Disponíveis"
         },
-        "completedCourses": {
-          "title": "Cursos Concluídos"
+        "inProgressTrails": {
+          "title": "Em Andamento"
+        },
+        "completedTrails": {
+          "title": "Concluídos"
         }
       },
       "insightsPage": {
@@ -99,6 +102,14 @@
     "courses": {
       "seo": {
         "title": "Cursos"
+      },
+      "stageType": {
+        "document": "PDF",
+        "music": "Áudio",
+        "video": "Vídeo",
+        "image": "Imagem",
+        "game-internal": "Jogo interno",
+        "game-external": "Jogo externo"
       },
       "stagesList": {
         "activities": "atividades",

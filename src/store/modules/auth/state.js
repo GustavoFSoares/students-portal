@@ -1,8 +1,8 @@
-import { SessionStorage } from "quasar";
+import { LocalStorage } from "quasar";
 
 export default {
   loading: false,
   user: null,
   rewards: null,
-  token: SessionStorage.getItem("avag-token"),
+  token: LocalStorage.getItem("avag-token"),
 };

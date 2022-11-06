@@ -108,7 +108,7 @@ export default {
 
   &__image {
     &-wrapper {
-      width: 100%;
+      width: 160px;
       height: 100%;
 
       background: #ff00008f;
@@ -116,6 +116,7 @@ export default {
       overflow: hidden;
 
       @media (min-width: $breakpoint-tablet) {
+        width: 100%;
         height: 196px;
       }
     }

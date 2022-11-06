@@ -1,0 +1,21 @@
+{
+  "iconsMapReplations": {
+    "pdf": "document",
+    "áudio": "music",
+    "video": "video",
+    "imagens": "image",
+    "jogos internos": "game-internal",
+    "jogos externos": "game-external"
+  },
+  "iconsMap": {
+    "all": "fa-solid fa-house",
+    "folder": "fa-solid fa-folder",
+    "music": "fa-solid fa-music",
+    "document": "fa-solid fa-file",
+    "image": "fa-solid fa-image",
+    "video": "fa-solid fa-video",
+    "link": "fa-solid fa-link",
+    "game-internal": "fa-solid fa-puzzle-piece",
+    "game-external": "fa-solid fa-gamepad"
+  }
+}

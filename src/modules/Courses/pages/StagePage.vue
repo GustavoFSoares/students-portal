@@ -2,7 +2,7 @@
   <article class="stage-page">
     <StagePageHeader
       class="stage-page__header"
-      :stage-id="stageId"
+      :trail-id="trailId"
       :title="stageData.name"
       :coins="stageData.coins"
       :points="stageData.points"
@@ -35,7 +35,7 @@
               </strong>
 
               <span class="file-type__text">
-                {{ $t(`${I18N_PATH}.types.${stageData.type}`) }}
+                {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageData.type}`) }}
               </span>
             </h5>
           </div>
@@ -44,11 +44,12 @@
     </div>
 
     <q-dialog :model-value="showFileData" @hide="handleHideFileData">
-      <QCard>
+      <QCard class="stage-page__modal">
         <component
           v-if="stageFileTypeComponent"
           :is="stageFileTypeComponent"
           :path="selectedFile"
+          @close="handleHideFileData"
         />
       </QCard>
     </q-dialog>
@@ -68,6 +69,7 @@ import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
 import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
 
 const I18N_PATH = "modules.courses.stagePage";
+const I18N_STAGE_TYPE_PATH = "modules.courses.stageType";
 
 export default {
   name: "StagePage",
@@ -85,9 +87,9 @@ export default {
     const $store = useStore();
 
     const stageFilesMap = {
-      áudio: "StageFileTypeAudio",
-      imagens: "StageFileTypeImage",
-      pdf: "StageFileTypePdf",
+      music: "StageFileTypeAudio",
+      image: "StageFileTypeImage",
+      document: "StageFileTypePdf",
       video: "StageFileTypeVideo",
     };
 
@@ -98,21 +100,18 @@ export default {
       imagens: "image",
     };
 
-    const { stageId } = $route.params;
+    const { id: trailId, stageId } = $route.params;
 
     const stageData = ref({});
     const selectedFile = ref(null);
 
-    const fileIcon = computed(
-      () =>
-        appContext.config.globalProperties.$iconsMap[
-          iconsMap[stageData.value.type]
-        ]
-    );
     const showFileData = computed(() => !!selectedFile.value);
     const stageFileTypeComponent = computed(() => {
       return stageFilesMap[stageData.value.type] || null;
     });
+    const fileIcon = computed(
+      () => appContext.config.globalProperties.$iconsMap[stageData.value.type]
+    );
 
     const handleOpenStage = (path) => {
       selectedFile.value = path;
@@ -129,6 +128,7 @@ export default {
     });
 
     return {
+      trailId,
       stageId,
       stageData,
       selectedFile,
@@ -138,6 +138,7 @@ export default {
       handleOpenStage,
       handleHideFileData,
       I18N_PATH,
+      I18N_STAGE_TYPE_PATH,
     };
   },
 };
@@ -214,6 +215,10 @@ export default {
     &__icon {
       font-size: 20px;
     }
+  }
+
+  &__modal {
+    border-radius: $defaultBorderRadius;
   }
 }
 </style>

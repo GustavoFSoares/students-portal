@@ -17,7 +17,7 @@
         class="stage-item__content"
         show-value
         :value="itemProgress"
-        size="90px"
+        :size="isMobile ? '68px' : '90px'"
         :thickness="0.08"
         color="primary"
         center-color="transparent"
@@ -34,6 +34,8 @@
 const TOTAL_STARS = 3;
 
 import { computed } from "vue";
+import { Screen } from "quasar";
+
 export default {
   name: "StageItem",
   props: {
@@ -51,10 +53,12 @@ export default {
     },
   },
   setup(props) {
+    const isMobile = computed(() => Screen.xs);
     const itemProgress = computed(() => (100 * props.rank) / TOTAL_STARS);
     const positionLabel = computed(() => Number(props.position) + 1);
 
     return {
+      isMobile,
       itemProgress,
       positionLabel,
       TOTAL_STARS,
@@ -113,8 +117,9 @@ export default {
   }
 
   &__position {
-    width: 72px;
-    height: 72px;
+    width: 50px;
+    height: 50px;
+
     border-radius: 100%;
     background: #009088;
     color: $white;
@@ -124,6 +129,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: 72px;
+      height: 72px;
+    }
   }
 }
 </style>

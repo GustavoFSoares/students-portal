@@ -1,16 +1,44 @@
 import { api } from "boot/axios";
+import { iconsMapReplations } from "maps/iconsMaps.json";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
   },
-  getTrails: async () => {
+  getTrails: async ({ commit }) => {
     try {
       const {
         data: { data },
       } = await api.post("alunos/trilhas");
 
-      return data.turma.trilhas.map((trilhas) => trilhas.detail);
+      const trailsMap = {
+        available: "disponivel",
+        inProgress: "em_andamento",
+        completed: "finalizados",
+      };
+
+      const trails = data.turma.trilhas.map((trilhas) => trilhas.detail);
+      const trailsGroups = data.trilhas;
+
+      const preparedTrailsGroup = Object.entries(trailsMap).reduce(
+        (amount, [mapIndex, originIndex]) => {
+          const groupTrails = trailsGroups[originIndex].map((trailId) => {
+            return trails.find((trail) => trail.id === trailId);
+          });
+
+          amount[mapIndex] = groupTrails;
+          return amount;
+        },
+        {
+          available: [],
+          inProgress: [],
+          completed: [],
+        }
+      );
+
+      commit("STORE_TRAILS_GROUP", preparedTrailsGroup);
+
+      return preparedTrailsGroup;
     } catch (err) {
       console.error("Courses Data Error", err);
     }
@@ -21,9 +49,27 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
-      // console.log(data);
-
-      return data;
+      return {
+        name: data.nome,
+        description: data.descricao,
+        cover: data.capa,
+        stages: data.stage.map((stage) => {
+          return {
+            id: stage.id,
+            trailId: stage.trilha_id,
+            name: stage.nome,
+            reward: {
+              coins: stage.moedas,
+              points: stage.pontos,
+            },
+            type:
+              iconsMapReplations[stage.tipo.descricao] || stage.tipo.descricao,
+            position: stage.ordem + "",
+            rank: 2,
+            completed: true,
+          };
+        }),
+      };
     } catch (err) {
       console.error("Courses Data by ID Error", err);
     }
@@ -36,12 +82,11 @@ export default {
         id: stageId,
       });
 
-      // console.log(data);
-
       return {
         name: data.nome,
         files: data.files,
         type: data.tipo.descricao,
+        type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
         cover: data.tipo.path,
         coins: data.moedas,
         points: data.pontos,

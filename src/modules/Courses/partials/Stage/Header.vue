@@ -8,7 +8,7 @@
         round
         size="13px"
         padding="4px"
-        :to="{ name: 'courses.stages-list', params: { id: stageId } }"
+        :to="{ name: 'courses.stages-list', params: { id: trailId } }"
       />
 
       <h1 class="stage-header__title">{{ title }}</h1>
@@ -27,7 +27,7 @@ export default {
     AvReward,
   },
   props: {
-    stageId: {
+    trailId: {
       type: String,
       required: true,
     },

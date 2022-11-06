@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { boot } from "quasar/wrappers";
-import { SessionStorage } from "quasar";
+import { LocalStorage } from "quasar";
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -16,7 +16,7 @@ const api = axios.create({
 
 export default boot(({ app }) => {
   api.interceptors.request.use((config) => {
-    const token = SessionStorage.getItem("avag-token");
+    const token = LocalStorage.getItem("avag-token");
     config.headers.Authorization = `Bearer ${token}`;
 
     return config;

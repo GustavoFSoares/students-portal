@@ -7,7 +7,7 @@
         :key="stageLineIndex"
       >
         <QIcon
-          v-if="stageLineIndex === 0"
+          v-if="!isMobile && stageLineIndex === 0"
           class="
             stages-list__decoration stages-list__decoration-half-start-curve
           "
@@ -16,6 +16,7 @@
 
         <QIcon
           v-if="
+            !isMobile &&
             stageLineIndex % 2 !== 0 &&
             stageLineIndex !== preparedStagesList.length - 1
           "
@@ -41,7 +42,11 @@
         </div>
 
         <QIcon
-          v-if="stageLineIndex % 2 === 0 && existListBelow(stageLineIndex)"
+          v-if="
+            !isMobile &&
+            stageLineIndex % 2 === 0 &&
+            existListBelow(stageLineIndex)
+          "
           class="stages-list__decoration stages-list__decoration-end-curve"
           name="svguse:/icons.svg#course__curve"
         />
@@ -52,6 +57,7 @@
 
 <script>
 import { computed } from "vue";
+import { Screen } from "quasar";
 
 import StageItem from "../components/StagesList/StageItem.vue";
 import StageItemSeparation from "../components/StagesList/StageItemSeparation.vue";
@@ -70,7 +76,11 @@ export default {
     },
   },
   setup(props, ctx) {
-    const BREAK_LINE = 5;
+    const isMobile = computed(() => Screen.xs);
+
+    const BREAK_LINE = computed(() => {
+      return Screen.xs ? 4 : 5;
+    });
 
     const stagesList = computed(() => props.stages);
 
@@ -85,7 +95,7 @@ export default {
 
           list.itemCount += 1;
 
-          if (list.itemCount >= BREAK_LINE) {
+          if (list.itemCount >= BREAK_LINE.value) {
             list.lineCount += 1;
             list.itemCount = 0;
           }
@@ -119,6 +129,7 @@ export default {
     };
 
     return {
+      isMobile,
       stagesList,
       preparedStagesList,
       handleClickStage,
@@ -142,12 +153,16 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 580px;
+    max-width: 384px;
     gap: 50px;
 
     align-items: center;
 
     position: relative;
+
+    @media (min-width: $breakpoint-tablet) {
+      max-width: 580px;
+    }
   }
 
   &__line {
@@ -202,8 +217,12 @@ export default {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 116px;
+    max-width: 96px;
     flex-grow: 1;
+
+    @media (min-width: $breakpoint-tablet) {
+      max-width: 116px;
+    }
   }
 }
 </style>
