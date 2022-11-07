@@ -2,8 +2,6 @@
   <AvCard bordered>
     <div :class="['conquest-card', { 'conquest-card--obtained': obtained }]">
       <div class="conquest-card__image">
-        <!-- <img :src="badge" :alt="title" /> -->
-
         <img
           v-if="badge"
           class="conquest-item__image"
@@ -21,6 +19,7 @@
 
       <div class="conquest-card__text-wrapper">
         <h5 class="conquest-card__title">{{ title }}</h5>
+
         <h6 class="conquest-card__description">{{ description }}</h6>
       </div>
     </div>
@@ -94,7 +93,6 @@ export default {
 
   &__description {
     font-size: 12px;
-    // font-weight: $font-weight-semibold;
   }
 }
 </style>
