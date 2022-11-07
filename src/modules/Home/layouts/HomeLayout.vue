@@ -2,7 +2,7 @@
   <div class="home-layout">
     <QToolbar class="home-layout__topbar" v-if="isMobile">
       <QBtn flat round dense icon="menu" @click="openMenu" />
-      <QToolbarTitle shrink>Selatiel</QToolbarTitle>
+      <QToolbarTitle shrink>{{ userData.name }}</QToolbarTitle>
     </QToolbar>
 
     <div class="app-container">
@@ -29,6 +29,7 @@
 <script>
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
+import { useStore } from "vuex";
 
 import UserCard from "../components/UserCard/index.vue";
 
@@ -39,6 +40,7 @@ export default {
   },
   setup() {
     const $q = useQuasar();
+    const $store = useStore();
 
     const showMenu = ref(false);
 
@@ -46,6 +48,7 @@ export default {
       return $q.screen.sm || $q.screen.xs;
     });
 
+    const userData = computed(() => $store.getters["AuthModule/userData"]);
     const userCardListners = computed(() => {
       const events = {};
 
@@ -73,6 +76,7 @@ export default {
     return {
       showMenu,
       isMobile,
+      userData,
       userCardListners,
       openMenu,
       hideMenu,

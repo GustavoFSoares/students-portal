@@ -27,10 +27,22 @@ export default {
 
             commit("SET_TOKEN", access_token);
 
+            dispatch(
+              "ConquestsModule/setConquests",
+              {
+                conquests: userData.conquistas,
+                obtainedList: userData.conquistas_user,
+              },
+              {
+                root: true,
+              }
+            );
+
             resolve(true);
           }
         )
         .catch((err) => {
+          console.error(err);
           resolve(false);
         })
         .finally(() => {
@@ -38,7 +50,7 @@ export default {
         });
     });
   },
-  getUserByToken: ({ commit }, token) => {
+  getUserByToken: ({ commit, dispatch }, token) => {
     return new Promise((resolve, reject) => {
       api
         .get("auth/profile", {
@@ -53,9 +65,21 @@ export default {
             points: userData.profile.pontos,
           });
 
+          dispatch(
+            "ConquestsModule/setConquests",
+            {
+              conquests: userData.conquistas,
+              obtainedList: userData.conquistas_user,
+            },
+            {
+              root: true,
+            }
+          );
+
           resolve();
         })
         .catch((err) => {
+          console.error(err);
           reject();
         });
     });

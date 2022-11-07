@@ -2,10 +2,26 @@
   <AvCard bordered>
     <div :class="['conquest-card', { 'conquest-card--obtained': obtained }]">
       <div class="conquest-card__image">
-        <img :src="badge" :alt="title" />
+        <img
+          v-if="badge"
+          class="conquest-item__image"
+          :src="`${$appStorage}/${badge}`"
+          :alt="title"
+        />
+
+        <img
+          v-else
+          class="conquest-item__image"
+          src="~assets/img/conquests/default-trophy.jpg"
+          :alt="title"
+        />
       </div>
 
-      <h5 class="conquest-card__title">{{ title }}</h5>
+      <div class="conquest-card__text-wrapper">
+        <h5 class="conquest-card__title">{{ title }}</h5>
+
+        <h6 class="conquest-card__description">{{ description }}</h6>
+      </div>
     </div>
   </AvCard>
 </template>
@@ -23,15 +39,17 @@ export default {
       type: String,
       required: true,
     },
-    badge: {
+    description: {
       type: String,
-      default:
-        "https://w7.pngwing.com/pngs/244/211/png-transparent-badge-flag-leader-mountain-sport-top-winner-sport-achievment-badges-icon-thumbnail.png",
       required: true,
     },
     obtained: {
       type: Boolean,
       default: false,
+    },
+    badge: {
+      type: String,
+      default: null,
     },
   },
 };
@@ -61,10 +79,20 @@ export default {
     }
   }
 
-  &__title {
+  &__text-wrapper {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__title {
     font-size: 10px;
     font-weight: $font-weight-semibold;
+  }
+
+  &__description {
+    font-size: 12px;
   }
 }
 </style>

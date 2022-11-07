@@ -104,6 +104,7 @@ export default {
 <style lang="scss" scoped>
 .user-card {
   height: 100%;
+  min-width: 250px;
 
   @media (min-width: $breakpoint-tablet) {
     min-width: 320px;
