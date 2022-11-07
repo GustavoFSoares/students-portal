@@ -5,8 +5,9 @@
         <ConquestCard
           v-for="(conquestData, conquestKey) in conquests"
           :key="conquestKey"
-          :title="conquestData.title"
-          :badge="conquestData.badge"
+          :title="conquestData.name"
+          :description="conquestData.description"
+          :badge="conquestData.path"
           :obtained="conquestData.obtained"
         />
       </div>
@@ -15,8 +16,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 import AvPageSection from "molecules/AvPageSection.vue";
 import ConquestCard from "../components/ConquestCard.vue";
@@ -30,13 +32,11 @@ export default {
   },
   setup() {
     const $router = useRouter();
+    const $store = useStore();
 
-    const conquests = ref([
-      { title: "Ganhando pontos", obtained: true },
-      { title: "Meu avatar", obtained: false },
-      { title: "Dias consecutivos", obtained: true },
-      { title: "Dias consecutivas 2", obtained: false },
-    ]);
+    const conquests = computed(
+      () => $store.getters["ConquestsModule/conquests"]
+    );
 
     const handleGoBackPage = () => {
       $router.push({ name: "home.insights" });

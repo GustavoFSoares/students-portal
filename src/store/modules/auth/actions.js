@@ -27,9 +27,16 @@ export default {
 
             commit("SET_TOKEN", access_token);
 
-            dispatch("ConquestsModule/setConquests", userData.conquistas, {
-              root: true,
-            });
+            dispatch(
+              "ConquestsModule/setConquests",
+              {
+                conquests: userData.conquistas,
+                obtainedList: userData.conquistas_user,
+              },
+              {
+                root: true,
+              }
+            );
 
             resolve(true);
           }
@@ -58,9 +65,16 @@ export default {
             points: userData.profile.pontos,
           });
 
-          dispatch("ConquestsModule/setConquests", userData.conquistas, {
-            root: true,
-          });
+          dispatch(
+            "ConquestsModule/setConquests",
+            {
+              conquests: userData.conquistas,
+              obtainedList: userData.conquistas_user,
+            },
+            {
+              root: true,
+            }
+          );
 
           resolve();
         })

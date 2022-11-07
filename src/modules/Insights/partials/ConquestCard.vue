@@ -13,8 +13,18 @@
             :key="`conquest-${conquestKey}`"
           >
             <img
+              v-if="conquest.path"
               class="conquest-item__image"
-              :src="conquest.shieldImage"
+              :title="conquest.name"
+              :src="`${$appStorage}/${conquest.path}`"
+              :alt="conquest.name"
+            />
+
+            <img
+              v-else
+              class="conquest-item__image"
+              :title="conquest.name"
+              src="~assets/img/conquests/default-trophy.jpg"
               :alt="conquest.name"
             />
           </li>
@@ -25,7 +35,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
@@ -36,11 +47,11 @@ export default {
     InsightsCard,
   },
   setup() {
-    const conquestList = ref([
-      { shieldImage: null, name: "conquista-1" },
-      { shieldImage: null, name: "conquista-2" },
-      { shieldImage: null, name: "conquista-3" },
-    ]);
+    const $store = useStore();
+
+    const conquestList = computed(
+      () => $store.getters["ConquestsModule/conquestsPreview"]
+    );
 
     return {
       I18N_PATH,
@@ -61,13 +72,17 @@ export default {
   }
 
   .conquest-item {
-    background: rgba(255, 0, 0, 0.473);
     border-radius: 8px;
 
     width: 75px;
     height: 75px;
 
     overflow: hidden;
+
+    &__image {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
