@@ -17,6 +17,10 @@ button {
   cursor: pointer;
 }
 
+strong {
+  font-weight: 600;
+}
+
 .app-container {
   @media (max-width: $breakpoint-tablet) {
     padding: 20px;

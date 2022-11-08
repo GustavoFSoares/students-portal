@@ -18,6 +18,7 @@ export default {
       cpf: user.cpf,
       email: user.email,
       name: user.nome,
+      levelName: user.nivel,
     };
   },
   SET_TOKEN(state, token) {

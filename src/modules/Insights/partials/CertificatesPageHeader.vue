@@ -1,6 +1,7 @@
 <template>
   <div class="certificates-page-header">
     <QTabs
+      v-if="false"
       class="certificates-page-header__tabs"
       dense
       active-color="primary"
@@ -95,11 +96,13 @@ export default {
 .certificates-page-header {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
 
   margin-bottom: 30px;
+
+  width: 100%;
 
   @media (min-width: $breakpoint-tablet) {
     flex-direction: row;

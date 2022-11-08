@@ -58,7 +58,8 @@
       "insightsPage": {
         "rankingCard": {
           "title": "Ranking",
-          "moreItems": "Ranking"
+          "moreItems": "Ranking",
+          "isYou": "(você)"
         },
         "conquestCard": {
           "title": "Últimas Conquistas",
@@ -70,7 +71,8 @@
         },
         "pages": {
           "rankingPage": {
-            "title": "Ranking"
+            "title": "Ranking",
+            "isYou": "(você)"
           },
           "conquestPage": {
             "title": "Conquistas"

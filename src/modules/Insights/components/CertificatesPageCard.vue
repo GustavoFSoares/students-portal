@@ -3,14 +3,20 @@
     <AvCard shadows>
       <template #header>
         <div class="certificates-page-card__image">
-          <img :src="image" :alt="title" />
+          <img :src="`${$appStorage}/${image}`" :alt="title" :title="title" />
         </div>
       </template>
 
       <template #default>
-        <h6 class="certificates-page-card__title">
-          {{ title }}
-        </h6>
+        <div class="certificates-page-card__text-content">
+          <h5 class="certificates-page-card__title">
+            {{ title }}
+          </h5>
+
+          <h6 class="certificates-page-card__description">
+            {{ description }}
+          </h6>
+        </div>
 
         <div class="certificates-page-card__completed-date">
           <QIcon name="event" size="20px" />
@@ -39,6 +45,10 @@ export default {
       required: true,
     },
     title: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -75,9 +85,20 @@ export default {
     }
   }
 
+  &__text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   &__title {
     font-size: 12px;
     font-weight: $font-weight-semibold;
+  }
+
+  &__description {
+    font-size: 15px;
+    font-weight: $font-weight-normal;
   }
 
   &__completed-date {

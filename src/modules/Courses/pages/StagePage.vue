@@ -63,6 +63,7 @@ import { computed, getCurrentInstance, onMounted, ref } from "vue";
 
 import StagePageHeader from "../partials/Stage/Header.vue";
 
+import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
 import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
 import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
 import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
@@ -75,6 +76,7 @@ export default {
   name: "StagePage",
   components: {
     StagePageHeader,
+    StageFileGameExternal,
     StageFileTypeAudio,
     StageFileTypeImage,
     StageFileTypePdf,
@@ -91,6 +93,7 @@ export default {
       image: "StageFileTypeImage",
       document: "StageFileTypePdf",
       video: "StageFileTypeVideo",
+      "game-external": "StageFileGameExternal",
     };
 
     const iconsMap = {

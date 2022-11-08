@@ -17,10 +17,14 @@
             </div>
 
             <div class="ranking-item__user">
-              <div class="ranking-item__user-avatar"></div>
+              <div class="ranking-item__user-avatar" v-if="false"></div>
 
               <div class="ranking-item__user-name">
-                {{ userPosition.user.name }}
+                {{ userPosition.userName }}
+
+                <strong v-if="userPosition.isYou">
+                  {{ $t(`${I18N_PATH}.isYou`) }}
+                </strong>
               </div>
             </div>
 
@@ -35,7 +39,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
+import { useStore } from "vuex";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
@@ -46,11 +51,15 @@ export default {
     InsightsCard,
   },
   setup() {
-    const rankingList = ref([
-      { score: 1400, user: { name: "Selatiel" }, position: 1 },
-      { score: 0, user: { name: "Cleiton" }, position: 2 },
-      { score: 0, user: { name: "Bruno" }, position: 3 },
-    ]);
+    const $store = useStore();
+
+    const rankingList = computed(
+      () => $store.getters["RankingModule/getRankings"]
+    );
+
+    onMounted(async () => {
+      await $store.dispatch("RankingModule/loadRankings");
+    });
 
     return {
       I18N_PATH,

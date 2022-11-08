@@ -8,7 +8,7 @@
       <div class="user">
         <div class="user-info">
           <h5 class="user-info__name">{{ userData.name }}</h5>
-          <h6 class="user-info__level">Nível 2 Sábio</h6>
+          <h6 class="user-info__level">{{ userData.levelName }}</h6>
         </div>
 
         <div class="user-edit">
@@ -162,6 +162,10 @@ export default {
         font-size: 12px;
         color: $secondary;
         font-weight: $font-weight-bold;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
       }
     }
   }

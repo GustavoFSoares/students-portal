@@ -74,6 +74,8 @@ export default {
   .conquest-item {
     border-radius: 8px;
 
+    box-shadow: 2px 2px 3px #00000014;
+
     width: 75px;
     height: 75px;
 
