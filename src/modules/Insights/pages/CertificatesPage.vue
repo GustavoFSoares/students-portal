@@ -16,8 +16,9 @@
             <CertificatesPageCard
               v-for="(certificate, certificateIndex) in certificates"
               :key="`certificate-${certificateIndex}`"
-              :title="certificate.title"
-              :image="certificate.image"
+              :title="certificate.name"
+              :description="certificate.description"
+              :image="certificate.path"
               :completed-date="certificate.completedDate"
             />
           </div>
@@ -34,13 +35,13 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { computed, onMounted, ref } from "vue";
 
 import AvPageSection from "molecules/AvPageSection.vue";
 
 import CertificatesPageCard from "../components/CertificatesPageCard.vue";
-
 import CertificatesPageHeader from "../partials/CertificatesPageHeader.vue";
 
 const I18N_PATH = "modules.home.insightsPage.pages.certificatesPage";
@@ -53,37 +54,24 @@ export default {
     CertificatesPageHeader,
   },
   setup() {
+    const $store = useStore();
     const $route = useRouter();
 
     const currentTab = ref(undefined);
     const orderSelected = ref(undefined);
-    const certificatesData = ref([
-      {
-        title: "Certificado 1",
-        image:
-          "https://www.gov.br/conarq/pt-br/assuntos/eventos-1/curso-protecao-de-dados-pessoais-no-setor-publico/copy_of_safe_image.jfif/@@images/943ef27a-2b9e-4e5f-9d06-7ed830a06169.jpeg",
-        completedDate: new Date(),
-      },
-      {
-        title: "Certificado 2",
-        image:
-          "https://dfg.ai/itemimages/968430380-curso-completo-de-bitcoin-HOT7.jpg",
-      },
-    ]);
 
+    const certificates = computed(
+      () => $store.getters["CertificatesModule/getCertificates"]
+    );
     const hasCertificates = computed(() => certificates.value.length > 0);
-
-    const certificates = computed(() => {
-      if (currentTab.value == "completed") {
-        return [];
-      }
-
-      return certificatesData.value;
-    });
 
     const handleGoBackPage = () => {
       $route.push({ name: "home.insights" });
     };
+
+    onMounted(async () => {
+      await $store.dispatch("CertificatesModule/loadCertificates");
+    });
 
     return {
       I18N_PATH,

@@ -13,9 +13,19 @@
             :key="`certificate-${certificateKey}`"
           >
             <img
+              v-if="certificate.path"
               class="certificate-item__image"
-              :src="certificate.shieldImage"
+              :src="`${$appStorage}/${certificate.path}`"
               :alt="certificate.name"
+              :title="certificate.name"
+            />
+
+            <img
+              v-else
+              class="certificate-item__image"
+              src="~assets/img/certificates/default-certificate.png"
+              :alt="certificate.name"
+              :title="certificate.name"
             />
           </li>
         </ul>
@@ -25,7 +35,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
@@ -36,11 +47,15 @@ export default {
     InsightsCard,
   },
   setup() {
-    const certificateList = ref([
-      { shieldImage: null, name: "certificado-1" },
-      { shieldImage: null, name: "certificado-2" },
-      { shieldImage: null, name: "certificado-3" },
-    ]);
+    const $store = useStore();
+
+    const certificateList = computed(
+      () => $store.getters["CertificatesModule/certificatesPreview"]
+    );
+
+    onMounted(async () => {
+      await $store.dispatch("CertificatesModule/loadCertificates");
+    });
 
     return {
       I18N_PATH,
@@ -63,12 +78,15 @@ export default {
   .certificate-item {
     border-radius: 8px;
 
-    box-shadow: 2px 2px 3px #00000014;
-
     width: 75px;
     height: 75px;
 
     overflow: hidden;
+
+    &__image {
+      // width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
