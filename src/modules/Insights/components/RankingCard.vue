@@ -28,7 +28,11 @@
       </div>
 
       <div class="ranking-card__user-name">
-        <h5 class="ranking-card__user-name-text">{{ userName }}</h5>
+        <h5 class="ranking-card__user-name-text">
+          {{ userName }}
+
+          <span v-if="isYou">{{ $t(`${I18N_PATH}.isYou`) }}</span>
+        </h5>
       </div>
     </div>
   </div>
@@ -36,6 +40,8 @@
 
 <script>
 import { computed } from "vue";
+
+const I18N_PATH = "modules.home.insightsPage.pages.rankingPage";
 
 export default {
   name: "RankingCard",
@@ -56,6 +62,10 @@ export default {
       type: Number,
       required: true,
     },
+    isYou: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     const isFirst = computed(() => props.userRank === 1);
@@ -64,6 +74,7 @@ export default {
     return {
       isFirst,
       isWinner,
+      I18N_PATH,
     };
   },
 };
@@ -144,10 +155,6 @@ export default {
       position: absolute;
       top: calc(100% + 8px);
     }
-
-    &:has(.rank-medal) {
-      margin-top: 25px;
-    }
   }
 
   &__user-image {
@@ -188,8 +195,13 @@ export default {
 
     &-text {
       padding: 0 8px;
-      font-weight: $font-weight-bold;
-      font-size: 15px;
+
+      &,
+      span {
+        font-weight: $font-weight-bold;
+        font-size: 15px;
+        flex-shrink: 0;
+      }
     }
 
     &:before,
