@@ -17,7 +17,7 @@
             </div>
 
             <div class="ranking-item__user">
-              <div class="ranking-item__user-avatar"></div>
+              <div class="ranking-item__user-avatar" v-if="false"></div>
 
               <div class="ranking-item__user-name">
                 {{ userPosition.userName }}
