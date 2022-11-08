@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "StageFileTypeAudio",
+  name: "StageFileGameExternal",
   props: {
     path: {
       type: String,
