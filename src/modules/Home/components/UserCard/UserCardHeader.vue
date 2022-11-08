@@ -1,7 +1,7 @@
 <template>
   <div class="user-card-header">
     <div class="avatar">
-      <q-avatar size="90px" color="green" />
+      <QAvatar size="90px" color="white" text-color="secondary" icon="person" />
     </div>
 
     <div class="user-card-header__container">
@@ -15,9 +15,10 @@
           <QBtn
             flat
             round
-            icon="edit"
+            icon="logout"
             color="primary"
-            @click="handleEditUser"
+            @click="handleLogoutUser"
+            title="Logout"
           />
         </div>
       </div>
@@ -42,8 +43,9 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
 
@@ -56,6 +58,7 @@ export default {
   },
   setup() {
     const $store = useStore();
+    const $router = useRouter();
 
     const userData = computed(() => $store.getters["AuthModule/userData"]);
     const rewardsData = ref({ points: 0, coints: 0 });
@@ -82,8 +85,10 @@ export default {
       return rewards[rewardName] || null;
     };
 
-    const handleEditUser = () => {
-      alert("edit user");
+    const handleLogoutUser = async () => {
+      await $store.dispatch("AuthModule/invalidateUser");
+
+      $router.push({ name: "auth.login" });
     };
 
     onMounted(async () => {
@@ -97,7 +102,7 @@ export default {
       rewardsData,
       levelFormatter,
       getRewardIcon,
-      handleEditUser,
+      handleLogoutUser,
       I18N_PATH,
     };
   },
