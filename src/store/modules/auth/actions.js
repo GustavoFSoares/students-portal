@@ -19,7 +19,10 @@ export default {
               data: { access_token, user: userData },
             },
           }) => {
-            commit("SET_USER", userData.user);
+            commit("SET_USER", {
+              ...userData.user,
+              nivel: userData.profile.nivel,
+            });
             commit("SET_REWARDS", {
               coins: userData.profile.moedas,
               points: userData.profile.pontos,
@@ -59,7 +62,10 @@ export default {
           },
         })
         .then(({ data: { data: userData } }) => {
-          commit("SET_USER", userData.user);
+          commit("SET_USER", {
+            ...userData.user,
+            nivel: userData.profile.nivel,
+          });
           commit("SET_REWARDS", {
             coins: userData.profile.moedas,
             points: userData.profile.pontos,
