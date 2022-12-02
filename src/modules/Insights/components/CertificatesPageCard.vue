@@ -76,7 +76,7 @@ export default {
 .certificates-page-card {
   &__image {
     height: 145px;
-    border-radius: 0 0 $defaultBorderRadius $defaultBorderRadius;
+    border-radius: 0 0 $default-border-radius $default-border-radius;
     overflow: hidden;
 
     img {

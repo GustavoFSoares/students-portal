@@ -1,20 +1,20 @@
 <template>
-  <MainLayout>
+  <BaseLayout>
     <div class="auth-layout app-container">
       <div class="auth-layout__container">
         <router-view />
       </div>
     </div>
-  </MainLayout>
+  </BaseLayout>
 </template>
 
 <script>
-import MainLayout from "layouts/MainLayout.vue";
+import BaseLayout from "layouts/BaseLayout.vue";
 
 export default {
   name: "AuthLayout",
   components: {
-    MainLayout,
+    BaseLayout,
   },
 };
 </script>

@@ -44,8 +44,9 @@ export default {
 
 <style lang="scss" scoped>
 .av-card {
-  background: #fff;
-  border-radius: $defaultBorderRadius;
+  background-color: $default-background;
+
+  border-radius: $default-border-radius;
   overflow: hidden;
 
   display: flex;
@@ -57,7 +58,7 @@ export default {
 
   &--rounded-header & {
     &__header {
-      border-radius: 0 0 $defaultBorderRadius $defaultBorderRadius;
+      border-radius: 0 0 $default-border-radius $default-border-radius;
       overflow: hidden;
     }
   }
