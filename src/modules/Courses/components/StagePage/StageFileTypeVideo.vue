@@ -53,7 +53,7 @@ export default {
 
   video {
     width: 100%;
-    border-radius: $defaultBorderRadius;
+    border-radius: $default-border-radius;
     overflow: hidden;
   }
 }

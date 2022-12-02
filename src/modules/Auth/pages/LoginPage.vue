@@ -1,6 +1,6 @@
 <template>
   <section class="login-page">
-    <AvCard @keyup.enter="handleSubmit">
+    <AvCard @keyup.enter="handleSubmit" class="login-page__card">
       <div class="login-page__wrapper">
         <article class="login-page__form">
           <QInput
@@ -47,7 +47,7 @@
 
         <QBtn
           class="login-page__submit"
-          color="primary"
+          color="secondary"
           :label="$t(`${I18N_PATH}.submit`)"
           :disable="!allowSubmit"
           :loading="isLoading"
@@ -76,8 +76,8 @@ export default {
     const $store = useStore();
     const $route = useRouter();
 
-    const email = ref("");
-    const password = ref("");
+    const email = ref("aluno@teste.com");
+    const password = ref("teste");
     const showPassword = ref(false);
     const hadFailedValidation = ref(false);
 
@@ -122,6 +122,10 @@ export default {
 
 <style lang="scss" scoped>
 .login-page {
+  &__card {
+    backdrop-filter: $default-backdrop;
+  }
+
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -135,6 +139,7 @@ export default {
   }
   &__error-message {
     color: $negative;
+    font-weight: $font-weight-bold;
     text-align: center;
 
     @keyframes shake {

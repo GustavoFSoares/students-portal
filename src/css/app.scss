@@ -1,4 +1,5 @@
 @import "fonts.scss";
+@import "./components/input";
 
 body {
   background-color: #cd2331;
@@ -41,8 +42,9 @@ strong {
   }
 
   &__wrapper {
-    background: rgba(#10121b, 40%);
-    border-radius: $defaultBorderRadius;
+    background-color: $default-background;
+    backdrop-filter: $default-backdrop;
+    border-radius: $default-border-radius;
     position: relative;
   }
 }

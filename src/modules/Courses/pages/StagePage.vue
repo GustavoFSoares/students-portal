@@ -171,7 +171,7 @@ export default {
 
   .stage-item {
     background: $white;
-    border-radius: $defaultBorderRadius;
+    border-radius: $default-border-radius;
     overflow: hidden;
     transition: opacity 0.4s ease;
 
@@ -221,7 +221,7 @@ export default {
   }
 
   &__modal {
-    border-radius: $defaultBorderRadius;
+    border-radius: $default-border-radius;
   }
 }
 </style>
