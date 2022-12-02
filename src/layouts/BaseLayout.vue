@@ -1,25 +1,23 @@
 <template>
-  <BaseLayout>
-    <div class="app-container">
-      <div class="app-container__wrapper">
-        <slot />
-      </div>
+  <main class="base-layout">
+    <div class="video__wrapper">
+      <video class="video" autoplay muted loop>
+        <source src="background.mp4" type="video/mp4" />
+      </video>
     </div>
-  </BaseLayout>
+
+    <slot />
+  </main>
 </template>
 
 <script>
-import BaseLayout from "./BaseLayout.vue";
 export default {
-  name: "MainLayout",
-  components: {
-    BaseLayout,
-  },
+  name: "BaseLayout",
 };
 </script>
 
 <style lang="scss" scoped>
-.main-layout {
+.base-layout {
   position: relative;
 
   .video {
