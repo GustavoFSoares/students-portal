@@ -1,7 +1,10 @@
 @import "fonts.scss";
 
 body {
-  background: #2980b9 url("assets/background.png") repeat 0 0;
+  background-color: #cd2331;
+  background-size: cover;
+  background-position: center;
+  // background-image: url("assets/background.webp");
 }
 
 button {
@@ -22,11 +25,24 @@ strong {
 }
 
 .app-container {
+  max-width: 1430px;
+  margin: 0 auto;
+
   @media (max-width: $breakpoint-tablet) {
     padding: 20px;
   }
 
   @media (max-width: $breakpoint-mobile) {
     padding: 20px 5px;
+  }
+
+  @media (min-width: $breakpoint-laptop) {
+    padding: 30px 40px;
+  }
+
+  &__wrapper {
+    background: rgba(#10121b, 40%);
+    border-radius: $defaultBorderRadius;
+    position: relative;
   }
 }

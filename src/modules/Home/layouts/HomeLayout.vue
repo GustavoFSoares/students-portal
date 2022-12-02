@@ -1,29 +1,31 @@
 <template>
-  <div class="home-layout">
-    <QToolbar class="home-layout__topbar" v-if="isMobile">
-      <QBtn flat round dense icon="menu" @click="openMenu" />
-      <QToolbarTitle shrink>{{ userData.name }}</QToolbarTitle>
-    </QToolbar>
+  <MainLayout>
+    <div class="home-layout">
+      <QToolbar class="home-layout__topbar" v-if="isMobile">
+        <QBtn flat round dense icon="menu" @click="openMenu" />
+        <QToolbarTitle shrink>{{ userData.name }}</QToolbarTitle>
+      </QToolbar>
 
-    <div class="app-container">
-      <article
-        v-on="userCardListners"
-        id="user-navigation"
-        :class="[
-          'home-layout__user-navigation',
-          { 'home-layout__user-navigation--active': showMenu },
-        ]"
-      >
-        <div class="home-layout__user-navigation-container">
-          <UserCard @navigating="hideMenu" @closeMenu="hideMenu" />
-        </div>
-      </article>
+      <div class="home-container">
+        <article
+          v-on="userCardListners"
+          id="user-navigation"
+          :class="[
+            'home-layout__user-navigation',
+            { 'home-layout__user-navigation--active': showMenu },
+          ]"
+        >
+          <div class="home-layout__user-navigation-container">
+            <UserCard @navigating="hideMenu" @closeMenu="hideMenu" />
+          </div>
+        </article>
 
-      <aside class="home-layout__page-content">
-        <router-view />
-      </aside>
+        <aside class="home-layout__page-content">
+          <router-view />
+        </aside>
+      </div>
     </div>
-  </div>
+  </MainLayout>
 </template>
 
 <script>
@@ -31,11 +33,13 @@ import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
 import { useStore } from "vuex";
 
+import MainLayout from "layouts/MainLayout.vue";
 import UserCard from "../components/UserCard/index.vue";
 
 export default {
   name: "HomeLayout",
   components: {
+    MainLayout,
     UserCard,
   },
   setup() {
@@ -94,11 +98,11 @@ export default {
     justify-content: space-between;
   }
 
-  .app-container {
+  .home-container {
     position: relative;
 
-    max-width: 1430px;
-    margin: 0 auto;
+    // max-width: 1430px;
+    // margin: 0 auto;
 
     @media (min-width: $breakpoint-laptop) {
       display: flex;

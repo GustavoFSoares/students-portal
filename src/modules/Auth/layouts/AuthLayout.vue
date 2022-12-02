@@ -1,14 +1,21 @@
 <template>
-  <div class="auth-layout app-container">
-    <div class="auth-layout__container">
-      <router-view />
+  <MainLayout>
+    <div class="auth-layout app-container">
+      <div class="auth-layout__container">
+        <router-view />
+      </div>
     </div>
-  </div>
+  </MainLayout>
 </template>
 
 <script>
+import MainLayout from "layouts/MainLayout.vue";
+
 export default {
   name: "AuthLayout",
+  components: {
+    MainLayout,
+  },
 };
 </script>
 
