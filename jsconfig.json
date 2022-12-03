@@ -7,6 +7,7 @@
       "app/*": ["*"],
       "maps/*": ["src/maps/*"],
       "modules/*": ["src/modules/*"],
+      "partials/*": ["src/partials/*"],
       "atoms/*": ["src/components/atoms/*"],
       "molecules/*": ["src/components/molecules/*"],
       "organisms/*": ["src/components/organisms/*"],

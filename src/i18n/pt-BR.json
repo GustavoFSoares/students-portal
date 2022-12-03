@@ -96,6 +96,26 @@
         }
       }
     },
+    "activities": {
+      "seo": {
+        "title": "Atividades"
+      }
+    },
+    "ranking": {
+      "seo": {
+        "title": "Ranking"
+      }
+    },
+    "achievements": {
+      "seo": {
+        "title": "Conquistas"
+      }
+    },
+    "certificates": {
+      "seo": {
+        "title": "Certificados"
+      }
+    },
     "insights": {
       "seo": {
         "title": "Insights"

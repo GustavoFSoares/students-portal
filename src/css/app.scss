@@ -5,7 +5,7 @@ body {
   background-color: #cd2331;
   background-size: cover;
   background-position: center;
-  // background-image: url("assets/background.webp");
+  background-image: url("assets/background.webp");
 }
 
 button {
@@ -28,6 +28,7 @@ strong {
 .app-container {
   max-width: 1430px;
   margin: 0 auto;
+  height: 100vh;
 
   @media (max-width: $breakpoint-tablet) {
     padding: 20px;
