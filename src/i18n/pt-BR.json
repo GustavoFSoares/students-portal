@@ -24,7 +24,16 @@
         },
         "activities": {
           "title": "Cursos",
-          "subTitle": "Atividades"
+          "subTitle": "Atividades",
+          "statuses": {
+            "available": "Disponíveis",
+            "inProgres": "Em Andamento",
+            "completed": "Concluídos"
+          }
+        },
+        "settings": {
+          "title": "Configurações",
+          "logoff": "Sair do sistema"
         }
       }
     }

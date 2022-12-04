@@ -2,7 +2,7 @@
   <aside class="app-card-profile">
     <section class="profile-section">
       <h1 class="profile-section__title">
-        {{ $t("partials.appCardProfile.section.userProfile.title") }}
+        {{ $t(`${I18N_PATH}.userProfile.title`) }}
       </h1>
 
       <div class="profile-section__content">
@@ -12,22 +12,45 @@
 
     <section class="profile-section">
       <h1 class="profile-section__title">
-        {{ $t("partials.appCardProfile.section.activities.title") }} |
-        {{ $t("partials.appCardProfile.section.activities.subTitle") }}
+        {{ $t(`${I18N_PATH}.activities.title`) }} |
+        {{ $t(`${I18N_PATH}.activities.subTitle`) }}
       </h1>
 
-      <div class="profile-section__content"></div>
+      <div class="profile-section__content">
+        <ActivitiesProfile />
+      </div>
+    </section>
+
+    <section class="profile-section">
+      <h1 class="profile-section__title">
+        {{ $t(`${I18N_PATH}.settings.title`) }}
+      </h1>
+
+      <div class="profile-section__content">
+        <ProfileSettings />
+      </div>
     </section>
   </aside>
 </template>
 
 <script>
+const I18N_PATH = "partials.appCardProfile.section";
+
 import UserProfile from "./UserProfile.vue";
+import ProfileSettings from "./ProfileSettings.vue";
+import ActivitiesProfile from "./ProfileActivities.vue";
 
 export default {
   name: "AppCardProfile",
   components: {
     UserProfile,
+    ProfileSettings,
+    ActivitiesProfile,
+  },
+  setup() {
+    return {
+      I18N_PATH,
+    };
   },
 };
 </script>
