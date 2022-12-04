@@ -1,7 +1,13 @@
 <template>
   <MainLayout>
     <div class="home-layout">
-      <AppToolbar />
+      <div class="header-decoration" />
+
+      <AppToolbar class="header-toolbar" />
+
+      <AppCardProfile class="aside-profile" />
+
+      <aside class="page-content">PAGE_CONTENT</aside>
 
       <!--
       <div class="home-container">
@@ -30,6 +36,7 @@
 import MainLayout from "layouts/MainLayout.vue";
 
 import AppToolbar from "partials/AppToolbar.vue";
+import AppCardProfile from "partials/AppCardProfile/index.vue";
 // import UserCard from "../components/UserCard/index.vue";
 
 export default {
@@ -37,6 +44,7 @@ export default {
   components: {
     MainLayout,
     AppToolbar,
+    AppCardProfile,
     // UserCard,
   },
   setup() {
@@ -84,6 +92,30 @@ export default {
     background: #fff;
     display: flex;
     justify-content: space-between;
+  }
+
+  .header-decoration {
+    grid-area: headerdecoration;
+  }
+  .header-toolbar {
+    grid-area: headertoolbar;
+  }
+  .aside-profile {
+    grid-area: asideprofile;
+  }
+  .page-content {
+    grid-area: pagecontent;
+  }
+
+  display: grid;
+
+  grid-template-areas:
+    "headerdecoration headertoolbar"
+    "asideprofile pagecontent";
+
+  .header-toolbar,
+  .header-decoration {
+    border-bottom: $border-line;
   }
 
   // .home-container {

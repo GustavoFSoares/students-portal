@@ -10,6 +10,25 @@
       }
     }
   },
+  "partials": {
+    "appCardProfile": {
+      "section": {
+        "userProfile": {
+          "title": "Perfil",
+          "points": {
+            "label": "Pontos"
+          },
+          "level": {
+            "label": "Nível"
+          }
+        },
+        "activities": {
+          "title": "Cursos",
+          "subTitle": "Atividades"
+        }
+      }
+    }
+  },
   "modules": {
     "auth": {
       "login": {

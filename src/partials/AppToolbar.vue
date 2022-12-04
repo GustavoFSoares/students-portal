@@ -60,6 +60,8 @@ export default {
   display: flex;
   justify-content: space-between;
 
+  padding: initial;
+
   .navigation {
     display: flex;
     flex-direction: column;
