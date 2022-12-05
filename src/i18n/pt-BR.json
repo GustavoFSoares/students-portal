@@ -127,6 +127,12 @@
     "activities": {
       "seo": {
         "title": "Atividades"
+      },
+      "title": "Progresso do Aluno",
+      "navigationStatuses": {
+        "available": "Disponíveis",
+        "inProgres": "Em Andamento",
+        "completed": "Concluídos"
       }
     },
     "ranking": {

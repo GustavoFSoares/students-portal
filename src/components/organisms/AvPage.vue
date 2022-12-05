@@ -40,6 +40,7 @@ export default {
       font-size: 15px;
       color: $text-color-3;
       padding: 15px 30px;
+      font-weight: $font-weight-normal;
     }
 
     &__content {
