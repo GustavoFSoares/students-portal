@@ -62,6 +62,7 @@ module.exports = configure(function (/* ctx */) {
       alias: {
         maps: path.join(__dirname, "./src/maps"),
         modules: path.join(__dirname, "./src/modules"),
+        partials: path.join(__dirname, "./src/partials"),
         atoms: path.join(__dirname, "src/components/atoms"),
         molecules: path.join(__dirname, "src/components/molecules"),
         organisms: path.join(__dirname, "src/components/organisms"),
@@ -119,6 +120,7 @@ module.exports = configure(function (/* ctx */) {
       // you can manually specify Quasar components/directives to be available everywhere:
       //
       components: [
+        "QBadge",
         "QCard",
         "QDrawer",
         "QLayout",

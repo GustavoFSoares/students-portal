@@ -10,6 +10,34 @@
       }
     }
   },
+  "partials": {
+    "appCardProfile": {
+      "section": {
+        "userProfile": {
+          "title": "Perfil",
+          "points": {
+            "label": "Pontos"
+          },
+          "level": {
+            "label": "Nível"
+          }
+        },
+        "activities": {
+          "title": "Cursos",
+          "subTitle": "Atividades",
+          "statuses": {
+            "available": "Disponíveis",
+            "inProgres": "Em Andamento",
+            "completed": "Concluídos"
+          }
+        },
+        "settings": {
+          "title": "Configurações",
+          "logoff": "Sair do sistema"
+        }
+      }
+    }
+  },
   "modules": {
     "auth": {
       "login": {
@@ -94,6 +122,26 @@
             "noCertificates": "Nenhum certificado foi encontrado"
           }
         }
+      }
+    },
+    "activities": {
+      "seo": {
+        "title": "Atividades"
+      }
+    },
+    "ranking": {
+      "seo": {
+        "title": "Ranking"
+      }
+    },
+    "achievements": {
+      "seo": {
+        "title": "Conquistas"
+      }
+    },
+    "certificates": {
+      "seo": {
+        "title": "Certificados"
       }
     },
     "insights": {
