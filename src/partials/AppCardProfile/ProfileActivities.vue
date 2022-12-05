@@ -5,7 +5,7 @@
         class="navigation-item"
         v-for="(routeItem, routeKey) in activities"
         :key="routeKey"
-        :to="{ name: routeItem.route }"
+        :to="{ name: 'home.activities', hash: `#${routeKey}` }"
       >
         <h4 class="navigation-item__text">
           {{ $t(`${I18N_PATH}.statuses.${routeKey}`) }}

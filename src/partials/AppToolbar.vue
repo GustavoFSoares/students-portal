@@ -37,7 +37,7 @@ export default {
   name: "AppToolbar",
   setup() {
     const routes = {
-      activities: { /*route: "home.activies"*/ route: "auth.login" },
+      activities: { route: "home.activities" },
       ranking: { /*route: "home.ranking"*/ route: "auth.login" },
       achievements: { /*route: "home.achievements"*/ route: "auth.login" },
       certificates: { /*route: "home.certificates"*/ route: "auth.login" },
