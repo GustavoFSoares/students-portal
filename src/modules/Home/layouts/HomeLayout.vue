@@ -7,7 +7,9 @@
 
       <AppCardProfile class="aside-profile" />
 
-      <aside class="page-content">PAGE_CONTENT</aside>
+      <aside class="page-content">
+        <router-view />
+      </aside>
 
       <!--
       <div class="home-container">
