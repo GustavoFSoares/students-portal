@@ -6,4 +6,11 @@ export default {
       completed: state.profileActivities.completed.length,
     };
   },
+  getProfileActivities: (state) => {
+    return {
+      available: [...state.profileActivities.available],
+      inProgress: [...state.profileActivities.inProgress],
+      completed: [...state.profileActivities.completed],
+    };
+  },
 };
