@@ -71,16 +71,20 @@ export default {
             points: userData.profile.pontos,
           });
 
-          dispatch(
-            "ConquestsModule/setConquests",
-            {
-              conquests: userData.conquistas,
-              obtainedList: userData.conquistas_user,
-            },
-            {
-              root: true,
-            }
-          );
+          // dispatch(
+          //   "ConquestsModule/setConquests",
+          //   {
+          //     conquests: userData.conquistas,
+          //     obtainedList: userData.conquistas_user,
+          //   },
+          //   {
+          //     root: true,
+          //   }
+          // );
+
+          dispatch("ActivitiesModule/setProfileActivities", userData.trilhas, {
+            root: true,
+          });
 
           resolve();
         })

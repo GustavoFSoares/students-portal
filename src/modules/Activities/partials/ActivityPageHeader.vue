@@ -31,7 +31,7 @@ export default {
     const $route = useRoute();
     const $router = useRouter();
 
-    const activitiesStates = ["available", "inProgres", "completed"];
+    const activitiesStates = ["available", "inProgress", "completed"];
 
     if (
       !$route.hash ||

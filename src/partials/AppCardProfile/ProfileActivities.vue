@@ -21,26 +21,34 @@
 
 <script>
 import { computed } from "vue";
+import { useStore } from "vuex";
 
 const I18N_PATH = "partials.appCardProfile.section.activities";
 
 export default {
   name: "ProfileActivities",
   setup() {
-    const activities = computed(() => ({
-      available: {
-        count: 0,
-        route: "auth.login",
-      },
-      inProgres: {
-        count: 0,
-        route: "auth.login",
-      },
-      completed: {
-        count: 0,
-        route: "auth.login",
-      },
-    }));
+    const $store = useStore();
+
+    const activities = computed(() => {
+      const acvitiesCount =
+        $store.getters["ActivitiesModule/getActivitiesCount"];
+
+      return {
+        available: {
+          count: acvitiesCount.available,
+          route: "auth.login",
+        },
+        inProgress: {
+          count: acvitiesCount.inProgress,
+          route: "auth.login",
+        },
+        completed: {
+          count: acvitiesCount.completed,
+          route: "auth.login",
+        },
+      };
+    });
 
     return {
       I18N_PATH,

@@ -27,7 +27,7 @@
           "subTitle": "Atividades",
           "statuses": {
             "available": "Disponíveis",
-            "inProgres": "Em Andamento",
+            "inProgress": "Em Andamento",
             "completed": "Concluídos"
           }
         },
@@ -131,7 +131,7 @@
       "title": "Progresso do Aluno",
       "navigationStatuses": {
         "available": "Disponíveis",
-        "inProgres": "Em Andamento",
+        "inProgress": "Em Andamento",
         "completed": "Concluídos"
       }
     },
