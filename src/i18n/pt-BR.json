@@ -23,7 +23,7 @@
           }
         },
         "activities": {
-          "title": "Cursos",
+          "title": "Trilhas",
           "subTitle": "Atividades",
           "statuses": {
             "available": "Disponíveis",
@@ -127,6 +127,11 @@
     "activities": {
       "seo": {
         "title": "Atividades"
+      },
+      "components": {
+        "activityCard": {
+          "access": "Acessar Trilha"
+        }
       },
       "title": "Progresso do Aluno",
       "navigationStatuses": {

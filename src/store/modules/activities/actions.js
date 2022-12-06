@@ -29,8 +29,11 @@ export default {
 
       const trails = data.turma.trilhas.map((trilhas) => ({
         id: trilhas.detail.id,
-        cover: trilhas.detail.capa.path,
-        description: trilhas.detail.descricao,
+        cover: {
+          path: trilhas.detail.capa.path,
+          type: trilhas.detail.capa.tipo,
+        },
+        name: trilhas.detail.descricao,
       }));
 
       dispatch("setProfileActivities", data.trilhas);
