@@ -5,18 +5,22 @@
     </template>
 
     <template #default>
-      <ul class="activity-list" v-if="currentActivies.length">
-        <ActivityCard
-          class="activity-item"
-          v-for="(activity, activityKey) in currentActivies"
-          :key="`activity-${activityKey}`"
-          :title="activity.name"
-          :cover="activity.cover"
-          @startNow="handleStartActivity(activity.id)"
-        />
-      </ul>
+      <div class="activity-list__wrapper">
+        <TrailKnowledge />
 
-      <NoActivities v-else />
+        <ul v-if="currentActivies.length" class="activity-list">
+          <ActivityCard
+            class="activity-item"
+            v-for="(activity, activityKey) in currentActivies"
+            :key="`activity-${activityKey}`"
+            :title="activity.name"
+            :cover="activity.cover"
+            @startNow="handleStartActivity(activity.id)"
+          />
+        </ul>
+
+        <NoActivities v-else />
+      </div>
     </template>
   </AvPage>
 </template>
@@ -32,6 +36,7 @@ import AvPage from "organisms/AvPage.vue";
 
 import ActivityCard from "../components/ActivityCard.vue";
 import NoActivities from "../partials/NoActivities.vue";
+import TrailKnowledge from "../partials/TrailKnowledge.vue";
 import ActivityPageHeader from "../partials/ActivityPageHeader.vue";
 
 export default {
@@ -40,6 +45,7 @@ export default {
     AvPage,
     ActivityCard,
     NoActivities,
+    TrailKnowledge,
     ActivityPageHeader,
   },
   setup() {
@@ -95,6 +101,12 @@ export default {
 <style lang="scss" scoped>
 .activity-page {
   .activity-list {
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
     display: grid;
     gap: 15px;
 

@@ -142,6 +142,10 @@
             "inProgress": "em andamento",
             "completed": "concluídas"
           }
+        },
+        "trailKnowledge": {
+          "title": "Trilha de Conhecimento",
+          "description": "Sabemos que existem ferramentas e tecnologias que auxiliam na aprendizagem e otimizam todo o processo, por torná-lo mais dinâmico, interativo e interessante ao aluno."
         }
       },
       "title": "Progresso do Aluno",
