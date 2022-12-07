@@ -47,5 +47,8 @@ strong {
     backdrop-filter: $default-backdrop;
     border-radius: $default-border-radius;
     position: relative;
+
+    height: 100%;
+    overflow: hidden;
   }
 }

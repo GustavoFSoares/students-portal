@@ -37,7 +37,7 @@ export default {
   name: "AppToolbar",
   setup() {
     const routes = {
-      activities: { /*route: "home.activies"*/ route: "auth.login" },
+      activities: { route: "home.activities" },
       ranking: { /*route: "home.ranking"*/ route: "auth.login" },
       achievements: { /*route: "home.achievements"*/ route: "auth.login" },
       certificates: { /*route: "home.certificates"*/ route: "auth.login" },
@@ -59,6 +59,7 @@ export default {
 .app-toolbar {
   display: flex;
   justify-content: space-between;
+  width: initial;
 
   padding: initial;
 
@@ -97,9 +98,12 @@ export default {
   }
 
   .controls {
+    height: 100%;
+    padding: 0 40px;
+
     display: flex;
     gap: 20px;
-    padding: 0 40px;
+    align-items: center;
 
     &__icon {
       color: $text-color-3;

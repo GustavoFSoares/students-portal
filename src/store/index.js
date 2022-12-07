@@ -2,10 +2,11 @@ import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
 
 import AuthModule from "./modules/auth";
-import CourseModule from "./modules/courses";
-import RankingModule from "./modules/ranking";
-import ConquestsModule from "./modules/conquests";
-import CertificatesModule from "./modules/certificates";
+// import CourseModule from "./modules/courses";
+// import RankingModule from "./modules/ranking";
+// import ConquestsModule from "./modules/conquests";
+import ActivitiesModule from "./modules/activities";
+// import CertificatesModule from "./modules/certificates";
 
 /*
  * If not building with SSR mode, you can
@@ -20,10 +21,11 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       AuthModule,
-      CourseModule,
-      RankingModule,
-      ConquestsModule,
-      CertificatesModule,
+      // CourseModule,
+      // RankingModule,
+      // ConquestsModule,
+      ActivitiesModule,
+      // CertificatesModule,
     },
 
     // enable strict mode (adds overhead!)

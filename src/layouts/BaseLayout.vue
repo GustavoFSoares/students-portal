@@ -2,7 +2,7 @@
   <main class="base-layout">
     <div class="video__wrapper">
       <video class="video" autoplay muted loop>
-        <source src="background.mp4" type="video/mp4" />
+        <source src="/background.mp4" type="video/mp4" />
       </video>
     </div>
 

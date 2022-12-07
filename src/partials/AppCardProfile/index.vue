@@ -58,15 +58,16 @@ export default {
 <style lang="scss" scoped>
 .app-card-profile {
   padding: 26px;
-  flex-basis: 240px;
   border-right: $border-line;
   flex-shrink: 0;
 
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 
   .profile-section {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 14px;
 
     &__title {

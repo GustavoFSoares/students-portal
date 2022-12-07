@@ -41,7 +41,8 @@ export default {
 
 <style lang="scss" scoped>
 .user-profile {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 7px;
 
   .profile-points,
@@ -71,7 +72,8 @@ export default {
   }
 
   .profile-level {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 5px;
 
     &__content {

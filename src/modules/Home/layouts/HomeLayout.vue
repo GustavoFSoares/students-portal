@@ -1,13 +1,19 @@
 <template>
   <MainLayout>
     <div class="home-layout">
-      <div class="header-decoration" />
+      <div class="home-layout__header">
+        <div class="header-decoration" />
 
-      <AppToolbar class="header-toolbar" />
+        <AppToolbar class="header-toolbar" />
+      </div>
 
-      <AppCardProfile class="aside-profile" />
+      <div class="home-layout__content">
+        <AppCardProfile class="aside-profile" />
 
-      <aside class="page-content">PAGE_CONTENT</aside>
+        <aside class="page-content">
+          <router-view />
+        </aside>
+      </div>
 
       <!--
       <div class="home-container">
@@ -88,30 +94,34 @@ export default {
 
 <style lang="scss" scoped>
 .home-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
   &__topbar {
     background: #fff;
     display: flex;
     justify-content: space-between;
   }
 
-  .header-decoration {
-    grid-area: headerdecoration;
+  &__header,
+  &__content {
+    display: flex;
   }
-  .header-toolbar {
-    grid-area: headertoolbar;
-  }
+
+  .header-decoration,
   .aside-profile {
-    grid-area: asideprofile;
+    flex-basis: 240px;
   }
+
+  .header-toolbar,
   .page-content {
-    grid-area: pagecontent;
+    flex-grow: 1;
   }
 
-  display: grid;
-
-  grid-template-areas:
-    "headerdecoration headertoolbar"
-    "asideprofile pagecontent";
+  &__content {
+    height: 100%;
+  }
 
   .header-toolbar,
   .header-decoration {

@@ -23,11 +23,11 @@
           }
         },
         "activities": {
-          "title": "Cursos",
+          "title": "Trilhas",
           "subTitle": "Atividades",
           "statuses": {
             "available": "Disponíveis",
-            "inProgres": "Em Andamento",
+            "inProgress": "Em Andamento",
             "completed": "Concluídos"
           }
         },
@@ -127,6 +127,32 @@
     "activities": {
       "seo": {
         "title": "Atividades"
+      },
+      "components": {
+        "activityCard": {
+          "access": "Acessar Trilha"
+        }
+      },
+      "partials": {
+        "noActivities": {
+          "title": {
+            "start": "Você não possui trilhas ",
+            "end": " no momento",
+            "available": "disponíveis",
+            "inProgress": "em andamento",
+            "completed": "concluídas"
+          }
+        },
+        "trailKnowledge": {
+          "title": "Trilha de Conhecimento",
+          "description": "Sabemos que existem ferramentas e tecnologias que auxiliam na aprendizagem e otimizam todo o processo, por torná-lo mais dinâmico, interativo e interessante ao aluno."
+        }
+      },
+      "title": "Progresso do Aluno",
+      "navigationStatuses": {
+        "available": "Disponíveis",
+        "inProgress": "Em Andamento",
+        "completed": "Concluídos"
       }
     },
     "ranking": {
