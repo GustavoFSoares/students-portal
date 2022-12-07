@@ -133,6 +133,17 @@
           "access": "Acessar Trilha"
         }
       },
+      "partials": {
+        "noActivities": {
+          "title": {
+            "start": "Você não possui trilhas ",
+            "end": " no momento",
+            "available": "disponíveis",
+            "inProgress": "em andamento",
+            "completed": "concluídas"
+          }
+        }
+      },
       "title": "Progresso do Aluno",
       "navigationStatuses": {
         "available": "Disponíveis",

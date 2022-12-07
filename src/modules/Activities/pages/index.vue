@@ -5,7 +5,7 @@
     </template>
 
     <template #default>
-      <ul class="activity-list">
+      <ul class="activity-list" v-if="currentActivies.length">
         <ActivityCard
           class="activity-item"
           v-for="(activity, activityKey) in currentActivies"
@@ -15,6 +15,8 @@
           @startNow="handleStartActivity(activity.id)"
         />
       </ul>
+
+      <NoActivities v-else />
     </template>
   </AvPage>
 </template>
@@ -29,6 +31,7 @@ import { computed, onMounted, ref } from "vue";
 import AvPage from "organisms/AvPage.vue";
 
 import ActivityCard from "../components/ActivityCard.vue";
+import NoActivities from "../partials/NoActivities.vue";
 import ActivityPageHeader from "../partials/ActivityPageHeader.vue";
 
 export default {
@@ -36,6 +39,7 @@ export default {
   components: {
     AvPage,
     ActivityCard,
+    NoActivities,
     ActivityPageHeader,
   },
   setup() {
