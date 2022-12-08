@@ -31,9 +31,9 @@ export default {
             commit("SET_TOKEN", access_token);
 
             dispatch(
-              "ConquestsModule/setConquests",
+              "AchievementsModule/setAchievements",
               {
-                conquests: userData.conquistas,
+                achievements: userData.conquistas,
                 obtainedList: userData.conquistas_user,
               },
               {
@@ -71,16 +71,16 @@ export default {
             points: userData.profile.pontos,
           });
 
-          // dispatch(
-          //   "ConquestsModule/setConquests",
-          //   {
-          //     conquests: userData.conquistas,
-          //     obtainedList: userData.conquistas_user,
-          //   },
-          //   {
-          //     root: true,
-          //   }
-          // );
+          dispatch(
+            "AchievementsModule/setAchievements",
+            {
+              achievements: userData.conquistas,
+              obtainedList: userData.conquistas_user,
+            },
+            {
+              root: true,
+            }
+          );
 
           dispatch("ActivitiesModule/setProfileActivities", userData.trilhas, {
             root: true,
