@@ -38,7 +38,7 @@ export default {
   setup(_, ctx) {
     const routes = {
       activities: { route: "home.activities" },
-      ranking: { /*route: "home.ranking"*/ route: "auth.login" },
+      ranking: { route: "home.rankings" },
       achievements: { route: "home.achievements" },
       certificates: { /*route: "home.certificates"*/ route: "auth.login" },
     };

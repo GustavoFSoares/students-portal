@@ -128,11 +128,6 @@ export default {
     border-bottom: $border-line;
   }
 
-  .aside-profile,
-  .page-content {
-    margin-bottom: 60px;
-  }
-
   // .home-container {
   //   position: relative;
 
