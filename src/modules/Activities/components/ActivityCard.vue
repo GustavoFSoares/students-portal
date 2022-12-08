@@ -40,10 +40,11 @@
 </template>
 
 <script>
-import AvCard from "atoms/AvCard.vue";
+const I18N_PATH = "modules.activities.components.activityCard";
+
 import { computed } from "vue";
 
-const I18N_PATH = "modules.activities.components.activityCard";
+import AvCard from "atoms/AvCard.vue";
 
 export default {
   name: "ActivityCard",

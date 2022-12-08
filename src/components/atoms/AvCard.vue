@@ -64,7 +64,7 @@ export default {
   }
 
   &--bordered {
-    border: 2px solid rgba($secondary, 0.25);
+    border: 2px solid $text-color;
   }
 
   &--shadows {
