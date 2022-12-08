@@ -6,6 +6,7 @@ import AuthModule from "./modules/auth";
 // import RankingModule from "./modules/ranking";
 // import ConquestsModule from "./modules/conquests";
 import ActivitiesModule from "./modules/activities";
+import AchievementsModule from "./modules/achievements";
 // import CertificatesModule from "./modules/certificates";
 
 /*
@@ -25,6 +26,7 @@ export default store(function (/* { ssrContext } */) {
       // RankingModule,
       // ConquestsModule,
       ActivitiesModule,
+      AchievementsModule,
       // CertificatesModule,
     },
 

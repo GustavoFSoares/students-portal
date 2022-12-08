@@ -1,6 +1,6 @@
 <template>
   <section class="av-page">
-    <header class="av-page-header">
+    <header class="av-page-header" v-if="!noHeader">
       <h1 class="av-page-header__title">{{ title }}</h1>
 
       <div class="av-page-header__content">
@@ -9,7 +9,9 @@
     </header>
 
     <main class="av-page-content">
-      <slot name="default" />
+      <div class="av-page-content__container">
+        <slot name="default" />
+      </div>
     </main>
   </section>
 </template>
@@ -20,7 +22,11 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
+      default: null,
+    },
+    noHeader: {
+      type: Boolean,
+      default: false,
     },
   },
 };
@@ -51,8 +57,23 @@ export default {
   &-content {
     background-color: $default-background;
     height: 100%;
-    padding: 20px 40px;
-    overflow: auto;
+    padding: 4px 0;
+
+    &__container {
+      padding: 20px 40px;
+      overflow: auto;
+      height: 100%;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(#010203, 60%);
+        border-radius: 10px;
+      }
+    }
   }
 }
 </style>
