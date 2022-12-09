@@ -6,6 +6,7 @@
 // import missionsHomeSubpagesRoutes from "modules/Missions/routes/homeSubpages.routes";
 import achievementsHomeSubpagesRoutes from "modules/Achievements/routes/homeSubpages.routes";
 import activitiesHomeSubpagesRoutes from "modules/Activities/routes/homeSubpages.routes";
+import rankingHomeSubpagesRoutes from "modules/Ranking/routes/homeSubpages.routes";
 
 export default [
   {
@@ -16,6 +17,7 @@ export default [
     children: [
       ...achievementsHomeSubpagesRoutes,
       ...activitiesHomeSubpagesRoutes,
+      ...rankingHomeSubpagesRoutes,
       // ...insightHomeSubpagesRoutes,
       // ...coursesHomeSubpagesRoutes,
       // ...feedHomeSubpagesRoutes,
