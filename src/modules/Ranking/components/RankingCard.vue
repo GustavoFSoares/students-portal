@@ -39,7 +39,7 @@
 </template>
 
 <script>
-const I18N_PATH = "modules.home.insightsPage.pages.rankingPage";
+const I18N_PATH = "modules.ranking";
 
 import { computed } from "vue";
 
@@ -72,9 +72,9 @@ export default {
     const isWinner = computed(() => props.userRank <= 3);
 
     return {
+      I18N_PATH,
       isFirst,
       isWinner,
-      I18N_PATH,
     };
   },
 };

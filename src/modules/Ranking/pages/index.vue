@@ -15,8 +15,6 @@
 </template>
 
 <script>
-const I18N_PATH = "modules.home.insightsPage.pages.rankingPage";
-
 import { useQuasar } from "quasar";
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
@@ -26,12 +24,12 @@ import AvPage from "organisms/AvPage.vue";
 import RankingCard from "../components/RankingCard.vue";
 
 export default {
-  name: "InsigtRankingPage",
+  name: "RankingPage",
   components: {
     AvPage,
     RankingCard,
   },
-  setup(_, ctx) {
+  setup() {
     const $q = useQuasar();
     const $store = useStore();
 
@@ -56,7 +54,6 @@ export default {
     });
 
     return {
-      I18N_PATH,
       orderedUsers,
     };
   },

@@ -158,7 +158,8 @@
     "ranking": {
       "seo": {
         "title": "Ranking"
-      }
+      },
+      "isYou": "(você)"
     },
     "achievements": {
       "seo": {
