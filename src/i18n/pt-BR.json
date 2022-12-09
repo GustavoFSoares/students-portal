@@ -169,7 +169,8 @@
     "certificates": {
       "seo": {
         "title": "Certificados"
-      }
+      },
+      "title": "Certificados"
     },
     "insights": {
       "seo": {

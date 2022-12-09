@@ -40,7 +40,7 @@ export default {
       activities: { route: "home.activities" },
       ranking: { route: "home.rankings" },
       achievements: { route: "home.achievements" },
-      certificates: { /*route: "home.certificates"*/ route: "auth.login" },
+      certificates: { route: "home.certificates" },
     };
 
     const handleClickNavigationItem = () => {

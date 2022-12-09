@@ -47,6 +47,7 @@ export default {
   &-header {
     display: flex;
     border-bottom: $border-line;
+    height: 53px;
 
     &__title {
       font-size: 15px;
@@ -68,7 +69,7 @@ export default {
     &__container {
       padding: 20px 40px;
       overflow: auto;
-      height: 100%;
+      height: 855px;
 
       &::-webkit-scrollbar {
         width: 8px;
