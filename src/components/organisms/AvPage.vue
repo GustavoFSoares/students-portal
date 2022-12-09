@@ -1,5 +1,5 @@
 <template>
-  <section class="av-page">
+  <section :class="['av-page', { 'av-page--no-header': noHeader }]">
     <header class="av-page-header" v-if="!noHeader">
       <h1 class="av-page-header__title">{{ title }}</h1>
 
@@ -37,6 +37,12 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  &--no-header & {
+    &-content__container {
+      height: 910px;
+    }
+  }
 
   &-header {
     display: flex;
