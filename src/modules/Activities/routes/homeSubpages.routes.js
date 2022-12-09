@@ -1,6 +1,6 @@
 export default [
   {
-    path: "activities/",
+    path: "activities",
     name: "home.activities",
     component: () => import("../pages/index.vue"),
   },
