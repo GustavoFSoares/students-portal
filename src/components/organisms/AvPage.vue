@@ -65,6 +65,7 @@ export default {
     background-color: $default-background;
     height: 100%;
     padding: 4px 0;
+    position: relative;
 
     &__container {
       padding: 20px 40px;
