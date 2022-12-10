@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="stages-list-page">
+  <q-layout view="lHh Lpr lFf" class="stage-list-page">
     <AvPage :title="'Atividades'" go-back-route="home.activities">
       <template #header>
         <div class="stage-list-header">
@@ -23,7 +23,7 @@
           </div>
 
           <h3 class="stage-list-header__activities">
-            {{ stageList.length }}
+            {{ stageList.length }} {{ $t(`${I18N_PATH}.activities`) }}
           </h3>
         </div>
       </template>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+const I18N_PATH = "modules.activities.pages.stageList";
+
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { computed, getCurrentInstance, onMounted, ref } from "vue";
@@ -91,6 +93,7 @@ export default {
     });
 
     return {
+      I18N_PATH,
       stageData,
       title,
       stageList,
@@ -100,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stages-list-page {
+.stage-list-page {
   .stage-list-header {
     padding: 0 15px;
     display: flex;

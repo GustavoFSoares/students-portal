@@ -6,7 +6,7 @@ export default [
       {
         path: "",
         name: "activities.stages-list",
-        component: () => import("../pages/StagesListPage.vue"),
+        component: () => import("../pages/StageListPage.vue"),
       },
     ],
   },

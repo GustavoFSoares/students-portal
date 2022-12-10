@@ -2,7 +2,7 @@
   <div class="stage-list">
     <ol class="stage-list__list">
       <StageItem
-        v-for="stage in stages"
+        v-for="stage in stageList"
         :key="stage.id"
         :position="stage.position"
         :rank="stage.rank"
@@ -20,7 +20,7 @@ import { Screen } from "quasar";
 import StageItem from "../components/StageList/StageItem.vue";
 
 export default {
-  name: "StagesListPage",
+  name: "StageList",
   emits: ["open-stage"],
   components: {
     StageItem,
@@ -34,7 +34,7 @@ export default {
   setup(props, ctx) {
     const isMobile = computed(() => Screen.xs);
 
-    const stagesList = computed(() => props.stages);
+    const stageList = computed(() => props.stages);
 
     const handleClickStage = (position) => {
       ctx.emit("open-stage", position);
@@ -42,7 +42,7 @@ export default {
 
     return {
       isMobile,
-      stagesList,
+      stageList,
       handleClickStage,
     };
   },
@@ -60,8 +60,12 @@ export default {
 
   &__list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 50px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px 70px;
+
+    @media (min-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 }
 </style>

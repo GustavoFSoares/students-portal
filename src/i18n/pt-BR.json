@@ -153,6 +153,18 @@
         "available": "Disponíveis",
         "inProgress": "Em Andamento",
         "completed": "Concluídos"
+      },
+      "pages": {
+        "stageList": {
+          "activities": "atividades",
+          "detail": {
+            "rewards": {
+              "points": "Pontos",
+              "coins": "Moedas"
+            },
+            "startActivity": "Iniciar atividade"
+          }
+        }
       }
     },
     "ranking": {
