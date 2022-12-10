@@ -4,8 +4,12 @@ import ActivitiesRoutes from "modules/Activities/routes/index.routes";
 
 const routes = [
   ...AuthRoutes,
-  ...HomeRoutes,
-  ...ActivitiesRoutes,
+  {
+    path: "",
+    name: "",
+    component: () => import("layouts/CleanLayout.vue"),
+    children: [...HomeRoutes, ...ActivitiesRoutes],
+  },
   {
     path: "/test",
     component: () => import("pages/Test.vue"),

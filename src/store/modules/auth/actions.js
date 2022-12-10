@@ -23,6 +23,7 @@ export default {
               ...userData.user,
               nivel: userData.profile.nivel,
             });
+
             commit("SET_REWARDS", {
               coins: userData.profile.moedas,
               points: userData.profile.pontos,
@@ -66,6 +67,7 @@ export default {
             ...userData.user,
             nivel: userData.profile.nivel,
           });
+
           commit("SET_REWARDS", {
             coins: userData.profile.moedas,
             points: userData.profile.pontos,

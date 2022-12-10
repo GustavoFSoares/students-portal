@@ -6,7 +6,7 @@
       <AppToolbar class="header-toolbar" />
     </div>
 
-    <div class="home-layout__content">
+    <div class="clean-layout__content">
       <aside class="page-content">
         <router-view />
       </aside>

@@ -6,7 +6,7 @@
       </h2>
 
       <div class="profile-points__content">
-        <span class="profile-points__value">100</span>
+        <span class="profile-points__value">{{ rewards?.points }}</span>
 
         <QIcon class="profile-points__icon" name="fa-solid fa-star" />
       </div>
@@ -20,7 +20,7 @@
       <div class="profile-level__content">
         <QIcon class="profile-level__icon" name="fa-solid fa-id-card" />
 
-        <span class="profile-level__value">APRENDIZ</span>
+        <span class="profile-level__value">{{ levelName }}</span>
       </div>
     </article>
   </div>
@@ -29,11 +29,24 @@
 <script>
 const I18N_PATH = "partials.appCardProfile.section.userProfile";
 
+import { computed } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "UserProfile",
   setup() {
+    const $store = useStore();
+
+    const levelName = computed(
+      () => $store.getters["AuthModule/userData"]?.levelName
+    );
+
+    const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
+
     return {
       I18N_PATH,
+      levelName,
+      rewards,
     };
   },
 };
