@@ -4,7 +4,7 @@
       <div class="av-page-header__title-wrapper">
         <QBtn
           v-if="goBackRoute"
-          :to="{ name: goBackRoute }"
+          :to="goBackRoute"
           icon="chevron_left"
           size="md"
           padding="xs"
