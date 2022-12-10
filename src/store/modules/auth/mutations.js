@@ -22,7 +22,11 @@ export default {
     };
   },
   SET_TOKEN(state, token) {
-    LocalStorage.set("avag-token", token);
+    if (token) {
+      LocalStorage.set("avag-token", token);
+    } else {
+      LocalStorage.remove("avag-token");
+    }
 
     state.token = token;
   },
