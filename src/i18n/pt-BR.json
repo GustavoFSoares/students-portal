@@ -128,6 +128,14 @@
       "seo": {
         "title": "Atividades"
       },
+      "stageType": {
+        "document": "PDF",
+        "music": "Áudio",
+        "video": "Vídeo",
+        "image": "Imagem",
+        "game-internal": "Jogo interno",
+        "game-external": "Jogo externo"
+      },
       "components": {
         "activityCard": {
           "access": "Acessar Trilha"
@@ -153,6 +161,14 @@
         "available": "Disponíveis",
         "inProgress": "Em Andamento",
         "completed": "Concluídos"
+      },
+      "pages": {
+        "stageList": {
+          "activities": "atividades",
+          "detail": {
+            "startActivity": "Iniciar atividade"
+          }
+        }
       }
     },
     "ranking": {
@@ -169,7 +185,8 @@
     "certificates": {
       "seo": {
         "title": "Certificados"
-      }
+      },
+      "title": "Certificados"
     },
     "insights": {
       "seo": {

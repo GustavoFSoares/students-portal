@@ -122,7 +122,7 @@ module.exports = configure(function (/* ctx */) {
       components: [
         "QBadge",
         "QCard",
-        "QDrawer",
+        "QDialog",
         "QLayout",
         "QDialog",
         "QInput",

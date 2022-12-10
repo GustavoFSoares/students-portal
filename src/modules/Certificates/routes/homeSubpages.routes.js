@@ -1,7 +1,7 @@
 export default [
   {
-    path: "activities",
-    name: "home.activities",
+    path: "certificates",
+    name: "home.certificates",
     component: () => import("../pages/index.vue"),
   },
 ];

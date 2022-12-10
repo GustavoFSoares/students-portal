@@ -2,10 +2,13 @@
   <QToolbar class="app-toolbar">
     <div class="navigation">
       <router-link
-        class="navigation-item"
+        :class="[
+          'navigation-item',
+          { 'router-link-active': $route.name.includes(routeItem.route) },
+        ]"
         v-for="(routeItem, routeKey) in routes"
         :key="routeKey"
-        :to="{ name: routeItem.route }"
+        :to="{ name: `home.${routeItem.route}` }"
         @click="handleClickNavigationItem"
       >
         <h4 class="navigation-item__text">
@@ -37,10 +40,10 @@ export default {
   name: "AppToolbar",
   setup(_, ctx) {
     const routes = {
-      activities: { route: "home.activities" },
-      ranking: { route: "home.rankings" },
-      achievements: { route: "home.achievements" },
-      certificates: { /*route: "home.certificates"*/ route: "auth.login" },
+      activities: { route: "activities" },
+      ranking: { route: "rankings" },
+      achievements: { route: "achievements" },
+      certificates: { route: "certificates" },
     };
 
     const handleClickNavigationItem = () => {

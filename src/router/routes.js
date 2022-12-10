@@ -1,11 +1,11 @@
 import AuthRoutes from "modules/Auth/routes";
 import HomeRoutes from "modules/Home/routes";
-import CoursesRoutes from "modules/Courses/routes/index.routes";
+import ActivitiesRoutes from "modules/Activities/routes/index.routes";
 
 const routes = [
   ...AuthRoutes,
   ...HomeRoutes,
-  ...CoursesRoutes,
+  ...ActivitiesRoutes,
   {
     path: "/test",
     component: () => import("pages/Test.vue"),

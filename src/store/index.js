@@ -7,7 +7,7 @@ import RankingModule from "./modules/ranking";
 // import ConquestsModule from "./modules/conquests";
 import ActivitiesModule from "./modules/activities";
 import AchievementsModule from "./modules/achievements";
-// import CertificatesModule from "./modules/certificates";
+import CertificatesModule from "./modules/certificates";
 
 /*
  * If not building with SSR mode, you can
@@ -27,7 +27,7 @@ export default store(function (/* { ssrContext } */) {
       // ConquestsModule,
       ActivitiesModule,
       AchievementsModule,
-      // CertificatesModule,
+      CertificatesModule,
     },
 
     // enable strict mode (adds overhead!)
