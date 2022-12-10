@@ -1,7 +1,7 @@
 <template>
   <div class="profile-settings">
     <div>
-      <button class="setting-item">
+      <button class="setting-item" @click="handleLogoutUser">
         <QIcon class="setting-item__icon" name="fa-solid fa-power-off" />
 
         <h4 class="setting-item__text">{{ $t(`${I18N_PATH}.logoff`) }}</h4>
@@ -13,11 +13,24 @@
 <script>
 const I18N_PATH = "partials.appCardProfile.section.settings";
 
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 export default {
   name: "ActivitiesProfile",
   setup() {
+    const $store = useStore();
+    const $router = useRouter();
+
+    const handleLogoutUser = async () => {
+      $router.push({ name: "auth.login" });
+
+      await $store.dispatch("AuthModule/invalidateUser");
+    };
+
     return {
       I18N_PATH,
+      handleLogoutUser,
     };
   },
 };

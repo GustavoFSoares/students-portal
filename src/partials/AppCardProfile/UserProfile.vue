@@ -6,7 +6,7 @@
       </h2>
 
       <div class="profile-points__content">
-        <span class="profile-points__value">{{ rewards.points }}</span>
+        <span class="profile-points__value">{{ rewards?.points }}</span>
 
         <QIcon class="profile-points__icon" name="fa-solid fa-star" />
       </div>
@@ -38,7 +38,7 @@ export default {
     const $store = useStore();
 
     const levelName = computed(
-      () => $store.getters["AuthModule/userData"].levelName
+      () => $store.getters["AuthModule/userData"]?.levelName
     );
 
     const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
