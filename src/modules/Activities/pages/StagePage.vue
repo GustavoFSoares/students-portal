@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <!-- <q-dialog :model-value="showFileData" @hide="handleHideFileData">
+    <q-dialog :model-value="showFileData" @hide="handleHideFileData">
       <QCard class="stage-page__modal">
         <component
           v-if="stageFileTypeComponent"
@@ -52,7 +52,7 @@
           @close="handleHideFileData"
         />
       </QCard>
-    </q-dialog> -->
+    </q-dialog>
   </AvPage>
 </template>
 
@@ -67,69 +67,74 @@ import { computed, getCurrentInstance, onMounted, ref } from "vue";
 import AvPage from "organisms/AvPage.vue";
 // import StagePageHeader from "../partials/Stage/Header.vue";
 
-// import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
-// import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
-// import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
-// import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
-// import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
+import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
+import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
+import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
+import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
+import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
 
 export default {
   name: "StagePage",
   components: {
     AvPage,
     // StagePageHeader,
-    // StageFileGameExternal,
-    // StageFileTypeAudio,
-    // StageFileTypeImage,
-    // StageFileTypePdf,
-    // StageFileTypeVideo,
+    StageFileGameExternal,
+    StageFileTypeAudio,
+    StageFileTypeImage,
+    StageFileTypePdf,
+    StageFileTypeVideo,
   },
   setup() {
     const { appContext } = getCurrentInstance();
     const $route = useRoute();
     const $store = useStore();
 
-    // const stageFilesMap = {
-    //   music: "StageFileTypeAudio",
-    //   image: "StageFileTypeImage",
-    //   document: "StageFileTypePdf",
-    //   video: "StageFileTypeVideo",
-    //   "game-external": "StageFileGameExternal",
-    // };
+    const stageFilesMap = {
+      music: "StageFileTypeAudio",
+      image: "StageFileTypeImage",
+      document: "StageFileTypePdf",
+      video: "StageFileTypeVideo",
+      "game-external": "StageFileGameExternal",
+    };
 
     const { id: activityId, stageId } = $route.params;
     const stageData = ref({});
     const selectedFile = ref(null);
-    const showFileData = computed(() => !!selectedFile.value);
-    // const stageFileTypeComponent = computed(() => {
-    //   return stageFilesMap[stageData.value.type] || null;
-    // });
+
     const fileIcon = computed(
       () => appContext.config.globalProperties.$iconsMap[stageData.value.type]
     );
+    const showFileData = computed(() => !!selectedFile.value);
+
+    const stageFileTypeComponent = computed(() => {
+      return stageFilesMap[stageData.value.type] || null;
+    });
 
     const handleOpenStage = (path) => {
       selectedFile.value = path;
     };
-    // const handleHideFileData = () => {
-    //   selectedFile.value = null;
-    // };
+
+    const handleHideFileData = () => {
+      selectedFile.value = null;
+    };
+
     onMounted(async () => {
       stageData.value = await $store.dispatch("ActivitiesModule/getStageData", {
         stageId,
       });
     });
+
     return {
       I18N_PATH,
       I18N_STAGE_TYPE_PATH,
       //   trailId,
       stageData,
-      //   selectedFile,
+      selectedFile,
       fileIcon,
-      //   showFileData,
-      //   stageFileTypeComponent,
+      showFileData,
+      stageFileTypeComponent,
       handleOpenStage,
-      //   handleHideFileData,
+      handleHideFileData,
     };
   },
 };
