@@ -2,7 +2,7 @@
   <AvPage
     class="stage-list-page"
     :title="'Atividades'"
-    go-back-route="home.activities"
+    :go-back-route="{ name: 'home.activities' }"
   >
     <template #header>
       <div class="stage-list-header">

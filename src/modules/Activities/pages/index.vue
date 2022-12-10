@@ -73,7 +73,7 @@ export default {
 
     const handleStartActivity = (activityId) => {
       $router.push({
-        name: "activities.stages-list",
+        name: "activities.stage-list",
         params: {
           id: activityId,
         },

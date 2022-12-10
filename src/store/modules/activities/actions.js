@@ -93,4 +93,25 @@ export default {
       console.error("Courses Data by ID Error", err);
     }
   },
+  getStageData: async (_, { stageId }) => {
+    try {
+      const {
+        data: { data },
+      } = await api.post("alunos/estagio", {
+        id: stageId,
+      });
+
+      return {
+        name: data.nome,
+        files: data.files,
+        type: data.tipo.descricao,
+        type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
+        cover: data.tipo.path,
+        coins: data.moedas,
+        points: data.pontos,
+      };
+    } catch (err) {
+      console.error("Stage Data by ID Error", err);
+    }
+  },
 };
