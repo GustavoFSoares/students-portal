@@ -59,13 +59,13 @@
 </template>
 
 <script>
+const TOTAL_STARS = 3;
+const I18N_PATH = "modules.activities.pages.stageList.detail";
+const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
+
 import { computed, getCurrentInstance } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
-
-const TOTAL_STARS = 3;
-const I18N_PATH = "modules.courses.stagesList.detail";
-const I18N_STAGE_TYPE_PATH = "modules.courses.stageType";
 
 export default {
   emits: ["close"],
