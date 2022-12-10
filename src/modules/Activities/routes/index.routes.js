@@ -1,12 +1,16 @@
 export default [
   {
-    path: "/activities/:id",
     component: () => import("layouts/CleanLayout.vue"),
     children: [
       {
-        path: "",
-        name: "activities.stages-list",
+        path: "/activities/:id",
+        name: "activities.stage-list",
         component: () => import("../pages/StageListPage.vue"),
+      },
+      {
+        path: "/activities/:id/stage/:stageId",
+        name: "activities.stage",
+        component: () => import("../pages/StagePage.vue"),
       },
     ],
   },

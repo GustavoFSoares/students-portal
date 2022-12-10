@@ -46,14 +46,14 @@
         class="stage-list-detail__start-activity"
         :label="$t(`${I18N_PATH}.startActivity`)"
         color="secondary"
-      />
-      <!-- :to="{
-          name: 'courses.stage',
+        :to="{
+          name: 'activities.stage',
           params: {
             id: stage.trailId,
             stageId: stage.id,
           },
-        }" -->
+        }"
+      />
     </div>
   </q-card>
 </template>
