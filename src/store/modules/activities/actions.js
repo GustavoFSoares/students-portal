@@ -1,5 +1,6 @@
 import { api } from "boot/axios";
 import ActivitiesMap from "maps/activitiesMap.json";
+import { iconsMapReplations } from "maps/iconsMaps.json";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
@@ -59,6 +60,37 @@ export default {
       return preparedActivitiesGroup;
     } catch (err) {
       console.error("Activities Data Error", err);
+    }
+  },
+  getActivityById: async (_, id) => {
+    try {
+      const {
+        data: { data },
+      } = await api.post("alunos/trilha", { id });
+
+      return {
+        name: data.nome,
+        description: data.descricao,
+        cover: data.capa,
+        stages: data.stage.map((stage) => {
+          return {
+            id: stage.id,
+            trailId: stage.trilha_id,
+            name: stage.nome,
+            reward: {
+              coins: stage.moedas,
+              points: stage.pontos,
+            },
+            type:
+              iconsMapReplations[stage.tipo.descricao] || stage.tipo.descricao,
+            position: stage.ordem + "",
+            rank: 2,
+            completed: true,
+          };
+        }),
+      };
+    } catch (err) {
+      console.error("Courses Data by ID Error", err);
     }
   },
 };
