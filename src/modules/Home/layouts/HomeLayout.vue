@@ -1,21 +1,14 @@
 <template>
-  <MainLayout>
-    <div class="home-layout">
-      <div class="home-layout__header">
-        <div class="header-decoration" />
+  <div class="home-layout">
+    <div class="home-layout__content">
+      <AppCardProfile class="aside-profile" />
 
-        <AppToolbar class="header-toolbar" />
-      </div>
+      <aside class="page-content">
+        <router-view />
+      </aside>
+    </div>
 
-      <div class="home-layout__content">
-        <AppCardProfile class="aside-profile" />
-
-        <aside class="page-content">
-          <router-view />
-        </aside>
-      </div>
-
-      <!--
+    <!--
       <div class="home-container">
         <article
           v-on="userCardListners"
@@ -34,22 +27,16 @@
           <router-view />
         </aside>
       </div> -->
-    </div>
-  </MainLayout>
+  </div>
 </template>
 
 <script>
-import MainLayout from "layouts/MainLayout.vue";
-
-import AppToolbar from "partials/AppToolbar.vue";
 import AppCardProfile from "partials/AppCardProfile/index.vue";
 // import UserCard from "../components/UserCard/index.vue";
 
 export default {
   name: "HomeLayout",
   components: {
-    MainLayout,
-    AppToolbar,
     AppCardProfile,
     // UserCard,
   },

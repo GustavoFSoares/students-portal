@@ -42,7 +42,7 @@ export default {
       default: false,
     },
     goBackRoute: {
-      type: String,
+      type: Object,
       default: null,
     },
   },
