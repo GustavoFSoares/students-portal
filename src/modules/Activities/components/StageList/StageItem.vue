@@ -80,13 +80,14 @@ export default {
     &-icon {
       font-size: 18px;
       stroke: $white;
-      fill: $white;
+      fill: $secondary;
 
       &:nth-of-type(2) {
         transform: translateY(-5px);
       }
 
       &--checked {
+        stroke: $secondary;
         fill: $secondary;
       }
     }

@@ -1,52 +1,44 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="stage-list-page">
-    <AvPage :title="'Atividades'" go-back-route="home.activities">
-      <template #header>
-        <div class="stage-list-header">
-          <div class="stage-list-header__cover">
-            <img
-              v-if="stageData.cover"
-              class="stage-list-header__cover-image"
-              :src="stageData.cover.url"
-              :alt="stageData.cover.description"
-            />
-          </div>
-
-          <div class="stage-list-header__texts">
-            <h1 class="stage-list-header__title">
-              {{ stageData.title }}
-            </h1>
-
-            <h2 class="stage-list-header__description">
-              {{ stageData.description }}
-            </h2>
-          </div>
-
-          <h3 class="stage-list-header__activities">
-            {{ stageList.length }} {{ $t(`${I18N_PATH}.activities`) }}
-          </h3>
+  <AvPage
+    class="stage-list-page"
+    :title="'Atividades'"
+    go-back-route="home.activities"
+  >
+    <template #header>
+      <div class="stage-list-header">
+        <div class="stage-list-header__cover">
+          <img
+            v-if="stageData.cover"
+            class="stage-list-header__cover-image"
+            :src="stageData.cover.url"
+            :alt="stageData.cover.description"
+          />
         </div>
-      </template>
 
-      <template #default>
-        <StageList :stages="stageList" @openStage="handleOpenStage" />
+        <div class="stage-list-header__texts">
+          <h1 class="stage-list-header__title">
+            {{ stageData.title }}
+          </h1>
 
-        <QDrawer
-          side="right"
-          :width="310"
-          :model-value="openStageDetail"
-          bordered
-          @hide="handleCloseDetail"
-        >
-          <h1>1234</h1>
-          <!-- <StageListDetail
-          :stage="selectedStageData"
-          @close="handleCloseDetail"
-        /> -->
-        </QDrawer>
-      </template>
-    </AvPage>
-  </q-layout>
+          <h2 class="stage-list-header__description">
+            {{ stageData.description }}
+          </h2>
+        </div>
+
+        <h3 class="stage-list-header__activities">
+          {{ stageList.length }} {{ $t(`${I18N_PATH}.activities`) }}
+        </h3>
+      </div>
+    </template>
+
+    <template #default>
+      <StageList :stages="stageList" @openStage="handleOpenStage" />
+    </template>
+  </AvPage>
+
+  <q-dialog :model-value="openStageDetail" @hide="handleCloseDetail">
+    <StageListDetail :stage="selectedStageData" @close="handleCloseDetail" />
+  </q-dialog>
 </template>
 
 <script>
@@ -59,12 +51,14 @@ import { computed, getCurrentInstance, onMounted, ref } from "vue";
 import AvPage from "organisms/AvPage.vue";
 
 import StageList from "../partials/StageList.vue";
+import StageListDetail from "../partials/StageList/Detail.vue";
 
 export default {
   name: "StageListPage",
   components: {
     AvPage,
     StageList,
+    StageListDetail,
   },
   setup() {
     const $route = useRoute();
@@ -90,7 +84,7 @@ export default {
 
     const openStageDetail = computed(() => !!selectedStage.value);
     const selectedStageData = computed(() => {
-      const matchStage = stagesList.value.find(
+      const matchStage = stageList.value.find(
         (stage) => stage.position === selectedStage.value
       );
 
