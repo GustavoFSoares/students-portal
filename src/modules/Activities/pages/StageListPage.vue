@@ -29,20 +29,21 @@
       </template>
 
       <template #default>
-        <StageList :stages="stageList" />
+        <StageList :stages="stageList" @openStage="handleOpenStage" />
 
-        <!-- <QDrawer
-        side="right"
-        :width="310"
-        :model-value="openStageDetail"
-        bordered
-        @hide="handleCloseDetail"
-      >
-        <StageListDetail
+        <QDrawer
+          side="right"
+          :width="310"
+          :model-value="openStageDetail"
+          bordered
+          @hide="handleCloseDetail"
+        >
+          <h1>1234</h1>
+          <!-- <StageListDetail
           :stage="selectedStageData"
           @close="handleCloseDetail"
-        />
-      </QDrawer> -->
+        /> -->
+        </QDrawer>
       </template>
     </AvPage>
   </q-layout>
@@ -72,8 +73,33 @@ export default {
 
     const stageData = ref({});
     const stageList = ref([]);
+    const selectedStage = ref(null);
 
-    const title = computed(() => stageData.value.title);
+    const handleOpenStage = (position) => {
+      const stageSelectedStage = selectedStage.value;
+      selectedStage.value = null;
+
+      if (stageSelectedStage) {
+        setTimeout(() => {
+          selectedStage.value = position;
+        }, 350);
+      } else {
+        selectedStage.value = position;
+      }
+    };
+
+    const openStageDetail = computed(() => !!selectedStage.value);
+    const selectedStageData = computed(() => {
+      const matchStage = stagesList.value.find(
+        (stage) => stage.position === selectedStage.value
+      );
+
+      return matchStage || {};
+    });
+
+    const handleCloseDetail = () => {
+      selectedStage.value = null;
+    };
 
     onMounted(async () => {
       const { name, description, cover, stages } = await $store.dispatch(
@@ -95,8 +121,12 @@ export default {
     return {
       I18N_PATH,
       stageData,
-      title,
       stageList,
+
+      selectedStageData,
+      handleOpenStage,
+      openStageDetail,
+      handleCloseDetail,
     };
   },
 };
