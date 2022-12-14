@@ -1,5 +1,40 @@
 <template>
   <aside class="avatar-configurator">
+    <SectionWrapper :title="'label.wrapperShape'">
+      <ul class="wrapper-shape">
+        <li
+          v-for="wrapperShape in SETTINGS.wrapperShape"
+          :key="wrapperShape"
+          class="wrapper-shape__item"
+          :title="`wrapperShape.${wrapperShape}`"
+        >
+          <!-- @click="switchWrapperShape(wrapperShape)" -->
+          <div class="shape" :class="[wrapperShape]" />
+          <!-- { active: wrapperShape === avatarOption.wrapperShape }, -->
+        </li>
+      </ul>
+    </SectionWrapper>
+
+    <SectionWrapper :title="'label.backgroundColor'">
+      <ul class="color-list">
+        <li
+          v-for="bgColor in SETTINGS.backgroundColor"
+          :key="bgColor"
+          class="color-list__item"
+        >
+          <!-- @click="switchBgColor(bgColor)" -->
+          <div
+            :style="{ background: bgColor }"
+            class="bg-color"
+            :class="{
+              transparent: bgColor === 'transparent',
+            }"
+          />
+          <!-- active: bgColor === avatarOption.background.color, -->
+        </li>
+      </ul>
+    </SectionWrapper>
+
     <SectionWrapper
       v-for="s in sections"
       :key="s.widgetType"
@@ -135,10 +170,41 @@ export default {
 .avatar-configurator {
   width: 20rem;
 
+  $color-accent: hsl(241, 99%, 70%);
   $color-dark: hsl(216, 14%, 14%);
   $color-text: hsl(211, 19%, 70%);
   $color-stroke: $color-text;
   $color-configurator: $color-dark;
+
+  .wrapper-shape {
+    display: flex;
+    align-items: center;
+
+    .wrapper-shape__item {
+      padding: 0.4rem 0.5rem;
+      cursor: pointer;
+
+      .shape {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: $color-text;
+        transition: background-color 0.2s;
+
+        &.circle {
+          border-radius: 50%;
+        }
+
+        &.squircle {
+          border-radius: 20%;
+        }
+
+        &.active {
+          background-color: $color-accent;
+        }
+      }
+    }
+  }
 
   .color-picker {
     margin: 1rem 0 0.5rem 0;
@@ -155,7 +221,6 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    list-style: none;
 
     &__item {
       position: relative;
