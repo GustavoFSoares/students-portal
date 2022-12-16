@@ -10,8 +10,13 @@
           :title="$t(`${I18N_PATH}.wrapperShapes.${wrapperShape}`)"
           @click="switchWrapperShape(wrapperShape)"
         >
-          <div class="shape" :class="[wrapperShape]" />
-          <!-- { active: wrapperShape === avatarOption.wrapperShape }, -->
+          <div
+            :class="[
+              'shape',
+              wrapperShape,
+              { active: wrapperShape === avatarOptions.wrapperShape },
+            ]"
+          />
         </li>
       </ul>
     </SectionWrapper>
@@ -29,9 +34,9 @@
             class="bg-color"
             :class="{
               transparent: bgColor === 'transparent',
+              active: bgColor === avatarOptions.background.color,
             }"
           />
-          <!-- active: bgColor === avatarOption.background.color, -->
         </li>
       </ul>
     </SectionWrapper>
@@ -71,8 +76,12 @@
           v-for="it in s.widgetList"
           :key="it.widgetShape"
           class="list-item"
-          :class="{}"
+          :class="{
+            selected:
+              it.widgetShape === avatarOptions.widgets?.[s.widgetType]?.shape,
+          }"
           v-html="it.svgRaw"
+          @click="switchWidget(s.widgetType, it.widgetShape)"
         />
       </ul>
     </SectionWrapper>
@@ -143,6 +152,17 @@ export default {
       $store.dispatch("AuthModule/avatar/setBackgroundColor", backgroundColor);
     };
 
+    const switchWidget = (widgetId, widgetShape) => {
+      console.log("switchWidget", widgetId, widgetShape);
+      // if (Widget !== avatarOption.value.Widget) {
+      //   setAvatarOption({ ...avatarOption.value, Widget });
+      // }
+      $store.dispatch("AuthModule/avatar/setWidget", {
+        widgetId,
+        widgetShape,
+      });
+    };
+
     onMounted(async () => {
       const a = await Promise.all(
         sectionList.map((section) => {
@@ -168,6 +188,7 @@ export default {
       avatarOptions,
       switchWrapperShape,
       switchBackgroundColor,
+      switchWidget,
     };
   },
 };
