@@ -1,12 +1,12 @@
 <template>
   <aside class="avatar-configurator">
-    <SectionWrapper :title="'label.wrapperShape'">
+    <SectionWrapper :title="$t(`${I18N_PATH}.wrapperShape`)">
       <ul class="wrapper-shape">
         <li
           v-for="wrapperShape in SETTINGS.wrapperShape"
           :key="wrapperShape"
           class="wrapper-shape__item"
-          :title="`wrapperShape.${wrapperShape}`"
+          :title="$t(`${I18N_PATH}.wrapperShapes.${wrapperShape}`)"
         >
           <!-- @click="switchWrapperShape(wrapperShape)" -->
           <div class="shape" :class="[wrapperShape]" />
@@ -15,7 +15,7 @@
       </ul>
     </SectionWrapper>
 
-    <SectionWrapper :title="'label.backgroundColor'">
+    <SectionWrapper :title="$t(`${I18N_PATH}.backgroundColor`)">
       <ul class="color-list">
         <li
           v-for="bgColor in SETTINGS.backgroundColor"
@@ -38,7 +38,7 @@
     <SectionWrapper
       v-for="s in sections"
       :key="s.widgetType"
-      :title="s.widgetType"
+      :title="$t(`${I18N_PATH}.${s.widgetType}`)"
     >
       <details
         v-if="
@@ -47,7 +47,7 @@
         "
         class="color-picker"
       >
-        <summary class="color">{{ "label.colors" }}</summary>
+        <summary class="color">{{ $t(`${I18N_PATH}.colors`) }}</summary>
         <ul class="color-list">
           <li
             v-for="fillColor in SETTINGS.commonColors"
@@ -83,6 +83,8 @@
 </template>
 
 <script>
+const I18N_PATH = "modules.user.edit.avatar.configuratorBar";
+
 import { computed, onMounted, reactive, ref } from "vue";
 
 import { previewData } from "@vue-color-avatar/utils/dynamic-data";
@@ -154,6 +156,7 @@ export default {
     });
 
     return {
+      I18N_PATH,
       AVATAR_LAYER,
       SETTINGS,
       sections,
@@ -169,6 +172,8 @@ export default {
 <style lang="scss" scoped>
 .avatar-configurator {
   width: 20rem;
+
+  color: $text-color-3;
 
   $color-accent: hsl(241, 99%, 70%);
   $color-dark: hsl(216, 14%, 14%);
@@ -210,6 +215,7 @@ export default {
     margin: 1rem 0 0.5rem 0;
 
     summary {
+      display: list-item;
       color: darken($color-text, 20);
       font-size: small;
       cursor: pointer;
