@@ -1,6 +1,7 @@
 <template>
   <AvPage class="edit-user" no-header>
     <template #default>
+      <AvatarViewer :option="avatarOptions" />
       <AvatarConfigurator />
     </template>
   </AvPage>
@@ -8,22 +9,31 @@
 
 <script>
 // const I18N_PATH = "modules.activities.pages.stageList";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 import AvPage from "organisms/AvPage.vue";
-// import ColorAvatarActionBar from "libs/vue-color-avatar/src/components/ActionBar.vue";
+import AvatarViewer from "../partials/AvatarViewer.vue";
 import AvatarConfigurator from "../partials/AvatarConfigurator.vue";
-// import ColorAvatarAvagar from "libs/vue-color-avatar/src/components/VueColorAvatar.vue";
 
 export default {
   name: "EditUser",
   components: {
     AvPage,
+    AvatarViewer,
     AvatarConfigurator,
-    // ColorAvatarActionBar,
-    // ColorAvatarConfigurator,
-    // ColorAvatarAvagar,
   },
-  setup() {},
+  setup() {
+    const $store = useStore();
+
+    const avatarOptions = computed(
+      () => $store.getters["AuthModule/avatar/avatarOptions"]
+    );
+
+    return {
+      avatarOptions,
+    };
+  },
 };
 </script>
 
