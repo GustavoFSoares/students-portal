@@ -59,14 +59,15 @@
             v-for="fillColor in SETTINGS.commonColors"
             :key="fillColor"
             class="color-list__item"
+            @click="setWidgetColor(s.widgetType, fillColor)"
           >
-            <!-- @click="setWidgetColor(s.widgetType, fillColor)" -->
             <div
               :style="{ background: fillColor }"
               class="bg-color"
-              :class="{}"
+              :class="{
+                active: fillColor === getWidgetColor(s.widgetType),
+              }"
             />
-            <!-- active: fillColor === getWidgetColor(s.widgetType), -->
           </li>
         </ul>
       </details>
@@ -136,6 +137,12 @@ export default {
       return svgRawList;
     }
 
+    const getWidgetColor = (type) => {
+      if (type === WidgetType.Tops || type === WidgetType.Clothes) {
+        return avatarOptions.value.widgets[type]?.fillColor;
+      } else return "";
+    };
+
     const switchWrapperShape = (wrapperShape) => {
       console.log("switchWrapperShape", wrapperShape);
       // if (wrapperShape !== avatarOption.value.wrapperShape) {
@@ -163,6 +170,17 @@ export default {
       });
     };
 
+    const setWidgetColor = (widgetId, widgetColor) => {
+      console.log("setWidgetColor", widgetId, widgetColor);
+      // if (Widget !== avatarOption.value.Widget) {
+      //   setAvatarOption({ ...avatarOption.value, Widget });
+      // }
+      $store.dispatch("AuthModule/avatar/setWidgetColor", {
+        widgetId,
+        widgetColor,
+      });
+    };
+
     onMounted(async () => {
       const a = await Promise.all(
         sectionList.map((section) => {
@@ -186,9 +204,11 @@ export default {
       sections,
       WidgetType,
       avatarOptions,
+      getWidgetColor,
       switchWrapperShape,
       switchBackgroundColor,
       switchWidget,
+      setWidgetColor,
     };
   },
 };

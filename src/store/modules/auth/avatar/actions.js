@@ -32,4 +32,16 @@ export default {
       },
     });
   },
+  setWidgetColor({ commit, dispatch, state }, { widgetId, widgetColor }) {
+    commit("SET_AVATAR_OPTIONS", {
+      ...state.avatarOptions,
+      widgets: {
+        ...state.avatarOptions.widgets,
+        [widgetId]: {
+          ...state.avatarOptions.widgets?.[widgetId],
+          fillColor: widgetColor,
+        },
+      },
+    });
+  },
 };
