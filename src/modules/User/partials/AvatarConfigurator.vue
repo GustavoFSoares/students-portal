@@ -1,6 +1,5 @@
 <template>
   <aside class="avatar-configurator">
-    -{{ avatarOptions }}-
     <SectionWrapper :title="$t(`${I18N_PATH}.wrapperShape`)">
       <ul class="wrapper-shape">
         <li
@@ -144,41 +143,36 @@ export default {
     };
 
     const switchWrapperShape = (wrapperShape) => {
-      console.log("switchWrapperShape", wrapperShape);
-      // if (wrapperShape !== avatarOption.value.wrapperShape) {
-      //   setAvatarOption({ ...avatarOption.value, wrapperShape });
-      // }
-      $store.dispatch("AuthModule/avatar/setWrapperShape", wrapperShape);
+      if (wrapperShape !== avatarOptions.value.wrapperShape) {
+        $store.dispatch("AuthModule/avatar/setWrapperShape", wrapperShape);
+      }
     };
 
     const switchBackgroundColor = (backgroundColor) => {
-      console.log("switchBackgroundColor", backgroundColor);
-      // if (backgroundColor !== avatarOption.value.backgroundColor) {
-      //   setAvatarOption({ ...avatarOption.value, backgroundColor });
-      // }
-      $store.dispatch("AuthModule/avatar/setBackgroundColor", backgroundColor);
+      if (backgroundColor !== avatarOptions.value.background?.color) {
+        $store.dispatch(
+          "AuthModule/avatar/setBackgroundColor",
+          backgroundColor
+        );
+      }
     };
 
     const switchWidget = (widgetId, widgetShape) => {
-      console.log("switchWidget", widgetId, widgetShape);
-      // if (Widget !== avatarOption.value.Widget) {
-      //   setAvatarOption({ ...avatarOption.value, Widget });
-      // }
-      $store.dispatch("AuthModule/avatar/setWidget", {
-        widgetId,
-        widgetShape,
-      });
+      if (widgetShape !== avatarOptions.value.widgets?.[widgetId]?.shape) {
+        $store.dispatch("AuthModule/avatar/setWidget", {
+          widgetId,
+          widgetShape,
+        });
+      }
     };
 
     const setWidgetColor = (widgetId, widgetColor) => {
-      console.log("setWidgetColor", widgetId, widgetColor);
-      // if (Widget !== avatarOption.value.Widget) {
-      //   setAvatarOption({ ...avatarOption.value, Widget });
-      // }
-      $store.dispatch("AuthModule/avatar/setWidgetColor", {
-        widgetId,
-        widgetColor,
-      });
+      if (widgetColor !== avatarOptions.value.widgets?.[widgetId]?.fillColor) {
+        $store.dispatch("AuthModule/avatar/setWidgetColor", {
+          widgetId,
+          widgetColor,
+        });
+      }
     };
 
     onMounted(async () => {
@@ -187,7 +181,6 @@ export default {
           return getWidgets(section);
         })
       );
-      console.log(a);
 
       sections.value = sectionList.map((li, i) => {
         return {
