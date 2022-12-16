@@ -1,5 +1,6 @@
 <template>
   <aside class="avatar-configurator">
+    -{{ avatarOptions }}-
     <SectionWrapper :title="$t(`${I18N_PATH}.wrapperShape`)">
       <ul class="wrapper-shape">
         <li
@@ -7,8 +8,8 @@
           :key="wrapperShape"
           class="wrapper-shape__item"
           :title="$t(`${I18N_PATH}.wrapperShapes.${wrapperShape}`)"
+          @click="switchWrapperShape(wrapperShape)"
         >
-          <!-- @click="switchWrapperShape(wrapperShape)" -->
           <div class="shape" :class="[wrapperShape]" />
           <!-- { active: wrapperShape === avatarOption.wrapperShape }, -->
         </li>
@@ -21,8 +22,8 @@
           v-for="bgColor in SETTINGS.backgroundColor"
           :key="bgColor"
           class="color-list__item"
+          @click="switchBackgroundColor(bgColor)"
         >
-          <!-- @click="switchBgColor(bgColor)" -->
           <div
             :style="{ background: bgColor }"
             class="bg-color"
@@ -75,16 +76,13 @@
         />
       </ul>
     </SectionWrapper>
-
-    <!-- <div v-for="(setting, settingIndex) in mappedColors" :key="settingIndex">
-      --- {{ settingIndex }} - {{ setting }}---<br />
-    </div> -->
   </aside>
 </template>
 
 <script>
 const I18N_PATH = "modules.user.edit.avatar.configuratorBar";
 
+import { useStore } from "vuex";
 import { computed, onMounted, reactive, ref } from "vue";
 
 import { previewData } from "@vue-color-avatar/utils/dynamic-data";
@@ -99,24 +97,14 @@ export default {
     SectionWrapper,
   },
   setup() {
+    const $store = useStore();
+
     const sections = ref([]);
     const sectionList = reactive(Object.values(WidgetType));
 
-    const filterForms = (target) => {
-      const filteredKeys = Object.keys(SETTINGS).filter((key) =>
-        key.includes(target)
-      );
-
-      return filteredKeys.reduce((amount, key) => {
-        amount[key.replace(target, "")] = SETTINGS[key];
-
-        return amount;
-      }, {});
-    };
-
-    const mappedGender = computed(() => filterForms("gender"));
-    const mappedShapes = computed(() => filterForms("Shape"));
-    const mappedColors = computed(() => filterForms("Color"));
+    const avatarOptions = computed(
+      () => $store.getters["AuthModule/avatar/avatarOptions"]
+    );
 
     async function getWidgets(widgetType) {
       const list = SETTINGS[`${widgetType}Shape`];
@@ -138,6 +126,22 @@ export default {
       });
       return svgRawList;
     }
+
+    const switchWrapperShape = (wrapperShape) => {
+      console.log("switchWrapperShape", wrapperShape);
+      // if (wrapperShape !== avatarOption.value.wrapperShape) {
+      //   setAvatarOption({ ...avatarOption.value, wrapperShape });
+      // }
+      $store.dispatch("AuthModule/avatar/setWrapperShape", wrapperShape);
+    };
+
+    const switchBackgroundColor = (backgroundColor) => {
+      console.log("switchBackgroundColor", backgroundColor);
+      // if (backgroundColor !== avatarOption.value.backgroundColor) {
+      //   setAvatarOption({ ...avatarOption.value, backgroundColor });
+      // }
+      $store.dispatch("AuthModule/avatar/setBackgroundColor", backgroundColor);
+    };
 
     onMounted(async () => {
       const a = await Promise.all(
@@ -161,9 +165,9 @@ export default {
       SETTINGS,
       sections,
       WidgetType,
-      mappedGender,
-      mappedShapes,
-      mappedColors,
+      avatarOptions,
+      switchWrapperShape,
+      switchBackgroundColor,
     };
   },
 };
