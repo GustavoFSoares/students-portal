@@ -124,6 +124,33 @@
         }
       }
     },
+    "user": {
+      "edit": {
+        "avatar": {
+          "configuratorBar": {
+            "wrapperShape": "Formas",
+            "wrapperShapes": {
+              "circle": "Circulo",
+              "square": "Quadrado",
+              "squircle": "Arredondado"
+            },
+            "backgroundColor": "Cor de fundo",
+            "colors": "cores",
+            "face": "Rosto",
+            "tops": "Cabelo",
+            "ear": "Orelha",
+            "earrings": "Brincos",
+            "eyebrows": "Sombrancelha",
+            "eyes": "Olhos",
+            "nose": "Nariz",
+            "glasses": "Óculos",
+            "mouth": "Boca",
+            "beard": "Barba",
+            "clothes": "Roupa"
+          }
+        }
+      }
+    },
     "activities": {
       "seo": {
         "title": "Atividades"

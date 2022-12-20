@@ -17,6 +17,8 @@
       "assets/*": ["src/assets/*"],
       "boot/*": ["src/boot/*"],
       "stores/*": ["src/stores/*"],
+      "libs/*": ["libs/*"],
+      "@vue-color-avatar/*": ["libs/vue-color-avatar/src"],
       "vue$": ["node_modules/vue/dist/vue.runtime.esm-bundler.js"]
     }
   },

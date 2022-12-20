@@ -1,0 +1,3 @@
+[submodule "libs/vue-color-avatar"]
+	path = libs/vue-color-avatar
+	url = git@bitbucket.org:gustavofesoares/vue-color-avatar.git
