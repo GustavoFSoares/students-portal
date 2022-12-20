@@ -44,4 +44,11 @@ export default {
       },
     });
   },
+  setAvatar({ commit }, avatarOptions) {
+    if (typeof avatarOptions === "string") {
+      avatarOptions = JSON.parse(avatarOptions);
+    }
+
+    commit("SET_AVATAR_OPTIONS", { ...avatarOptions });
+  },
 };
