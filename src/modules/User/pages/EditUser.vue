@@ -66,6 +66,7 @@ export default {
     const avatarIsLoading = computed(
       () => $store.state.AuthModule.avatar.loading
     );
+
     const avatarOptions = computed(
       () => $store.getters["AuthModule/avatar/avatarOptions"]
     );

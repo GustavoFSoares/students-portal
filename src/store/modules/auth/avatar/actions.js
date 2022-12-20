@@ -52,6 +52,7 @@ export default {
     }
 
     commit("SET_AVATAR_OPTIONS", { ...avatarOptions });
+    commit("SET_PRESENT_AVATAR_OPTIONS", { ...avatarOptions });
   },
   sendAvatar: async ({ commit, rootGetters, getters }) => {
     const { id: userId } = rootGetters["AuthModule/userData"];
@@ -62,6 +63,8 @@ export default {
       await api.put(`/user/${userId}`, {
         avatar: { ...getters.avatarOptions },
       });
+
+      commit("SET_PRESENT_AVATAR_OPTIONS", { ...getters.avatarOptions });
     } catch (err) {
       console.error("Error trying update avatar", err);
     } finally {

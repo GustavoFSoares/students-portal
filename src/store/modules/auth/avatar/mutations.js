@@ -5,4 +5,7 @@ export default {
   SET_AVATAR_OPTIONS(state, avatarOptions) {
     state.avatarOptions = avatarOptions;
   },
+  SET_PRESENT_AVATAR_OPTIONS(state, avatarOptions) {
+    state.presentAvatarOptions = avatarOptions;
+  },
 };
