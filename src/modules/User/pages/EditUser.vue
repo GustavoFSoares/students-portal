@@ -32,7 +32,6 @@
             @click="handleSubmit"
             :loading="avatarIsLoading"
           />
-          <!-- :label="`${I18N_PATH}.submit`" -->
         </div>
 
         <AvatarConfigurator class="avatar-configurator" />
