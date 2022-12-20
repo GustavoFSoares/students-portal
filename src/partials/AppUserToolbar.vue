@@ -4,8 +4,8 @@
       <AvatarViewer :option="avatarOptions" :size="30" />
     </div>
 
-    <h1 class="toolbar-user-name" :title="userData.name">
-      {{ userData.name }}
+    <h1 class="toolbar-user-name" :title="userName">
+      {{ userName }}
     </h1>
   </router-link>
 </template>
@@ -24,14 +24,16 @@ export default {
   setup() {
     const $store = useStore();
 
-    const userData = computed(() => $store.getters["AuthModule/userData"]);
+    const userName = computed(
+      () => $store.getters["AuthModule/userData"]?.name
+    );
 
     const avatarOptions = computed(
       () => $store.getters["AuthModule/avatar/presentAvatarOptions"]
     );
 
     return {
-      userData,
+      userName,
       avatarOptions,
     };
   },
