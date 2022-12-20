@@ -21,7 +21,7 @@
       </div>
     </section>
 
-    <section class="profile-section">
+    <section class="profile-section" v-if="false">
       <h1 class="profile-section__title">
         {{ $t(`${I18N_PATH}.settings.title`) }}
       </h1>
