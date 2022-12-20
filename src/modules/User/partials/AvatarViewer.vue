@@ -66,6 +66,10 @@ export default {
       );
 
       const promises = sortedList.map(async ([widgetType, opt]) => {
+        if (opt.shape === "none") {
+          return "";
+        }
+
         return (
           await import(
             `../../../../libs/vue-color-avatar/src/assets/widgets/${widgetType}/${opt.shape}.svg?raw`

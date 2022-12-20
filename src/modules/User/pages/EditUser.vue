@@ -1,8 +1,18 @@
 <template>
   <AvPage class="edit-user" no-header>
     <template #default>
-      <AvatarViewer :option="avatarOptions" />
-      <AvatarConfigurator />
+      <div class="edit-user__wrapper">
+        <div class="user-content"></div>
+
+        <div class="avatar-wrapper">
+          <AvatarViewer
+            class="avatar-wrapper__viewer"
+            :option="avatarOptions"
+          />
+
+          <AvatarConfigurator class="avatar-wrapper__configurator" />
+        </div>
+      </div>
     </template>
   </AvPage>
 </template>
@@ -39,47 +49,35 @@ export default {
 
 <style lang="scss" scoped>
 .edit-user {
-  .stage-list-header {
-    padding: 0 15px;
+  &__wrapper {
     display: flex;
-    gap: 15px;
-    align-items: center;
+  }
 
-    height: 100%;
+  .user-content {
+    flex-grow: 1;
+  }
 
-    &__cover {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #ff00008f;
+  .avatar-wrapper {
+    display: flex;
+    gap: 20px;
 
-      &-image {
-        width: 100%;
-        height: 100%;
+    &__viewer {
+      margin-top: 40px;
+    }
+
+    &__configurator {
+      overflow-x: auto;
+      height: 870px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        border-radius: 10px;
       }
-    }
 
-    &__texts {
-      flex-grow: 1;
-    }
-
-    &__title {
-      font-size: 15px;
-      font-weight: $font-weight-semibold;
-      color: $text-color-3;
-    }
-
-    &__description {
-      font-size: 13px;
-      font-weight: $font-weight-normal;
-      color: $text-color-2;
-    }
-
-    &__activities {
-      font-size: 12px;
-      color: $text-color-3;
-      font-weight: $font-weight-bold;
+      &::-webkit-scrollbar-thumb {
+        background: rgba(#010203, 60%);
+        border-radius: 10px;
+      }
     }
   }
 }
