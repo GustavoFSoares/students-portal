@@ -125,7 +125,7 @@
       }
     },
     "user": {
-      "edit": {
+      "partials": {
         "avatar": {
           "configuratorBar": {
             "wrapperShape": "Formas",
@@ -148,6 +148,15 @@
             "beard": "Barba",
             "clothes": "Roupa"
           }
+        }
+      },
+      "pages": {
+        "edit": {
+          "legends": {
+            "name": "Nome",
+            "level": "Nível"
+          },
+          "submit": "Atualziar"
         }
       }
     },

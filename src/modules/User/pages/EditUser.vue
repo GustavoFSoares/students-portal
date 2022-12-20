@@ -2,33 +2,58 @@
   <AvPage class="edit-user" no-header>
     <template #default>
       <div class="edit-user__wrapper">
-        <div class="user-content"></div>
+        <div class="user-content">
+          <h1 class="user-content__name">
+            <legend>Nome:</legend>
+            {{ userData.name }}
+          </h1>
 
-        <div class="avatar-wrapper">
+          <h2 class="user-content__level">
+            <legend>Nível:</legend>
+            {{ userData.levelName }}
+          </h2>
+
+          <AvReward class="user-content__reward" :points="0" :coins="0" />
+        </div>
+
+        <div class="avatar-controller">
           <AvatarViewer
-            class="avatar-wrapper__viewer"
+            class="avatar-controller__viewer"
             :option="avatarOptions"
           />
 
-          <AvatarConfigurator class="avatar-wrapper__configurator" />
+          <QBtn
+            color="secondary"
+            :label="$t(`${I18N_PATH}.submit`)"
+            @click="handleSubmit"
+            :loading="avatarIsLoading"
+          />
+          <!-- :label="`${I18N_PATH}.submit`" -->
         </div>
+
+        <AvatarConfigurator class="avatar-configurator" />
       </div>
     </template>
   </AvPage>
 </template>
 
 <script>
-// const I18N_PATH = "modules.activities.pages.stageList";
+const I18N_PATH = "modules.user.pages.edit";
+
 import { computed } from "vue";
 import { useStore } from "vuex";
 
+import AvReward from "molecules/AvReward.vue";
+
 import AvPage from "organisms/AvPage.vue";
+
 import AvatarViewer from "../partials/AvatarViewer.vue";
 import AvatarConfigurator from "../partials/AvatarConfigurator.vue";
 
 export default {
   name: "EditUser",
   components: {
+    AvReward,
     AvPage,
     AvatarViewer,
     AvatarConfigurator,
@@ -36,12 +61,25 @@ export default {
   setup() {
     const $store = useStore();
 
+    const userData = computed(() => $store.getters["AuthModule/userData"]);
+
+    const avatarIsLoading = computed(
+      () => $store.state.AuthModule.avatar.loading
+    );
     const avatarOptions = computed(
       () => $store.getters["AuthModule/avatar/avatarOptions"]
     );
 
+    const handleSubmit = () => {
+      $store.dispatch("AuthModule/avatar/sendAvatar");
+    };
+
     return {
+      I18N_PATH,
+      userData,
+      avatarIsLoading,
       avatarOptions,
+      handleSubmit,
     };
   },
 };
@@ -51,21 +89,54 @@ export default {
 .edit-user {
   &__wrapper {
     display: flex;
+    justify-content: space-between;
+    gap: 50px;
   }
 
   .user-content {
-    flex-grow: 1;
+    width: 25%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    &__name {
+      legend {
+        color: $text-color-2;
+      }
+
+      font-size: 25px;
+      color: $text-color-3;
+    }
+
+    &__level {
+      legend {
+        color: $text-color-2;
+      }
+
+      font-size: 20px;
+      color: $text-color-3;
+      font-variant-caps: all-small-caps;
+    }
+
+    &__reward {
+      max-width: 200px;
+    }
   }
 
-  .avatar-wrapper {
+  .avatar {
     display: flex;
     gap: 20px;
 
-    &__viewer {
+    &-controller {
       margin-top: 40px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    &__configurator {
+    &-configurator {
       overflow-x: auto;
       height: 870px;
 

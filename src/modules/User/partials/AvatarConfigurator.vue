@@ -89,7 +89,7 @@
 </template>
 
 <script>
-const I18N_PATH = "modules.user.edit.avatar.configuratorBar";
+const I18N_PATH = "modules.user.partials.avatar.configuratorBar";
 
 import { useStore } from "vuex";
 import { computed, onMounted, reactive, ref } from "vue";

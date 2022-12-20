@@ -44,7 +44,6 @@ export default {
     const svgContent = ref("");
 
     const getWrapperShapeClassName = computed(() => {
-      console.log("here");
       const wrapperShapes = {
         [WrapperShape.Circle]: WrapperShape.Circle,
         [WrapperShape.Square]: WrapperShape.Square,
