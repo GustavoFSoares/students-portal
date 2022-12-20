@@ -20,7 +20,7 @@ import { computed, ref, toRefs, watchEffect } from "vue";
 import { AVATAR_LAYER } from "@vue-color-avatar/utils/constant";
 import { WrapperShape } from "@vue-color-avatar/enums";
 
-import AvatarBackground from "./AvatarBackground.vue";
+import AvatarBackground from "atoms/AvatarBackground.vue";
 
 export default {
   name: "AvatarViewer",
@@ -71,7 +71,7 @@ export default {
 
         return (
           await import(
-            `../../../../libs/vue-color-avatar/src/assets/widgets/${widgetType}/${opt.shape}.svg?raw`
+            `../../../libs/vue-color-avatar/src/assets/widgets/${widgetType}/${opt.shape}.svg?raw`
           )
         ).default;
       });
@@ -97,7 +97,7 @@ export default {
         <svg
           width="${avatarSize.value}"
           height="${avatarSize.value}"
-          viewBox="0 0 ${avatarSize.value / 0.7} ${avatarSize.value / 0.7}"
+          viewBox="0 0 400 400"
           preserveAspectRatio="xMidYMax meet"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ export default {
 
   &.squircle {
     // TODO: Radius should adapt to the avatar size
-    border-radius: 25px;
+    border-radius: 20%;
   }
 
   .avatar-payload {

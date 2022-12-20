@@ -13,7 +13,11 @@
             {{ userData.levelName }}
           </h2>
 
-          <AvReward class="user-content__reward" :points="0" :coins="0" />
+          <AvReward
+            class="user-content__reward"
+            :points="rewards?.points"
+            :coins="0"
+          />
         </div>
 
         <div class="avatar-controller">
@@ -46,8 +50,8 @@ import { useStore } from "vuex";
 import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
+import AvatarViewer from "organisms/AvatarViewer.vue";
 
-import AvatarViewer from "../partials/AvatarViewer.vue";
 import AvatarConfigurator from "../partials/AvatarConfigurator.vue";
 
 export default {
@@ -60,6 +64,8 @@ export default {
   },
   setup() {
     const $store = useStore();
+
+    const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
 
     const userData = computed(() => $store.getters["AuthModule/userData"]);
 
@@ -77,6 +83,7 @@ export default {
 
     return {
       I18N_PATH,
+      rewards,
       userData,
       avatarIsLoading,
       avatarOptions,
