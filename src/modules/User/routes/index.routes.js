@@ -1,7 +1,7 @@
 export default [
   {
     path: "user",
-    name: "user.edir",
+    name: "user.edit",
     component: () => import("../pages/EditUser.vue"),
   },
 ];

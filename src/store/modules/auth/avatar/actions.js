@@ -1,14 +1,16 @@
+import { api } from "boot/axios";
+
 import { BeardShape } from "@vue-color-avatar/enums";
 import { AVATAR_LAYER } from "@vue-color-avatar/utils/constant";
 
 export default {
-  setWrapperShape({ commit, dispatch, state }, wrapperShape) {
+  setWrapperShape: ({ commit, state }, wrapperShape) => {
     commit("SET_AVATAR_OPTIONS", {
       ...state.avatarOptions,
       wrapperShape,
     });
   },
-  setBackgroundColor({ commit, dispatch, state }, backgorundColor) {
+  setBackgroundColor: ({ commit, state }, backgorundColor) => {
     commit("SET_AVATAR_OPTIONS", {
       ...state.avatarOptions,
       background: {
@@ -17,7 +19,7 @@ export default {
       },
     });
   },
-  setWidget({ commit, dispatch, state }, { widgetId, widgetShape }) {
+  setWidget: ({ commit, state }, { widgetId, widgetShape }) => {
     commit("SET_AVATAR_OPTIONS", {
       ...state.avatarOptions,
       widgets: {
@@ -32,7 +34,7 @@ export default {
       },
     });
   },
-  setWidgetColor({ commit, dispatch, state }, { widgetId, widgetColor }) {
+  setWidgetColor: ({ commit, state }, { widgetId, widgetColor }) => {
     commit("SET_AVATAR_OPTIONS", {
       ...state.avatarOptions,
       widgets: {
@@ -43,5 +45,32 @@ export default {
         },
       },
     });
+  },
+  setAvatar: ({ commit }, avatarOptions) => {
+    if (typeof avatarOptions === "string") {
+      avatarOptions = JSON.parse(avatarOptions);
+    }
+
+    commit("SET_AVATAR_OPTIONS", { ...avatarOptions });
+    commit("SET_PRESENT_AVATAR_OPTIONS", { ...avatarOptions });
+  },
+  sendAvatar: async ({ commit, rootGetters, getters }) => {
+    const { id: userId } = rootGetters["AuthModule/userData"];
+
+    try {
+      commit("SET_LOADING", true);
+
+      await api.put(`/user/${userId}`, {
+        avatar: { ...getters.avatarOptions },
+      });
+
+      commit("SET_PRESENT_AVATAR_OPTIONS", { ...getters.avatarOptions });
+    } catch (err) {
+      console.error("Error trying update avatar", err);
+    } finally {
+      setTimeout(() => {
+        commit("SET_LOADING", false);
+      }, 1500);
+    }
   },
 };
