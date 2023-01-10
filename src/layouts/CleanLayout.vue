@@ -51,6 +51,7 @@ export default {
   .header-toolbar,
   .page-content {
     flex-grow: 1;
+    height: 100%;
   }
 
   &__content {
