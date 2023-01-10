@@ -83,7 +83,6 @@ export default {
 <style lang="scss" scoped>
 .ranking-card {
   width: 100%;
-  background: rgba(255, 255, 255, 0.1);
 
   height: 120px;
 
@@ -95,6 +94,8 @@ export default {
   align-items: flex-end;
 
   &__wrapper {
+    background: rgba(255, 255, 255, 0.1);
+
     padding: 10px;
 
     border: 2px solid $secondary;
