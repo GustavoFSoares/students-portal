@@ -50,12 +50,11 @@ import "vue-color-avatar/dist/style.css";
 
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { AvatarConfigurator } from "vue-color-avatar";
+import { AvatarConfigurator, AvatarViewer } from "vue-color-avatar";
 
 import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
-import AvatarViewer from "organisms/AvatarViewer.vue";
 
 export default {
   name: "EditUser",
