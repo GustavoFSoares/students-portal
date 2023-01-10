@@ -34,7 +34,10 @@
           />
         </div>
 
-        <AvatarConfigurator class="avatar-configurator" />
+        <AvatarConfigurator
+          class="avatar-configurator"
+          v-model="avatarOptions"
+        />
       </div>
     </template>
   </AvPage>
@@ -43,19 +46,21 @@
 <script>
 const I18N_PATH = "modules.user.pages.edit";
 
-import { computed } from "vue";
+import "vue-color-avatar/dist/style.css";
+
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { AvatarConfigurator } from "vue-color-avatar";
 
 import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
 import AvatarViewer from "organisms/AvatarViewer.vue";
 
-import AvatarConfigurator from "../partials/AvatarConfigurator.vue";
-
 export default {
   name: "EditUser",
   components: {
+    AvatarConfigurator,
     AvReward,
     AvPage,
     AvatarViewer,
@@ -63,6 +68,10 @@ export default {
   },
   setup() {
     const $store = useStore();
+
+    const avatarOptions = ref(
+      $store.getters["AuthModule/avatar/avatarOptions"]
+    );
 
     const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
 
@@ -72,12 +81,8 @@ export default {
       () => $store.state.AuthModule.avatar.loading
     );
 
-    const avatarOptions = computed(
-      () => $store.getters["AuthModule/avatar/avatarOptions"]
-    );
-
     const handleSubmit = () => {
-      $store.dispatch("AuthModule/avatar/sendAvatar");
+      $store.dispatch("AuthModule/avatar/sendAvatar", avatarOptions.value);
     };
 
     return {
@@ -145,7 +150,7 @@ export default {
 
     &-configurator {
       overflow-x: auto;
-      height: 870px;
+      height: 780px;
 
       &::-webkit-scrollbar {
         width: 8px;
