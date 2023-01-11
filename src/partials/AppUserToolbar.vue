@@ -14,7 +14,7 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 
-import AvatarViewer from "organisms/AvatarViewer.vue";
+import { AvatarViewer } from "vue-color-avatar";
 
 export default {
   name: "AppUserToolbar",
@@ -29,7 +29,7 @@ export default {
     );
 
     const avatarOptions = computed(
-      () => $store.getters["AuthModule/avatar/presentAvatarOptions"]
+      () => $store.getters["AuthModule/avatar/avatarOptions"]
     );
 
     return {

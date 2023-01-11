@@ -9,9 +9,4 @@ export default {
       state.avatarOptions = avatarOptions;
     }
   },
-  SET_PRESENT_AVATAR_OPTIONS(state, avatarOptions) {
-    if (avatarOptions && !objectIsEmpty(avatarOptions)) {
-      state.presentAvatarOptions = avatarOptions;
-    }
-  },
 };
