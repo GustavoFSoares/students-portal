@@ -98,10 +98,15 @@ export default {
 
 <style lang="scss" scoped>
 .edit-user {
+  :deep(.av-page-content__container) {
+    height: 100%;
+  }
+
   &__wrapper {
     display: flex;
     justify-content: space-between;
     gap: 50px;
+    height: 100%;
   }
 
   .user-content {
@@ -149,7 +154,6 @@ export default {
 
     &-configurator {
       overflow-x: auto;
-      height: 780px;
 
       &::-webkit-scrollbar {
         width: 8px;
