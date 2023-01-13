@@ -8,6 +8,7 @@ const routes = [
   {
     path: "",
     name: "",
+    redirect: { name: "home" },
     component: () => import("layouts/CleanLayout.vue"),
     children: [...HomeRoutes, ...UserRoutes, ...ActivitiesRoutes],
   },
