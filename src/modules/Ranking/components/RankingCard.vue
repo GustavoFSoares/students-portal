@@ -21,7 +21,7 @@
             class="ranking-card__user-image-crown"
           />
 
-          <img :src="userImage" :alt="userName" />
+          <AvatarViewer :option="userAvatar" :size="50" :title="userName" />
         </div>
 
         <div class="ranking-card__points">{{ userPoints }}pts</div>
@@ -42,9 +42,13 @@
 const I18N_PATH = "modules.ranking";
 
 import { computed } from "vue";
+import { AvatarViewer } from "vue-color-avatar";
 
 export default {
   name: "RankingCard",
+  components: {
+    AvatarViewer,
+  },
   props: {
     userRank: {
       type: Number,
@@ -60,6 +64,10 @@ export default {
     },
     userPoints: {
       type: Number,
+      required: true,
+    },
+    userAvatar: {
+      type: Object,
       required: true,
     },
     isYou: {
