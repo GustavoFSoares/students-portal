@@ -7,8 +7,8 @@
         :user-rank="user.position"
         :user-name="user.userName"
         :user-points="user.score"
+        :user-avatar="user.avatar"
         :is-you="user.isYou"
-        user-image="https://png.pngtree.com/png-clipart/20190924/original/pngtree-businessman-user-avatar-free-vector-png-image_4827807.jpg"
       />
     </div>
   </AvPage>
