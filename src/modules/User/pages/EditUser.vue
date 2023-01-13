@@ -46,6 +46,8 @@
 <script>
 const I18N_PATH = "modules.user.pages.edit";
 
+import "vue-color-avatar/dist/style.css";
+
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { AvatarConfigurator, AvatarViewer } from "vue-color-avatar";
