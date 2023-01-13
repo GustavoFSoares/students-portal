@@ -32,7 +32,7 @@ module.exports = configure(function (/* ctx */) {
     boot: ["app-env", "i18n", "axios"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: ["default.scss", "app.scss", "~vue-color-avatar-3/dist/style.css"],
+    css: ["default.scss", "app.scss", "~vue-color-avatar/dist/style.css"],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
