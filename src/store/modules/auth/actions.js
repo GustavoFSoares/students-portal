@@ -19,8 +19,10 @@ export default {
               data: { access_token, user: userData },
             },
           }) => {
+            const { avatar, ...userProfile } = userData.user;
+
             commit("SET_USER", {
-              ...userData.user,
+              ...userProfile,
               nivel: userData.profile.nivel,
             });
 
@@ -30,6 +32,8 @@ export default {
             });
 
             commit("SET_TOKEN", access_token);
+
+            dispatch("avatar/setAvatar", avatar);
 
             dispatch(
               "AchievementsModule/setAchievements",
@@ -63,8 +67,10 @@ export default {
           },
         })
         .then(({ data: { data: userData } }) => {
+          const { avatar, ...userProfile } = userData.user;
+
           commit("SET_USER", {
-            ...userData.user,
+            ...userProfile,
             nivel: userData.profile.nivel,
           });
 
@@ -72,6 +78,8 @@ export default {
             coins: userData.profile.moedas,
             points: userData.profile.pontos,
           });
+
+          dispatch("avatar/setAvatar", avatar);
 
           dispatch(
             "AchievementsModule/setAchievements",

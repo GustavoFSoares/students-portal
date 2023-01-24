@@ -105,7 +105,9 @@ export default {
         title: name,
         description,
         cover: {
-          url: `${appContext.config.globalProperties.$appStorage}/${cover?.path}`,
+          url: cover?.path
+            ? `${appContext.config.globalProperties.$appStorage}/${cover.path}`
+            : appContext.config.globalProperties.$defaultActivityCover,
           description: name,
         },
       };

@@ -6,7 +6,7 @@
           <img
             class="activity-card__image"
             v-if="cover"
-            :src="`${$appStorage}/${cover.path}`"
+            :src="imagePath"
             :alt="cover.tipo"
           />
         </div>
@@ -42,7 +42,7 @@
 <script>
 const I18N_PATH = "modules.activities.components.activityCard";
 
-import { computed } from "vue";
+import { computed, getCurrentInstance } from "vue";
 
 import AvCard from "atoms/AvCard.vue";
 
@@ -67,6 +67,14 @@ export default {
     },
   },
   setup(props, ctx) {
+    const { appContext } = getCurrentInstance();
+
+    const imagePath = computed(() =>
+      props.cover.path
+        ? `${appContext.config.globalProperties.$appStorage}/${props.cover.path}`
+        : appContext.config.globalProperties.$defaultActivityCover
+    );
+
     const isCompleted = computed(() => props.progress === 100);
 
     const handleStartNow = () => {
@@ -75,6 +83,7 @@ export default {
 
     return {
       I18N_PATH,
+      imagePath,
       isCompleted,
       handleStartNow,
     };

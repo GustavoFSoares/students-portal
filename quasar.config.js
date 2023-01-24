@@ -32,7 +32,7 @@ module.exports = configure(function (/* ctx */) {
     boot: ["app-env", "i18n", "axios"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: ["default.scss", "app.scss"],
+    css: ["default.scss", "app.scss", "~vue-color-avatar/dist/style.css"],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
@@ -66,6 +66,7 @@ module.exports = configure(function (/* ctx */) {
         atoms: path.join(__dirname, "src/components/atoms"),
         molecules: path.join(__dirname, "src/components/molecules"),
         organisms: path.join(__dirname, "src/components/organisms"),
+        libs: path.join(__dirname, "libs"),
       },
 
       vueRouterMode: "history", // available values: 'hash', 'history'

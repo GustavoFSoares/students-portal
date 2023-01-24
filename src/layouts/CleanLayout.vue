@@ -1,7 +1,9 @@
 <template>
   <MainLayout class="clean-layout">
     <div class="clean-layout__header">
-      <div class="header-decoration" />
+      <div class="header-decoration">
+        <AppUserToolbar />
+      </div>
 
       <AppToolbar class="header-toolbar" />
     </div>
@@ -16,6 +18,7 @@
 
 <script>
 import AppToolbar from "partials/AppToolbar.vue";
+import AppUserToolbar from "partials/AppUserToolbar.vue";
 
 import MainLayout from "./MainLayout.vue";
 
@@ -23,6 +26,7 @@ export default {
   name: "CleanLayout",
   components: {
     AppToolbar,
+    AppUserToolbar,
     MainLayout,
   },
 };
@@ -36,6 +40,7 @@ export default {
 
   .header-decoration {
     flex-basis: 240px;
+    max-width: 240px;
   }
 
   .header-toolbar,
@@ -46,6 +51,7 @@ export default {
   .header-toolbar,
   .page-content {
     flex-grow: 1;
+    height: 100%;
   }
 
   &__content {

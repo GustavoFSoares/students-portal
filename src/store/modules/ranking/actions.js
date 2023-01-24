@@ -1,4 +1,5 @@
 import { api } from "boot/axios";
+import { defaultAvatar } from "vue-color-avatar";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
@@ -15,6 +16,7 @@ export default {
         score: userRanking.pontos,
         isYou: userRanking.local,
         position: rankingIndex + 1,
+        avatar: userRanking.avatar || { ...defaultAvatar },
       }));
 
       commit("SET_RANKING", preparedData);

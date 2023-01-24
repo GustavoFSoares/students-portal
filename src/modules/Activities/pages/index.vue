@@ -100,10 +100,6 @@ export default {
 
 <style lang="scss" scoped>
 .activity-page {
-  :deep(.av-page-content__container) {
-    height: 855px;
-  }
-
   .activity-list {
     &__wrapper {
       display: flex;

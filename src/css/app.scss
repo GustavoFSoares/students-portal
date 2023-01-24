@@ -26,6 +26,10 @@ strong {
   font-weight: 600;
 }
 
+ul {
+  list-style: none;
+}
+
 .app-container {
   max-width: 1830px;
   margin: 0 auto;
@@ -51,5 +55,8 @@ strong {
 
     height: 100%;
     overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
   }
 }

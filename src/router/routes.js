@@ -1,5 +1,6 @@
 import AuthRoutes from "modules/Auth/routes";
 import HomeRoutes from "modules/Home/routes";
+import UserRoutes from "modules/User/routes/index.routes";
 import ActivitiesRoutes from "modules/Activities/routes/index.routes";
 
 const routes = [
@@ -7,8 +8,9 @@ const routes = [
   {
     path: "",
     name: "",
+    redirect: { name: "home" },
     component: () => import("layouts/CleanLayout.vue"),
-    children: [...HomeRoutes, ...ActivitiesRoutes],
+    children: [...HomeRoutes, ...UserRoutes, ...ActivitiesRoutes],
   },
   {
     path: "/test",

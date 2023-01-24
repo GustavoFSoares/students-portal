@@ -8,4 +8,5 @@ export default boot(({ app }) => {
   app.config.globalProperties.$appStorage = `${URL}/storage`;
   app.config.globalProperties.$iconsMapReplations = iconsMapReplations;
   app.config.globalProperties.$iconsMap = iconsMap;
+  app.config.globalProperties.$defaultActivityCover = "/default-trail.jpg";
 });

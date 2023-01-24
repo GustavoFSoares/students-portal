@@ -55,12 +55,6 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &--no-header & {
-    &-content__container {
-      height: 910px;
-    }
-  }
-
   &-header {
     display: flex;
     border-bottom: $border-line;
@@ -91,20 +85,21 @@ export default {
     padding: 4px 0;
     position: relative;
 
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(#010203, 60%);
+      border-radius: 10px;
+    }
+
     &__container {
       padding: 20px 40px;
-      overflow: auto;
-      height: 855px;
-
-      &::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 10px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: rgba(#010203, 60%);
-        border-radius: 10px;
-      }
+      padding-bottom: 80px;
     }
   }
 }

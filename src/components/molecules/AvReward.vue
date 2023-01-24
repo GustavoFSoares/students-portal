@@ -1,10 +1,9 @@
 <template>
   <div class="av-reward">
-    <router-link
+    <div
       v-for="(rewardItem, rewardKey) in rewards"
       :key="rewardKey"
       :class="['av-reward-item', `av-reward-item--${rewardKey}`]"
-      :to="{ name: rewardItem.route }"
     >
       <QIcon class="av-reward-item__icon" :name="getRewardIcon(rewardKey)" />
 
@@ -15,7 +14,7 @@
       <h6 class="av-reward-item__label">
         {{ $t(`${I18N_PATH}.${rewardKey}`) }}
       </h6>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -98,7 +97,7 @@ export default {
     }
 
     &__label {
-      color: $secondary;
+      color: $text-color-2;
       flex-grow: 1;
       text-align: end;
       font-size: 8px;

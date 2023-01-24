@@ -33,7 +33,7 @@
           </p>
         </transition>
 
-        <article class="login-page__forgot-password">
+        <article v-if="false" class="login-page__forgot-password">
           <router-link :to="{ name: 'auth.forgot' }">
             <QBtn
               flat
@@ -76,8 +76,8 @@ export default {
     const $store = useStore();
     const $route = useRouter();
 
-    const email = ref("aluno@teste.com");
-    const password = ref("teste");
+    const email = ref();
+    const password = ref();
     const showPassword = ref(false);
     const hadFailedValidation = ref(false);
 
