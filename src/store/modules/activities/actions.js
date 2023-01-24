@@ -31,8 +31,8 @@ export default {
       const trails = data.turma.trilhas.map((trilhas) => ({
         id: trilhas.detail.id,
         cover: {
-          path: trilhas.detail.capa.path,
-          type: trilhas.detail.capa.tipo,
+          path: trilhas.detail.capa?.path,
+          type: trilhas.detail.capa?.tipo,
         },
         name: trilhas.detail.descricao,
       }));
@@ -112,6 +112,35 @@ export default {
       };
     } catch (err) {
       console.error("Stage Data by ID Error", err);
+    }
+  },
+  getPdfData: async (_, path) => {
+    try {
+      const data = await api.post(
+        path,
+        {},
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods":
+              "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":
+              "Origin, Content-Type, X-Auth-Token",
+            "Content-Type": "application/pdf",
+            mode: "no-cors",
+          },
+        }
+      );
+
+      console.log(data);
+
+      // return {
+      //   files: data.files,
+      //   type: data.tipo.descricao,
+      //   cover: data.tipo.path,
+      // };
+    } catch (err) {
+      console.error("Stage PDF Error", err);
     }
   },
 };
