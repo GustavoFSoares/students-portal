@@ -28,14 +28,16 @@ export default {
         data: { data },
       } = await api.post("alunos/trilhas");
 
-      const trails = data.turma.trilhas.map((trilhas) => ({
-        id: trilhas.detail.id,
-        cover: {
-          path: trilhas.detail.capa?.path,
-          type: trilhas.detail.capa?.tipo,
-        },
-        name: trilhas.detail.descricao,
-      }));
+      const trails = data.turma.trilhas
+        .filter((trilha) => trilha.status === "ativo")
+        .map((trilhas) => ({
+          id: trilhas.detail.id,
+          cover: {
+            path: trilhas.detail.capa?.path,
+            type: trilhas.detail.capa?.tipo,
+          },
+          name: trilhas.detail.descricao,
+        }));
 
       dispatch("setProfileActivities", data.trilhas);
       const profileActivities = getters.getProfileActivities;
@@ -72,22 +74,25 @@ export default {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
-        stages: data.stage.map((stage) => {
-          return {
-            id: stage.id,
-            trailId: stage.trilha_id,
-            name: stage.nome,
-            reward: {
-              coins: stage.moedas,
-              points: stage.pontos,
-            },
-            type:
-              iconsMapReplations[stage.tipo.descricao] || stage.tipo.descricao,
-            position: stage.ordem + "",
-            rank: 2,
-            completed: true,
-          };
-        }),
+        stages: data.stage
+          .filter((stage) => stage.status === "ativo")
+          .map((stage) => {
+            return {
+              id: stage.id,
+              trailId: stage.trilha_id,
+              name: stage.nome,
+              reward: {
+                coins: stage.moedas,
+                points: stage.pontos,
+              },
+              type:
+                iconsMapReplations[stage.tipo.descricao] ||
+                stage.tipo.descricao,
+              position: stage.ordem + "",
+              rank: 2,
+              completed: true,
+            };
+          }),
       };
     } catch (err) {
       console.error("Courses Data by ID Error", err);
