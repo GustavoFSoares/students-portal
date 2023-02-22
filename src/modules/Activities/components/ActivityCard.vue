@@ -14,7 +14,7 @@
 
       <template #default>
         <div class="activity-card__content">
-          <h3 class="activity-card__title">{{ title }}</h3>
+          <h3 class="activity-card__title" :title="title">{{ title }}</h3>
 
           <div
             v-if="progress !== null"
@@ -103,6 +103,7 @@ export default {
 
   &__wrapper {
     display: flex;
+    height: 100%;
 
     flex-direction: row;
     @media (min-width: $breakpoint-tablet) {
@@ -151,8 +152,15 @@ export default {
   &__title {
     font-size: 15px;
     flex-grow: 1;
-    height: 100%;
     color: $text-color-3;
+    height: 100%;
+    max-height: 75px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
 
   .progress-bar {
