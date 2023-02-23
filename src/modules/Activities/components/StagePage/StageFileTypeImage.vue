@@ -1,15 +1,6 @@
 <template>
   <section class="stage-file-type-image">
     <img :src="`${$appStorage}/${path}`" alt="" />
-
-    <QBtn
-      class="stage-file-type-image__close-button"
-      icon="close"
-      round
-      color="grey-6"
-      size="sm"
-      @click="handleCloseImage"
-    />
   </section>
 </template>
 
@@ -37,8 +28,6 @@ export default {
 
 <style lang="scss" scoped>
 .stage-file-type-image {
-  position: relative;
-
   img {
     display: block;
     width: 100%;
@@ -50,11 +39,11 @@ export default {
       max-width: 600px;
     }
   }
+}
+</style>
 
-  &__close-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-  }
+<style lang="scss">
+.stage-page__modal:has(.stage-file-type-image) {
+  width: initial !important;
 }
 </style>

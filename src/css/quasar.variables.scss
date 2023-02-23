@@ -36,7 +36,8 @@ $info: #31ccec;
 $warning: #f2c037;
 
 $default-border-radius: 12px;
-$default-background: rgba(#10121b, 40%);
+$background: #10121b;
+$default-background: rgba($background, 40%);
 $default-backdrop: blur(24px);
 $card-background: rgba($white, 0.102);
 

@@ -31,12 +31,19 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.stage-page__modal:has(.stage-file-type-audio) {
+  height: initial !important;
+  width: 25vw !important;
+}
+</style>
+
 <style lang="scss" scoped>
 .stage-file-type-audio {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: transparent !important;
 
-  background: #f1f3f4;
+  audio {
+    width: 100%;
+  }
 }
 </style>

@@ -20,7 +20,10 @@
             {{ stageData.title }}
           </h1>
 
-          <h2 class="stage-list-header__description">
+          <h2
+            class="stage-list-header__description"
+            :title="stageData.description"
+          >
             {{ stageData.description }}
           </h2>
         </div>
@@ -139,6 +142,7 @@ export default {
     height: 100%;
 
     &__cover {
+      min-width: 35px;
       width: 35px;
       height: 35px;
       border-radius: 50%;
@@ -171,6 +175,8 @@ export default {
       font-size: 12px;
       color: $text-color-3;
       font-weight: $font-weight-bold;
+      white-space: nowrap;
+      overflow: initial;
     }
   }
 }

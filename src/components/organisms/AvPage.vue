@@ -4,6 +4,7 @@
       <div class="av-page-header__title-wrapper">
         <QBtn
           v-if="goBackRoute"
+          class="av-page-header__back-button"
           :to="goBackRoute"
           icon="chevron_left"
           size="md"
@@ -58,7 +59,7 @@ export default {
   &-header {
     display: flex;
     border-bottom: $border-line;
-    height: 53px;
+    min-height: 53px;
 
     &__title {
       font-size: 15px;
@@ -74,8 +75,28 @@ export default {
       }
     }
 
+    &__back-button {
+      width: max-content;
+    }
+
     &__content {
       flex-grow: 1;
+
+      :deep {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+      }
     }
   }
 
