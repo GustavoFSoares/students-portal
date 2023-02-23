@@ -73,6 +73,16 @@
         :path="selectedFile"
         @close="handleHideFileData"
       />
+
+      <QBtn
+        v-if="stageFileTypeComponent !== 'StageFileTypeAudio'"
+        class="stage-page__modal-close"
+        icon="close"
+        round
+        color="grey-6"
+        size="sm"
+        @click="handleHideFileData"
+      />
     </QCard>
   </q-dialog>
 </template>
@@ -263,7 +273,34 @@ export default {
   }
 
   &__modal {
-    border-radius: $default-border-radius;
+    position: relative;
+    width: initial;
+    height: 80vh;
+
+    box-shadow: none;
+
+    background: transparent;
+    max-width: initial !important;
+
+    :deep(section) {
+      width: 100%;
+      height: 100%;
+
+      background: $background;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: $default-border-radius;
+      overflow: hidden;
+    }
+
+    &-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
   }
 }
 </style>

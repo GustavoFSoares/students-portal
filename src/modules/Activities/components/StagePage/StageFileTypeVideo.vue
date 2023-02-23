@@ -38,21 +38,9 @@ export default {
 
 <style lang="scss" scoped>
 .stage-file-type-video {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: #f1f3f4;
-
-  width: 480px;
-  padding: 15px;
-
-  @media (min-width: $breakpoint-tablet) {
-    width: 480px;
-  }
-
   video {
     width: 100%;
+    height: 100%;
     border-radius: $default-border-radius;
     overflow: hidden;
   }
