@@ -14,7 +14,11 @@
 
       <template #default>
         <div class="activity-card__content">
-          <h3 class="activity-card__title" :title="title">{{ title }}</h3>
+          <h3 class="activity-card__title">{{ title }}</h3>
+
+          <h4 class="activity-card__description" :title="description">
+            {{ description }}
+          </h4>
 
           <div
             v-if="progress !== null"
@@ -54,6 +58,10 @@ export default {
   },
   props: {
     title: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -146,13 +154,17 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    height: 100%;
   }
 
   &__title {
+    font-size: 20px;
+    color: $text-color-3;
+  }
+
+  &__description {
     font-size: 15px;
     flex-grow: 1;
-    color: $text-color-3;
+    color: $text-color-2;
     height: 100%;
     max-height: 75px;
 
