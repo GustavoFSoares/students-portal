@@ -14,6 +14,7 @@
             v-for="(activity, activityKey) in currentActivies"
             :key="`activity-${activityKey}`"
             :title="activity.name"
+            :description="activity.description"
             :cover="activity.cover"
             @startNow="handleStartActivity(activity.id)"
           />

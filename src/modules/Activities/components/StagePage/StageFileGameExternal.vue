@@ -16,22 +16,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.stage-file-game-external {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: #f1f3f4;
-
-  width: 80vw;
-  height: 71vh;
-}
-</style>
-
 <style lang="scss">
-.stage-page__modal {
-  background: transparent;
-  max-width: initial !important;
+.stage-page__modal:has(.stage-file-game-external) {
+  width: 80vw !important;
 }
 </style>
+

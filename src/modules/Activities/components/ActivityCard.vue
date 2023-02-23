@@ -16,6 +16,10 @@
         <div class="activity-card__content">
           <h3 class="activity-card__title">{{ title }}</h3>
 
+          <h4 class="activity-card__description" :title="description">
+            {{ description }}
+          </h4>
+
           <div
             v-if="progress !== null"
             class="progress-bar"
@@ -54,6 +58,10 @@ export default {
   },
   props: {
     title: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -103,6 +111,7 @@ export default {
 
   &__wrapper {
     display: flex;
+    height: 100%;
 
     flex-direction: row;
     @media (min-width: $breakpoint-tablet) {
@@ -145,14 +154,25 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    height: 100%;
   }
 
   &__title {
+    font-size: 20px;
+    color: $text-color-3;
+  }
+
+  &__description {
     font-size: 15px;
     flex-grow: 1;
+    color: $text-color-2;
     height: 100%;
-    color: $text-color-3;
+    max-height: 75px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
 
   .progress-bar {

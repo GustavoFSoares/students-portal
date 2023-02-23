@@ -11,13 +11,15 @@ export default {
         data: { data },
       } = await api.post("alunos/ranking");
 
-      const preparedData = data.map((userRanking, rankingIndex) => ({
-        userName: userRanking.aluno,
-        score: userRanking.pontos,
-        isYou: userRanking.local,
-        position: rankingIndex + 1,
-        avatar: userRanking.avatar || { ...defaultAvatar },
-      }));
+      const preparedData = Object.values(data).map(
+        (userRanking, rankingIndex) => ({
+          userName: userRanking.aluno,
+          score: userRanking.pontos,
+          isYou: userRanking.local,
+          position: rankingIndex + 1,
+          avatar: userRanking.avatar || { ...defaultAvatar },
+        })
+      );
 
       commit("SET_RANKING", preparedData);
 

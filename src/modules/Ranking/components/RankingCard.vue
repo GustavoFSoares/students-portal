@@ -58,17 +58,13 @@ export default {
       type: String,
       required: true,
     },
-    userImage: {
-      type: String,
-      required: true,
-    },
     userPoints: {
       type: Number,
       required: true,
     },
     userAvatar: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
     isYou: {
       type: Boolean,

@@ -36,7 +36,8 @@ export default {
             path: trilhas.detail.capa?.path,
             type: trilhas.detail.capa?.tipo,
           },
-          name: trilhas.detail.descricao,
+          name: trilhas.detail.nome,
+          description: trilhas.detail.descricao,
         }));
 
       dispatch("setProfileActivities", data.trilhas);
