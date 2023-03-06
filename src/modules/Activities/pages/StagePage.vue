@@ -99,6 +99,7 @@ import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
+import StageFileGameInternal from "../components/StagePage/StageFileGameInternal.vue";
 import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
 import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
 import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
@@ -110,6 +111,7 @@ export default {
   components: {
     AvReward,
     AvPage,
+    StageFileGameInternal,
     StageFileGameExternal,
     StageFileTypeAudio,
     StageFileTypeImage,
@@ -127,6 +129,7 @@ export default {
       document: "StageFileTypePdf",
       video: "StageFileTypeVideo",
       "game-external": "StageFileGameExternal",
+      "game-internal": "StageFileGameInternal",
     };
 
     const { id: activityId, stageId } = $route.params;
