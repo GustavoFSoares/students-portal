@@ -109,7 +109,12 @@ export default {
 
       return {
         name: data.nome,
-        files: data.files,
+        files: data.files.map((file) => ({
+          path: file.path,
+          name: file.name,
+          id: file.id,
+          parameters: file.parameters ? JSON.parse(file.parameters) : null,
+        })),
         type: data.tipo.descricao,
         type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
         cover: data.tipo.path,

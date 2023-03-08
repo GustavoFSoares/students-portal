@@ -34,7 +34,7 @@
             class="stage-item"
             v-for="(stageFile, stageFileIndex) in stageData.files"
             :key="stageFile.id"
-            @click="handleOpenStage(stageFile.path)"
+            @click="handleOpenStage(stageFile)"
           >
             <img
               class="stage-item__image"
@@ -70,7 +70,8 @@
       <component
         v-if="stageFileTypeComponent"
         :is="stageFileTypeComponent"
-        :path="selectedFile"
+        :path="selectedFile.target"
+        :parameters="selectedFile.parameters || undefined"
         @close="handleHideFileData"
       />
 
@@ -145,8 +146,11 @@ export default {
       return stageFilesMap[stageData.value.type] || null;
     });
 
-    const handleOpenStage = (path) => {
-      selectedFile.value = path;
+    const handleOpenStage = ({ path, parameters }) => {
+      selectedFile.value = {
+        target: path,
+        parameters,
+      };
     };
 
     const handleHideFileData = () => {

@@ -1,6 +1,10 @@
 <template>
   <section class="stage-file-game-internal">
-    <component v-if="gameComponent" :is="gameComponent" />
+    <component
+      v-if="gameComponent"
+      :is="gameComponent"
+      :parameters="parameters"
+    />
   </section>
 </template>
 
@@ -20,6 +24,10 @@ export default {
     path: {
       type: String,
       required: true,
+    },
+    parameters: {
+      type: Array,
+      default: () => [],
     },
   },
   setup(props) {
