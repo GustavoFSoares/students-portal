@@ -1,60 +1,79 @@
 <template>
-  <div class="hangman" ref="hangman">
-    <div class="hangman__buttons">
-      <button class="hangman__button" value="A">A</button>
-      <button class="hangman__button" value="B">B</button>
-      <button class="hangman__button" value="C">C</button>
-      <button class="hangman__button" value="D">D</button>
-      <button class="hangman__button" value="E">E</button>
-      <button class="hangman__button" value="F">F</button>
-      <button class="hangman__button" value="G">G</button>
-      <button class="hangman__button" value="H">H</button>
-      <button class="hangman__button" value="I">I</button>
-      <button class="hangman__button" value="J">J</button>
-      <button class="hangman__button" value="K">K</button>
-      <button class="hangman__button" value="L">L</button>
-      <button class="hangman__button" value="M">M</button>
-      <br />
-      <br />
-      <button class="hangman__button" value="N">N</button>
-      <button class="hangman__button" value="O">O</button>
-      <button class="hangman__button" value="P">P</button>
-      <button class="hangman__button" value="Q">Q</button>
-      <button class="hangman__button" value="R">R</button>
-      <button class="hangman__button" value="S">S</button>
-      <button class="hangman__button" value="T">T</button>
-      <button class="hangman__button" value="U">U</button>
-      <button class="hangman__button" value="V">V</button>
-      <button class="hangman__button" value="W">W</button>
-      <button class="hangman__button" value="X">X</button>
-      <button class="hangman__button" value="Y">Y</button>
-      <button class="hangman__button" value="Z">Z</button>
-      <br />
-      <br />
-      <button class="hangman__button" value="1">1</button>
-      <button class="hangman__button" value="2">2</button>
-      <button class="hangman__button" value="3">3</button>
-      <button class="hangman__button" value="4">4</button>
-      <button class="hangman__button" value="5">5</button>
-      <button class="hangman__button" value="6">6</button>
-      <button class="hangman__button" value="7">7</button>
-      <button class="hangman__button" value="8">8</button>
-      <button class="hangman__button" value="9">9</button>
-      <br />
-      <br />
+  <div class="hangman">
+    <div class="letters-container">
+      <div class="attempts">
+        <p>
+          Tentativas restantes: <strong>{{ remainingAttemps }}</strong>
+        </p>
+        <p>
+          Acertos: <strong>{{ greenCount }}</strong>
+        </p>
+      </div>
+
+      <div class="end-game-messages">
+        <h2 v-if="gameStatus" class="game-status-message">
+          Você
+          <span v-if="gameStatus === 'win'">GANHOU!!!</span>
+          <span v-if="gameStatus === 'lose'">perdeu</span>
+        </h2>
+
+        <h4 v-if="gameStatus === 'lose'" class="discovered-word">
+          A palavra era "{{ choisedWord }}"
+        </h4>
+      </div>
+
+      <div class="letters">
+        <div
+          class="letters-group"
+          v-for="(wordByWord, wordIndex) in choisedWordByWord"
+          :key="wordIndex"
+        >
+          <p
+            class="letter-item"
+            v-for="letterData in wordByWord"
+            :key="letterData.letter"
+            :class="letterData.letter"
+          >
+            {{ letterData.show ? letterData.letter : "_" }}
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div id="letters">
-      <p v-for="letter in word" :key="letter" :class="letter">
-        {{ letter }}
-      </p>
+    <div class="gallows-image">
+      <img
+        v-if="redCount"
+        :src="`/images/hangman/${redCount}.png`"
+        :alt="`Erros: ${redCount}`"
+      />
     </div>
+
+    <div class="buttons-container">
+      <button
+        v-for="buttonOption in preparedLetterOptions"
+        :class="[
+          'hangman-button',
+          {
+            'hangman-button--hit': buttonOption.status === true,
+            'hangman-button--mistake': buttonOption.status === false,
+          },
+        ]"
+        :key="buttonOption.letter"
+        class="hangman-button"
+        type="button"
+        :disabled="disabledButtons || buttonOption.status !== null"
+        @click="handleChoicedWord(buttonOption)"
+      >
+        {{ buttonOption.letter }}
+      </button>
+    </div>
+
     <img id="hangman" />
   </div>
 </template>
 
 <script>
-import $ from "jquery";
+import { computed, ref } from "vue";
 
 export default {
   name: "HangmanGame",
@@ -63,29 +82,56 @@ export default {
       type: Array,
     },
   },
-  data() {
-    return {
-      word: null,
-    };
-  },
-  mounted() {
-    let words = [...this.parameters];
+  setup(props) {
+    const MAX_ATTEMPS = 9;
+    const letterOptions = [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
 
-    let images = [
-      "http://i.imgur.com/WNQezBl.png",
-      "http://i.imgur.com/KHdnjLj.png",
-      "http://i.imgur.com/7xJ6Y8p.png",
-      "http://i.imgur.com/7ADQUjJ.png",
-      "http://i.imgur.com/YQHDg0c.png",
-      "http://i.imgur.com/hEkBN1h.png",
-      "http://i.imgur.com/oRytBR1.png",
-      "http://i.imgur.com/KoW5M8y.png",
-      "http://i.imgur.com/LfM2JKe.png",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
     ];
 
-    function shuffle(array) {
-      //shuffle array function
-      let currentIndex = array.length,
+    const words = ref(props.parameters);
+    const redCount = ref(0);
+    const greenCount = ref(0);
+    const gameStatus = ref(null);
+
+    const choisedWord = computed(() => {
+      let wordList = words.value;
+      let currentIndex = wordList.length,
         temporaryValue,
         randomIndex;
 
@@ -96,75 +142,93 @@ export default {
         currentIndex -= 1;
 
         // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = wordList[currentIndex];
+        wordList[currentIndex] = wordList[randomIndex];
+        wordList[randomIndex] = temporaryValue;
       }
 
-      return array;
-    }
-
-    shuffle(words);
-    let word = words[0];
-    let redCount = 0;
-    let greenCount = 0;
-    let imageCount = -1;
-
-    let unique = ""; //find unique characters
-    console.log(word, unique);
-    for (let i = 0; i < word.length; i++) {
-      if (unique.indexOf(word[i]) == -1) {
-        unique += word[i];
-      }
-    }
-
-    let letterCount = unique.length; //count of unique letters
-
-    this.word = word;
-    // for (let i = 0; i < word.length; i++) {
-    //   //create a paragraph for each letter
-    //   $("#letters").append("<p class=" + word[i] + ">" + word[i] + "</p>");
-    // }
-
-    $(".hangman__button").each(function () {
-      $(this).click(function () {
-        console.log(this);
-        let buttonValue = $(this).val(); //letter value of button
-        let buttonIndex = word.indexOf(buttonValue); //index of button within word
-        if (buttonIndex == -1) {
-          //if wrong letter is clicked
-          $(this).css("background-color", "red");
-          $(this).css("color", "white");
-          redCount++; //increase count on wrong letter
-          imageCount++;
-          $("#hangman").attr("src", images[imageCount]);
-        } else {
-          //if correct letter is clicked
-          $(this).css("background-color", "green");
-          $(this).css("color", "white");
-          word.replace(buttonValue, buttonValue); //replace black with letter
-          $("." + buttonValue).css("background-color", "white");
-          greenCount++; //increase count on correct letter
-        }
-
-        let totalCount = redCount + greenCount;
-        let score = Math.round((greenCount / totalCount) * 100);
-
-        if (redCount == 9) {
-          alert("GAME OVER. THE WORD WAS: " + word + ".");
-          // window.location.reload();
-        } else if (greenCount == letterCount) {
-          alert("YOU WIN, WITH " + score + "% ACCURACY.");
-          // window.location.reload();
-        }
-
-        $(this).off(); //turn click off
-      });
+      return wordList[0].toUpperCase();
     });
-  },
-  unmounted() {
-    this.$el.remove();
-    // this.$refs.hangman.remove();
+
+    const filteredWord = computed(() =>
+      [...new Set(choisedWord.value.replace(" ", "").split(""))].join("")
+    );
+
+    const letterCount = computed(
+      () => filteredWord.value.replace(" ", "").length
+    );
+    const disabledButtons = computed(
+      () => redCount.value >= 9 || !!gameStatus.value
+    );
+    const remainingAttemps = computed(() => MAX_ATTEMPS - redCount.value);
+
+    const preparedLetterOptions = ref(
+      letterOptions.map((letter) => ({
+        letter,
+        status: null,
+      }))
+    );
+    const choisedWordByWord = ref(
+      choisedWord.value.split(" ").map((word) =>
+        word.split("").map((letter) => ({
+          letter,
+          show: false,
+        }))
+      )
+    );
+
+    const handleChoicedWord = (buttonOption) => {
+      if (buttonOption.letter === "ç") {
+        buttonOption.letter = "C";
+      }
+
+      const matchIndex = choisedWord.value.indexOf(buttonOption.letter);
+      if (matchIndex === -1) {
+        mistakeFlow(buttonOption);
+        return;
+      }
+
+      hitFlow(buttonOption);
+    };
+
+    const mistakeFlow = (buttonOption) => {
+      buttonOption.status = false;
+      redCount.value += 1;
+
+      if (redCount.value >= MAX_ATTEMPS) {
+        gameStatus.value = "lose";
+      }
+    };
+
+    const hitFlow = (buttonOption) => {
+      buttonOption.status = true;
+      greenCount.value += 1;
+
+      for (let wordByWord of choisedWordByWord.value) {
+        for (let letterData of wordByWord) {
+          if (letterData.letter === buttonOption.letter) {
+            letterData.show = true;
+          }
+        }
+      }
+
+      console.log(greenCount.value, letterCount.value);
+      if (greenCount.value === letterCount.value) {
+        gameStatus.value = "win";
+      }
+    };
+
+    return {
+      gameStatus,
+      redCount,
+      greenCount,
+      choisedWord,
+      choisedWordByWord,
+      disabledButtons,
+      remainingAttemps,
+      preparedLetterOptions,
+      handleChoicedWord,
+    };
   },
 };
 </script>
@@ -172,41 +236,116 @@ export default {
 <style lang="scss">
 .hangman {
   margin: 0 auto;
+  width: 100%;
   height: 100%;
-  background: #fff;
+  background: #bcc4cd;
 
-  &__buttons {
-    text-align: center;
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .letters-container {
+    grid-area: letters;
+  }
+  .gallows-image {
+    grid-area: gallowsimage;
+  }
+  .buttons-container {
+    grid-area: buttons;
   }
 
-  p {
-    display: inline;
-    background-color: black;
-    margin-right: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    font-size: 20px;
-  }
-  button {
-    text-align: center;
-    width: 40px;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 20px;
-  }
-  body {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+  grid-template-areas:
+    "letters gallowsimage"
+    "buttons buttons";
+
+  .buttons-container {
+    width: fit-content;
     user-select: none;
+
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 2px;
+  }
+
+  .hangman-button {
+    background: #3a3a3e;
+    color: #fff;
+
+    width: 40px;
+    font-size: 20px;
+    border-radius: 4px;
+
+    text-align: center;
     font-family: "Courier New", Courier, monospace;
+
+    &:nth-of-type(27) {
+      grid-column: 3;
+    }
   }
-  img {
+
+  .letters {
+    display: flex;
+    gap: 5px;
+
+    &-group {
+      display: flex;
+    }
+
+    &-container {
+      width: 350px;
+      height: 250px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .attempts {
+    width: 100%;
+    text-align: start;
+
+    p {
+      font-size: 14px;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .end-game-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+
+    .game-status-message {
+      font-size: 50px;
+      text-align: center;
+    }
+
+    .discovered-word {
+      font-size: 15px;
+    }
+  }
+
+  .letter-item {
+    width: 22px;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .gallows-image {
     width: 250px;
-  }
-  h1 {
-    font-size: 40px;
+    height: 250px;
+    justify-self: end;
+
+    img {
+      width: 100%;
+    }
   }
 }
 </style>
