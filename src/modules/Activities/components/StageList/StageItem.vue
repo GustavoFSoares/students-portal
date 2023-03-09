@@ -22,7 +22,7 @@
 </template>
 
 <script>
-const TOTAL_STARS = 3;
+const TOTAL_STARS = 0;
 
 import { computed } from "vue";
 import { Screen } from "quasar";
