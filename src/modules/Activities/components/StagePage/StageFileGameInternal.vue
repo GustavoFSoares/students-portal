@@ -3,7 +3,7 @@
     <component
       v-if="gameComponent"
       :is="gameComponent"
-      :parameters="parameters"
+      :parameters="preparedWords"
     />
   </section>
 </template>
@@ -14,11 +14,13 @@ import { computed } from "vue";
 import InternalGamesMap from "maps/internalGamesMap.json";
 
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
+import HangmanGame from "./InternalGames/HangmanGame.vue";
 
 export default {
   name: "StageFileGameExternal",
   components: {
     WordPuzzle,
+    HangmanGame,
   },
   props: {
     path: {
@@ -37,7 +39,12 @@ export default {
       return game || null;
     });
 
+    const preparedWords = computed(() =>
+      props.parameters.map((parameter) => parameter.toUpperCase())
+    );
+
     return {
+      preparedWords,
       gameComponent,
     };
   },
