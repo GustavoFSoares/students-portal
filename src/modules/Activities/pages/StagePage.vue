@@ -34,7 +34,7 @@
             class="stage-item"
             v-for="(stageFile, stageFileIndex) in stageData.files"
             :key="stageFile.id"
-            @click="handleOpenStage(stageFile.path)"
+            @click="handleOpenStage(stageFile)"
           >
             <img
               class="stage-item__image"
@@ -70,7 +70,8 @@
       <component
         v-if="stageFileTypeComponent"
         :is="stageFileTypeComponent"
-        :path="selectedFile"
+        :path="selectedFile.target"
+        :parameters="selectedFile.parameters || undefined"
         @close="handleHideFileData"
       />
 
@@ -99,6 +100,7 @@ import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
+import StageFileGameInternal from "../components/StagePage/StageFileGameInternal.vue";
 import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
 import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
 import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
@@ -110,6 +112,7 @@ export default {
   components: {
     AvReward,
     AvPage,
+    StageFileGameInternal,
     StageFileGameExternal,
     StageFileTypeAudio,
     StageFileTypeImage,
@@ -127,6 +130,7 @@ export default {
       document: "StageFileTypePdf",
       video: "StageFileTypeVideo",
       "game-external": "StageFileGameExternal",
+      "game-internal": "StageFileGameInternal",
     };
 
     const { id: activityId, stageId } = $route.params;
@@ -142,8 +146,11 @@ export default {
       return stageFilesMap[stageData.value.type] || null;
     });
 
-    const handleOpenStage = (path) => {
-      selectedFile.value = path;
+    const handleOpenStage = ({ path, parameters }) => {
+      selectedFile.value = {
+        target: path,
+        parameters,
+      };
     };
 
     const handleHideFileData = () => {
