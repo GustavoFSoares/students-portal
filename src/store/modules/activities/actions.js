@@ -125,6 +125,37 @@ export default {
       console.error("Stage Data by ID Error", err);
     }
   },
+  startActivity: async (_, activityId) => {
+    try {
+      await api.post("alunos/trilha-aluno-atividade", {
+        trilha_id: activityId,
+      });
+    } catch (err) {
+      console.error("Start activity Error", err);
+    }
+  },
+  completeStage: async ({ dispatch }, { activityId, stageId }) => {
+    try {
+      const {
+        data: { data },
+      } = await api.post("alunos/trilha-aluno-estagio", {
+        trilha_id: activityId,
+        estagio_id: stageId,
+      });
+
+      dispatch(
+        "AuthModule/setRewards",
+        {
+          coints: data.profile.moedas,
+          points: data.profile.pontos,
+          level: data.profile.nivel,
+        },
+        { root: true }
+      );
+    } catch (err) {
+      console.error("", err);
+    }
+  },
   getPdfData: async (_, path) => {
     try {
       const data = await api.post(
