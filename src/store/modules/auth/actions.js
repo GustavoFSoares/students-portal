@@ -58,6 +58,18 @@ export default {
         });
     });
   },
+  setRewards: ({ commit }, { coins, points, level }) => {
+    if (coins || points) {
+      commit("SET_REWARDS", {
+        coins,
+        points,
+      });
+    }
+
+    if (level) {
+      commit("SET_LEVEL", level);
+    }
+  },
   getUserByToken: ({ commit, dispatch }, token) => {
     return new Promise((resolve, reject) => {
       api

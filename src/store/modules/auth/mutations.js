@@ -21,6 +21,9 @@ export default {
       levelName: user.nivel,
     };
   },
+  SET_LEVEL(state, level) {
+    state.user.levelName = level;
+  },
   SET_TOKEN(state, token) {
     if (token) {
       LocalStorage.set("avag-token", token);
@@ -32,8 +35,8 @@ export default {
   },
   SET_REWARDS(state, rewards) {
     state.rewards = {
-      coins: rewards.coins,
-      points: rewards.points,
+      coins: rewards.coins || state.rewards?.coins,
+      points: rewards.points || state.rewards?.points,
     };
   },
 };

@@ -115,6 +115,8 @@ export default {
         },
       };
       stageList.value = stages;
+
+      $store.dispatch("ActivitiesModule/startActivity", $route.params.id);
     });
 
     return {
