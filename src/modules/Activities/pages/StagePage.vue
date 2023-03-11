@@ -161,6 +161,11 @@ export default {
       stageData.value = await $store.dispatch("ActivitiesModule/getStageData", {
         stageId,
       });
+
+      $store.dispatch("ActivitiesModule/completeStage", {
+        activityId,
+        stageId,
+      });
     });
 
     return {
