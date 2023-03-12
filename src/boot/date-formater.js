@@ -4,10 +4,10 @@ export default boot(({ app }) => {
   app.config.globalProperties.$filters = {
     ...app.config.globalProperties.$filters,
     dateFormatFullDate: (date) => {
-      return date.toLocaleString().replace(", ", " - ");
+      return new Date(date).toLocaleString().replace(", ", " - ");
     },
     dateFormat: (date) => {
-      return date.toLocaleDateString();
+      return new Date(date).toLocaleDateString();
     },
   };
 });

@@ -30,4 +30,15 @@ export default {
       console.error("Courses Data Error", err);
     }
   },
+  getCertificate: async ({ state, dispatch }, id) => {
+    if (!state.certificates) {
+      await dispatch("loadCertificates");
+    }
+
+    const certificate = state.certificates.find(
+      (certificate) => certificate.id === Number(id)
+    );
+
+    return certificate || null;
+  },
 };
