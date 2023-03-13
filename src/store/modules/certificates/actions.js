@@ -10,16 +10,18 @@ export default {
         data: { data },
       } = await api.post("alunos/buscar-certificados");
 
-      const preparedSertificates = data.map((certificate) => ({
-        id: certificate.certificado_trilha.certificado.id,
-        name: certificate.certificado_trilha.certificado.titulo,
-        description: certificate.certificado_trilha.certificado.conteudo,
-        trailId: certificate.certificado_trilha.trilha_id,
-        path: certificate.certificado_trilha.trilha.capa
-          ? certificate.certificado_trilha.trilha.capa.path
-          : undefined,
-        completedDate: new Date(certificate.certificado_trilha.updated_at),
-      }));
+      const preparedSertificates = data.map((certificate) => {
+        return {
+          id: certificate.certificado_trilha.certificado.id,
+          name: certificate.certificado_trilha.certificado.titulo,
+          description: certificate.certificado_trilha.certificado.conteudo,
+          activity: {
+            id: certificate.certificado_trilha.trilha.id,
+            name: certificate.certificado_trilha.trilha.nome,
+          },
+          conclusionDate: new Date(certificate.certificado_trilha.updated_at),
+        };
+      });
 
       commit("SET_CERTIFICATES", preparedSertificates);
 
@@ -27,5 +29,16 @@ export default {
     } catch (err) {
       console.error("Courses Data Error", err);
     }
+  },
+  getCertificate: async ({ state, dispatch }, id) => {
+    if (!state.certificates) {
+      await dispatch("loadCertificates");
+    }
+
+    const certificate = state.certificates.find(
+      (certificate) => certificate.id === Number(id)
+    );
+
+    return certificate || null;
   },
 };
