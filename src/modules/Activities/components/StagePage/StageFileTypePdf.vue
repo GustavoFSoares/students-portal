@@ -1,6 +1,6 @@
 <template>
   <section class="stage-file-type-pdf">
-    <VuePdfEmbed :source="`${$appStorage}/${path}`" />
+    <iframe :src="`${$appStorage}/${path}?page=1`" frameborder="0" width="100%" height="100%" />
   </section>
 </template>
 
@@ -11,23 +11,17 @@ import { useStore } from "vuex";
 
 export default {
   name: "StageFileTypePdf",
-  components: {
-    VuePdfEmbed,
-  },
   props: {
     path: {
       type: String,
       required: true,
     },
   },
-  setup(props) {
-    const { appContext } = getCurrentInstance();
-    const $store = useStore();
-
-    // onMounted(async () => {
-    //   const pdfPath = `${appContext.config.globalProperties.$appStorage}/${props.path}`;
-    //   $store.dispatch("CourseModule/getPdfData", pdfPath);
-    // });
-  },
 };
 </script>
+
+<style lang="scss">
+.stage-page__modal:has(.stage-file-type-pdf) {
+  width: 80vw !important;
+}
+</style>
