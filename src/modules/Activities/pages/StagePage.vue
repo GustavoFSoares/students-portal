@@ -168,6 +168,11 @@ export default {
         stageId,
       });
 
+      $store.dispatch("ActivitiesModule/completeStage", {
+        activityId,
+        stageId,
+      });
+
       $store.dispatch("AuthModule/refreshUser");
     });
 
