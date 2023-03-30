@@ -35,8 +35,8 @@ export default {
   },
   SET_REWARDS(state, rewards) {
     state.rewards = {
-      coins: rewards.coins || state.rewards?.coins,
-      points: rewards.points || state.rewards?.points,
+      coins: rewards.coins,
+      points: rewards.points,
     };
   },
 };
