@@ -136,22 +136,10 @@ export default {
   },
   completeStage: async ({ dispatch }, { activityId, stageId }) => {
     try {
-      const {
-        data: { data },
-      } = await api.post("alunos/trilha-aluno-estagio", {
+      await api.post("alunos/trilha-aluno-estagio", {
         trilha_id: activityId,
         estagio_id: stageId,
       });
-
-      dispatch(
-        "AuthModule/setRewards",
-        {
-          coints: data.profile.moedas,
-          points: data.profile.pontos,
-          level: data.profile.nivel,
-        },
-        { root: true }
-      );
     } catch (err) {
       console.error("", err);
     }
