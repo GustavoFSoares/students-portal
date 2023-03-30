@@ -56,7 +56,7 @@ export default {
       required: true,
     },
     goalTarget: {
-      type: String,
+      type: Number,
       required: true,
     },
     obtained: {

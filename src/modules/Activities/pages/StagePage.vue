@@ -77,7 +77,13 @@
 
       <QBtn
         v-if="stageFileTypeComponent !== 'StageFileTypeAudio'"
-        :class="['stage-page__modal-close', {'stage-page__modal-close--moved': stageFileTypeComponent === 'StageFileTypePdf'}]"
+        :class="[
+          'stage-page__modal-close',
+          {
+            'stage-page__modal-close--moved':
+              stageFileTypeComponent === 'StageFileTypePdf',
+          },
+        ]"
         icon="close"
         round
         color="grey-6"
@@ -162,10 +168,7 @@ export default {
         stageId,
       });
 
-      $store.dispatch("ActivitiesModule/completeStage", {
-        activityId,
-        stageId,
-      });
+      $store.dispatch("AuthModule/refreshUser");
     });
 
     return {
