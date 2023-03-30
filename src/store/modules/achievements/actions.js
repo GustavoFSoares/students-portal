@@ -7,9 +7,12 @@ export default {
       const currentAchievement = {
         id: achievement.id,
         name: achievement.tipo,
-        description: achievement.objetivo_descricao,
         obtained: obtainedList.includes(achievement.id),
         path: null,
+        goal: {
+          target: achievement.objetivo,
+          description: achievement.objetivo_descricao,
+        },
       };
 
       const imageReference = currentAchievement.obtained ? "open" : "close";
