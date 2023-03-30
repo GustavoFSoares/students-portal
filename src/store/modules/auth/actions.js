@@ -116,6 +116,11 @@ export default {
         });
     });
   },
+  refreshUser: async ({ dispatch, getters }) => {
+    const token = getters["AuthModule/userToken"];
+
+    await dispatch("getUserByToken", token);
+  },
   invalidateUser: ({ commit }) => {
     commit("SET_USER", null);
     commit("SET_TOKEN", null);

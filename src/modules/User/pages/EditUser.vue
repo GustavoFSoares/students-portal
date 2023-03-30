@@ -80,8 +80,13 @@ export default {
       () => $store.state.AuthModule.avatar.loading
     );
 
-    const handleSubmit = () => {
-      $store.dispatch("AuthModule/avatar/sendAvatar", avatarOptions.value);
+    const handleSubmit = async () => {
+      await $store.dispatch(
+        "AuthModule/avatar/sendAvatar",
+        avatarOptions.value
+      );
+
+      await $store.dispatch("AuthModule/refreshUser");
     };
 
     return {
