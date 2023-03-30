@@ -1,4 +1,5 @@
 import { api } from "boot/axios";
+import { defaultAvatar } from "vue-color-avatar";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
@@ -33,7 +34,7 @@ export default {
 
             commit("SET_TOKEN", access_token);
 
-            dispatch("avatar/setAvatar", avatar);
+            dispatch("avatar/setAvatar", avatar || { ...defaultAvatar });
 
             dispatch(
               "AchievementsModule/setAchievements",
