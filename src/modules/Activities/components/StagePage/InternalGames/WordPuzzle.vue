@@ -2,9 +2,7 @@
   <div class="puzzleWrap">
     <p>Word Search</p>
     <div id="puzzle"></div>
-    <div id="words">
-      <button id="solve">Solve Puzzle</button>
-    </div>
+    <div id="words"></div>
   </div>
 </template>
 
