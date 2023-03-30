@@ -30,7 +30,9 @@
       <div class="achievement-card__text-wrapper">
         <h5 class="achievement-card__title">{{ title }}</h5>
 
-        <h6 class="achievement-card__description">{{ description }}</h6>
+        <h6 class="achievement-card__description">
+          <strong>{{ goalTarget }}</strong> - {{ goalDescription }}
+        </h6>
       </div>
     </div>
   </AvCard>
@@ -49,7 +51,11 @@ export default {
       type: String,
       required: true,
     },
-    description: {
+    goalDescription: {
+      type: String,
+      required: true,
+    },
+    goalTarget: {
       type: String,
       required: true,
     },
