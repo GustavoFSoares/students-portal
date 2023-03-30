@@ -5,7 +5,8 @@
         v-for="(achievementData, achievementKey) in achievements"
         :key="achievementKey"
         :title="achievementData.name"
-        :description="achievementData.description"
+        :goal-description="achievementData.goal.description"
+        :goal-target="achievementData.goal.target"
         :badge="achievementData.path"
         :obtained="achievementData.obtained"
       />
