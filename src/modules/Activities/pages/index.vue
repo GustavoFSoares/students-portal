@@ -16,6 +16,7 @@
             :title="activity.name"
             :description="activity.description"
             :cover="activity.cover"
+            :status="activity.status"
             @startNow="handleStartActivity(activity.id)"
           />
         </ul>
@@ -86,6 +87,8 @@ export default {
         "ActivitiesModule/getActivities"
       );
       activiesGroups.value = activiesData;
+
+      $store.dispatch("AuthModule/refreshUser");
     });
 
     return {

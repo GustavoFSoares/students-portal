@@ -14,7 +14,7 @@
 
       <h1 class="stage-list-detail__title">{{ stage.name }}</h1>
 
-      <div class="stage-list-detail__stars">
+      <div class="stage-list-detail__stars" v-if="false">
         <QIcon
           :class="[
             'stage-list-detail__stars-icon',

@@ -14,6 +14,15 @@
 
       <template #default>
         <div class="activity-card__content">
+          <div
+            :class="[
+              'activity-card__progress-badge',
+              `activity-card__progress-badge--${status}`,
+            ]"
+          >
+            <QBadge rounded :label="$t(`${I18N_PATH}.status.${status}`)" />
+          </div>
+
           <h3 class="activity-card__title">{{ title }}</h3>
 
           <h4 class="activity-card__description" :title="description">
@@ -62,6 +71,10 @@ export default {
       required: true,
     },
     description: {
+      type: String,
+      required: true,
+    },
+    status: {
       type: String,
       required: true,
     },
@@ -154,6 +167,27 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  &__progress-badge {
+    align-self: end;
+
+    .q-badge {
+      font-size: 9px;
+    }
+
+    &--available .q-badge {
+      background: $grey-7;
+      color: #000;
+    }
+
+    &--inProgress .q-badge {
+      background: $positive;
+    }
+
+    &--completed .q-badge {
+      background: $secondary;
+    }
   }
 
   &__title {

@@ -28,7 +28,7 @@ export default {
         data: { data },
       } = await api.post("alunos/trilhas");
 
-      const trails = data.turma.trilhas
+      const activities = data.turma.trilhas
         .filter((trilha) => trilha.status === "ativo")
         .map((trilhas) => ({
           id: trilhas.detail.id,
@@ -43,10 +43,29 @@ export default {
       dispatch("setProfileActivities", data.trilhas);
       const profileActivities = getters.getProfileActivities;
 
+      activities.forEach((activity) => {
+        let exists = false;
+
+        Object.entries(profileActivities)
+          .reverse()
+          .forEach(([activityStatusItem, activityStatusItemActivities]) => {
+            if (exists) {
+              return;
+            }
+
+            exists = activityStatusItemActivities.includes(activity.id);
+
+            if (exists) {
+              activity.status = activityStatusItem;
+              return;
+            }
+          });
+      });
+
       const preparedActivitiesGroup = Object.entries(profileActivities).reduce(
         (amount, [mapIndex, activitiesList]) => {
           const activitiesGroup = activitiesList.map((activityId) => {
-            return trails.find((trail) => trail.id === activityId);
+            return activities.find((trail) => trail.id === activityId);
           });
 
           amount[mapIndex] = activitiesGroup;
