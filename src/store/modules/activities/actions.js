@@ -90,6 +90,8 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
+      const completeds = [...data.concluidos];
+
       return {
         name: data.nome,
         description: data.descricao,
@@ -110,7 +112,13 @@ export default {
                 stage.tipo.descricao,
               position: stage.ordem + "",
               rank: 2,
-              completed: true,
+              completed: !!completeds.find((completedId, completedIndex) => {
+                if (completedId === stage.id) {
+                  completeds.splice(completedIndex, 1);
+
+                  return true;
+                }
+              }),
             };
           }),
       };
