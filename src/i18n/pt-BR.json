@@ -174,7 +174,12 @@
       },
       "components": {
         "activityCard": {
-          "access": "Acessar Trilha"
+          "access": "Acessar Trilha",
+          "status": {
+            "available": "disponível",
+            "inProgress": "em andamento",
+            "completed": "concluído"
+          }
         }
       },
       "partials": {
