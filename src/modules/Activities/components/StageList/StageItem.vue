@@ -1,6 +1,14 @@
 <template>
   <li :class="['stage-item', { 'stage-item--completed': completed }]">
-    <div class="stage-item__stars">
+    <QBadge
+      v-if="completed"
+      class="stage-item__completed-flag"
+      color="positive"
+    >
+      <QIcon name="check" rounded color="white" size="xs" />
+    </QBadge>
+
+    <div class="stage-item__stars" v-if="false">
       <QIcon
         :class="[
           'stage-item__stars-icon',
@@ -70,6 +78,13 @@ export default {
 
   &:hover {
     transform: scale(1.03);
+  }
+
+  &__completed-flag {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    padding: 2px;
   }
 
   &__stars {
