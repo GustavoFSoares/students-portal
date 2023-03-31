@@ -1,10 +1,6 @@
 <template>
   <li :class="['stage-item', { 'stage-item--completed': completed }]">
-    <QBadge
-      v-if="completed"
-      class="stage-item__completed-flag"
-      color="positive"
-    >
+    <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
       <QIcon name="check" rounded color="white" size="xs" />
     </QBadge>
 
