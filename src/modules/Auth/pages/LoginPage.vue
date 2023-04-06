@@ -76,8 +76,8 @@ export default {
     const $store = useStore();
     const $route = useRouter();
 
-    const email = ref();
-    const password = ref();
+    const email = ref("aluno@aluno.com");
+    const password = ref("123");
     const showPassword = ref(false);
     const hadFailedValidation = ref(false);
 
