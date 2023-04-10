@@ -269,9 +269,11 @@
             "quiz": "Quiz",
             "word-puzzle": "Caça palavras"
           },
-          "video": "Produção visual",
+          "music": "Audios",
           "image": "Imagens",
-          "document": "Documentos"
+          "video": "Produção visual",
+          "document": "Documentos",
+          "external-game": "Jogo",
         }
       }
     },
