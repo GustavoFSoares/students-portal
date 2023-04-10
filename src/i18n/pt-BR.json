@@ -268,7 +268,8 @@
           "internalGame": {
             "quiz": "Quiz",
             "word-puzzle": "Caça palavras",
-            "video": "Produção visual"
+            "video": "Produção visual",
+            "image": "Imagens"
           }
         }
       }

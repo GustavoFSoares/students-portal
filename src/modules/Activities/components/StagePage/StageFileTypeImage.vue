@@ -1,6 +1,14 @@
 <template>
   <section class="stage-file-type-image">
     <img :src="`${$appStorage}/${path}`" alt="" />
+
+    <div class="stage-file-type-image__button">
+      <QBtn
+        :label="isLast ? 'Concluir' : 'Avançar'"
+        color="secondary"
+        @click="handleEmitFinish"
+      />
+    </div>
   </section>
 </template>
 
@@ -13,14 +21,18 @@ export default {
       type: String,
       required: true,
     },
+    isLast: {
+      type: String,
+      required: true,
+    },
   },
   setup(_, ctx) {
-    const handleCloseImage = () => {
-      ctx.emit("close");
+    const handleEmitFinish = () => {
+      ctx.emit("finish");
     };
 
     return {
-      handleCloseImage,
+      handleEmitFinish,
     };
   },
 };
@@ -28,7 +40,17 @@ export default {
 
 <style lang="scss" scoped>
 .stage-file-type-image {
+  max-width: 1150px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
   img {
+    max-height: 600px;
+
     display: block;
     width: 100%;
     height: 100%;
@@ -36,8 +58,16 @@ export default {
     max-width: 300px;
 
     @media (min-width: $breakpoint-tablet) {
-      max-width: 600px;
+      /* max-width: 600px; */
     }
+  }
+
+  &__button {
+    margin-top: 5px;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
   }
 }
 </style>
