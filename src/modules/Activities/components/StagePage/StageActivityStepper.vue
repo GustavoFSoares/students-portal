@@ -13,21 +13,25 @@
     <div class="stepper-content">
       <div class="stepper-content__activity-wrapper">
         <component
-          v-if="stageFileTypeComponent"
+          v-if="showStep && stageFileTypeComponent"
           :is="stageFileTypeComponent"
           :path="currentActivityStep.path"
           :parameters="currentActivityStep.parameters || undefined"
+          :is-last="currentStep + 1 === preparedActivitySteps.length"
           @finish="handleNextStep"
         />
       </div>
 
       <div class="stage-activity-stepper__steps-counter">
-        <div
-          v-for="(_activityStep, activityStepIndex) of activitySteps"
+        <button
+          v-for="(activityStep, activityStepIndex) of preparedActivitySteps"
           :key="activityStepIndex"
+          @click="handleNextStep(activityStepIndex)"
           :class="[
             'stage-activity-stepper__step-item',
             {
+              'stage-activity-stepper__step-item--completed':
+                activityStep.completed,
               'stage-activity-stepper__step-item--selected':
                 activityStepIndex === currentStep,
             },
@@ -39,7 +43,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, toRef } from "vue";
+import { computed, nextTick, onMounted, ref, toRef } from "vue";
 
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
 import StageFileTypeImage from "./StageFileTypeImage.vue";
@@ -70,11 +74,14 @@ const activitiesMap = {
   "game-internal": StageFileGameInternal,
 };
 
+const showStep = ref(true);
 const currentStep = ref(0);
-const activitySteps = ref([...props.activitySteps]);
+const preparedActivitySteps = ref(
+  [...props.activitySteps].map((step) => ({ ...step, completed: false }))
+);
 
 const currentActivityStep = computed(() => {
-  return props.activitySteps ? activitySteps.value[currentStep.value] : null;
+  return getCurrentStep() || null;
 });
 
 const stageFileTypeComponent = computed(() => {
@@ -85,15 +92,26 @@ const isInternalGame = computed(() => {
   return props.activityType === "game-internal";
 });
 
-const handleNextStep = () => {
-  const currentPosition = currentStep.value + 1;
+const getCurrentStep = () => {
+  preparedActivitySteps.value[currentStep.value].completed = true;
 
-  if (currentPosition == activitySteps.value.length) {
+  return preparedActivitySteps.value
+    ? preparedActivitySteps.value[currentStep.value]
+    : null;
+};
+
+const handleNextStep = async (nextStep = currentStep.value + 1) => {
+  if (nextStep == preparedActivitySteps.value.length) {
     alert("acabou");
     return;
   }
 
-  currentStep.value += 1;
+  showStep.value = false;
+
+  await nextTick();
+
+  showStep.value = true;
+  currentStep.value = nextStep;
 };
 </script>
 
@@ -126,8 +144,15 @@ const handleNextStep = () => {
     border-radius: $default-border-radius;
     background: $default-background;
 
-    &--selected {
+    pointer-events: none;
+
+    &--completed {
+      pointer-events: initial;
       background: $grey-8;
+    }
+
+    &--selected {
+      background: $grey-13;
     }
   }
 }
