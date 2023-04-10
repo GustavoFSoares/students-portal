@@ -86,6 +86,7 @@ const handleSubmit = () => {
   background: $default-background;
   padding: 20px;
   color: $text-color-3;
+  border-radius: 8px;
 
   overflow: auto;
 

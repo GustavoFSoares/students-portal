@@ -1,20 +1,24 @@
 <template>
   <div class="stage-activity-stepper">
     <h2 class="stage-activity-stepper__subtile">
-      {{ currentActivityStep.path }}
+      <span v-if="isInternalGame">
+        {{ $t(`${I18N_PATH}.internalGame.${currentActivityStep.path}`) }}
+      </span>
+
+      <span v-else>
+        {{ $t(`${I18N_PATH}.internalGame.${activityType}`) }}
+      </span>
     </h2>
 
     <div class="stepper-content">
       <div class="stepper-content__activity-wrapper">
-        {{ currentActivityStep }}<br />
-
-        <p>fim</p>
-        <!-- <component
+        <component
           v-if="stageFileTypeComponent"
           :is="stageFileTypeComponent"
-          :path="selectedFile.target"
-          :parameters="selectedFile.parameters || undefined"
-        /> -->
+          :path="currentActivityStep.path"
+          :parameters="currentActivityStep.parameters || undefined"
+          @finish="handleNextStep"
+        />
       </div>
 
       <div class="stage-activity-stepper__steps-counter">
@@ -37,12 +41,14 @@
 <script setup>
 import { computed, onMounted, ref, toRef } from "vue";
 
-import StageFileGameInternal from "./StageFileGameInternal.vue";
-import StageFileGameExternal from "./StageFileGameExternal.vue";
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
 import StageFileTypeImage from "./StageFileTypeImage.vue";
 import StageFileTypePdf from "./StageFileTypePdf.vue";
 import StageFileTypeVideo from "./StageFileTypeVideo.vue";
+import StageFileGameExternal from "./StageFileGameExternal.vue";
+import StageFileGameInternal from "./StageFileGameInternal.vue";
+
+const I18N_PATH = "modules.courses.stagePage.activities";
 
 const props = defineProps({
   activitySteps: {
@@ -50,26 +56,45 @@ const props = defineProps({
     required: true,
   },
   activityType: {
-    type: Array,
+    type: String,
     required: true,
   },
 });
 
-const activitySteps = ref([
-  ...props.activitySteps,
-  ...props.activitySteps,
-  ...props.activitySteps,
-]);
+const activitiesMap = {
+  music: StageFileTypeAudio,
+  image: StageFileTypeImage,
+  document: StageFileTypePdf,
+  video: StageFileTypeVideo,
+  "game-external": StageFileGameExternal,
+  "game-internal": StageFileGameInternal,
+};
 
-const currentStep = ref(1);
+const currentStep = ref(0);
+const activitySteps = ref([...props.activitySteps]);
 
 const currentActivityStep = computed(() => {
   return props.activitySteps ? activitySteps.value[currentStep.value] : null;
 });
 
 const stageFileTypeComponent = computed(() => {
-  return stageFilesMap[activityTypeType] || null;
+  return activitiesMap[props.activityType] || null;
 });
+
+const isInternalGame = computed(() => {
+  return props.activityType === "game-internal";
+});
+
+const handleNextStep = () => {
+  const currentPosition = currentStep.value + 1;
+
+  if (currentPosition == activitySteps.value.length) {
+    alert("acabou");
+    return;
+  }
+
+  currentStep.value += 1;
+};
 </script>
 
 <style lang="scss" scoped>

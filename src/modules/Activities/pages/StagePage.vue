@@ -29,7 +29,6 @@
 
     <template #default>
       <div class="stage-page__wrapper">
-        {{ stageData }}
         <h1 class="stage-page__title">{{ stageData.name }}</h1>
 
         <StageActivityStepper
@@ -249,7 +248,8 @@ export default {
   &__title {
     font-size: 42px;
     color: $text-color-3;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
   }
 
   &__items-list {
