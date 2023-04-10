@@ -22,8 +22,8 @@ export default {
       required: true,
     },
     isLast: {
-      type: String,
-      required: true,
+      type: Boolean,
+      default: false,
     },
   },
   setup(_, ctx) {

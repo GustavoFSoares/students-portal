@@ -6,7 +6,7 @@
       </span>
 
       <span v-else>
-        {{ $t(`${I18N_PATH}.internalGame.${activityType}`) }}
+        {{ $t(`${I18N_PATH}.${activityType}`) }}
       </span>
     </h2>
 
@@ -43,6 +43,7 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import { computed, nextTick, onMounted, ref, toRef } from "vue";
 
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
@@ -51,6 +52,8 @@ import StageFileTypePdf from "./StageFileTypePdf.vue";
 import StageFileTypeVideo from "./StageFileTypeVideo.vue";
 import StageFileGameExternal from "./StageFileGameExternal.vue";
 import StageFileGameInternal from "./StageFileGameInternal.vue";
+
+const $router = useRouter();
 
 const I18N_PATH = "modules.courses.stagePage.activities";
 
@@ -102,7 +105,7 @@ const getCurrentStep = () => {
 
 const handleNextStep = async (nextStep = currentStep.value + 1) => {
   if (nextStep == preparedActivitySteps.value.length) {
-    alert("acabou");
+    $router.go(-1);
     return;
   }
 

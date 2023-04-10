@@ -267,10 +267,11 @@
         "activities": {
           "internalGame": {
             "quiz": "Quiz",
-            "word-puzzle": "Caça palavras",
-            "video": "Produção visual",
-            "image": "Imagens"
-          }
+            "word-puzzle": "Caça palavras"
+          },
+          "video": "Produção visual",
+          "image": "Imagens",
+          "document": "Documentos"
         }
       }
     },
