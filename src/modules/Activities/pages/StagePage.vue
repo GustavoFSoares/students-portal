@@ -29,7 +29,17 @@
 
     <template #default>
       <div class="stage-page__wrapper">
-        <div class="stage-page__items-list">
+        {{ stageData }}
+        <h1 class="stage-page__title">{{ stageData.name }}</h1>
+
+        <StageActivityStepper
+          v-if="stageData.files && stageData.files.length"
+          :activity-steps="stageData.files"
+          :activity-type="stageData.type"
+        />
+
+        <p v-else>Sem atividades</p>
+        <!-- <div class="stage-page__items-list">
           <button
             class="stage-item"
             v-for="(stageFile, stageFileIndex) in stageData.files"
@@ -60,7 +70,7 @@
               </h5>
             </div>
           </button>
-        </div>
+        </div> -->
       </div>
     </template>
   </AvPage>
@@ -106,24 +116,26 @@ import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
-import StageFileGameInternal from "../components/StagePage/StageFileGameInternal.vue";
-import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
-import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
-import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
-import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
-import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
+// import StageFileGameInternal from "../components/StagePage/StageFileGameInternal.vue";
+// import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
+// import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
+// import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
+// import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
+// import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
+import StageActivityStepper from "../components/StagePage/StageActivityStepper.vue";
 
 export default {
   name: "StagePage",
   components: {
     AvReward,
     AvPage,
-    StageFileGameInternal,
-    StageFileGameExternal,
-    StageFileTypeAudio,
-    StageFileTypeImage,
-    StageFileTypePdf,
-    StageFileTypeVideo,
+    // StageFileGameInternal,
+    // StageFileGameExternal,
+    // StageFileTypeAudio,
+    // StageFileTypeImage,
+    // StageFileTypePdf,
+    // StageFileTypeVideo,
+    StageActivityStepper,
   },
   setup() {
     const { appContext } = getCurrentInstance();
@@ -225,13 +237,19 @@ export default {
   }
 
   &__wrapper {
-    width: 100%;
-    max-width: 840px;
-    margin: auto;
+    height: 100%;
+    /* max-width: 840px;
+    margin: auto; */
 
-    display: flex;
+    /* display: flex;
     gap: 50px;
-    flex-direction: column;
+    flex-direction: column; */
+  }
+
+  &__title {
+    font-size: 42px;
+    color: $text-color-3;
+    margin-bottom: 15px;
   }
 
   &__items-list {
