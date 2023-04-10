@@ -267,7 +267,8 @@
         "activities": {
           "internalGame": {
             "quiz": "Quiz",
-            "word-puzzle": "Caça palavras"
+            "word-puzzle": "Caça palavras",
+            "video": "Produção visual"
           }
         }
       }
