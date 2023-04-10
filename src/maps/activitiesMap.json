@@ -1,5 +1,8 @@
 {
-  "available": "disponivel",
-  "inProgress": "em_andamento",
-  "completed": "finalizados"
+  "music": "StageFileTypeAudio",
+  "image": "StageFileTypeImage",
+  "document": "StageFileTypePdf",
+  "video": "StageFileTypeVideo",
+  "game-external": "StageFileGameExternal",
+  "game-internal": "StageFileGameInternal"
 }

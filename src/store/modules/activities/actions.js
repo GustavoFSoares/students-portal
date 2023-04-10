@@ -1,5 +1,5 @@
 import { api } from "boot/axios";
-import ActivitiesMap from "maps/activitiesMap.json";
+import ActivitiesStatusMap from "maps/activitiesStatusMap.json";
 import { iconsMapReplations } from "maps/iconsMaps.json";
 
 export default {
@@ -7,7 +7,7 @@ export default {
     commit("SET_LOADING", isLoading);
   },
   setProfileActivities: ({ commit }, profileActivities) => {
-    const preparedTrailsGroup = Object.entries(ActivitiesMap).reduce(
+    const preparedTrailsGroup = Object.entries(ActivitiesStatusMap).reduce(
       (amount, [mapIndex, originIndex]) => {
         amount[mapIndex] = profileActivities[originIndex];
 
