@@ -1,4 +1,5 @@
 {
   "word-puzzle": "WordPuzzle",
-  "hangman": "HangmanGame"
+  "hangman": "HangmanGame",
+  "quiz": "QuizGame"
 }

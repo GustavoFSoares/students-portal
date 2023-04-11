@@ -132,6 +132,7 @@ module.exports = configure(function (/* ctx */) {
           "QBtnToggle",
           "QAvatar",
           "QIcon",
+          "QRadio",
           "QToolbar",
           "QToolbarTitle",
           "QTab",

@@ -13,12 +13,14 @@ import { computed } from "vue";
 
 import InternalGamesMap from "maps/internalGamesMap.json";
 
+import QuizGame from "./InternalGames/QuizGame.vue";
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
 import HangmanGame from "./InternalGames/HangmanGame.vue";
 
 export default {
   name: "StageFileGameExternal",
   components: {
+    QuizGame,
     WordPuzzle,
     HangmanGame,
   },
@@ -33,15 +35,25 @@ export default {
     },
   },
   setup(props) {
+    const isTextGame = (gameName) => {
+      const textGames = ["WordPuzzle", "HangmanGame"];
+
+      return textGames.includes(gameName);
+    };
+
     const gameComponent = computed(() => {
       const game = InternalGamesMap[props.path];
 
       return game || null;
     });
 
-    const preparedWords = computed(() =>
-      props.parameters.map((parameter) => parameter.toUpperCase())
-    );
+    const preparedWords = computed(() => {
+      if (isTextGame(gameComponent.value)) {
+        return props.parameters.map((parameter) => parameter.toUpperCase());
+      }
+
+      return props.parameters;
+    });
 
     return {
       preparedWords,

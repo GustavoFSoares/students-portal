@@ -263,6 +263,17 @@
           "áudio": "Áudio",
           "viode": "Vídeo",
           "imagens": "Imagem"
+        },
+        "activities": {
+          "internalGame": {
+            "quiz": "Quiz",
+            "word-puzzle": "Caça palavras"
+          },
+          "music": "Audios",
+          "image": "Imagens",
+          "video": "Produção visual",
+          "document": "Documentos",
+          "external-game": "Jogo"
         }
       }
     },

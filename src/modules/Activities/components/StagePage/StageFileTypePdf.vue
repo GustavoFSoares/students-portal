@@ -1,14 +1,23 @@
 <template>
   <section class="stage-file-type-pdf">
-    <iframe :src="`${$appStorage}/${path}?page=1`" frameborder="0" width="100%" height="100%" />
+    <iframe
+      :src="`${$appStorage}/${path}?page=1`"
+      frameborder="0"
+      width="100%"
+      height="100%"
+    />
+
+    <div class="stage-file-type-pdf__button">
+      <QBtn
+        :label="isLast ? 'Concluir' : 'Avançar'"
+        color="secondary"
+        @click="handleEmitFinish"
+      />
+    </div>
   </section>
 </template>
 
 <script>
-import { getCurrentInstance, onMounted } from "vue";
-import VuePdfEmbed from "vue-pdf-embed";
-import { useStore } from "vuex";
-
 export default {
   name: "StageFileTypePdf",
   props: {
@@ -16,12 +25,44 @@ export default {
       type: String,
       required: true,
     },
+    isLast: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(_, ctx) {
+    const handleEmitFinish = () => {
+      ctx.emit("finish");
+    };
+
+    return {
+      handleEmitFinish,
+    };
   },
 };
 </script>
 
 <style lang="scss">
-.stage-page__modal:has(.stage-file-type-pdf) {
-  width: 80vw !important;
+.stage-file-type-pdf {
+  height: 100vh;
+  max-width: 1150px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  iframe {
+    height: 100%;
+  }
+
+  &__button {
+    margin-top: 5px;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>
