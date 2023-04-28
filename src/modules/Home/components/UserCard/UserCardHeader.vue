@@ -15,10 +15,10 @@
           <QBtn
             flat
             round
-            icon="logout"
+            icon="edit"
             color="primary"
-            @click="handleLogoutUser"
-            title="Logout"
+            :to="{ name: 'user.edit' }"
+            :title="$t(`${I18N_PATH}.editUser`)"
           />
         </div>
       </div>
@@ -61,7 +61,9 @@ export default {
     const $router = useRouter();
 
     const userData = computed(() => $store.getters["AuthModule/userData"]);
-    const rewardsData = ref({ points: 0, coints: 0 });
+    const rewardsData = computed(
+      () => $store.getters["AuthModule/rewardsData"]
+    );
 
     const indexes = ref({
       start: 1000,
@@ -85,12 +87,6 @@ export default {
       return rewards[rewardName] || null;
     };
 
-    const handleLogoutUser = async () => {
-      await $store.dispatch("AuthModule/invalidateUser");
-
-      $router.push({ name: "auth.login" });
-    };
-
     onMounted(async () => {
       rewardsData.value = $store.getters["AuthModule/rewardsData"];
     });
@@ -102,7 +98,6 @@ export default {
       rewardsData,
       levelFormatter,
       getRewardIcon,
-      handleLogoutUser,
       I18N_PATH,
     };
   },
@@ -111,10 +106,10 @@ export default {
 
 <style lang="scss" scoped>
 .user-card-header {
-  padding: 20px 0;
+  padding: 16px 0;
 
   &__container {
-    padding: 0 20px;
+    padding: 0 16px;
     width: 100%;
 
     display: flex;
@@ -165,7 +160,7 @@ export default {
 
       &__level {
         font-size: 12px;
-        color: $secondary;
+        color: $text-color-1;
         font-weight: $font-weight-bold;
 
         &::first-letter {
