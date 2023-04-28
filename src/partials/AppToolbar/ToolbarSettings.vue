@@ -8,26 +8,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-export default {
-  name: "ActivitiesProfile",
-  setup() {
-    const $store = useStore();
-    const $router = useRouter();
+const $store = useStore();
+const $router = useRouter();
 
-    const handleLogoutUser = async () => {
-      $router.push({ name: "auth.login" });
+const handleLogoutUser = async () => {
+  $router.push({ name: "auth.login" });
 
-      await $store.dispatch("AuthModule/invalidateUser");
-    };
-
-    return {
-      handleLogoutUser,
-    };
-  },
+  await $store.dispatch("AuthModule/invalidateUser");
 };
 </script>
 
@@ -43,12 +34,12 @@ export default {
     width: 100%;
     font-size: 22px;
 
-    color: $text-color-3;
+    color: $icon-color;
 
-    transition: 0.3s color, background-color ease-in;
+    transition: 0.3s color ease-in;
 
     &:hover {
-      background-color: $default-background;
+      color: $icon-color-hover;
     }
 
     &__text {
