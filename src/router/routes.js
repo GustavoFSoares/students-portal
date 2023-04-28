@@ -9,7 +9,7 @@ const routes = [
     path: "",
     name: "",
     redirect: { name: "home" },
-    component: () => import("layouts/CleanLayout.vue"),
+    component: () => import("layouts/MainLayout.vue"),
     children: [...HomeRoutes, ...UserRoutes, ...ActivitiesRoutes],
   },
   {

@@ -12,7 +12,7 @@ import certificatesHomeSubpagesRoutes from "modules/Certificates/routes/homeSubp
 export default [
   {
     path: "/",
-    component: () => import("modules/Home/layouts/HomeLayout.vue"),
+    component: () => import("layouts/DefaultLayout.vue"),
     name: "home",
     redirect: { name: "home.activities" },
     children: [

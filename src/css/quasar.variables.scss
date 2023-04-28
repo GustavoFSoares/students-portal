@@ -12,11 +12,13 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary: #f9fafb;
+$primary: #fc3a51;
 $secondary: #3a6df0;
 $accent: #9c27b0;
 
-$text-color: rgba(#9da0af, 0.74);
+$text-color: #4e6272;
+$text-color-1: #4e6272;
+$text-color-1-hover: #243542;
 $text-color-2: #9da0af;
 $text-color-3: #f9fafb;
 
@@ -39,7 +41,7 @@ $default-border-radius: 12px;
 $background: #10121b;
 $default-background: rgba($background, 40%);
 $default-backdrop: blur(24px);
-$card-background: rgba($white, 0.102);
+$card-background: $white;
 
 $breakpoint-mobile: 426px;
 $breakpoint-tablet: 768px;

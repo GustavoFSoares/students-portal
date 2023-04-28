@@ -54,29 +54,29 @@ export default {
 
     const routes = {
       insights: {
-        route: "home.insights",
+        route: "home.activities",
         icon: "o_widgets",
       },
       courses: {
-        route: "home.courses",
+        route: "home.rankings",
         icon: "o_layers",
       },
-      feed: {
-        route: "home.feed",
-        icon: "o_fax",
-      },
-      library: {
-        route: "home.library",
-        icon: "collections_bookmark",
-      },
-      events: {
-        route: "home.events",
-        icon: "o_confirmation_number",
-      },
-      missions: {
-        route: "home.missions",
-        icon: "o_flag",
-      },
+      // feed: {
+      //   route: "home.feed",
+      //   icon: "o_fax",
+      // },
+      // library: {
+      //   route: "home.library",
+      //   icon: "collections_bookmark",
+      // },
+      // events: {
+      //   route: "home.events",
+      //   icon: "o_confirmation_number",
+      // },
+      // missions: {
+      //   route: "home.missions",
+      //   icon: "o_flag",
+      // },
     };
 
     const isMobile = computed(() => {
@@ -104,7 +104,7 @@ export default {
 <style lang="scss" scoped>
 .user-card {
   height: 100%;
-  min-width: 250px;
+  min-width: 302px;
 
   @media (min-width: $breakpoint-tablet) {
     min-width: 320px;
@@ -127,7 +127,7 @@ export default {
       gap: 10px;
       text-decoration: none;
 
-      color: $secondary;
+      color: $text-color-1;
       padding: 10px;
 
       border-radius: 8px;

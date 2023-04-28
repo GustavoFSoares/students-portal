@@ -35,32 +35,37 @@ a {
 }
 
 .app-container {
-  max-width: 1830px;
-  margin: 0 auto;
   height: 100vh;
+  width: 100vw;
 
-  @media (max-width: $breakpoint-tablet) {
-    padding: 20px;
-  }
+  display: flex;
 
-  @media (max-width: $breakpoint-mobile) {
-    padding: 20px 5px;
-  }
+  background-color: $default-background;
+  backdrop-filter: $default-backdrop;
 
-  @media (min-width: $breakpoint-laptop) {
-    padding: 30px 40px;
-  }
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
   &__wrapper {
-    background-color: $default-background;
-    backdrop-filter: $default-backdrop;
-    border-radius: $default-border-radius;
-    position: relative;
-
+    width: 100%;
     height: 100%;
-    overflow: hidden;
+    max-width: 1830px;
+    overflow: auto;
+    margin: 0 auto;
 
-    display: flex;
-    flex-direction: column;
+    @media (max-width: $breakpoint-tablet) {
+      padding: 20px;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      padding: 20px 5px;
+    }
+
+    @media (min-width: $breakpoint-laptop) {
+      padding: 30px 40px;
+    }
   }
 }
