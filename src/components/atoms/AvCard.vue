@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .av-card {
-  background-color: $default-background;
+  background-color: $card-background;
 
   border-radius: $default-border-radius;
   overflow: hidden;

@@ -34,12 +34,12 @@ const handleLogoutUser = async () => {
     width: 100%;
     font-size: 22px;
 
-    color: $icon-color;
+    color: $text-color-1;
 
     transition: 0.3s color ease-in;
 
     &:hover {
-      color: $icon-color-hover;
+      color: $text-color-1-hover;
     }
 
     &__text {

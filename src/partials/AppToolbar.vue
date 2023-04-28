@@ -74,7 +74,7 @@ const handleClickNavigationItem = () => {
     align-items: center;
 
     &__icon {
-      color: $icon-color;
+      color: $text-color-1;
       font-size: 22px;
     }
   }
