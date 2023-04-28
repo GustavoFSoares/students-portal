@@ -1,20 +1,17 @@
 <template>
   <BaseLayout>
     <div class="app-container">
+      <AppToolbar />
+
       <div class="app-container__wrapper">
-        <slot />
+        <router-view />
       </div>
     </div>
   </BaseLayout>
 </template>
 
-<script>
+<script setup>
 import BaseLayout from "./BaseLayout.vue";
-export default {
-  name: "MainLayout",
-  components: {
-    BaseLayout,
-  },
-};
+import AppToolbar from "partials/AppToolbar.vue";
 </script>
 
