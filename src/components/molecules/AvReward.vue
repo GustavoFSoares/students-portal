@@ -84,15 +84,15 @@ export default {
     border-radius: 8px;
     text-decoration: none;
 
-    padding: 5px;
+    padding: 8px;
     transition: border-color, background-color 0.4s ease-in;
 
     &__icon {
-      font-size: 16px;
+      font-size: 20px;
     }
 
     &__value {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: $font-weight-semibold;
     }
 
