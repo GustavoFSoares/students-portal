@@ -1,7 +1,7 @@
 <template>
-  <div class="user-card-header">
+  <div :class="['user-card-header', { 'user-card-header--is-close': isClose }]">
     <div class="avatar">
-      <QAvatar size="90px" color="white" text-color="secondary" icon="person" />
+      <QAvatar color="white" text-color="secondary" icon="person" />
     </div>
 
     <div class="user-card-header__container">
@@ -42,71 +42,91 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, defineProps } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
 
 const I18N_PATH = "modules.home.userCard";
 
-export default {
-  name: "UserCardHeader",
-  components: {
-    AvReward,
+const props = defineProps({
+  isClose: {
+    type: Boolean,
+    required: true,
   },
-  setup() {
-    const $store = useStore();
-    const $router = useRouter();
+});
 
-    const userData = computed(() => $store.getters["AuthModule/userData"]);
-    const rewardsData = computed(
-      () => $store.getters["AuthModule/rewardsData"]
-    );
+const $store = useStore();
+const $router = useRouter();
 
-    const indexes = ref({
-      start: 1000,
-      end: 2000,
-    });
+const userData = computed(() => $store.getters["AuthModule/userData"]);
+const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
-    const barProgress = computed(
-      () => (rewardsData.value.points / indexes.value.end) * 100
-    );
+const indexes = ref({
+  start: 1000,
+  end: 2000,
+});
 
-    const levelFormatter = (val) => {
-      return val.toLocaleString("pt-BR");
-    };
+const barProgress = computed(
+  () => (rewardsData.value.points / indexes.value.end) * 100
+);
 
-    const getRewardIcon = (rewardName) => {
-      const rewards = {
-        coins: "o_paid",
-        points: "o_grade",
-      };
-
-      return rewards[rewardName] || null;
-    };
-
-    onMounted(async () => {
-      rewardsData.value = $store.getters["AuthModule/rewardsData"];
-    });
-
-    return {
-      userData,
-      indexes,
-      barProgress,
-      rewardsData,
-      levelFormatter,
-      getRewardIcon,
-      I18N_PATH,
-    };
-  },
+const levelFormatter = (val) => {
+  return val.toLocaleString("pt-BR");
 };
+
+const getRewardIcon = (rewardName) => {
+  const rewards = {
+    coins: "o_paid",
+    points: "o_grade",
+  };
+
+  return rewards[rewardName] || null;
+};
+
+onMounted(async () => {
+  rewardsData.value = $store.getters["AuthModule/rewardsData"];
+});
 </script>
 
 <style lang="scss" scoped>
 .user-card-header {
   padding: 16px 0;
+
+  &--is-close {
+    .avatar {
+      .q-avatar {
+        font-size: 48px !important;
+      }
+    }
+
+    .user,
+    .level-bar {
+      display: none !important;
+    }
+
+    .user-card-header__container {
+      padding: 0 4px;
+    }
+
+    :deep() {
+      .av-reward {
+        display: flex;
+        flex-direction: column;
+
+        &-item {
+          display: flex;
+          justify-content: center;
+
+          &__label {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 
   &__container {
     padding: 0 16px;
@@ -124,10 +144,17 @@ export default {
     position: relative;
 
     width: 100%;
-    height: 100%;
+    height: 90px;
 
     display: flex;
+    align-items: center;
     justify-content: center;
+
+    .q-avatar {
+      font-size: 90px;
+
+      transition: ease-in font-size 0.3s;
+    }
 
     &:before {
       content: "";
