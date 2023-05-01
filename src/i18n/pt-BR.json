@@ -60,6 +60,7 @@
     },
     "home": {
       "userCard": {
+        "editUser": "Editar Usuário",
         "rewards": {
           "coins": "moedas",
           "points": "pontos"

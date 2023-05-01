@@ -1,7 +1,15 @@
 <template>
-  <AvCard class="user-card" header-color="primary" :no-border-radius="isMobile">
+  <AvCard
+    :class="['user-card', { 'user-card--is-close': isCardClose }]"
+    header-color="primary"
+    :no-border-radius="isMobile"
+  >
     <template #header>
-      <UserCardHeader />
+      <button class="user-card__open-card-button" @click="handleOpenCard">
+        <QIcon name="chevron_right" size="22px" />
+      </button>
+
+      <UserCardHeader :is-close="isCardClose" />
 
       <QBtn
         v-if="isMobile"
@@ -25,7 +33,7 @@
         >
           <QIcon class="navigation-item__icon" :name="routeItem.icon" />
 
-          <h4 class="navigation-item__text">
+          <h4 class="navigation-item__text" v-if="!isCardClose">
             {{ $t(`modules.${routeKey}.seo.title`) }}
           </h4>
         </router-link>
@@ -34,80 +42,102 @@
   </AvCard>
 </template>
 
-<script>
-import { computed } from "vue";
+<script setup>
+import { computed, ref } from "vue";
 import { useQuasar } from "quasar";
 
 import AvCard from "atoms/AvCard.vue";
-
 import UserCardHeader from "./UserCardHeader.vue";
 
-export default {
-  name: "UserCard",
-  emits: ["navigating", "closeMenu"],
-  components: {
-    AvCard,
-    UserCardHeader,
+const $emits = ["navigating", "closeMenu"];
+
+const isCardClose = ref(true);
+
+const $q = useQuasar();
+
+const routes = {
+  insights: {
+    route: "home.activities",
+    icon: "o_widgets",
   },
-  setup(_, ctx) {
-    const $q = useQuasar();
-
-    const routes = {
-      insights: {
-        route: "home.activities",
-        icon: "o_widgets",
-      },
-      courses: {
-        route: "home.rankings",
-        icon: "o_layers",
-      },
-      // feed: {
-      //   route: "home.feed",
-      //   icon: "o_fax",
-      // },
-      // library: {
-      //   route: "home.library",
-      //   icon: "collections_bookmark",
-      // },
-      // events: {
-      //   route: "home.events",
-      //   icon: "o_confirmation_number",
-      // },
-      // missions: {
-      //   route: "home.missions",
-      //   icon: "o_flag",
-      // },
-    };
-
-    const isMobile = computed(() => {
-      return $q.screen.sm || $q.screen.xs;
-    });
-
-    const handleCloseMenu = () => {
-      ctx.emit("closeMenu");
-    };
-
-    const handleClickNavigationItem = () => {
-      ctx.emit("navigating");
-    };
-
-    return {
-      routes,
-      isMobile,
-      handleCloseMenu,
-      handleClickNavigationItem,
-    };
+  courses: {
+    route: "home.rankings",
+    icon: "o_layers",
   },
+  // feed: {
+  //   route: "home.feed",
+  //   icon: "o_fax",
+  // },
+  // library: {
+  //   route: "home.library",
+  //   icon: "collections_bookmark",
+  // },
+  // events: {
+  //   route: "home.events",
+  //   icon: "o_confirmation_number",
+  // },
+  // missions: {
+  //   route: "home.missions",
+  //   icon: "o_flag",
+  // },
+};
+
+const isMobile = computed(() => {
+  return $q.screen.sm || $q.screen.xs;
+});
+
+const handleCloseMenu = () => {
+  $emit("closeMenu");
+};
+
+const handleClickNavigationItem = () => {
+  $emit("navigating");
+};
+
+const handleOpenCard = () => {
+  isCardClose.value = !isCardClose.value;
 };
 </script>
 
 <style lang="scss" scoped>
 .user-card {
-  height: 100%;
   min-width: 302px;
+  position: relative;
 
-  @media (min-width: $breakpoint-tablet) {
-    min-width: 320px;
+  transition: ease-in min-width 0.3s;
+
+  &--is-close {
+    min-width: 80px;
+
+    .navigation-item {
+      justify-content: center;
+
+      &__text {
+        display: none;
+      }
+    }
+
+    :deep {
+      .av-card__content {
+        padding: 10px 8px;
+      }
+    }
+
+    .user-card__open-card-button {
+      transform: rotate(0deg);
+    }
+  }
+
+  &__open-card-button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 1;
+    font-size: 20px;
+    color: $white;
+
+    transform: rotate(180deg);
+    transition: ease-in transform 0.3s;
   }
 
   &__close-button {
