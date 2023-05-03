@@ -5,7 +5,7 @@
     </div>
 
     <div class="user-card-header__container">
-      <div class="user">
+      <div :class="['user', { 'user--is-close': isClose }]">
         <div class="user-info">
           <h5 class="user-info__name">{{ userData.name }}</h5>
           <h6 class="user-info__level">{{ userData.levelName }}</h6>
@@ -23,7 +23,10 @@
         </div>
       </div>
 
-      <div class="level-bar" :style="{ '--bar-progress': `${barProgress}%` }">
+      <div
+        :class="['level-bar', { 'level-bar--is-close': isClose }]"
+        :style="{ '--bar-progress': `${barProgress}%` }"
+      >
         <div class="level-bar-progress" />
 
         <div class="level-bar-index">
@@ -92,6 +95,45 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+@keyframes closeAnimation {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+
+  to {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes openAnimation {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes rewardCloseAnimation {
+  0% {
+    display: flex;
+    flex-direction: row;
+  }
+
+  50%,
+  100% {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+$transitionDuration: 0.3s;
+
 .user-card-header {
   padding: 16px 0;
 
@@ -113,8 +155,10 @@ onMounted(async () => {
 
     :deep() {
       .av-reward {
-        display: flex;
-        flex-direction: column;
+        // display: flex;
+        // flex-direction: column;
+
+        animation: rewardCloseAnimation 0.5s ease-in-out forwards;
 
         &-item {
           display: flex;
@@ -227,6 +271,16 @@ onMounted(async () => {
       justify-content: space-between;
       color: $secondary;
       font-weight: $font-weight-bold;
+    }
+  }
+
+  .user,
+  .level-bar {
+    animation: openAnimation $transitionDuration ease-in-out forwards;
+
+    &--is-closed {
+      background: red;
+      animation: closeAnimation $transitionDuration ease-in-out forwards;
     }
   }
 }
