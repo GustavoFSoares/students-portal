@@ -155,9 +155,6 @@ $transitionDuration: 0.3s;
 
     :deep() {
       .av-reward {
-        // display: flex;
-        // flex-direction: column;
-
         animation: rewardCloseAnimation 0.5s ease-in-out forwards;
 
         &-item {

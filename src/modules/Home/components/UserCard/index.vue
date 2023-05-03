@@ -148,7 +148,6 @@ $transitionDuration: 0.3s;
 
     .navigation-item {
       justify-content: center;
-      gap: initial;
     }
 
     :deep {
