@@ -83,48 +83,6 @@
         "completedTrails": {
           "title": "Concluídos"
         }
-      },
-      "insightsPage": {
-        "rankingCard": {
-          "title": "Ranking",
-          "moreItems": "Ranking",
-          "isYou": "(você)"
-        },
-        "achievementCard": {
-          "title": "Últimas Conquistas",
-          "moreItems": "Conquistas",
-          "noConquest": "sem conquistas"
-        },
-        "certificateCard": {
-          "title": "Último Certificado",
-          "moreItems": "Certificados",
-          "noCertificate": "Nenhuma certificado conquistado"
-        },
-        "pages": {
-          "rankingPage": {
-            "title": "Ranking",
-            "isYou": "(você)"
-          },
-          "conquestPage": {
-            "title": "Conquistas"
-          },
-          "certificatesPage": {
-            "title": "Meus Certificados",
-            "header": {
-              "tabs": {
-                "inProgress": "Em andamento",
-                "completed": "Conquistados"
-              },
-              "orderOptions": {
-                "relevance": "Relevancia",
-                "dateGrowing": "Data: Crescente",
-                "dateDescending": "Data: Decrestente",
-                "default": "Sem filtro"
-              }
-            },
-            "noCertificates": "Nenhum certificado foi encontrado"
-          }
-        }
       }
     },
     "user": {
@@ -160,6 +118,48 @@
             "level": "Nível"
           },
           "submit": "Atualizar"
+        }
+      }
+    },
+    "insights": {
+      "rankingCard": {
+        "title": "Ranking",
+        "moreItems": "Ranking",
+        "isYou": "(você)"
+      },
+      "achievementCard": {
+        "title": "Últimas Conquistas",
+        "moreItems": "Conquistas",
+        "noConquest": "sem conquistas"
+      },
+      "certificateCard": {
+        "title": "Último Certificado",
+        "moreItems": "Certificados",
+        "noCertificate": "Nenhuma certificado conquistado"
+      },
+      "pages": {
+        "rankingPage": {
+          "title": "Ranking",
+          "isYou": "(você)"
+        },
+        "conquestPage": {
+          "title": "Conquistas"
+        },
+        "certificatesPage": {
+          "title": "Meus Certificados",
+          "header": {
+            "tabs": {
+              "inProgress": "Em andamento",
+              "completed": "Conquistados"
+            },
+            "orderOptions": {
+              "relevance": "Relevancia",
+              "dateGrowing": "Data: Crescente",
+              "dateDescending": "Data: Decrestente",
+              "default": "Sem filtro"
+            }
+          },
+          "noCertificates": "Nenhum certificado foi encontrado"
         }
       }
     },
@@ -231,11 +231,6 @@
         "title": "Certificados"
       },
       "title": "Certificados"
-    },
-    "insights": {
-      "seo": {
-        "title": "Insights"
-      }
     },
     "courses": {
       "seo": {

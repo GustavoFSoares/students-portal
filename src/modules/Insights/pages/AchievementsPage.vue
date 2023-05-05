@@ -2,7 +2,7 @@
   <article class="insights-achievements">
     <AvPageSection :title="$t(`${I18N_PATH}.title`)" @close="handleGoBackPage">
       <div class="insights-achievements__list">
-        <ConquestCard
+        <AchievementCard
           v-for="(conquestData, conquestKey) in conquests"
           :key="conquestKey"
           :title="conquestData.name"
@@ -21,14 +21,14 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import AvPageSection from "molecules/AvPageSection.vue";
-import ConquestCard from "../components/AchievementCard.vue";
+import AchievementCard from "../components/AchievementCard.vue";
 
-const I18N_PATH = "modules.home.insightsPage.pages.conquestPage";
+const I18N_PATH = "modules.insights.pages.conquestPage";
 export default {
   name: "InsightConquestPage",
   components: {
     AvPageSection,
-    ConquestCard,
+    AchievementCard,
   },
   setup() {
     const $router = useRouter();

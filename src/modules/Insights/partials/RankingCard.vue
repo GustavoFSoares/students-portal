@@ -44,7 +44,7 @@ import { useStore } from "vuex";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
-const I18N_PATH = "modules.home.insightsPage.rankingCard";
+const I18N_PATH = "modules.insights.rankingCard";
 
 export default {
   components: {
