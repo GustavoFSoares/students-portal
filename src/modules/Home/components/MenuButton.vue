@@ -97,9 +97,7 @@ export default {
 
       &::before,
       &::after {
-        top: 50%;
         width: 100%;
-        // left: 50%;
         min-width: 100%;
         max-width: 22px;
         transform: translate(-50%, -50%);
