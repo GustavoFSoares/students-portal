@@ -6,7 +6,7 @@
       :see-more-text="$t(`${I18N_PATH}.moreItems`)"
     >
       <template #default>
-        <ul class="conquest-card__conquest-list">
+        <ul v-if="conquestList" class="conquest-card__conquest-list">
           <li
             class="conquest-item"
             v-for="(conquest, conquestKey) in conquestList"
@@ -29,6 +29,12 @@
             />
           </li>
         </ul>
+
+        <div v-else class="conquest-card__no-conquest">
+          <h5 class="conquest-card__no-conquest-text">
+            {{ $t(`${I18N_PATH}.noConquest`) }}
+          </h5>
+        </div>
       </template>
     </InsightsCard>
   </div>
@@ -84,6 +90,18 @@ export default {
     &__image {
       width: 100%;
       height: 100%;
+    }
+  }
+
+  &__no-conquest {
+    width: 100%;
+    text-align: center;
+
+    color: $text-color-1;
+
+    &-text {
+      font-size: 12px;
+      font-weight: 700;
     }
   }
 }

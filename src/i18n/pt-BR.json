@@ -92,11 +92,13 @@
         },
         "conquestCard": {
           "title": "Últimas Conquistas",
-          "moreItems": "Conquistas"
+          "moreItems": "Conquistas",
+          "noConquest": "sem conquistas"
         },
         "certificateCard": {
-          "title": "Últimos Certificados",
-          "moreItems": "Certificados"
+          "title": "Último Certificado",
+          "moreItems": "Certificados",
+          "noCertificate": "Nenhuma certificado conquistado"
         },
         "pages": {
           "rankingPage": {

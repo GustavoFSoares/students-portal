@@ -70,7 +70,7 @@ export default {
     align-items: center;
 
     &-title {
-      font-size: 16px;
+      font-size: 14px;
       line-height: 16px;
       font-weight: 700;
     }

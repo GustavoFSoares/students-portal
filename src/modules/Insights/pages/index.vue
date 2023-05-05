@@ -1,7 +1,7 @@
 <template>
   <article class="insights-page">
     <div v-if="isMainPage" class="insights-page__wrapper">
-      <RankingCard />
+      <RankingCard v-if="false" />
 
       <ConquestCard />
 
