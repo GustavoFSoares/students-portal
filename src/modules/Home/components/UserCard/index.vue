@@ -241,7 +241,6 @@ $transitionDuration: 0.3s;
   }
 
   &__toggle-button {
-    // background: $primary;
     width: var(--button-site);
     height: var(--button-site);
 
@@ -250,10 +249,6 @@ $transitionDuration: 0.3s;
     right: -40px;
 
     border-radius: 0 $default-border-radius $default-border-radius 0;
-
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
   }
 }
 </style>
