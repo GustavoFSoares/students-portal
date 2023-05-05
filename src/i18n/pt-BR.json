@@ -90,7 +90,7 @@
           "moreItems": "Ranking",
           "isYou": "(você)"
         },
-        "conquestCard": {
+        "achievementCard": {
           "title": "Últimas Conquistas",
           "moreItems": "Conquistas",
           "noConquest": "sem conquistas"
