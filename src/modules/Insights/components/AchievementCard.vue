@@ -89,7 +89,7 @@ const props = defineProps({
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
 
   &__title {
@@ -98,6 +98,10 @@ const props = defineProps({
   }
 
   &__how-get {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
     &-label {
       font-size: 12px;
       font-weight: $font-weight-semibold;
