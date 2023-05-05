@@ -25,7 +25,10 @@
     <template #default>
       <div class="navigation">
         <router-link
-          class="navigation-item"
+          :class="[
+            'navigation-item',
+            { 'navigation-item--is-closed': isCardClose },
+          ]"
           v-for="(routeItem, routeKey) in routes"
           :key="routeKey"
           :to="{ name: routeItem.route }"
@@ -33,7 +36,7 @@
         >
           <QIcon class="navigation-item__icon" :name="routeItem.icon" />
 
-          <h4 class="navigation-item__text" v-if="!isCardClose">
+          <h4 class="navigation-item__text">
             {{ $t(`modules.${routeKey}.seo.title`) }}
           </h4>
         </router-link>
@@ -100,21 +103,51 @@ const handleOpenCard = () => {
 </script>
 
 <style lang="scss" scoped>
+@keyframes closeAnimation {
+  from {
+    width: 100%;
+    opacity: 1;
+    display: initial;
+    margin-left: 10px;
+  }
+
+  to {
+    width: 0;
+    display: none;
+    opacity: 0;
+    margin-left: 0;
+  }
+}
+
+@keyframes openAnimation {
+  from {
+    width: 0;
+    display: none;
+    opacity: 0;
+    margin-left: 0;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+    display: initial;
+    margin-left: 10px;
+  }
+}
+
+$transitionDuration: 0.3s;
+
 .user-card {
   min-width: 302px;
   position: relative;
 
-  transition: ease-in min-width 0.3s;
+  transition: ease-in min-width $transitionDuration;
 
   &--is-close {
     min-width: 80px;
 
     .navigation-item {
       justify-content: center;
-
-      &__text {
-        display: none;
-      }
     }
 
     :deep {
@@ -137,7 +170,7 @@ const handleOpenCard = () => {
     color: $white;
 
     transform: rotate(180deg);
-    transition: ease-in transform 0.3s;
+    transition: ease-in transform $transitionDuration;
   }
 
   &__close-button {
@@ -154,7 +187,6 @@ const handleOpenCard = () => {
     &-item {
       display: flex;
       align-items: center;
-      gap: 10px;
       text-decoration: none;
 
       color: $text-color-1;
@@ -162,15 +194,16 @@ const handleOpenCard = () => {
 
       border-radius: 8px;
 
-      transition: background-color 0.2s ease-in-out;
-
-      &__icon {
-        font-size: 25px;
-      }
+      transition: background-color $transitionDuration ease-in-out;
 
       &__text {
         font-size: 15px;
         font-weight: $font-weight-bold;
+        animation: openAnimation $transitionDuration ease-in-out forwards;
+      }
+
+      &__icon {
+        font-size: 25px;
       }
 
       &:hover {
@@ -180,6 +213,12 @@ const handleOpenCard = () => {
       &.router-link-active {
         background-color: rgba($primary, 0.9);
         color: $white;
+      }
+
+      &--is-closed {
+        .navigation-item__text {
+          animation: closeAnimation $transitionDuration ease-in-out forwards;
+        }
       }
     }
   }
