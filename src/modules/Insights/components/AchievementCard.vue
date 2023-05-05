@@ -22,49 +22,51 @@
       <div class="achievement-card__text-wrapper">
         <h5 class="achievement-card__title">{{ title }}</h5>
 
-        <h6 class="achievement-card__description">{{ description }}</h6>
+        <div class="achievement-card__how-get">
+          <h6 class="achievement-card__how-get-label">
+            {{ $t(`${I18N_PATH}.howGet`) }}:
+          </h6>
+
+          <h6 class="achievement-card__how-get-description">
+            {{ goal.description }}
+          </h6>
+        </div>
       </div>
     </div>
   </AvCard>
 </template>
 
-<script>
+<script setup>
 import AvCard from "atoms/AvCard.vue";
 
-export default {
-  name: "ConquestCard",
-  components: {
-    AvCard,
+const I18N_PATH = "modules.insights.pages.achievements.achievementCard";
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
   },
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    obtained: {
-      type: Boolean,
-      default: false,
-    },
-    badge: {
-      type: String,
-      default: null,
-    },
+  goal: {
+    type: Object,
+    required: true,
   },
-};
+  obtained: {
+    type: Boolean,
+    default: false,
+  },
+  badge: {
+    type: String,
+    default: null,
+  },
+});
 </script>
+
 
 <style lang="scss" scoped>
 .achievement-card {
   display: flex;
   gap: 20px;
-
-  @media (min-width: $breakpoint-tablet) {
-    min-height: 90px;
-  }
+  cursor: pointer;
 
   &--obtained & {
     &__image img {
@@ -73,10 +75,12 @@ export default {
   }
 
   &__image {
-    width: 55px;
+    width: 70px;
+    height: 70px;
 
     img {
       width: 100%;
+      height: 100%;
       filter: grayscale(100%);
     }
   }
@@ -89,12 +93,19 @@ export default {
   }
 
   &__title {
-    font-size: 10px;
+    font-size: 14px;
     font-weight: $font-weight-semibold;
   }
 
-  &__description {
-    font-size: 12px;
+  &__how-get {
+    &-label {
+      font-size: 12px;
+      font-weight: $font-weight-semibold;
+    }
+
+    &-description {
+      font-size: 12px;
+    }
   }
 }
 </style>

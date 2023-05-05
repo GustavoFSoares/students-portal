@@ -122,6 +122,9 @@
       }
     },
     "insights": {
+      "seo": {
+        "title": "Insights"
+      },
       "rankingCard": {
         "title": "Ranking",
         "moreItems": "Ranking",
@@ -142,8 +145,11 @@
           "title": "Ranking",
           "isYou": "(você)"
         },
-        "conquestPage": {
-          "title": "Conquistas"
+        "achievements": {
+          "title": "Conquistas",
+          "achievementCard": {
+            "howGet": "Como obter"
+          }
         },
         "certificatesPage": {
           "title": "Meus Certificados",

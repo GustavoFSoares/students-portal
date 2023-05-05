@@ -6,7 +6,7 @@
           v-for="(conquestData, conquestKey) in conquests"
           :key="conquestKey"
           :title="conquestData.name"
-          :description="conquestData.description"
+          :goal="conquestData.goal"
           :badge="conquestData.path"
           :obtained="conquestData.obtained"
         />
@@ -15,7 +15,7 @@
   </article>
 </template>
 
-<script>
+<script setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -23,31 +23,17 @@ import { useStore } from "vuex";
 import AvPageSection from "molecules/AvPageSection.vue";
 import AchievementCard from "../components/AchievementCard.vue";
 
-const I18N_PATH = "modules.insights.pages.conquestPage";
-export default {
-  name: "InsightConquestPage",
-  components: {
-    AvPageSection,
-    AchievementCard,
-  },
-  setup() {
-    const $router = useRouter();
-    const $store = useStore();
+const I18N_PATH = "modules.insights.pages.achievements";
 
-    const conquests = computed(
-      () => $store.getters["AchievementsModule/achievements"]
-    );
+const $router = useRouter();
+const $store = useStore();
 
-    const handleGoBackPage = () => {
-      $router.push({ name: "home.insights" });
-    };
+const conquests = computed(
+  () => $store.getters["AchievementsModule/achievements"]
+);
 
-    return {
-      I18N_PATH,
-      conquests,
-      handleGoBackPage,
-    };
-  },
+const handleGoBackPage = () => {
+  $router.push({ name: "home.insights" });
 };
 </script>
 
@@ -56,11 +42,10 @@ export default {
   &__list {
     display: grid;
 
-    gap: 15px;
     grid-template-columns: 1fr;
+    gap: 16px;
 
     @media (min-width: $breakpoint-tablet) {
-      gap: 30px 15px;
       grid-template-columns: repeat(3, 1fr);
     }
   }

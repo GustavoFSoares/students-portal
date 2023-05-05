@@ -64,7 +64,7 @@ export default {
   }
 
   &--bordered {
-    border: 2px solid $text-color;
+    border: $card-border-line;
   }
 
   &--shadows {
