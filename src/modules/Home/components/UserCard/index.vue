@@ -54,13 +54,13 @@ import UserCardHeader from "./UserCardHeader.vue";
 
 const $emits = ["navigating", "closeMenu"];
 
-const isCardClose = ref(true);
+const isCardClose = ref(false);
 
 const $q = useQuasar();
 
 const routes = {
   insights: {
-    route: "home.activities",
+    route: "home.insights",
     icon: "o_widgets",
   },
   courses: {
