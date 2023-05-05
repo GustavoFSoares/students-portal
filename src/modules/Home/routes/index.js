@@ -1,4 +1,4 @@
-// import insightHomeSubpagesRoutes from "modules/Insights/routes/homeSubpages.routes";
+import insightHomeSubpagesRoutes from "modules/Insights/routes/homeSubpages.routes";
 // import coursesHomeSubpagesRoutes from "modules/Courses/routes/homeSubpages.routes";
 // import feedHomeSubpagesRoutes from "modules/Feed/routes/homeSubpages.routes";
 // import libraryHomeSubpagesRoutes from "modules/Library/routes/homeSubpages.routes";
@@ -16,11 +16,11 @@ export default [
     name: "home",
     redirect: { name: "home.activities" },
     children: [
+      ...insightHomeSubpagesRoutes,
       ...rankingHomeSubpagesRoutes,
       ...activitiesHomeSubpagesRoutes,
       ...achievementsHomeSubpagesRoutes,
       ...certificatesHomeSubpagesRoutes,
-      // ...insightHomeSubpagesRoutes,
       // ...coursesHomeSubpagesRoutes,
       // ...feedHomeSubpagesRoutes,
       // ...libraryHomeSubpagesRoutes,
