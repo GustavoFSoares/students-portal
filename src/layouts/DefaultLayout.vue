@@ -6,7 +6,11 @@
         { 'default-layout__user-navigation--active': showMenu },
       ]"
     >
-      <UserCard @toggleMenu="handleToggleMenu" :show-menu="showMenu" />
+      <UserCard
+        @toggleMenu="handleToggleMenu"
+        @navigating="handleCloseMenu"
+        :show-menu="showMenu"
+      />
     </article>
 
     <aside class="default-layout__content">
@@ -20,7 +24,11 @@ import { ref } from "vue";
 
 import UserCard from "modules/Home/components/UserCard/index.vue";
 
-const showMenu = ref(true);
+const showMenu = ref(false);
+
+const handleCloseMenu = () => {
+  showMenu.value = false;
+};
 
 const handleToggleMenu = () => {
   showMenu.value = !showMenu.value;
@@ -56,6 +64,7 @@ const handleToggleMenu = () => {
       left: 0;
 
       width: 100%;
+      max-width: 400px;
       height: 100vh;
       contain: none;
 

@@ -40,6 +40,7 @@
     </AvCard>
 
     <MenuButton
+      v-if="isMobile"
       class="user-card__toggle-button"
       :isMenuOpen="showMenu"
       @click="handleToggleMenu"
@@ -95,6 +96,7 @@ const routes = {
 };
 
 const isMobile = computed(() => {
+  console.log($q.screen);
   return $q.screen.sm || $q.screen.xs;
 });
 
@@ -175,6 +177,7 @@ $transitionDuration: 0.3s;
   @media (max-width: $breakpoint-tablet) {
     display: flex;
     width: calc(100% - var(--button-site));
+    min-width: initial;
 
     &__wrapper {
       flex-grow: 1;
