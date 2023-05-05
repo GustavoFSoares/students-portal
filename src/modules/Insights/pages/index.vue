@@ -3,7 +3,7 @@
     <div v-if="isMainPage" class="insights-page__wrapper">
       <RankingCard v-if="false" />
 
-      <ConquestCard />
+      <AchievementCard />
 
       <CertificateCard />
     </div>
@@ -17,14 +17,14 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 import RankingCard from "../partials/RankingCard.vue";
-import ConquestCard from "../partials/ConquestCard.vue";
+import AchievementCard from "../partials/AchievementCard.vue";
 import CertificateCard from "../partials/CertificateCard.vue";
 
 export default {
   name: "insights-page",
   components: {
     RankingCard,
-    ConquestCard,
+    AchievementCard,
     CertificateCard,
   },
   setup() {

@@ -1,17 +1,17 @@
 <template>
-  <article class="insights-certificates-page">
+  <article class="insights-achievements-page">
     <AvPageSection :title="$t(`${I18N_PATH}.title`)" @close="handleGoBackPage">
       <template #default>
         <CertificatesPageHeader
-          class="insights-certificates-page__header"
+          class="insights-achievements-page__header"
           v-model:current-tab="currentTab"
           v-model:order-selected="orderSelected"
         />
 
-        <div class="insights-certificates-page__content">
+        <div class="insights-achievements-page__content">
           <div
             v-if="hasCertificates"
-            class="insights-certificates-page__certificates-list"
+            class="insights-achievements-page__certificates-list"
           >
             <CertificatesPageCard
               v-for="(certificate, certificateIndex) in certificates"
@@ -23,8 +23,8 @@
             />
           </div>
 
-          <div v-else class="insights-certificates-page__no-certificates">
-            <h5 class="insights-certificates-page__no-certificates-text">
+          <div v-else class="insights-achievements-page__no-certificates">
+            <h5 class="insights-achievements-page__no-certificates-text">
               {{ $t(`${I18N_PATH}.noCertificates`) }}
             </h5>
           </div>
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.insights-certificates-page {
+.insights-achievements-page {
   &__content {
     margin-bottom: 60px;
   }

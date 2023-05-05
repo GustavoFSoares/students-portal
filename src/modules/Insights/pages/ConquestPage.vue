@@ -21,7 +21,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import AvPageSection from "molecules/AvPageSection.vue";
-import ConquestCard from "../components/ConquestCard.vue";
+import ConquestCard from "../components/AchievementCard.vue";
 
 const I18N_PATH = "modules.home.insightsPage.pages.conquestPage";
 export default {

@@ -1,12 +1,12 @@
 <template>
-  <div class="conquest-card">
+  <div class="achievement-card">
     <InsightsCard
       :title="$t(`${I18N_PATH}.title`)"
       see-more-url="home.insights.conquest"
       :see-more-text="$t(`${I18N_PATH}.moreItems`)"
     >
       <template #default>
-        <ul v-if="conquestList" class="conquest-card__conquest-list">
+        <ul v-if="conquestList" class="achievement-card__conquest-list">
           <li
             class="conquest-item"
             v-for="(conquest, conquestKey) in conquestList"
@@ -30,8 +30,8 @@
           </li>
         </ul>
 
-        <div v-else class="conquest-card__no-conquest">
-          <h5 class="conquest-card__no-conquest-text">
+        <div v-else class="achievement-card__no-conquest">
+          <h5 class="achievement-card__no-conquest-text">
             {{ $t(`${I18N_PATH}.noConquest`) }}
           </h5>
         </div>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.conquest-card {
+.achievement-card {
   &__conquest-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

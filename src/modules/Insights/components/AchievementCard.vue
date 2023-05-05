@@ -1,26 +1,28 @@
 <template>
   <AvCard bordered>
-    <div :class="['conquest-card', { 'conquest-card--obtained': obtained }]">
-      <div class="conquest-card__image">
+    <div
+      :class="['achievement-card', { 'achievement-card--obtained': obtained }]"
+    >
+      <div class="achievement-card__image">
         <img
           v-if="badge"
-          class="conquest-item__image"
+          class="achievement-item__image"
           :src="`${$appStorage}/${badge}`"
           :alt="title"
         />
 
         <img
           v-else
-          class="conquest-item__image"
+          class="achievement-item__image"
           src="~assets/img/conquests/default-trophy.jpg"
           :alt="title"
         />
       </div>
 
-      <div class="conquest-card__text-wrapper">
-        <h5 class="conquest-card__title">{{ title }}</h5>
+      <div class="achievement-card__text-wrapper">
+        <h5 class="achievement-card__title">{{ title }}</h5>
 
-        <h6 class="conquest-card__description">{{ description }}</h6>
+        <h6 class="achievement-card__description">{{ description }}</h6>
       </div>
     </div>
   </AvCard>
@@ -56,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.conquest-card {
+.achievement-card {
   display: flex;
   gap: 20px;
 

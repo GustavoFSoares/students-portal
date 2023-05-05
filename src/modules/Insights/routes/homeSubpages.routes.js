@@ -21,7 +21,7 @@ export default [
         path: "certificate",
         meta: { mainPage: false },
         name: "home.insights.certificates",
-        component: () => import("../pages/CertificatesPage.vue"),
+        component: () => import("../pages/AchievementsPage.vue"),
       },
     ],
   },
