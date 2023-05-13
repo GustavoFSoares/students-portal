@@ -1,58 +1,68 @@
 <template>
-  <AvCard
-    :class="['user-card', { 'user-card--is-close': isCardClose }]"
-    header-color="primary"
-    :no-border-radius="isMobile"
-  >
-    <template #header>
-      <button class="user-card__open-card-button" @click="handleOpenCard">
-        <QIcon name="chevron_right" size="22px" />
-      </button>
-
-      <UserCardHeader :is-close="isCardClose" />
-
-      <QBtn
-        v-if="isMobile"
-        class="user-card__close-button"
-        flat
-        round
-        icon="close"
-        color="white"
-        @click="handleCloseMenu"
-      />
-    </template>
-
-    <template #default>
-      <div class="navigation">
-        <router-link
-          :class="[
-            'navigation-item',
-            { 'navigation-item--is-closed': isCardClose },
-          ]"
-          v-for="(routeItem, routeKey) in routes"
-          :key="routeKey"
-          :to="{ name: routeItem.route }"
-          @click="handleClickNavigationItem"
+  <div :class="['user-card', { 'user-card--is-close': isCardClose }]">
+    <AvCard
+      class="user-card__wrapper"
+      header-color="primary"
+      :no-border-radius="isMobile"
+    >
+      <template #header>
+        <button
+          v-if="!isMobile"
+          class="user-card__open-card-button"
+          @click="handleOpenCard"
         >
-          <QIcon class="navigation-item__icon" :name="routeItem.icon" />
+          <QIcon name="chevron_right" size="22px" />
+        </button>
 
-          <h4 class="navigation-item__text">
-            {{ $t(`modules.${routeKey}.seo.title`) }}
-          </h4>
-        </router-link>
-      </div>
-    </template>
-  </AvCard>
+        <UserCardHeader :is-close="isCardClose" />
+      </template>
+
+      <template #default>
+        <div class="navigation">
+          <router-link
+            :class="[
+              'navigation-item',
+              { 'navigation-item--is-closed': isCardClose },
+            ]"
+            v-for="(routeItem, routeKey) in routes"
+            :key="routeKey"
+            :to="{ name: routeItem.route }"
+            @click="handleClickNavigationItem"
+          >
+            <QIcon class="navigation-item__icon" :name="routeItem.icon" />
+
+            <h4 class="navigation-item__text">
+              {{ $t(`modules.${routeKey}.seo.title`) }}
+            </h4>
+          </router-link>
+        </div>
+      </template>
+    </AvCard>
+
+    <MenuButton
+      v-if="isMobile"
+      class="user-card__toggle-button"
+      :isMenuOpen="showMenu"
+      @click="handleToggleMenu"
+    />
+  </div>
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, defineProps, defineEmits } from "vue";
 import { useQuasar } from "quasar";
 
 import AvCard from "atoms/AvCard.vue";
 import UserCardHeader from "./UserCardHeader.vue";
+import MenuButton from "../MenuButton.vue";
 
-const $emits = ["navigating", "closeMenu"];
+const $emit = defineEmits(["navigating", "toggleMenu"]);
+const props = defineProps({
+  showMenu: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const isCardClose = ref(false);
 
@@ -86,11 +96,12 @@ const routes = {
 };
 
 const isMobile = computed(() => {
+  console.log($q.screen);
   return $q.screen.sm || $q.screen.xs;
 });
 
-const handleCloseMenu = () => {
-  $emit("closeMenu");
+const handleToggleMenu = () => {
+  $emit("toggleMenu");
 };
 
 const handleClickNavigationItem = () => {
@@ -161,6 +172,18 @@ $transitionDuration: 0.3s;
     }
   }
 
+  --button-site: 40px;
+
+  @media (max-width: $breakpoint-tablet) {
+    display: flex;
+    width: calc(100% - var(--button-site));
+    min-width: initial;
+
+    &__wrapper {
+      flex-grow: 1;
+    }
+  }
+
   &__open-card-button {
     position: absolute;
     top: 2px;
@@ -171,12 +194,6 @@ $transitionDuration: 0.3s;
 
     transform: rotate(180deg);
     transition: ease-in transform $transitionDuration;
-  }
-
-  &__close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
   }
 
   .navigation {
@@ -221,6 +238,17 @@ $transitionDuration: 0.3s;
         }
       }
     }
+  }
+
+  &__toggle-button {
+    width: var(--button-site);
+    height: var(--button-site);
+
+    position: absolute;
+    top: 3%;
+    right: -40px;
+
+    border-radius: 0 $default-border-radius $default-border-radius 0;
   }
 }
 </style>

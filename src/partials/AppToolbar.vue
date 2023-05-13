@@ -51,7 +51,7 @@ const handleClickNavigationItem = () => {
 
 <style lang="scss" scoped>
 .app-toolbar {
-  height: 56px;
+  min-height: 56px;
   background: $white;
 
   padding: 8px 16px;
