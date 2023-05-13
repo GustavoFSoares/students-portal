@@ -51,7 +51,7 @@ import { computed, onMounted } from "vue";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
-const I18N_PATH = "modules.home.insightsPage.certificateCard";
+const I18N_PATH = "modules.insights.certificateCard";
 
 export default {
   components: {

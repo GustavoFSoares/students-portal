@@ -72,7 +72,7 @@ export default {
   }
 
   &__title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: $font-weight-bold;
   }
 

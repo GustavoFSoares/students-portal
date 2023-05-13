@@ -15,7 +15,7 @@ export default [
         path: "conquest",
         meta: { mainPage: false },
         name: "home.insights.conquest",
-        component: () => import("../pages/ConquestPage.vue"),
+        component: () => import("../pages/AchievementsPage.vue"),
       },
       {
         path: "certificate",

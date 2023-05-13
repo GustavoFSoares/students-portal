@@ -23,7 +23,9 @@ $text-color-2: #9da0af;
 $text-color-3: #f9fafb;
 
 $border-line: 1px solid rgba(#717790, 0.25);
-$card-border-line: 1px solid rgba(#9da0af, 0.741);
+
+$card-border-color: #e0e5e9;
+$card-border-line: 1px solid $card-border-color;
 
 $white: #fff;
 $grey-transparent: #e8e8e8;

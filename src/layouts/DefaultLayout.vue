@@ -19,6 +19,9 @@ import UserCard from "modules/Home/components/UserCard/index.vue";
   display: flex;
   gap: 32px;
 
+  max-width: 1366px;
+  margin: 0 auto;
+
   &__user-profile {
   }
 
