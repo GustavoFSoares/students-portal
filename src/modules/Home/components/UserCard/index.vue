@@ -70,7 +70,7 @@ const $q = useQuasar();
 
 const routes = {
   insights: {
-    route: "home.activities",
+    route: "home.insights",
     icon: "o_widgets",
   },
   courses: {

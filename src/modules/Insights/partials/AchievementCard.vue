@@ -1,20 +1,20 @@
 <template>
-  <div class="conquest-card">
+  <div class="achievement-card">
     <InsightsCard
       :title="$t(`${I18N_PATH}.title`)"
       see-more-url="home.insights.conquest"
       :see-more-text="$t(`${I18N_PATH}.moreItems`)"
     >
       <template #default>
-        <ul class="conquest-card__conquest-list">
+        <ul v-if="conquestList" class="achievement-card__achievement-list">
           <li
-            class="conquest-item"
+            class="achievement-item"
             v-for="(conquest, conquestKey) in conquestList"
-            :key="`conquest-${conquestKey}`"
+            :key="`achievement-${conquestKey}`"
           >
             <img
               v-if="conquest.path"
-              class="conquest-item__image"
+              class="achievement-item__image"
               :title="conquest.name"
               :src="`${$appStorage}/${conquest.path}`"
               :alt="conquest.name"
@@ -22,13 +22,19 @@
 
             <img
               v-else
-              class="conquest-item__image"
+              class="achievement-item__image"
               :title="conquest.name"
               src="~assets/img/conquests/default-trophy.jpg"
               :alt="conquest.name"
             />
           </li>
         </ul>
+
+        <div v-else class="achievement-card__no-achievement">
+          <h5 class="achievement-card__no-achievement-text">
+            {{ $t(`${I18N_PATH}.noConquest`) }}
+          </h5>
+        </div>
       </template>
     </InsightsCard>
   </div>
@@ -40,7 +46,7 @@ import { useStore } from "vuex";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
-const I18N_PATH = "modules.home.insightsPage.conquestCard";
+const I18N_PATH = "modules.insights.achievementCard";
 
 export default {
   components: {
@@ -50,7 +56,7 @@ export default {
     const $store = useStore();
 
     const conquestList = computed(
-      () => $store.getters["ConquestsModule/conquestsPreview"]
+      () => $store.getters["AchievementsModule/achievementsPreview"]
     );
 
     return {
@@ -62,8 +68,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.conquest-card {
-  &__conquest-list {
+.achievement-card {
+  &__achievement-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
@@ -71,19 +77,29 @@ export default {
     list-style: none;
   }
 
-  .conquest-item {
+  .achievement-item {
     border-radius: 8px;
 
-    box-shadow: 2px 2px 3px #00000014;
-
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
 
     overflow: hidden;
 
     &__image {
       width: 100%;
       height: 100%;
+    }
+  }
+
+  &__no-achievement {
+    width: 100%;
+    text-align: center;
+
+    color: $text-color-1;
+
+    &-text {
+      font-size: 12px;
+      font-weight: 700;
     }
   }
 }
