@@ -74,7 +74,7 @@ const routes = {
     icon: "o_widgets",
   },
   courses: {
-    route: "home.rankings",
+    route: "home.activities",
     icon: "o_layers",
   },
   // feed: {
