@@ -46,7 +46,7 @@
             <QBtn
               size="sm"
               :label="$t(`${I18N_PATH}.access`)"
-              color="secondary"
+              color="primary"
               @click="handleStartNow"
             />
           </div>
