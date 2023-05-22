@@ -4,7 +4,9 @@
       <AppToolbar />
 
       <div class="app-container__wrapper">
-        <router-view />
+        <div class="app-container__content">
+          <router-view />
+        </div>
       </div>
     </div>
   </BaseLayout>

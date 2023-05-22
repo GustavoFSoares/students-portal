@@ -7,9 +7,21 @@
     <template #default>
       <div class="activity-list__wrapper">
         <ActivitiesList
+          v-if="activiesGroups?.inProgress && activiesGroups.inProgress.length"
+          :title="$t(`${I18N_PATH}.activitiesSteps.inProgress`)"
+          :activities="activiesGroups.inProgress"
+        />
+
+        <ActivitiesList
           v-if="activiesGroups?.available && activiesGroups.available.length"
           :title="$t(`${I18N_PATH}.activitiesSteps.available`)"
           :activities="activiesGroups.available"
+        />
+
+        <ActivitiesList
+          v-if="activiesGroups?.completed && activiesGroups.completed.length"
+          :title="$t(`${I18N_PATH}.activitiesSteps.completed`)"
+          :activities="activiesGroups.completed"
         />
       </div>
     </template>
@@ -62,6 +74,20 @@ const handleStartActivity = (activityId) => {
 
 onMounted(async () => {
   const activiesData = await $store.dispatch("ActivitiesModule/getActivities");
+
+  activiesData.available = [
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+    ...activiesData.available,
+  ];
 
   activiesGroups.value = activiesData;
 

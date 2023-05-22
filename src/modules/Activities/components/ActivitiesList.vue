@@ -41,11 +41,13 @@
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import ActivityCard from "./ActivityCard.vue";
 
 const I18N_PATH = "modules.activities.components.activitiesList";
 
 const $emits = defineEmits(["start-activity"]);
+const $router = useRouter();
 
 const props = defineProps({
   title: {
@@ -70,7 +72,7 @@ const mappedActivitiesList = computed(() => {
 });
 
 const handleStartactivity = (activityId) => {
-  $emit("start-activity", activityId);
+  $router.push({ name: "activities.stage-list", params: { id: activityId } });
 };
 
 const enter = (el, done) => {
