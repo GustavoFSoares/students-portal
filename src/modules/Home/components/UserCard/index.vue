@@ -96,7 +96,6 @@ const routes = {
 };
 
 const isMobile = computed(() => {
-  console.log($q.screen);
   return $q.screen.sm || $q.screen.xs;
 });
 
