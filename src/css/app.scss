@@ -52,15 +52,27 @@ a {
     overflow: auto;
 
     @media (max-width: $breakpoint-tablet) {
-      padding: 36px 20px;
+      padding: 0 20px;
+
+      .default-layout {
+        padding: 36px 0;
+      }
     }
 
     @media (max-width: $breakpoint-mobile) {
-      padding: 36px 5px 20px;
+      padding: 0 5px;
+
+      .default-layout {
+        padding: 36px 0 20px;
+      }
     }
 
     @media (min-width: $breakpoint-laptop) {
-      padding: 46px 40px 30px;
+      padding: 0 40px;
+
+      .default-layout {
+        padding: 46px 0 30px;
+      }
     }
   }
 

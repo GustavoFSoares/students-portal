@@ -248,6 +248,10 @@ export default {
   &__cta-wrapper {
     display: flex;
     justify-content: flex-end;
+
+    @media (max-width: $breakpoint-tablet) {
+      justify-content: center;
+    }
   }
 }
 </style>
