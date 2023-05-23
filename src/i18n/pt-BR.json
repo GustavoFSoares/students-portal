@@ -181,6 +181,11 @@
         "game-internal": "Jogo interno",
         "game-external": "Jogo externo"
       },
+      "activitiesSteps": {
+        "available": "Cursos disponíveis",
+        "inProgress": "Em Andamento",
+        "completed": "Concluídos"
+      },
       "components": {
         "activityCard": {
           "access": "Acessar Trilha",
@@ -189,6 +194,10 @@
             "inProgress": "em andamento",
             "completed": "concluído"
           }
+        },
+        "activitiesList": {
+          "seeMore": "Ver mais",
+          "seeLess": "Ver menos"
         }
       },
       "partials": {

@@ -1,7 +1,13 @@
 <template>
-  <section :class="['av-page', { 'av-page--no-header': noHeader }]">
+  <section
+    :class="[
+      'av-page',
+      { 'av-page--no-header': noHeader },
+      { 'av-page--no-content-padding': noContentPadding },
+    ]"
+  >
     <header class="av-page-header" v-if="!noHeader">
-      <div class="av-page-header__title-wrapper">
+      <div class="av-page-header__title-wrapper" v-if="title || goBackRoute">
         <QBtn
           v-if="goBackRoute"
           class="av-page-header__back-button"
@@ -42,6 +48,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    noContentPadding: {
+      type: Boolean,
+      default: false,
+    },
     goBackRoute: {
       type: Object,
       default: null,
@@ -56,9 +66,16 @@ export default {
   display: flex;
   flex-direction: column;
 
+  &--no-content-padding & {
+    &-content {
+      &__container {
+        padding: initial;
+      }
+    }
+  }
+
   &-header {
     display: flex;
-    border-bottom: $border-line;
     min-height: 53px;
 
     &__title {
@@ -101,12 +118,9 @@ export default {
   }
 
   &-content {
-    background-color: $default-background;
     height: 100%;
     padding: 4px 0;
     position: relative;
-
-    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 8px;

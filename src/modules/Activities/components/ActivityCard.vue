@@ -5,7 +5,6 @@
         <div class="activity-card__image-wrapper">
           <img
             class="activity-card__image"
-            v-if="cover"
             :src="imagePath"
             :alt="cover.tipo"
           />
@@ -15,6 +14,7 @@
       <template #default>
         <div class="activity-card__content">
           <div
+            v-if="status"
             :class="[
               'activity-card__progress-badge',
               `activity-card__progress-badge--${status}`,
@@ -25,7 +25,11 @@
 
           <h3 class="activity-card__title">{{ title }}</h3>
 
-          <h4 class="activity-card__description" :title="description">
+          <h4
+            class="activity-card__description"
+            :title="description"
+            v-if="description"
+          >
             {{ description }}
           </h4>
 
@@ -42,7 +46,7 @@
             <QBtn
               size="sm"
               :label="$t(`${I18N_PATH}.access`)"
-              color="secondary"
+              color="primary"
               @click="handleStartNow"
             />
           </div>
@@ -72,11 +76,11 @@ export default {
     },
     description: {
       type: String,
-      required: true,
+      default: null,
     },
     status: {
       type: String,
-      required: true,
+      default: null,
     },
     cover: {
       type: Object,
@@ -91,7 +95,7 @@ export default {
     const { appContext } = getCurrentInstance();
 
     const imagePath = computed(() =>
-      props.cover.path
+      props.cover?.path
         ? `${appContext.config.globalProperties.$appStorage}/${props.cover.path}`
         : appContext.config.globalProperties.$defaultActivityCover
     );
@@ -115,6 +119,8 @@ export default {
 <style lang="scss" scoped>
 .activity-card {
   width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px #33424e52;
 
   &:hover & {
     &__image {
@@ -191,8 +197,9 @@ export default {
   }
 
   &__title {
-    font-size: 20px;
-    color: $text-color-3;
+    font-size: 16px;
+    color: $text-color-1;
+    font-weight: $font-weight-light;
   }
 
   &__description {
@@ -241,6 +248,10 @@ export default {
   &__cta-wrapper {
     display: flex;
     justify-content: flex-end;
+
+    @media (max-width: $breakpoint-tablet) {
+      justify-content: center;
+    }
   }
 }
 </style>

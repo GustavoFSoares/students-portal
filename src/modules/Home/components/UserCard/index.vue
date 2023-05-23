@@ -74,7 +74,7 @@ const routes = {
     icon: "o_widgets",
   },
   courses: {
-    route: "home.rankings",
+    route: "home.activities",
     icon: "o_layers",
   },
   // feed: {
@@ -96,7 +96,6 @@ const routes = {
 };
 
 const isMobile = computed(() => {
-  console.log($q.screen);
   return $q.screen.sm || $q.screen.xs;
 });
 
