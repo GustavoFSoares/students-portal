@@ -39,9 +39,14 @@
     </template>
   </AvPage>
 
-  <q-dialog :model-value="openStageDetail" @hide="handleCloseDetail">
+  <QDialog
+    :model-value="openStageDetail"
+    position="right"
+    full-height
+    @hide="handleCloseDetail"
+  >
     <StageListDetail :stage="selectedStageData" @close="handleCloseDetail" />
-  </q-dialog>
+  </QDialog>
 </template>
 
 <script>

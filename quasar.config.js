@@ -137,6 +137,7 @@ module.exports = configure(function (/* ctx */) {
           "QToolbarTitle",
           "QTab",
           "QTabs",
+          "QTooltip",
           "QCheckbox",
           "QBtnDropdown",
           "QList",
