@@ -106,16 +106,15 @@ export default {
 
   &--completed & {
     &__container {
-      border-color: $secondary;
-      background: rgba($secondary, 0.5);
+      background: $primary;
     }
   }
 
   &__container {
     border-radius: $default-border-radius;
     overflow: hidden;
-    background: $card-background;
-    border: $card-border-line;
+    background: rgba($primary, 0.8);
+    border: 1px solid transparent;
   }
 
   &__content {
@@ -126,8 +125,10 @@ export default {
     width: 50px;
     height: 50px;
 
-    color: $text-color-3;
+    color: $white;
     padding: 2px;
+    font-size: 16px;
+    font-weight: $font-weight-bold;
 
     display: flex;
     align-items: center;

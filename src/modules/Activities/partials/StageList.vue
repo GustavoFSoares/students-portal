@@ -61,9 +61,10 @@ export default {
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px 70px;
+    gap: 25px 35px;
 
     @media (min-width: $breakpoint-tablet) {
+      gap: 25px 70px;
       grid-template-columns: repeat(5, 1fr);
     }
   }
