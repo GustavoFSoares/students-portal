@@ -118,7 +118,7 @@ export default {
       ),
       points: (
         color: $primary,
-        border: #e0e5e9,
+        border: $primary,
       ),
     );
 

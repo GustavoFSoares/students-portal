@@ -24,7 +24,7 @@ export default {
   props: {
     progress: {
       type: Number,
-      required: true,
+      default: 0,
     },
     inline: {
       type: Boolean,
@@ -56,7 +56,7 @@ export default {
   &--inline {
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
   }
 
   &-progress {
@@ -84,8 +84,11 @@ export default {
   &-index {
     display: flex;
     justify-content: space-between;
-    color: $primary;
-    font-weight: $font-weight-bold;
+    color: $text-color-4;
+
+    &__start {
+      font-weight: $font-weight-semibold;
+    }
   }
 }
 </style>
