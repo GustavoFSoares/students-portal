@@ -1,41 +1,32 @@
 <template>
   <AvPage
     class="stage-list-page"
-    :title="'Atividades'"
+    :title="stageData.title"
     :go-back-route="{ name: 'home.activities' }"
+    header-background="white"
+    column-header
   >
     <template #header>
       <div class="stage-list-header">
-        <div class="stage-list-header__cover">
-          <img
-            v-if="stageData.cover"
-            class="stage-list-header__cover-image"
-            :src="stageData.cover.url"
-            :alt="stageData.cover.description"
-          />
-        </div>
+        <AvProgressBar
+          class="stage-list-header__progress-bar"
+          :progress="stageData.progress"
+          inline
+        />
 
-        <div class="stage-list-header__texts">
-          <h1 class="stage-list-header__title">
-            {{ stageData.title }}
-          </h1>
-
-          <h2
-            class="stage-list-header__description"
-            :title="stageData.description"
-          >
-            {{ stageData.description }}
-          </h2>
-        </div>
-
-        <h3 class="stage-list-header__activities">
-          {{ stageList.length }} {{ $t(`${I18N_PATH}.activities`) }}
-        </h3>
+        <AvReward
+          v-if="stageData.reward"
+          class="stage-list-header__reward"
+          :coins="stageData.reward.coins"
+          :points="stageData.reward.points"
+        />
       </div>
     </template>
 
     <template #default>
-      <StageList :stages="stageList" @openStage="handleOpenStage" />
+      <div class="app-container__content">
+        <StageList :stages="stageList" @openStage="handleOpenStage" />
+      </div>
     </template>
   </AvPage>
 
@@ -49,7 +40,7 @@
   </QDialog>
 </template>
 
-<script>
+<script setup>
 const I18N_PATH = "modules.activities.pages.stageList";
 
 import { useStore } from "vuex";
@@ -58,132 +49,86 @@ import { computed, getCurrentInstance, onMounted, ref } from "vue";
 
 import AvPage from "organisms/AvPage.vue";
 
+import AvProgressBar from "atoms/AvProgressBar.vue";
+import AvReward from "molecules/AvReward.vue";
+
 import StageList from "../partials/StageList.vue";
 import StageListDetail from "../partials/StageList/Detail.vue";
 
-export default {
-  name: "StageListPage",
-  components: {
-    AvPage,
-    StageList,
-    StageListDetail,
-  },
-  setup() {
-    const $route = useRoute();
-    const $store = useStore();
-    const { appContext } = getCurrentInstance();
+const $route = useRoute();
+const $store = useStore();
+const { appContext } = getCurrentInstance();
 
-    const stageData = ref({});
-    const stageList = ref([]);
-    const selectedStage = ref(null);
+const stageData = ref({});
+const stageList = ref([]);
+const selectedStage = ref(null);
 
-    const handleOpenStage = (position) => {
-      const stageSelectedStage = selectedStage.value;
-      selectedStage.value = null;
+const handleOpenStage = (position) => {
+  const stageSelectedStage = selectedStage.value;
+  selectedStage.value = null;
 
-      if (stageSelectedStage) {
-        setTimeout(() => {
-          selectedStage.value = position;
-        }, 350);
-      } else {
-        selectedStage.value = position;
-      }
-    };
-
-    const openStageDetail = computed(() => !!selectedStage.value);
-    const selectedStageData = computed(() => {
-      const matchStage = stageList.value.find(
-        (stage) => stage.position === selectedStage.value
-      );
-
-      return matchStage || {};
-    });
-
-    const handleCloseDetail = () => {
-      selectedStage.value = null;
-    };
-
-    onMounted(async () => {
-      const { name, description, cover, stages } = await $store.dispatch(
-        "ActivitiesModule/getActivityById",
-        $route.params.id
-      );
-
-      stageData.value = {
-        title: name,
-        description,
-        cover: {
-          url: cover?.path
-            ? `${appContext.config.globalProperties.$appStorage}/${cover.path}`
-            : appContext.config.globalProperties.$defaultActivityCover,
-          description: name,
-        },
-      };
-      stageList.value = stages;
-
-      $store.dispatch("ActivitiesModule/startActivity", $route.params.id);
-    });
-
-    return {
-      I18N_PATH,
-      stageData,
-      stageList,
-
-      selectedStageData,
-      handleOpenStage,
-      openStageDetail,
-      handleCloseDetail,
-    };
-  },
+  if (stageSelectedStage) {
+    setTimeout(() => {
+      selectedStage.value = position;
+    }, 350);
+  } else {
+    selectedStage.value = position;
+  }
 };
+
+const openStageDetail = computed(() => !!selectedStage.value);
+const selectedStageData = computed(() => {
+  const matchStage = stageList.value.find(
+    (stage) => stage.position === selectedStage.value
+  );
+
+  return matchStage || {};
+});
+
+const handleCloseDetail = () => {
+  selectedStage.value = null;
+};
+
+onMounted(async () => {
+  const { name, description, cover, stages, progress, reward } =
+    await $store.dispatch("ActivitiesModule/getActivityById", $route.params.id);
+
+  stageData.value = {
+    title: name,
+    description,
+    progress,
+    reward,
+    cover: {
+      url: cover?.path
+        ? `${appContext.config.globalProperties.$appStorage}/${cover.path}`
+        : appContext.config.globalProperties.$defaultActivityCover,
+      description: name,
+    },
+  };
+  stageList.value = stages;
+
+  $store.dispatch("ActivitiesModule/startActivity", $route.params.id);
+});
 </script>
 
 <style lang="scss" scoped>
 .stage-list-page {
+  :deep(.av-page-header) {
+    box-shadow: 0px 2px 4px rgba(51, 66, 78, 0.32);
+    border-top: 1px solid $grey-transparent;
+  }
+
   .stage-list-header {
-    padding: 0 15px;
+    padding: 4px 15px;
     display: flex;
-    gap: 15px;
+    gap: 16px;
     align-items: center;
 
     height: 100%;
+    background: white;
 
-    &__cover {
-      min-width: 35px;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #ff00008f;
-
-      &-image {
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    &__texts {
-      flex-grow: 1;
-    }
-
-    &__title {
-      font-size: 15px;
-      font-weight: $font-weight-semibold;
-      color: $text-color-3;
-    }
-
-    &__description {
-      font-size: 13px;
-      font-weight: $font-weight-normal;
-      color: $text-color-2;
-    }
-
-    &__activities {
-      font-size: 12px;
-      color: $text-color-3;
-      font-weight: $font-weight-bold;
-      white-space: nowrap;
-      overflow: initial;
+    &__reward {
+      max-width: 320px;
     }
   }
 }
