@@ -6,7 +6,7 @@
       { 'av-page--no-content-padding': noContentPadding },
     ]"
   >
-    <header class="av-page-header" v-if="!noHeader">
+    <header :class="`av-page-header bg-${headerBackground}`" v-if="!noHeader">
       <div class="av-page-header__title-wrapper" v-if="title || goBackRoute">
         <QBtn
           v-if="goBackRoute"
@@ -55,6 +55,10 @@ export default {
     goBackRoute: {
       type: Object,
       default: null,
+    },
+    headerBackground: {
+      type: String,
+      default: "transparent",
     },
   },
 };
