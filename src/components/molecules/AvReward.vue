@@ -1,5 +1,5 @@
 <template>
-  <div class="av-reward">
+  <div :class="['av-reward', { 'av-reward--column': column }]">
     <div
       v-for="(rewardItem, rewardKey) in rewards"
       :key="rewardKey"
@@ -32,6 +32,10 @@ export default {
     points: {
       type: Number,
       default: 0,
+    },
+    column: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, ctx) {
@@ -74,6 +78,10 @@ export default {
   display: flex;
   gap: 10px;
   width: 100%;
+
+  &--column {
+    flex-direction: column;
+  }
 
   &-item {
     width: 100%;

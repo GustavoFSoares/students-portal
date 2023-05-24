@@ -29,23 +29,27 @@
       </div>
 
       <div v-if="stageType" class="stage-list-detail__type">
-        <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
-
-        <h4 class="stage-list-detail__type-name">
+        <QTooltip>
           {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageType.name}`) }}
-        </h4>
+        </QTooltip>
+
+        <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
       </div>
+
+      <AvProgressBar class="stage-list-detail__progress-bar" :progress="80" />
 
       <AvReward
         v-if="stage.reward"
+        class="stage-list-detail__rewards"
         :points="stage.reward.points"
         :coins="stage.reward.coins"
+        column
       />
 
       <QBtn
         class="stage-list-detail__start-activity"
         :label="$t(`${I18N_PATH}.startActivity`)"
-        color="secondary"
+        color="primary"
         :to="{
           name: 'activities.stage',
           params: {
@@ -58,7 +62,7 @@
   </q-card>
 </template>
 
-<script>
+<script setup>
 const TOTAL_STARS = 3;
 const I18N_PATH = "modules.activities.pages.stageList.detail";
 const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
@@ -66,50 +70,35 @@ const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
 import { computed, getCurrentInstance } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
+import AvProgressBar from "atoms/AvProgressBar.vue";
 
-export default {
-  emits: ["close"],
-  name: "StageListDetail",
-  components: {
-    AvReward,
+const props = defineProps({
+  stage: {
+    type: Object,
+    default: () => {},
   },
-  props: {
-    stage: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  setup(props, ctx) {
-    const { appContext } = getCurrentInstance();
+});
+const $emits = defineEmits(["close"]);
 
-    const stageType = computed(() => {
-      if (!props.stage.type) {
-        return null;
-      }
+const { appContext } = getCurrentInstance();
 
-      return {
-        icon:
-          appContext.config.globalProperties.$iconsMap[props.stage.type] ||
-          props.stage.type,
-        name: props.stage.type,
-      };
-    });
+const stageType = computed(() => {
+  if (!props.stage.type) {
+    return null;
+  }
 
-    const positionLabel = computed(() => Number(props.stage.position) + 1);
+  return {
+    icon:
+      appContext.config.globalProperties.$iconsMap[props.stage.type] ||
+      props.stage.type,
+    name: props.stage.type,
+  };
+});
 
-    const handleClose = () => {
-      ctx.emit("close");
-    };
+const positionLabel = computed(() => Number(props.stage.position) + 1);
 
-    return {
-      TOTAL_STARS,
-      I18N_PATH,
-      I18N_STAGE_TYPE_PATH,
-      stageType,
-      positionLabel,
-      handleClose,
-    };
-  },
+const handleClose = () => {
+  ctx.emit("close");
 };
 </script>
 
@@ -146,9 +135,8 @@ export default {
     border-radius: $default-border-radius;
 
     border: $card-border-line;
-    border-color: $secondary;
-    // background: rgba($secondary, 0.5);
-    background: $card-background;
+    border-color: $primary;
+    background: $primary;
     color: $text-color-3;
 
     padding: 2px;
@@ -162,7 +150,7 @@ export default {
   &__title {
     font-size: 14px;
     font-weight: $font-weight-semibold;
-    color: $text-color-3;
+    color: $text-color-1;
   }
 
   &__stars {
@@ -179,6 +167,15 @@ export default {
         fill: $secondary;
       }
     }
+  }
+
+  &__rewards {
+    max-width: 200px;
+  }
+
+  &__progress-bar {
+    margin-top: 20px;
+    max-width: 250px;
   }
 
   &__type {

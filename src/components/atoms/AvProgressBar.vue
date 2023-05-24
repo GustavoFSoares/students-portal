@@ -84,7 +84,7 @@ export default {
   &-index {
     display: flex;
     justify-content: space-between;
-    color: $secondary;
+    color: $primary;
     font-weight: $font-weight-bold;
   }
 }
