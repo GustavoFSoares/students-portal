@@ -25,6 +25,29 @@
 
     <template #default>
       <div class="app-container__content">
+        <AvCard class="stage-description">
+          <div class="stage-description__card">
+            <div
+              v-if="stageData.cover"
+              class="stage-description__image-wrapper"
+            >
+              <img
+                class="stage-description__image"
+                :src="stageData.cover.url"
+                :alt="stageData.cover.description"
+              />
+            </div>
+
+            <h2 class="stage-description__text" :title="stageData.description">
+              {{ stageData.description }}
+            </h2>
+
+            <h6 class="stage-description__tasks-count">
+              {{ stageList.length }} atividades
+            </h6>
+          </div>
+        </AvCard>
+
         <StageList :stages="stageList" @openStage="handleOpenStage" />
       </div>
     </template>
@@ -49,6 +72,7 @@ import { computed, getCurrentInstance, onMounted, ref } from "vue";
 
 import AvPage from "organisms/AvPage.vue";
 
+import AvCard from "atoms/AvCard.vue";
 import AvProgressBar from "atoms/AvProgressBar.vue";
 import AvReward from "molecules/AvReward.vue";
 
@@ -129,6 +153,55 @@ onMounted(async () => {
 
     &__reward {
       max-width: 320px;
+    }
+  }
+
+  .stage-description {
+    margin-bottom: 66px;
+
+    &__card {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      position: relative;
+    }
+
+    &__image-wrapper {
+      width: 64px;
+      height: 64px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $default-border-radius;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &__text {
+      color: $text-color-4;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: $font-weight-semibold;
+      width: 100%;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    &__tasks-count {
+      color: $text-color-4;
+      font-size: 10px;
+      line-height: 15px;
+      font-weight: $font-weight-semibold;
+      white-space: nowrap;
+      align-self: flex-start;
     }
   }
 }
