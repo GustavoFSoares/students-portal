@@ -96,6 +96,11 @@ export default {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
+        progress: 50,
+        reward: {
+          coins: 12,
+          points: 50,
+        },
         stages: data.stage
           .filter((stage) => stage.status === "ativo")
           .map((stage) => {
@@ -103,6 +108,7 @@ export default {
               id: stage.id,
               trailId: stage.trilha_id,
               name: stage.nome,
+              progress: 20,
               reward: {
                 coins: stage.moedas,
                 points: stage.pontos,

@@ -3,11 +3,7 @@
     <div class="app-container">
       <AppToolbar />
 
-      <div class="app-container__wrapper">
-        <div class="app-container__content">
-          <router-view />
-        </div>
-      </div>
+      <router-view />
     </div>
   </BaseLayout>
 </template>

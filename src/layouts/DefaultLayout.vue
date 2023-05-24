@@ -1,22 +1,26 @@
 <template>
-  <section class="default-layout">
-    <article
-      :class="[
-        'default-layout__user-navigation',
-        { 'default-layout__user-navigation--active': showMenu },
-      ]"
-    >
-      <UserCard
-        @toggleMenu="handleToggleMenu"
-        @navigating="handleCloseMenu"
-        :show-menu="showMenu"
-      />
-    </article>
+  <div class="app-container__wrapper">
+    <div class="app-container__content">
+      <section class="default-layout">
+        <article
+          :class="[
+            'default-layout__user-navigation',
+            { 'default-layout__user-navigation--active': showMenu },
+          ]"
+        >
+          <UserCard
+            @toggleMenu="handleToggleMenu"
+            @navigating="handleCloseMenu"
+            :show-menu="showMenu"
+          />
+        </article>
 
-    <aside class="default-layout__content">
-      <router-view />
-    </aside>
-  </section>
+        <aside class="default-layout__content">
+          <router-view />
+        </aside>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script setup>

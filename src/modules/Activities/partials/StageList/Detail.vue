@@ -36,7 +36,10 @@
         <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
       </div>
 
-      <AvProgressBar class="stage-list-detail__progress-bar" :progress="80" />
+      <AvProgressBar
+        class="stage-list-detail__progress-bar"
+        :progress="stage.progress"
+      />
 
       <AvReward
         v-if="stage.reward"
@@ -75,7 +78,7 @@ import AvProgressBar from "atoms/AvProgressBar.vue";
 const props = defineProps({
   stage: {
     type: Object,
-    default: () => {},
+    default: () => ({ progress: 0 }),
   },
 });
 const $emits = defineEmits(["close"]);
