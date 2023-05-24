@@ -128,7 +128,6 @@ export default {
 
         .q-icon {
           font-size: 20px;
-          // font-weight: $font-weight-semibold;
         }
       }
     }
