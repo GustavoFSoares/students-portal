@@ -5,4 +5,6 @@ export default {
     inProgress: [],
     completed: [],
   },
+  watchedList:
+    localStorage.getItem("activities-watched-list")?.split(",") || [],
 };

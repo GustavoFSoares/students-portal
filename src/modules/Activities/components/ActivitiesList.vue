@@ -33,21 +33,37 @@
         :title="activity.name"
         :cover="activity.cover"
         :progress="activity.progress"
-        @startNow="handleStartactivity(activity.id)"
+        @startNow="handleStartActivity(activity.id)"
       />
     </transition-group>
   </div>
+
+  <QDialog
+    :model-value="!!showPresentation"
+    persistent
+    maximized
+    transition-show="slide-up"
+    transition-hide="slide-down"
+  >
+    <ActivitiesPresentation
+      :presentation-id="showPresentation"
+      @ended="startActivity()"
+    />
+  </QDialog>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
+import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import ActivityCard from "./ActivityCard.vue";
+import ActivitiesPresentation from "../partials/ActivitiesPresentation.vue";
 
 const I18N_PATH = "modules.activities.components.activitiesList";
 
 const $emits = defineEmits(["start-activity"]);
 const $router = useRouter();
+const $store = useStore();
 
 const props = defineProps({
   title: {
@@ -61,6 +77,8 @@ const props = defineProps({
 });
 
 const isOpen = ref(false);
+const activityId = ref();
+const showPresentation = ref(false);
 const currentActivities = ref([]);
 const showingActivitiesList = ref([]);
 
@@ -71,8 +89,32 @@ const mappedActivitiesList = computed(() => {
   return currentActivities.value.slice(0, 3);
 });
 
-const handleStartactivity = (activityId) => {
-  $router.push({ name: "activities.stage-list", params: { id: activityId } });
+const handleStartActivity = async (currentActivityId) => {
+  activityId.value = currentActivityId;
+
+  let presentationId = await $store.dispatch(
+    "ActivitiesModule/getActivityPresentationId",
+    activityId.value
+  );
+
+  if (!presentationId) {
+    return startActivity();
+  }
+
+  startPresentation(presentationId);
+};
+
+const startPresentation = (presentationId) => {
+  showPresentation.value = presentationId;
+};
+
+const startActivity = () => {
+  showPresentation.value = false;
+
+  $router.push({
+    name: "activities.stage-list",
+    params: { id: activityId.value },
+  });
 };
 
 const enter = (el, done) => {
