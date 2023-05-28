@@ -2,6 +2,8 @@ import { api } from "boot/axios";
 import ActivitiesStatusMap from "maps/activitiesStatusMap.json";
 import { iconsMapReplations } from "maps/iconsMaps.json";
 
+const MAX_PRESENTATIONS = 4;
+
 export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
@@ -205,5 +207,17 @@ export default {
     } catch (err) {
       console.error("Stage PDF Error", err);
     }
+  },
+  getActivityPresentationId({ state, commit }, activityId) {
+    if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
+      return null;
+    }
+
+    commit("AD_TO_WATCHED_LIST", activityId);
+
+    const randomPresentation =
+      Math.floor(Math.random() * MAX_PRESENTATIONS) + 1;
+
+    return randomPresentation;
   },
 };

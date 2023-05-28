@@ -9,4 +9,12 @@ export default {
       completed: profileActivities.completed,
     };
   },
+  AD_TO_WATCHED_LIST(state, activityId) {
+    state.watchedList.push(activityId);
+
+    localStorage.setItem(
+      "activities-watched-list",
+      state.watchedList.toString()
+    );
+  },
 };
