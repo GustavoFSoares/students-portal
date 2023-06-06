@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, toRef } from "vue";
+import { computed, onMounted, onUpdated, ref, toRef } from "vue";
 
 const $emits = defineEmits(["end-time"]);
 const props = defineProps({
@@ -51,11 +51,24 @@ const handleStart = () => {
 };
 
 const handleEndTimer = () => {
-  clearInterval(interval);
+  restartTimer();
   $emits("end-time");
 };
 
+const restartTimer = () => {
+  clearInterval(interval);
+  currentTime.value = props.startTime;
+};
+
 onMounted(() => {
+  if (props.autoStart) {
+    handleStart();
+  }
+});
+
+onUpdated(() => {
+  restartTimer();
+
   if (props.autoStart) {
     handleStart();
   }
