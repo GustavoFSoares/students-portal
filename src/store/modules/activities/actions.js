@@ -115,7 +115,9 @@ export default {
                 coins: activity.moedas,
                 points: activity.pontos,
               },
-              types: activity.estagios.map((stage) => stage.tipo.descricao),
+              types: activity.estagios.map(
+                (stage) => iconsMapReplations[stage.tipo.descricao]
+              ),
               position: activity.ordem + "",
               rank: 2,
               completed: !!completeds.find((completedId, completedIndex) => {
@@ -132,7 +134,7 @@ export default {
       console.error("Courses Data by ID Error", err);
     }
   },
-  getStageData: async (_, { stageId }) => {
+  getStagesData: async (_, { stageId }) => {
     try {
       const {
         data: { data },
@@ -141,18 +143,18 @@ export default {
       });
 
       return {
+        id: data.id,
         name: data.nome,
-        files: data.files.map((file) => ({
-          path: file.path,
-          name: file.name,
-          id: file.id,
-          parameters: file.parameters ? JSON.parse(file.parameters) : null,
-        })),
-        type: data.tipo.descricao,
-        type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
-        cover: data.tipo.path,
-        coins: data.moedas,
-        points: data.pontos,
+        description: data.descricao,
+        stages: data.estagios.map((stage) => {
+          return {
+            id: stage.id,
+            description: stage.descricao,
+            type: iconsMapReplations[stage.tipo.descricao],
+            time: stage.tempo,
+            content: stage.conteudo,
+          };
+        }),
       };
     } catch (err) {
       console.error("Stage Data by ID Error", err);
@@ -167,12 +169,16 @@ export default {
       console.error("Start activity Error", err);
     }
   },
-  completeStage: async ({ dispatch }, { activityId, stageId }) => {
+  completeStage: async (_, { activityId, stageId }) => {
     try {
-      await api.post("alunos/trilha-aluno-estagio", {
+      console.log("alunos/trilha-aluno-estagio", {
         trilha_id: activityId,
         estagio_id: stageId,
       });
+      // await api.post("alunos/trilha-aluno-estagio", {
+      //   trilha_id: activityId,
+      //   estagio_id: stageId,
+      // });
     } catch (err) {
       console.error("", err);
     }
@@ -194,8 +200,6 @@ export default {
           },
         }
       );
-
-      console.log(data);
 
       // return {
       //   files: data.files,

@@ -9,7 +9,8 @@
 </template>
 
 <script setup>
-import { computed, defineProps } from "vue";
+import { useStore } from "vuex";
+import { computed, defineProps, watch } from "vue";
 
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
 import StageFileTypeImage from "./StageFileTypeImage.vue";
@@ -18,7 +19,16 @@ import StageFileTypeVideo from "./StageFileTypeVideo.vue";
 import StageFileGameExternal from "./StageFileGameExternal.vue";
 import StageFileGameInternal from "./StageFileGameInternal.vue";
 
+const $store = useStore();
 const props = defineProps({
+  activityId: {
+    type: Number,
+    required: true,
+  },
+  stageId: {
+    type: Number,
+    required: true,
+  },
   type: {
     type: String,
     required: true,
@@ -27,6 +37,17 @@ const props = defineProps({
     required: true,
   },
 });
+
+watch(
+  () => props.stageId,
+  async () => {
+    await $store.dispatch("ActivitiesModule/completeStage", {
+      activityId: props.activityId,
+      stageId: props.stageId,
+    });
+  },
+  { immediate: true }
+);
 
 const stageFilesMap = {
   music: StageFileTypeAudio,

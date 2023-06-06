@@ -27,6 +27,8 @@
           <div v-if="hasStages && currentStage" class="stage-wrapper">
             <div class="stage-wrapper__content">
               <StageContent
+                :activity-id="activityData.id"
+                :stage-id="currentStage.id"
                 :content="currentStage.content"
                 :type="currentStage.type"
               />
@@ -35,11 +37,26 @@
                 class="stage-wrapper__button"
                 :label="isLast ? 'Concluir' : 'Avançar'"
                 color="secondary"
-                @click="handleSextStage"
+                @click="handleNextStep(null)"
               />
             </div>
 
-            <div class="stage-wrapper__steps">STEPS</div>
+            <div class="stage-wrapper__steps-counter">
+              <button
+                v-for="(activityStep, activityStepIndex) of activityData.stages"
+                :key="activityStepIndex"
+                @click="handleNextStep(activityStepIndex)"
+                :class="[
+                  'stage-wrapper__step-item',
+                  {
+                    'stage-wrapper__step-item--completed':
+                      activityStep.completed,
+                    'stage-wrapper__step-item--selected':
+                      activityStepIndex === currentStageIndex,
+                  },
+                ]"
+              />
+            </div>
           </div>
 
           <p v-else>Sem atividades</p>
@@ -100,7 +117,15 @@ const handleClose = () => {
   });
 };
 
-const handleSextStage = () => {
+const handleNextStep = (nextStep = null) => {
+  if (nextStep !== null) {
+    if (activityData.value.stages[currentStageIndex.value]) {
+      currentStageIndex.value = nextStep;
+    }
+
+    return;
+  }
+
   if (isLast.value) {
     handleClose();
     return;
@@ -113,8 +138,6 @@ onMounted(async () => {
   activityData.value = await $store.dispatch("ActivitiesModule/getStagesData", {
     stageId,
   });
-
-  console.log("stagesData", activityData.value);
 
   $store.dispatch("AuthModule/refreshUser");
 });
@@ -191,6 +214,9 @@ onMounted(async () => {
 
   &__title {
     padding: 32px 32px 0;
+    font-size: 23px;
+    color: $text-color-1;
+    margin-bottom: 30px;
   }
 
   &__header {
@@ -204,12 +230,6 @@ onMounted(async () => {
     top: 0;
     right: calc(-1 * (0% + 42px));
     background: rgba(#cecece, 0.8) !important;
-  }
-
-  &__title {
-    font-size: 23px;
-    color: $text-color-1;
-    margin-bottom: 30px;
   }
 
   .stage-wrapper {
@@ -228,13 +248,33 @@ onMounted(async () => {
       width: fit-content;
       align-self: flex-end;
     }
-    &__steps {
+
+    &__steps-counter {
+      width: 100%;
       position: absolute;
       bottom: 10px;
-      background: red;
 
-      width: 100%;
-      height: 20px;
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    &__step-item {
+      width: 80px;
+      height: 8px;
+      border-radius: $default-border-radius;
+      background: $default-background;
+
+      pointer-events: none;
+
+      &--completed {
+        pointer-events: initial;
+        background: $grey-8;
+      }
+
+      &--selected {
+        background: $grey-13;
+      }
     }
   }
 }
