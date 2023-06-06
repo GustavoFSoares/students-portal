@@ -9,9 +9,9 @@
     }"
   >
     <template #default>
-      <div class="stage-page__container">
+      <div class="stage-page__container" v-if="activityData">
         <div class="stage-page__header">
-          <AvTimer :start-time="60" @end-time="handleEndTime" />
+          <AvTimer :start-time="currentStage.time" @end-time="handleEndTime" />
 
           <QBtn
             round
@@ -22,48 +22,27 @@
         </div>
 
         <div class="stage-page__wrapper">
-          {{ stageData }}
-          <h1 class="stage-page__title">{{ stageData.name }}</h1>
+          <h1 class="stage-page__title">{{ currentStage.description }}</h1>
 
-          <StageActivityStepper
-            v-if="false && stageData.files && stageData.files.length"
-            :activity-steps="stageData.files"
-            :activity-type="stageData.type"
-          />
-
-          <p v-else>Sem atividades</p>
-          <!-- <div class="stage-page__items-list">
-            <button
-              class="stage-item"
-              v-for="(stageFile, stageFileIndex) in stageData.files"
-              :key="stageFile.id"
-              @click="handleOpenStage(stageFile)"
-            >
-              <img
-                class="stage-item__image"
-                :src="$appPublic + stageData.cover"
-                :alt="`stage-file-${stageFile.id}`"
+          <div v-if="hasStages && currentStage" class="stage-wrapper">
+            <div class="stage-wrapper__content">
+              <StageContent
+                :content="currentStage.content"
+                :type="currentStage.type"
               />
 
-              <div class="stage-item__content">
-                <h4 class="stage-item__title">
-                  {{ stageData.name }} - {{ stageFileIndex + 1 }}
-                </h4>
+              <QBtn
+                class="stage-wrapper__button"
+                :label="isLast ? 'Concluir' : 'Avançar'"
+                color="secondary"
+                @click="handleSextStage"
+              />
+            </div>
 
-                <h5 class="file-type">
-                  <QIcon class="stage-item__icon" :name="fileIcon" />
+            <div class="stage-wrapper__steps">STEPS</div>
+          </div>
 
-                  <strong class="file-type__label">
-                    {{ $t(`${I18N_PATH}.documentType`) }}:
-                  </strong>
-
-                  <span class="file-type__text">
-                    {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageData.type}`) }}
-                  </span>
-                </h5>
-              </div>
-            </button>
-          </div> -->
+          <p v-else>Sem atividades</p>
         </div>
       </div>
     </template>
@@ -75,7 +54,7 @@ const I18N_PATH = "modules.courses.stagePage";
 const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
 
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { computed, getCurrentInstance, onMounted, ref } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
@@ -83,50 +62,59 @@ import AvTimer from "molecules/AvTimer.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
-// import StageFileGameInternal from "../components/StagePage/StageFileGameInternal.vue";
-// import StageFileGameExternal from "../components/StagePage/StageFileGameExternal.vue";
-// import StageFileTypeAudio from "../components/StagePage/StageFileTypeAudio.vue";
-// import StageFileTypeImage from "../components/StagePage/StageFileTypeImage.vue";
-// import StageFileTypePdf from "../components/StagePage/StageFileTypePdf.vue";
-// import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
-import StageActivityStepper from "../components/StagePage/StageActivityStepper.vue";
+import StageContent from "../components/StagePage/StageContent.vue";
 
 const { appContext } = getCurrentInstance();
 const $route = useRoute();
+const $router = useRouter();
 const $store = useStore();
 
-const stageFilesMap = {
-  music: "StageFileTypeAudio",
-  image: "StageFileTypeImage",
-  document: "StageFileTypePdf",
-  video: "StageFileTypeVideo",
-  "game-external": "StageFileGameExternal",
-  "game-internal": "StageFileGameInternal",
-};
-
 const { id: activityId, stageId } = $route.params;
-const stageData = ref({});
+const currentStageIndex = ref(0);
+const activityData = ref(null);
 const selectedFile = ref(null);
 
-// const showFileData = computed(() => !!selectedFile.value);
+const hasStages = computed(() => activityData.value.stages?.length !== 0);
+const isLast = computed(
+  () => activityData.value.stages?.length === currentStageIndex.value + 1
+);
 
-//const stageFileTypeComponent = computed(() => {
-//  return stageFilesMap[stageData.value.type] || null;
-//});
+const currentStage = computed(() => {
+  if (!hasStages.value) {
+    return null;
+  }
+
+  return activityData.value.stages[currentStageIndex.value];
+});
+
 const handleEndTime = () => {
   handleClose();
 };
 
 const handleClose = () => {
   alert("close");
+
+  $router.push({
+    name: "activities.stage-list",
+    params: { id: activityId },
+  });
 };
 
-const currentStage = onMounted(async () => {
-  const stagesData = await $store.dispatch("ActivitiesModule/getStagesData", {
+const handleSextStage = () => {
+  if (isLast.value) {
+    handleClose();
+    return;
+  }
+
+  currentStageIndex.value += 1;
+};
+
+onMounted(async () => {
+  activityData.value = await $store.dispatch("ActivitiesModule/getStagesData", {
     stageId,
   });
 
-  console.log("stagesData", stagesData);
+  console.log("stagesData", activityData.value);
 
   $store.dispatch("AuthModule/refreshUser");
 });
@@ -172,7 +160,7 @@ const currentStage = onMounted(async () => {
       &__container {
         height: 100%;
         padding-bottom: initial;
-        overflow: hidden;
+        // overflow: hidden;
       }
     }
   }
@@ -180,15 +168,29 @@ const currentStage = onMounted(async () => {
   &__container {
     max-width: 1366px;
     margin: 0 auto;
+    width: 100%;
     height: 100%;
     position: relative;
+
+    display: flex;
+    flex-direction: column;
   }
 
   &__wrapper {
+    width: 100%;
     height: 100%;
     background: #fff;
     border-radius: $default-border-radius $default-border-radius 0 0;
-    padding: 32px;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  &__title {
+    padding: 32px 32px 0;
   }
 
   &__header {
@@ -205,103 +207,34 @@ const currentStage = onMounted(async () => {
   }
 
   &__title {
-    font-size: 42px;
-    color: $text-color-3;
-    margin-bottom: 5px;
-    text-transform: capitalize;
+    font-size: 23px;
+    color: $text-color-1;
+    margin-bottom: 30px;
   }
 
-  &__items-list {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stage-item {
-    background: $card-background;
-    border-radius: $default-border-radius;
-    overflow: hidden;
-    transition: opacity 0.4s ease;
-
-    display: flex;
-    gap: 10px;
-
-    height: 100px;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &__image {
-      z-index: 2;
-      height: 100%;
-    }
+  .stage-wrapper {
+    height: 100%;
+    margin-bottom: 35px;
 
     &__content {
-      flex-grow: 1;
-      padding: 22px 10px 22px 0;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 15px;
+      padding: 0 32px;
     }
 
-    &__title {
-      font-size: 14px;
-      font-weight: $font-weight-semibold;
-      color: $text-color-3;
+    &__button {
+      width: fit-content;
+      align-self: flex-end;
     }
-
-    .file-type {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-
-      font-size: 13px;
-      color: $text-color-3;
-
-      &__label {
-        font-weight: $font-weight-semibold;
-      }
-    }
-
-    &__icon {
-      font-size: 20px;
-    }
-  }
-
-  &__modal {
-    position: relative;
-    width: initial;
-    height: 80vh;
-
-    box-shadow: none;
-
-    background: transparent;
-    max-width: initial !important;
-
-    :deep(section) {
-      width: 100%;
-      height: 100%;
-
-      background: $background;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      border-radius: $default-border-radius;
-      overflow: hidden;
-    }
-
-    &-close {
+    &__steps {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      bottom: 10px;
+      background: red;
 
-      &--moved {
-        top: 40px;
-        right: 20px;
-      }
+      width: 100%;
+      height: 20px;
     }
   }
 }

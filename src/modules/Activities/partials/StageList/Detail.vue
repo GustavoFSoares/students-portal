@@ -97,12 +97,9 @@ const stageTypes = computed(() => {
   }
 
   const icons = props.stage.types.map((type) => {
-    const iconRelation =
-      appContext.config.globalProperties.$iconsMapReplations[type] || type;
-
     return {
-      icon: appContext.config.globalProperties.$iconsMap[iconRelation] || type,
-      name: iconRelation,
+      icon: appContext.config.globalProperties.$iconsMap[type] || type,
+      name: type,
     };
   });
 
