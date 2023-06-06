@@ -2,108 +2,75 @@
   <AvPage
     class="stage-page"
     title="Estágios"
+    no-header
     :go-back-route="{
       name: 'activities.stage-list',
       params: { id: activityId },
     }"
   >
-    <template #header>
-      <div class="stage-header">
-        <div class="stage-header__texts">
-          <h1 class="stage-header__title">
-            {{ stageData.title }}
-          </h1>
+    <template #default>
+      <div class="stage-page__container">
+        <div class="stage-page__header">
+          <AvTimer :start-time="60" @end-time="handleEndTime" />
 
-          <h2 class="stage-header__description">
-            {{ stageData.description }}
-          </h2>
+          <QBtn
+            round
+            icon="close"
+            class="stage-page__close-button"
+            @click="handleClose"
+          />
         </div>
 
-        <AvReward
-          class="stage-header__rewards"
-          :points="stageData.points"
-          :coins="stageData.coins"
-        />
-      </div>
-    </template>
+        <div class="stage-page__wrapper">
+          {{ stageData }}
+          <h1 class="stage-page__title">{{ stageData.name }}</h1>
 
-    <template #default>
-      <div class="stage-page__wrapper">
-        <h1 class="stage-page__title">{{ stageData.name }}</h1>
+          <StageActivityStepper
+            v-if="false && stageData.files && stageData.files.length"
+            :activity-steps="stageData.files"
+            :activity-type="stageData.type"
+          />
 
-        <StageActivityStepper
-          v-if="stageData.files && stageData.files.length"
-          :activity-steps="stageData.files"
-          :activity-type="stageData.type"
-        />
+          <p v-else>Sem atividades</p>
+          <!-- <div class="stage-page__items-list">
+            <button
+              class="stage-item"
+              v-for="(stageFile, stageFileIndex) in stageData.files"
+              :key="stageFile.id"
+              @click="handleOpenStage(stageFile)"
+            >
+              <img
+                class="stage-item__image"
+                :src="$appPublic + stageData.cover"
+                :alt="`stage-file-${stageFile.id}`"
+              />
 
-        <p v-else>Sem atividades</p>
-        <!-- <div class="stage-page__items-list">
-          <button
-            class="stage-item"
-            v-for="(stageFile, stageFileIndex) in stageData.files"
-            :key="stageFile.id"
-            @click="handleOpenStage(stageFile)"
-          >
-            <img
-              class="stage-item__image"
-              :src="$appPublic + stageData.cover"
-              :alt="`stage-file-${stageFile.id}`"
-            />
+              <div class="stage-item__content">
+                <h4 class="stage-item__title">
+                  {{ stageData.name }} - {{ stageFileIndex + 1 }}
+                </h4>
 
-            <div class="stage-item__content">
-              <h4 class="stage-item__title">
-                {{ stageData.name }} - {{ stageFileIndex + 1 }}
-              </h4>
+                <h5 class="file-type">
+                  <QIcon class="stage-item__icon" :name="fileIcon" />
 
-              <h5 class="file-type">
-                <QIcon class="stage-item__icon" :name="fileIcon" />
+                  <strong class="file-type__label">
+                    {{ $t(`${I18N_PATH}.documentType`) }}:
+                  </strong>
 
-                <strong class="file-type__label">
-                  {{ $t(`${I18N_PATH}.documentType`) }}:
-                </strong>
-
-                <span class="file-type__text">
-                  {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageData.type}`) }}
-                </span>
-              </h5>
-            </div>
-          </button>
-        </div> -->
+                  <span class="file-type__text">
+                    {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageData.type}`) }}
+                  </span>
+                </h5>
+              </div>
+            </button>
+          </div> -->
+        </div>
       </div>
     </template>
   </AvPage>
-
-  <q-dialog :model-value="showFileData" @hide="handleHideFileData">
-    <QCard class="stage-page__modal">
-      <component
-        v-if="stageFileTypeComponent"
-        :is="stageFileTypeComponent"
-        :path="selectedFile.target"
-        :parameters="selectedFile.parameters || undefined"
-        @close="handleHideFileData"
-      />
-
-      <QBtn
-        v-if="stageFileTypeComponent !== 'StageFileTypeAudio'"
-        :class="[
-          'stage-page__modal-close',
-          {
-            'stage-page__modal-close--moved':
-              stageFileTypeComponent === 'StageFileTypePdf',
-          },
-        ]"
-        icon="close"
-        round
-        color="grey-6"
-        size="sm"
-        @click="handleHideFileData"
-      />
-    </QCard>
-  </q-dialog>
 </template>
 
-<script>
+<script setup>
 const I18N_PATH = "modules.courses.stagePage";
 const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
 
@@ -112,6 +79,7 @@ import { useRoute } from "vue-router";
 import { computed, getCurrentInstance, onMounted, ref } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
+import AvTimer from "molecules/AvTimer.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
@@ -123,84 +91,45 @@ import AvPage from "organisms/AvPage.vue";
 // import StageFileTypeVideo from "../components/StagePage/StageFileTypeVideo.vue";
 import StageActivityStepper from "../components/StagePage/StageActivityStepper.vue";
 
-export default {
-  name: "StagePage",
-  components: {
-    AvReward,
-    AvPage,
-    // StageFileGameInternal,
-    // StageFileGameExternal,
-    // StageFileTypeAudio,
-    // StageFileTypeImage,
-    // StageFileTypePdf,
-    // StageFileTypeVideo,
-    StageActivityStepper,
-  },
-  setup() {
-    const { appContext } = getCurrentInstance();
-    const $route = useRoute();
-    const $store = useStore();
+const { appContext } = getCurrentInstance();
+const $route = useRoute();
+const $store = useStore();
 
-    const stageFilesMap = {
-      music: "StageFileTypeAudio",
-      image: "StageFileTypeImage",
-      document: "StageFileTypePdf",
-      video: "StageFileTypeVideo",
-      "game-external": "StageFileGameExternal",
-      "game-internal": "StageFileGameInternal",
-    };
-
-    const { id: activityId, stageId } = $route.params;
-    const stageData = ref({});
-    const selectedFile = ref(null);
-
-    const fileIcon = computed(
-      () => appContext.config.globalProperties.$iconsMap[stageData.value.type]
-    );
-    const showFileData = computed(() => !!selectedFile.value);
-
-    const stageFileTypeComponent = computed(() => {
-      return stageFilesMap[stageData.value.type] || null;
-    });
-
-    const handleOpenStage = ({ path, parameters }) => {
-      selectedFile.value = {
-        target: path,
-        parameters,
-      };
-    };
-
-    const handleHideFileData = () => {
-      selectedFile.value = null;
-    };
-
-    onMounted(async () => {
-      stageData.value = await $store.dispatch("ActivitiesModule/getStageData", {
-        stageId,
-      });
-
-      $store.dispatch("ActivitiesModule/completeStage", {
-        activityId,
-        stageId,
-      });
-
-      $store.dispatch("AuthModule/refreshUser");
-    });
-
-    return {
-      I18N_PATH,
-      I18N_STAGE_TYPE_PATH,
-      activityId,
-      stageData,
-      selectedFile,
-      fileIcon,
-      showFileData,
-      stageFileTypeComponent,
-      handleOpenStage,
-      handleHideFileData,
-    };
-  },
+const stageFilesMap = {
+  music: "StageFileTypeAudio",
+  image: "StageFileTypeImage",
+  document: "StageFileTypePdf",
+  video: "StageFileTypeVideo",
+  "game-external": "StageFileGameExternal",
+  "game-internal": "StageFileGameInternal",
 };
+
+const { id: activityId, stageId } = $route.params;
+const stageData = ref({});
+const selectedFile = ref(null);
+
+// const showFileData = computed(() => !!selectedFile.value);
+
+//const stageFileTypeComponent = computed(() => {
+//  return stageFilesMap[stageData.value.type] || null;
+//});
+const handleEndTime = () => {
+  handleClose();
+};
+
+const handleClose = () => {
+  alert("close");
+};
+
+const currentStage = onMounted(async () => {
+  const stagesData = await $store.dispatch("ActivitiesModule/getStagesData", {
+    stageId,
+  });
+
+  console.log("stagesData", stagesData);
+
+  $store.dispatch("AuthModule/refreshUser");
+});
 </script>
 
 <style lang="scss" scoped>
@@ -235,14 +164,44 @@ export default {
     }
   }
 
+  :deep {
+    .av-page-content {
+      display: initial;
+      padding: 0;
+
+      &__container {
+        height: 100%;
+        padding-bottom: initial;
+        overflow: hidden;
+      }
+    }
+  }
+
+  &__container {
+    max-width: 1366px;
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+  }
+
   &__wrapper {
     height: 100%;
-    /* max-width: 840px;
-    margin: auto; */
+    background: #fff;
+    border-radius: $default-border-radius $default-border-radius 0 0;
+    padding: 32px;
+  }
 
-    /* display: flex;
-    gap: 50px;
-    flex-direction: column; */
+  &__header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 0;
+    right: calc(-1 * (0% + 42px));
+    background: rgba(#cecece, 0.8) !important;
   }
 
   &__title {
