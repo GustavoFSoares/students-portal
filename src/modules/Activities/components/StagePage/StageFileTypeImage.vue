@@ -44,7 +44,7 @@ export default {
   align-items: center;
 
   img {
-    max-height: 600px;
+    max-height: 500px;
 
     display: block;
     width: 100%;

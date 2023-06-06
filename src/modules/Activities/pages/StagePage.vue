@@ -11,7 +11,11 @@
     <template #default>
       <div class="stage-page__container" v-if="activityData">
         <div class="stage-page__header">
-          <AvTimer :start-time="currentStage.time" @end-time="handleEndTime" />
+          <AvTimer
+            auto-start
+            :start-time="currentStage.time"
+            @end-time="handleEndTime"
+          />
 
           <QBtn
             round
