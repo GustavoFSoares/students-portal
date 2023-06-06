@@ -103,25 +103,23 @@ export default {
           coins: 12,
           points: 50,
         },
-        stages: data.stage
-          .filter((stage) => stage.status === "ativo")
-          .map((stage) => {
+        activities: data.atividade
+          .filter((activity) => activity.status === "ativo")
+          .map((activity) => {
             return {
-              id: stage.id,
-              trailId: stage.trilha_id,
-              name: stage.nome,
+              id: activity.id,
+              trailId: activity.trilha_id,
+              name: activity.nome,
               progress: 20,
               reward: {
-                coins: stage.moedas,
-                points: stage.pontos,
+                coins: activity.moedas,
+                points: activity.pontos,
               },
-              type:
-                iconsMapReplations[stage.tipo.descricao] ||
-                stage.tipo.descricao,
-              position: stage.ordem + "",
+              types: activity.estagios.map((stage) => stage.tipo.descricao),
+              position: activity.ordem + "",
               rank: 2,
               completed: !!completeds.find((completedId, completedIndex) => {
-                if (completedId === stage.id) {
+                if (completedId === activity.id) {
                   completeds.splice(completedIndex, 1);
 
                   return true;
