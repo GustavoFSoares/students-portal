@@ -9,14 +9,6 @@
       <source :src="`${$appStorage}/${path}`" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-
-    <div class="stage-file-type-video__button">
-      <QBtn
-        :label="isLast ? 'Concluir' : 'Avançar'"
-        color="secondary"
-        @click="handleEmitFinish"
-      />
-    </div>
   </section>
 </template>
 
@@ -41,13 +33,8 @@ export default {
       player.value?.play();
     });
 
-    const handleEmitFinish = () => {
-      ctx.emit("finish");
-    };
-
     return {
       player,
-      handleEmitFinish,
     };
   },
 };
@@ -65,14 +52,6 @@ export default {
     height: 100%;
     border-radius: $default-border-radius;
     overflow: hidden;
-  }
-
-  &__button {
-    margin-top: 5px;
-    width: 100%;
-
-    display: flex;
-    justify-content: flex-end;
   }
 }
 </style>

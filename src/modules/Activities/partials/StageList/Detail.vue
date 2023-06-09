@@ -28,12 +28,18 @@
         />
       </div>
 
-      <div v-if="stageType" class="stage-list-detail__type">
-        <QTooltip>
-          {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageType.name}`) }}
-        </QTooltip>
+      <div v-if="stageTypes" class="stage-list-detail__types">
+        <div
+          class="stage-list-detail__type"
+          v-for="stageType in stageTypes"
+          :key="stageType"
+        >
+          <QTooltip>
+            {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageType.name}`) }}
+          </QTooltip>
 
-        <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
+          <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
+        </div>
       </div>
 
       <AvProgressBar
@@ -85,17 +91,19 @@ const $emits = defineEmits(["close"]);
 
 const { appContext } = getCurrentInstance();
 
-const stageType = computed(() => {
-  if (!props.stage.type) {
+const stageTypes = computed(() => {
+  if (!props.stage.types) {
     return null;
   }
 
-  return {
-    icon:
-      appContext.config.globalProperties.$iconsMap[props.stage.type] ||
-      props.stage.type,
-    name: props.stage.type,
-  };
+  const icons = props.stage.types.map((type) => {
+    return {
+      icon: appContext.config.globalProperties.$iconsMap[type] || type,
+      name: type,
+    };
+  });
+
+  return icons;
 });
 
 const positionLabel = computed(() => Number(props.stage.position) + 1);
@@ -181,13 +189,15 @@ const handleClose = () => {
     max-width: 250px;
   }
 
-  &__type {
+  &__types {
     display: flex;
     gap: 15px;
     justify-content: center;
     align-items: center;
     color: $text-color-2;
+  }
 
+  &__type {
     &-name {
       font-size: 12px;
     }

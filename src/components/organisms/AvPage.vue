@@ -12,7 +12,7 @@
         `bg-${headerBackground}`,
         { 'av-page-header--column': columnHeader },
       ]"
-      v-if="!noHeade"
+      v-if="!noHeader"
     >
       <div class="av-page-header__title-wrapper" v-if="title || goBackRoute">
         <QBtn

@@ -43,12 +43,12 @@
             </h2>
 
             <h6 class="stage-description__tasks-count">
-              {{ stageList.length }} atividades
+              {{ activitiesList.length }} atividades
             </h6>
           </div>
         </AvCard>
 
-        <StageList :stages="stageList" @openStage="handleOpenStage" />
+        <StageList :stages="activitiesList" @openStage="handleOpenStage" />
       </div>
     </template>
   </AvPage>
@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-const I18N_PATH = "modules.activities.pages.stageList";
+const I18N_PATH = "modules.activities.pages.activitiesList";
 
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -84,7 +84,7 @@ const $store = useStore();
 const { appContext } = getCurrentInstance();
 
 const stageData = ref({});
-const stageList = ref([]);
+const activitiesList = ref([]);
 const selectedStage = ref(null);
 
 const handleOpenStage = (position) => {
@@ -102,7 +102,7 @@ const handleOpenStage = (position) => {
 
 const openStageDetail = computed(() => !!selectedStage.value);
 const selectedStageData = computed(() => {
-  const matchStage = stageList.value.find(
+  const matchStage = activitiesList.value.find(
     (stage) => stage.position === selectedStage.value
   );
 
@@ -114,7 +114,7 @@ const handleCloseDetail = () => {
 };
 
 onMounted(async () => {
-  const { name, description, cover, stages, progress, reward } =
+  const { name, description, cover, activities, progress, reward } =
     await $store.dispatch("ActivitiesModule/getActivityById", $route.params.id);
 
   stageData.value = {
@@ -129,7 +129,8 @@ onMounted(async () => {
       description: name,
     },
   };
-  stageList.value = stages;
+
+  activitiesList.value = activities;
 
   $store.dispatch("ActivitiesModule/startActivity", $route.params.id);
 });

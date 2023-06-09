@@ -103,25 +103,25 @@ export default {
           coins: 12,
           points: 50,
         },
-        stages: data.stage
-          .filter((stage) => stage.status === "ativo")
-          .map((stage) => {
+        activities: data.atividade
+          .filter((activity) => activity.status === "ativo")
+          .map((activity) => {
             return {
-              id: stage.id,
-              trailId: stage.trilha_id,
-              name: stage.nome,
+              id: activity.id,
+              trailId: activity.trilha_id,
+              name: activity.nome,
               progress: 20,
               reward: {
-                coins: stage.moedas,
-                points: stage.pontos,
+                coins: activity.moedas,
+                points: activity.pontos,
               },
-              type:
-                iconsMapReplations[stage.tipo.descricao] ||
-                stage.tipo.descricao,
-              position: stage.ordem + "",
+              types: activity.estagios.map(
+                (stage) => iconsMapReplations[stage.tipo.descricao]
+              ),
+              position: activity.ordem + "",
               rank: 2,
               completed: !!completeds.find((completedId, completedIndex) => {
-                if (completedId === stage.id) {
+                if (completedId === activity.id) {
                   completeds.splice(completedIndex, 1);
 
                   return true;
@@ -134,7 +134,7 @@ export default {
       console.error("Courses Data by ID Error", err);
     }
   },
-  getStageData: async (_, { stageId }) => {
+  getStagesData: async (_, { stageId }) => {
     try {
       const {
         data: { data },
@@ -143,18 +143,18 @@ export default {
       });
 
       return {
+        id: data.id,
         name: data.nome,
-        files: data.files.map((file) => ({
-          path: file.path,
-          name: file.name,
-          id: file.id,
-          parameters: file.parameters ? JSON.parse(file.parameters) : null,
-        })),
-        type: data.tipo.descricao,
-        type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
-        cover: data.tipo.path,
-        coins: data.moedas,
-        points: data.pontos,
+        description: data.descricao,
+        stages: data.estagios.map((stage) => {
+          return {
+            id: stage.id,
+            description: stage.descricao,
+            type: iconsMapReplations[stage.tipo.descricao],
+            time: stage.tempo,
+            content: stage.conteudo,
+          };
+        }),
       };
     } catch (err) {
       console.error("Stage Data by ID Error", err);
@@ -169,12 +169,16 @@ export default {
       console.error("Start activity Error", err);
     }
   },
-  completeStage: async ({ dispatch }, { activityId, stageId }) => {
+  completeStage: async (_, { activityId, stageId }) => {
     try {
-      await api.post("alunos/trilha-aluno-estagio", {
+      console.log("alunos/trilha-aluno-estagio", {
         trilha_id: activityId,
         estagio_id: stageId,
       });
+      // await api.post("alunos/trilha-aluno-estagio", {
+      //   trilha_id: activityId,
+      //   estagio_id: stageId,
+      // });
     } catch (err) {
       console.error("", err);
     }
@@ -196,8 +200,6 @@ export default {
           },
         }
       );
-
-      console.log(data);
 
       // return {
       //   files: data.files,
