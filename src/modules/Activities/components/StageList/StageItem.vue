@@ -1,5 +1,13 @@
 <template>
-  <li :class="['stage-item', { 'stage-item--completed': completed }]">
+  <li
+    :class="[
+      'stage-item',
+      {
+        'stage-item--completed': completed,
+        'stage-item--blocked': !active,
+      },
+    ]"
+  >
     <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
       <QIcon name="check" rounded color="white" size="xs" />
     </QBadge>
@@ -40,6 +48,10 @@ export default {
     },
     rank: {
       type: Number,
+      required: true,
+    },
+    active: {
+      type: Boolean,
       required: true,
     },
     completed: {
@@ -107,6 +119,13 @@ export default {
   &--completed & {
     &__container {
       background: $primary;
+    }
+  }
+
+  &--blocked & {
+    &__container {
+      background: rgba($grey-14, 0.6);
+      cursor: not-allowed;
     }
   }
 
