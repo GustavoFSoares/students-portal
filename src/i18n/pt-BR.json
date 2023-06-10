@@ -287,6 +287,14 @@
           "video": "Produção visual",
           "document": "Documentos",
           "external-game": "Jogo"
+        },
+        "endActivity": {
+          "completed": "Atividade completa",
+          "uncompleted": "Atividade incompleta",
+          "buttons": {
+            "tryAgain": "Tentar novamente",
+            "goBackList": "Voltar para lista"
+          }
         }
       }
     },

@@ -5,7 +5,7 @@
     no-header
     :go-back-route="{
       name: 'activities.stage-list',
-      params: { id: activityId },
+      params: { id: trailId },
     }"
   >
     <template #default>
@@ -68,6 +68,14 @@
       </div>
     </template>
   </AvPage>
+
+  <QDialog persistent :model-value="!!activityIsFinished">
+    <StageEndActivity
+      :trail-id="trailId"
+      :activity="activityData"
+      @restart="handleRestartActivity"
+    />
+  </QDialog>
 </template>
 
 <script setup>
@@ -84,16 +92,18 @@ import AvTimer from "molecules/AvTimer.vue";
 import AvPage from "organisms/AvPage.vue";
 
 import StageContent from "../components/StagePage/StageContent.vue";
+import StageEndActivity from "../components/StagePage/StageEndActivity.vue";
 
 const { appContext } = getCurrentInstance();
 const $route = useRoute();
 const $router = useRouter();
 const $store = useStore();
 
-const { id: activityId, stageId } = $route.params;
+const { id: trailId, stageId } = $route.params;
 const currentStageIndex = ref(0);
 const activityData = ref(null);
 const selectedFile = ref(null);
+const activityIsFinished = ref(false);
 
 const hasStages = computed(() => activityData.value.stages?.length !== 0);
 const isLast = computed(
@@ -113,12 +123,7 @@ const handleEndTime = () => {
 };
 
 const handleClose = () => {
-  alert("close");
-
-  $router.push({
-    name: "activities.stage-list",
-    params: { id: activityId },
-  });
+  activityIsFinished.value = true;
 };
 
 const handleNextStep = (nextStep = null) => {
@@ -130,12 +135,24 @@ const handleNextStep = (nextStep = null) => {
     return;
   }
 
+  activityData.value.stages[currentStageIndex.value].completed = true;
+
   if (isLast.value) {
     handleClose();
     return;
   }
 
   currentStageIndex.value += 1;
+};
+
+const handleRestartActivity = () => {
+  activityIsFinished.value = false;
+
+  activityData.value.stages.forEach((stage) => {
+    stage.completed = false;
+  });
+
+  currentStageIndex.value = 0;
 };
 
 onMounted(async () => {
@@ -267,17 +284,17 @@ onMounted(async () => {
       width: 80px;
       height: 8px;
       border-radius: $default-border-radius;
-      background: $default-background;
+      background: #e1e5e9;
 
       pointer-events: none;
 
       &--completed {
         pointer-events: initial;
-        background: $grey-8;
+        background: #84949d;
       }
 
       &--selected {
-        background: $grey-13;
+        background: #38d4b3;
       }
     }
   }

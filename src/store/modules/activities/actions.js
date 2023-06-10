@@ -121,7 +121,7 @@ export default {
                   amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !==
                   -1
                 ) {
-                  return;
+                  return amount;
                 }
 
                 amount.push(iconsMapReplations[stage.tipo.descricao]);
@@ -156,6 +156,10 @@ export default {
         id: data.id,
         name: data.nome,
         description: data.descricao,
+        reward: {
+          coins: data.moedas,
+          points: data.pontos,
+        },
         stages: data.estagios.map((stage) => {
           return {
             id: stage.id,
@@ -163,6 +167,7 @@ export default {
             type: iconsMapReplations[stage.tipo.descricao],
             time: stage.tempo,
             content: stage.conteudo,
+            completed: false,
           };
         }),
       };

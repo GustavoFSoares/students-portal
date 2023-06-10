@@ -145,17 +145,17 @@ const handleNextStep = async (nextStep = currentStep.value + 1) => {
     width: 80px;
     height: 8px;
     border-radius: $default-border-radius;
-    background: $default-background;
+    background: #e1e5e9;
 
     pointer-events: none;
 
     &--completed {
+      background: #84949d;
       pointer-events: initial;
-      background: $grey-8;
     }
 
     &--selected {
-      background: $grey-13;
+      background: #38d4b3;
     }
   }
 }
