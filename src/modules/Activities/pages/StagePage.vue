@@ -187,13 +187,8 @@ const handleStartActivity = () => {
   stageIsOpening.value = true;
   showingGoal.value = false;
 
-  console.log(new Date());
-
   setTimeout(() => {
     stageIsOpening.value = false;
-    console.log("animou");
-    console.log(new Date());
-    console.log(timer.value);
     timer.value.start();
   }, 7 * 100);
 };
