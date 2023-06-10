@@ -12,9 +12,14 @@
       <div class="stage-page__container" v-if="activityData">
         <div class="stage-page__header">
           <AvTimer
-            auto-start
+            ref="timer"
+            :auto-start="!showingGoal"
             :start-time="currentStage.time"
             @end-time="handleEndTime"
+            :class="[
+              'stage-page__timer',
+              { 'stage-page__timer--hide': showingGoal || stageIsOpening },
+            ]"
           />
 
           <QBtn
@@ -25,45 +30,75 @@
           />
         </div>
 
-        <div class="stage-page__wrapper">
-          <h1 class="stage-page__title">{{ currentStage.description }}</h1>
+        <section v-if="showingGoal" class="goals-content">
+          <h1 class="goals-content__title">goal description</h1>
 
-          <div v-if="hasStages && currentStage" class="stage-wrapper">
-            <div class="stage-wrapper__content">
-              <StageContent
-                :activity-id="activityData.id"
-                :stage-id="currentStage.id"
-                :content="currentStage.content"
-                :type="currentStage.type"
-              />
+          <p class="goals-content__description">
+            Bigfoot claims he once saw Chuck Norris. Freddy Krueger has
+            nightmares about Chuck Norris. Chuck Norris can kill two stones with
+            one bird. Chuck Norris invented airplanes because he was tired of
+            being the only person that could fly. Chuck Norris plays Jenga with
+            Stonehenge.
+          </p>
+        </section>
 
-              <QBtn
-                class="stage-wrapper__button"
-                :label="isLast ? 'Concluir' : 'Avançar'"
-                color="secondary"
-                @click="handleNextStep(null)"
-              />
+        <div
+          :class="[
+            'stage-page__wrapper',
+            { 'stage-page__wrapper--showing-goal': showingGoal },
+            { 'stage-page__wrapper--opening': stageIsOpening },
+          ]"
+        >
+          <div class="stage-page__stage-content" v-if="!showingGoal">
+            <h1 class="stage-page__title">{{ currentStage.description }}</h1>
+
+            <div v-if="hasStages && currentStage" class="stage-wrapper">
+              <div class="stage-wrapper__content">
+                <StageContent
+                  :activity-id="activityData.id"
+                  :stage-id="currentStage.id"
+                  :content="currentStage.content"
+                  :type="currentStage.type"
+                />
+
+                <QBtn
+                  class="stage-wrapper__button"
+                  :label="isLast ? 'Concluir' : 'Avançar'"
+                  color="secondary"
+                  @click="handleNextStep(null)"
+                />
+              </div>
+
+              <div class="stage-wrapper__steps-counter">
+                <button
+                  v-for="(
+                    activityStep, activityStepIndex
+                  ) of activityData.stages"
+                  :key="activityStepIndex"
+                  @click="handleNextStep(activityStepIndex)"
+                  :class="[
+                    'stage-wrapper__step-item',
+                    {
+                      'stage-wrapper__step-item--completed':
+                        activityStep.completed,
+                      'stage-wrapper__step-item--selected':
+                        activityStepIndex === currentStageIndex,
+                    },
+                  ]"
+                />
+              </div>
             </div>
 
-            <div class="stage-wrapper__steps-counter">
-              <button
-                v-for="(activityStep, activityStepIndex) of activityData.stages"
-                :key="activityStepIndex"
-                @click="handleNextStep(activityStepIndex)"
-                :class="[
-                  'stage-wrapper__step-item',
-                  {
-                    'stage-wrapper__step-item--completed':
-                      activityStep.completed,
-                    'stage-wrapper__step-item--selected':
-                      activityStepIndex === currentStageIndex,
-                  },
-                ]"
-              />
-            </div>
+            <p v-else>Sem atividades</p>
           </div>
 
-          <p v-else>Sem atividades</p>
+          <div class="goal-control" v-else>
+            <button class="goal-control__button" @click="handleStartActivity">
+              <QIcon class="goal-control__button-icon" name="expand_less" />
+
+              <span class="goal-control__button-text">Continuar</span>
+            </button>
+          </div>
         </div>
       </div>
     </template>
@@ -101,9 +136,12 @@ const $store = useStore();
 
 const { id: trailId, stageId } = $route.params;
 const currentStageIndex = ref(0);
+const timer = ref(null);
 const activityData = ref(null);
 const selectedFile = ref(null);
 const activityIsFinished = ref(false);
+const showingGoal = ref(true);
+const stageIsOpening = ref(false);
 
 const hasStages = computed(() => activityData.value.stages?.length !== 0);
 const isLast = computed(
@@ -145,6 +183,21 @@ const handleNextStep = (nextStep = null) => {
   currentStageIndex.value += 1;
 };
 
+const handleStartActivity = () => {
+  stageIsOpening.value = true;
+  showingGoal.value = false;
+
+  console.log(new Date());
+
+  setTimeout(() => {
+    stageIsOpening.value = false;
+    console.log("animou");
+    console.log(new Date());
+    console.log(timer.value);
+    timer.value.start();
+  }, 7 * 100);
+};
+
 const handleRestartActivity = () => {
   activityIsFinished.value = false;
 
@@ -166,36 +219,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-page {
-  .stage-header {
-    padding: 0 15px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-
-    height: 100%;
-
-    &__texts {
-      flex-grow: 1;
-    }
-
-    &__title {
-      font-size: 15px;
-      font-weight: $font-weight-semibold;
-      color: $text-color-3;
-    }
-
-    &__description {
-      font-size: 13px;
-      font-weight: $font-weight-normal;
-      color: $text-color-2;
-    }
-
-    &__rewards {
-      max-width: 260px;
-      width: 100%;
-    }
-  }
-
   :deep {
     .av-page-content {
       display: initial;
@@ -220,6 +243,10 @@ onMounted(async () => {
     flex-direction: column;
   }
 
+  &__goals-description {
+    height: 100%;
+  }
+
   &__wrapper {
     width: 100%;
     height: 100%;
@@ -231,6 +258,40 @@ onMounted(async () => {
     flex-direction: column;
     text-align: center;
     gap: 15px;
+    transition: height 0.7s ease-in;
+
+    &--opening {
+      animation: bounce-in 0.7s ease-in forwards;
+
+      @keyframes bounce-in {
+        0% {
+          position: absolute;
+          bottom: 0;
+        }
+
+        // 99% {
+        //   position: absolute;
+        //   bottom: 0;
+        //   height: 825px;
+        // }
+
+        99% {
+          position: absolute;
+          bottom: 0;
+        }
+
+        100% {
+          position: initial;
+          // bottom: 0;
+        }
+      }
+    }
+
+    &--showing-goal {
+      height: 98px;
+      position: absolute;
+      bottom: 0;
+    }
   }
 
   &__title {
@@ -246,11 +307,51 @@ onMounted(async () => {
     margin-bottom: 10px;
   }
 
+  &__timer {
+    &--hide {
+      opacity: 0;
+    }
+  }
+
   &__close-button {
     position: absolute;
     top: 0;
     right: calc(-1 * (0% + 42px));
     background: rgba(#cecece, 0.8) !important;
+  }
+
+  .goals-content {
+    margin-top: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &__title {
+      color: $text-color-1;
+      font-size: 28px;
+      font-weight: $font-weight-bold;
+    }
+
+    &__description {
+      color: $text-color-1;
+      font-size: 18px;
+    }
+  }
+
+  .goal-control {
+    &__button {
+      padding: 20px 0 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__stage-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .stage-wrapper {
