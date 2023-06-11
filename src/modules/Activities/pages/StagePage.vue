@@ -220,7 +220,6 @@ onMounted(async () => {
       &__container {
         height: 100%;
         padding-bottom: initial;
-        // overflow: hidden;
       }
     }
   }
@@ -262,12 +261,6 @@ onMounted(async () => {
           bottom: 0;
         }
 
-        // 99% {
-        //   position: absolute;
-        //   bottom: 0;
-        //   height: 825px;
-        // }
-
         99% {
           position: absolute;
           bottom: 0;
@@ -275,7 +268,6 @@ onMounted(async () => {
 
         100% {
           position: initial;
-          // bottom: 0;
         }
       }
     }

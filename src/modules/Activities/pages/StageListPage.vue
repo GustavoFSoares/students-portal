@@ -24,7 +24,7 @@
     </template>
 
     <template #default>
-      <div class="app-container__content">
+      <div v-if="!showingGoal" class="app-container__content">
         <AvCard class="stage-description">
           <div class="stage-description__card">
             <div
@@ -49,6 +49,22 @@
         </AvCard>
 
         <StageList :stages="activitiesList" @openStage="handleOpenStage" />
+      </div>
+
+      <div v-else class="app-container__content">
+        <div class="goal-content">
+          <h1 class="goal-content__title">Objetivo</h1>
+
+          <h2 class="goal-content__description">{{ stageData.goal }}</h2>
+
+          <div class="goal-control">
+            <button class="goal-control__button" @click="handleStartActivity">
+              <QIcon class="goal-control__button-icon" name="expand_less" />
+
+              <span class="goal-control__button-text">Continuar</span>
+            </button>
+          </div>
+        </div>
       </div>
     </template>
   </AvPage>
@@ -86,6 +102,7 @@ const { appContext } = getCurrentInstance();
 const stageData = ref({});
 const activitiesList = ref([]);
 const selectedStage = ref(null);
+const showingGoal = ref(true);
 
 const handleOpenStage = (position) => {
   const stageSelectedStage = selectedStage.value;
@@ -113,13 +130,18 @@ const handleCloseDetail = () => {
   selectedStage.value = null;
 };
 
+const handleStartActivity = () => {
+  showingGoal.value = false;
+};
+
 onMounted(async () => {
-  const { name, description, cover, activities, progress, reward } =
+  const { name, description, goal, cover, activities, progress, reward } =
     await $store.dispatch("ActivitiesModule/getActivityById", $route.params.id);
 
   stageData.value = {
     title: name,
     description,
+    goal,
     progress,
     reward,
     cover: {
@@ -138,9 +160,31 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-list-page {
-  :deep(.av-page-header) {
-    box-shadow: 0px 2px 4px rgba(51, 66, 78, 0.32);
-    border-top: 1px solid $grey-transparent;
+  :deep {
+    .av-page-header {
+      box-shadow: 0px 2px 4px rgba(51, 66, 78, 0.32);
+      border-top: 1px solid $grey-transparent;
+    }
+
+    .av-page-content {
+      display: initial;
+      padding: 0;
+
+      &__container {
+        height: 100%;
+        padding-bottom: initial;
+      }
+    }
+  }
+
+  .app-container__content {
+    max-width: 1366px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .stage-list-header {
@@ -203,6 +247,41 @@ onMounted(async () => {
       font-weight: $font-weight-semibold;
       white-space: nowrap;
       align-self: flex-start;
+    }
+  }
+
+  .goal-content {
+    margin-top: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &__title {
+      color: $text-color-1;
+      font-size: 28px;
+      font-weight: $font-weight-bold;
+    }
+
+    &__description {
+      color: $text-color-1;
+      font-size: 18px;
+    }
+  }
+
+  .goal-control {
+    position: absolute;
+    bottom: 0;
+    background: $white;
+    width: 100%;
+    display: flex;
+    border-radius: $default-border-radius $default-border-radius 0 0;
+
+    &__button {
+      padding: 20px 0 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 }

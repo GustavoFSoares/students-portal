@@ -98,6 +98,7 @@ export default {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
+        goal: data.objetivo,
         progress: 50,
         reward: {
           coins: 12,
