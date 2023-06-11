@@ -31,14 +31,12 @@
         </div>
 
         <section v-if="showingGoal" class="goals-content">
-          <h1 class="goals-content__title">goal description</h1>
+          <h1 class="goals-content__title">
+            {{ $t(`${I18N_PATH}.benefits.title`) }}
+          </h1>
 
           <p class="goals-content__description">
-            Bigfoot claims he once saw Chuck Norris. Freddy Krueger has
-            nightmares about Chuck Norris. Chuck Norris can kill two stones with
-            one bird. Chuck Norris invented airplanes because he was tired of
-            being the only person that could fly. Chuck Norris plays Jenga with
-            Stonehenge.
+            {{ activityData.description }}
           </p>
         </section>
 
@@ -190,7 +188,7 @@ const handleStartActivity = () => {
   setTimeout(() => {
     stageIsOpening.value = false;
     timer.value.start();
-  }, 7 * 100);
+  }, 3 * 100);
 };
 
 const handleRestartActivity = () => {
@@ -253,10 +251,10 @@ onMounted(async () => {
     flex-direction: column;
     text-align: center;
     gap: 15px;
-    transition: height 0.7s ease-in;
+    transition: height 0.3s ease-in;
 
     &--opening {
-      animation: bounce-in 0.7s ease-in forwards;
+      animation: bounce-in 0.3s ease-in forwards;
 
       @keyframes bounce-in {
         0% {

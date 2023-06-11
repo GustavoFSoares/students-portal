@@ -288,6 +288,12 @@
           "document": "Documentos",
           "external-game": "Jogo"
         },
+        "goal": {
+          "title": "Objetivos"
+        },
+        "benefits": {
+          "title": "Benefícios"
+        },
         "endActivity": {
           "completed": "Atividade completa",
           "uncompleted": "Atividade incompleta",
