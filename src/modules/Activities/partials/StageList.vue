@@ -2,10 +2,10 @@
   <div class="stage-list">
     <ol class="stage-list__list">
       <StageItem
-        v-for="stage in stageList"
+        v-for="(stage, stageIndex) in stageList"
         :key="stage.id"
         :active="stage.active"
-        :position="stage.position"
+        :position="stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
         @click="handleClickStage(stage)"

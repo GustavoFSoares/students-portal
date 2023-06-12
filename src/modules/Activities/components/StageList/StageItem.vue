@@ -43,7 +43,7 @@ export default {
   name: "StageItem",
   props: {
     position: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
     rank: {

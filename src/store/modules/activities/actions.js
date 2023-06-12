@@ -109,7 +109,7 @@ export default {
           .map((activity) => {
             return {
               id: activity.id,
-              active: activity.id === 1,
+              active: activity.id === 3,
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
@@ -169,6 +169,8 @@ export default {
             time: stage.tempo,
             content: stage.conteudo,
             completed: false,
+            isInformative: stage.id === 9,
+            informativeText: "Texto informativo",
           };
         }),
       };

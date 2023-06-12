@@ -12,6 +12,7 @@
       <div class="stage-page__container" v-if="activityData">
         <div class="stage-page__header">
           <AvTimer
+            v-if="!currentStage.isInformative"
             ref="timer"
             :auto-start="!showingGoal"
             :start-time="currentStage.time"
@@ -48,7 +49,9 @@
           ]"
         >
           <div class="stage-page__stage-content" v-if="!showingGoal">
-            <h1 class="stage-page__title">{{ currentStage.description }}</h1>
+            <h1 v-if="!currentStage.isInformative" class="stage-page__title">
+              {{ currentStage.description }}
+            </h1>
 
             <div v-if="hasStages && currentStage" class="stage-wrapper">
               <div class="stage-wrapper__content">
@@ -57,11 +60,14 @@
                   :stage-id="currentStage.id"
                   :content="currentStage.content"
                   :type="currentStage.type"
+                  :is-informative="currentStage.isInformative"
+                  :informative-title="currentStage.informativeText"
+                  :informative-description="currentStage.description"
                 />
 
                 <QBtn
                   class="stage-wrapper__button"
-                  :label="isLast ? 'Concluir' : 'Avançar'"
+                  :label="isLast ? 'Concluir' : 'Próximo'"
                   color="secondary"
                   @click="handleNextStep(null)"
                 />
@@ -301,7 +307,7 @@ onMounted(async () => {
   &__close-button {
     position: absolute;
     top: 0;
-    right: calc(-1 * (0% + 42px));
+    right: calc(-1 * (0% + 82px));
     background: rgba(#cecece, 0.8) !important;
   }
 
