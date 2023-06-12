@@ -68,7 +68,7 @@ const props = defineProps({
     flex-direction: column;
     gap: 20px;
     justify-content: flex-start;
-    align-items: start;
+    align-items: flex-start;
     text-align: start;
 
     height: 100%;
