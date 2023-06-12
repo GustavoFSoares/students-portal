@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { computed, ref, defineProps, defineEmits } from "vue";
+import { computed, ref, defineProps } from "vue";
 import { useQuasar } from "quasar";
 
 import AvCard from "atoms/AvCard.vue";

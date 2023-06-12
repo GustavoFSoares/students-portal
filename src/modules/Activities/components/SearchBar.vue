@@ -6,8 +6,8 @@
           v-show="isActiveShowBar"
           class="search-bar__input"
           dense
-          color="white"
           filled
+          color="primary"
           ref="inputElement"
           :model-value="modelValue"
           @update:modelValue="handleInput"
