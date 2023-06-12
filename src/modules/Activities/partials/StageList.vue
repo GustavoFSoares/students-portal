@@ -2,12 +2,13 @@
   <div class="stage-list">
     <ol class="stage-list__list">
       <StageItem
-        v-for="stage in stageList"
+        v-for="(stage, stageIndex) in stageList"
         :key="stage.id"
-        :position="stage.position"
+        :active="stage.active"
+        :position="stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
-        @click="handleClickStage(stage.position)"
+        @click="handleClickStage(stage)"
       />
     </ol>
   </div>
@@ -36,7 +37,11 @@ export default {
 
     const stageList = computed(() => props.stages);
 
-    const handleClickStage = (position) => {
+    const handleClickStage = ({ active, position }) => {
+      if (!active) {
+        return;
+      }
+
       ctx.emit("open-stage", position);
     };
 

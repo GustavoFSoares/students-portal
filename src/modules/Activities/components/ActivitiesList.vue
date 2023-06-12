@@ -166,6 +166,7 @@ onMounted(() => {
       background: $white;
       border-radius: 0 0 8px 8px;
       padding-left: 16px;
+      padding-right: 16px;
     }
   }
 

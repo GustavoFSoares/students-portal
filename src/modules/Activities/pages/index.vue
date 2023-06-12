@@ -75,20 +75,6 @@ const handleStartActivity = (activityId) => {
 onMounted(async () => {
   const activiesData = await $store.dispatch("ActivitiesModule/getActivities");
 
-  activiesData.available = [
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-    ...activiesData.available,
-  ];
-
   activiesGroups.value = activiesData;
 
   $store.dispatch("AuthModule/refreshUser");

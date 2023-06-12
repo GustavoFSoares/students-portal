@@ -5,16 +5,22 @@
     no-header
     :go-back-route="{
       name: 'activities.stage-list',
-      params: { id: activityId },
+      params: { id: trailId },
     }"
   >
     <template #default>
       <div class="stage-page__container" v-if="activityData">
         <div class="stage-page__header">
           <AvTimer
-            auto-start
+            v-if="!currentStage.isInformative"
+            ref="timer"
+            :auto-start="!showingGoal"
             :start-time="currentStage.time"
             @end-time="handleEndTime"
+            :class="[
+              'stage-page__timer',
+              { 'stage-page__timer--hide': showingGoal || stageIsOpening },
+            ]"
           />
 
           <QBtn
@@ -25,49 +31,90 @@
           />
         </div>
 
-        <div class="stage-page__wrapper">
-          <h1 class="stage-page__title">{{ currentStage.description }}</h1>
+        <section v-if="showingGoal" class="goals-content">
+          <h1 class="goals-content__title">
+            {{ $t(`${I18N_PATH}.benefits.title`) }}
+          </h1>
 
-          <div v-if="hasStages && currentStage" class="stage-wrapper">
-            <div class="stage-wrapper__content">
-              <StageContent
-                :activity-id="activityData.id"
-                :stage-id="currentStage.id"
-                :content="currentStage.content"
-                :type="currentStage.type"
-              />
+          <p class="goals-content__description">
+            {{ activityData.description }}
+          </p>
+        </section>
 
-              <QBtn
-                class="stage-wrapper__button"
-                :label="isLast ? 'Concluir' : 'Avançar'"
-                color="secondary"
-                @click="handleNextStep(null)"
-              />
+        <div
+          :class="[
+            'stage-page__wrapper',
+            { 'stage-page__wrapper--showing-goal': showingGoal },
+            { 'stage-page__wrapper--opening': stageIsOpening },
+          ]"
+        >
+          <div class="stage-page__stage-content" v-if="!showingGoal">
+            <h1 v-if="!currentStage.isInformative" class="stage-page__title">
+              {{ currentStage.description }}
+            </h1>
+
+            <div v-if="hasStages && currentStage" class="stage-wrapper">
+              <div class="stage-wrapper__content">
+                <StageContent
+                  :activity-id="activityData.id"
+                  :stage-id="currentStage.id"
+                  :content="currentStage.content"
+                  :type="currentStage.type"
+                  :is-informative="currentStage.isInformative"
+                  :informative-title="currentStage.informativeText"
+                  :informative-description="currentStage.description"
+                />
+
+                <QBtn
+                  class="stage-wrapper__button"
+                  :label="isLast ? 'Concluir' : 'Próximo'"
+                  color="secondary"
+                  @click="handleNextStep(null)"
+                />
+              </div>
+
+              <div class="stage-wrapper__steps-counter">
+                <button
+                  v-for="(
+                    activityStep, activityStepIndex
+                  ) of activityData.stages"
+                  :key="activityStepIndex"
+                  @click="handleNextStep(activityStepIndex)"
+                  :class="[
+                    'stage-wrapper__step-item',
+                    {
+                      'stage-wrapper__step-item--completed':
+                        activityStep.completed,
+                      'stage-wrapper__step-item--selected':
+                        activityStepIndex === currentStageIndex,
+                    },
+                  ]"
+                />
+              </div>
             </div>
 
-            <div class="stage-wrapper__steps-counter">
-              <button
-                v-for="(activityStep, activityStepIndex) of activityData.stages"
-                :key="activityStepIndex"
-                @click="handleNextStep(activityStepIndex)"
-                :class="[
-                  'stage-wrapper__step-item',
-                  {
-                    'stage-wrapper__step-item--completed':
-                      activityStep.completed,
-                    'stage-wrapper__step-item--selected':
-                      activityStepIndex === currentStageIndex,
-                  },
-                ]"
-              />
-            </div>
+            <p v-else>Sem atividades</p>
           </div>
 
-          <p v-else>Sem atividades</p>
+          <div class="goal-control" v-else>
+            <button class="goal-control__button" @click="handleStartActivity">
+              <QIcon class="goal-control__button-icon" name="expand_less" />
+
+              <span class="goal-control__button-text">Continuar</span>
+            </button>
+          </div>
         </div>
       </div>
     </template>
   </AvPage>
+
+  <QDialog persistent :model-value="!!activityIsFinished">
+    <StageEndActivity
+      :trail-id="trailId"
+      :activity="activityData"
+      @restart="handleRestartActivity"
+    />
+  </QDialog>
 </template>
 
 <script setup>
@@ -84,16 +131,21 @@ import AvTimer from "molecules/AvTimer.vue";
 import AvPage from "organisms/AvPage.vue";
 
 import StageContent from "../components/StagePage/StageContent.vue";
+import StageEndActivity from "../components/StagePage/StageEndActivity.vue";
 
 const { appContext } = getCurrentInstance();
 const $route = useRoute();
 const $router = useRouter();
 const $store = useStore();
 
-const { id: activityId, stageId } = $route.params;
+const { id: trailId, stageId } = $route.params;
 const currentStageIndex = ref(0);
+const timer = ref(null);
 const activityData = ref(null);
 const selectedFile = ref(null);
+const activityIsFinished = ref(false);
+const showingGoal = ref(true);
+const stageIsOpening = ref(false);
 
 const hasStages = computed(() => activityData.value.stages?.length !== 0);
 const isLast = computed(
@@ -113,12 +165,7 @@ const handleEndTime = () => {
 };
 
 const handleClose = () => {
-  alert("close");
-
-  $router.push({
-    name: "activities.stage-list",
-    params: { id: activityId },
-  });
+  activityIsFinished.value = true;
 };
 
 const handleNextStep = (nextStep = null) => {
@@ -130,12 +177,34 @@ const handleNextStep = (nextStep = null) => {
     return;
   }
 
+  activityData.value.stages[currentStageIndex.value].completed = true;
+
   if (isLast.value) {
     handleClose();
     return;
   }
 
   currentStageIndex.value += 1;
+};
+
+const handleStartActivity = () => {
+  stageIsOpening.value = true;
+  showingGoal.value = false;
+
+  setTimeout(() => {
+    stageIsOpening.value = false;
+    timer.value.start();
+  }, 3 * 100);
+};
+
+const handleRestartActivity = () => {
+  activityIsFinished.value = false;
+
+  activityData.value.stages.forEach((stage) => {
+    stage.completed = false;
+  });
+
+  currentStageIndex.value = 0;
 };
 
 onMounted(async () => {
@@ -149,36 +218,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-page {
-  .stage-header {
-    padding: 0 15px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-
-    height: 100%;
-
-    &__texts {
-      flex-grow: 1;
-    }
-
-    &__title {
-      font-size: 15px;
-      font-weight: $font-weight-semibold;
-      color: $text-color-3;
-    }
-
-    &__description {
-      font-size: 13px;
-      font-weight: $font-weight-normal;
-      color: $text-color-2;
-    }
-
-    &__rewards {
-      max-width: 260px;
-      width: 100%;
-    }
-  }
-
   :deep {
     .av-page-content {
       display: initial;
@@ -187,7 +226,6 @@ onMounted(async () => {
       &__container {
         height: 100%;
         padding-bottom: initial;
-        // overflow: hidden;
       }
     }
   }
@@ -203,6 +241,10 @@ onMounted(async () => {
     flex-direction: column;
   }
 
+  &__goals-description {
+    height: 100%;
+  }
+
   &__wrapper {
     width: 100%;
     height: 100%;
@@ -214,6 +256,33 @@ onMounted(async () => {
     flex-direction: column;
     text-align: center;
     gap: 15px;
+    transition: height 0.3s ease-in;
+
+    &--opening {
+      animation: bounce-in 0.3s ease-in forwards;
+
+      @keyframes bounce-in {
+        0% {
+          position: absolute;
+          bottom: 0;
+        }
+
+        99% {
+          position: absolute;
+          bottom: 0;
+        }
+
+        100% {
+          position: initial;
+        }
+      }
+    }
+
+    &--showing-goal {
+      height: 98px;
+      position: absolute;
+      bottom: 0;
+    }
   }
 
   &__title {
@@ -229,11 +298,51 @@ onMounted(async () => {
     margin-bottom: 10px;
   }
 
+  &__timer {
+    &--hide {
+      opacity: 0;
+    }
+  }
+
   &__close-button {
     position: absolute;
     top: 0;
-    right: calc(-1 * (0% + 42px));
+    right: calc(-1 * (0% + 82px));
     background: rgba(#cecece, 0.8) !important;
+  }
+
+  .goals-content {
+    margin-top: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &__title {
+      color: $text-color-1;
+      font-size: 28px;
+      font-weight: $font-weight-bold;
+    }
+
+    &__description {
+      color: $text-color-1;
+      font-size: 18px;
+    }
+  }
+
+  .goal-control {
+    &__button {
+      padding: 20px 0 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__stage-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .stage-wrapper {
@@ -267,17 +376,17 @@ onMounted(async () => {
       width: 80px;
       height: 8px;
       border-radius: $default-border-radius;
-      background: $default-background;
+      background: #e1e5e9;
 
       pointer-events: none;
 
       &--completed {
         pointer-events: initial;
-        background: $grey-8;
+        background: #84949d;
       }
 
       &--selected {
-        background: $grey-13;
+        background: #38d4b3;
       }
     }
   }

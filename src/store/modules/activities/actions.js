@@ -98,6 +98,7 @@ export default {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
+        goal: data.objetivo,
         progress: 50,
         reward: {
           coins: 12,
@@ -108,6 +109,7 @@ export default {
           .map((activity) => {
             return {
               id: activity.id,
+              active: activity.id === 3,
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
@@ -115,9 +117,18 @@ export default {
                 coins: activity.moedas,
                 points: activity.pontos,
               },
-              types: activity.estagios.map(
-                (stage) => iconsMapReplations[stage.tipo.descricao]
-              ),
+              types: activity.estagios.reduce((amount, stage) => {
+                if (
+                  amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !==
+                  -1
+                ) {
+                  return amount;
+                }
+
+                amount.push(iconsMapReplations[stage.tipo.descricao]);
+
+                return amount;
+              }, []),
               position: activity.ordem + "",
               rank: 2,
               completed: !!completeds.find((completedId, completedIndex) => {
@@ -146,6 +157,10 @@ export default {
         id: data.id,
         name: data.nome,
         description: data.descricao,
+        reward: {
+          coins: data.moedas,
+          points: data.pontos,
+        },
         stages: data.estagios.map((stage) => {
           return {
             id: stage.id,
@@ -153,6 +168,9 @@ export default {
             type: iconsMapReplations[stage.tipo.descricao],
             time: stage.tempo,
             content: stage.conteudo,
+            completed: false,
+            isInformative: stage.id === 9,
+            informativeText: "Texto informativo",
           };
         }),
       };

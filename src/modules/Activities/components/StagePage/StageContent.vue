@@ -1,7 +1,14 @@
 <template>
   <div class="stage-content">
+    <StageInformative
+      v-if="isInformative"
+      :path="content"
+      :title="informativeTitle"
+      :description="informativeDescription"
+    />
+
     <component
-      v-if="stageFileTypeComponent"
+      v-else-if="stageFileTypeComponent"
       :is="stageFileTypeComponent"
       :path="content"
     />
@@ -12,6 +19,7 @@
 import { useStore } from "vuex";
 import { computed, defineProps, watch } from "vue";
 
+import StageInformative from "./StageInformative.vue";
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
 import StageFileTypeImage from "./StageFileTypeImage.vue";
 import StageFileTypePdf from "./StageFileTypePdf.vue";
@@ -35,6 +43,18 @@ const props = defineProps({
   },
   content: {
     required: true,
+  },
+  isInformative: {
+    type: Boolean,
+    default: false,
+  },
+  informativeTitle: {
+    type: String,
+    default: null,
+  },
+  informativeDescription: {
+    type: String,
+    default: null,
   },
 });
 

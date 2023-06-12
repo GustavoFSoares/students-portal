@@ -32,6 +32,10 @@ const props = defineProps({
   },
 });
 
+const start = () => {
+  handleStart();
+};
+
 let interval = null;
 const currentTime = ref(props.startTime);
 
@@ -74,6 +78,10 @@ watch(
   },
   { immediate: true }
 );
+
+defineExpose({
+  start,
+});
 </script>
 
 <style lang="scss" scoped>
