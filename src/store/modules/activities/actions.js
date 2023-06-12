@@ -229,11 +229,11 @@ export default {
     }
   },
   getActivityPresentationId({ state, commit }, activityId) {
-    if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
-      return null;
-    }
+    // if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
+    //   return null;
+    // }
 
-    commit("AD_TO_WATCHED_LIST", activityId);
+    // commit("AD_TO_WATCHED_LIST", activityId);
 
     const randomPresentation =
       Math.floor(Math.random() * MAX_PRESENTATIONS) + 1;
