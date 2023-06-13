@@ -19,6 +19,7 @@ export default {
       email: user.email,
       name: user.nome,
       levelName: user.nivel,
+      studentId: user.studentId,
     };
   },
   SET_LEVEL(state, level) {

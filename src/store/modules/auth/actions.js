@@ -24,6 +24,7 @@ export default {
 
             commit("SET_USER", {
               ...userProfile,
+              studentId: userProfile.aluno.id,
               nivel: userData.profile.nivel,
             });
 
@@ -84,6 +85,7 @@ export default {
 
           commit("SET_USER", {
             ...userProfile,
+            studentId: userData.user.aluno.id,
             nivel: userData.profile.nivel,
           });
 
