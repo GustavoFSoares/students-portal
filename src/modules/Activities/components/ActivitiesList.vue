@@ -114,6 +114,7 @@ const startActivity = () => {
   $router.push({
     name: "activities.stage-list",
     params: { id: activityId.value },
+    query: { goal: true },
   });
 };
 

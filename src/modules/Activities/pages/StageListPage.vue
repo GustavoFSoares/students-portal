@@ -102,7 +102,7 @@ const { appContext } = getCurrentInstance();
 const stageData = ref({});
 const activitiesList = ref([]);
 const selectedStage = ref(null);
-const showingGoal = ref(true);
+const showingGoal = ref($route.query.goal);
 
 const handleOpenStage = (position) => {
   const stageSelectedStage = selectedStage.value;
