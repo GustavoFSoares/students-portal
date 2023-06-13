@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY docker/nginx/* ./
-<!-- RUN yarn global add @quasar/cli -->
+# RUN yarn global add @quasar/cli
 
 COPY . .
 
