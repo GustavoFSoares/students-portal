@@ -321,7 +321,7 @@ onMounted(async () => {
   &__close-button {
     position: absolute;
     top: 0;
-    right: calc(-1 * (0% + 82px));
+    right: calc(-1 * (0% + 42px));
     background: rgba(#cecece, 0.8) !important;
   }
 
