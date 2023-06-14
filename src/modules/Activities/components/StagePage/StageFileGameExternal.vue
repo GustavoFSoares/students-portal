@@ -1,11 +1,6 @@
 <template>
   <section class="stage-file-game-external">
-    <iframe
-      :src="preparedPath.game"
-      frameborder="0"
-      width="100%"
-      height="100%"
-    />
+    <iframe :src="preparedPath.game" frameborder="0" height="600" />
   </section>
 </template>
 
