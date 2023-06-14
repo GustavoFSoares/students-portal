@@ -1,6 +1,7 @@
 <template>
   <AvPage
     class="stage-page"
+    :class="{ 'stage-page--showing-goal': showingGoal }"
     title="Estágios"
     no-header
     :go-back-route="{
@@ -223,6 +224,14 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-page {
+  &--showing-goal {
+    :deep {
+      .av-page-content {
+        backdrop-filter: blur(10px);
+      }
+    }
+  }
+
   :deep {
     .av-page-content {
       display: initial;

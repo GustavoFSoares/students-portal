@@ -1,6 +1,7 @@
 <template>
   <AvPage
     class="stage-list-page"
+    :class="{ 'stage-list-page--showing-goal': showingGoal }"
     :title="stageData.title"
     :go-back-route="{ name: 'home.activities' }"
     header-background="white"
@@ -160,6 +161,12 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-list-page {
+  &--showing-goal {
+    :deep(.av-page-content) {
+      backdrop-filter: blur(10px);
+    }
+  }
+
   :deep {
     .av-page-header {
       box-shadow: 0px 2px 4px rgba(51, 66, 78, 0.32);
