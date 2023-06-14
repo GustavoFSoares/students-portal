@@ -253,7 +253,6 @@ export default {
     }
   },
   getActivityPresentationId({ state, commit }, activityId) {
-    return null;
     // if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
     //   return null;
     // }
