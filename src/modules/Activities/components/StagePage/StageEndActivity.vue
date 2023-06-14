@@ -104,12 +104,12 @@ const handleRestart = () => {
 };
 
 const handleFisnishActivity = async () => {
-  const nextStageId = await $store.dispatch("ActivitiesModule/completeStage", {
-    trailId: props.trailId,
-    activityId: props.activity.id,
-    trailStudentStageId: props.activity.trailStudentStageId,
-    completed: isCompleted.value,
-  });
+  // const nextStageId = await $store.dispatch("ActivitiesModule/completeStage", {
+  //   trailId: props.trailId,
+  //   activityId: props.activity.id,
+  //   trailStudentStageId: props.activity.trailStudentStageId,
+  //   completed: isCompleted.value,
+  // });
 
   // $router.push({
   //   name: "activities.stage",
