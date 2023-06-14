@@ -189,7 +189,7 @@ export default {
             content: stage.conteudo,
             completed: false,
             isInformative: stage.informativo,
-            informativeText: "Texto informativo",
+            informativeText: stage.titulo,
           };
         }),
       };
