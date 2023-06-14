@@ -139,6 +139,7 @@ const $router = useRouter();
 const $store = useStore();
 
 const { id: trailId, stageId } = $route.params;
+
 const currentStageIndex = ref(0);
 const timer = ref(null);
 const activityData = ref(null);
@@ -207,12 +208,16 @@ const handleRestartActivity = () => {
   currentStageIndex.value = 0;
 };
 
-onMounted(async () => {
+const loadStageData = async (currentStageId) => {
   activityData.value = await $store.dispatch("ActivitiesModule/getStagesData", {
-    stageId,
+    stageId: currentStageId,
   });
 
   $store.dispatch("AuthModule/refreshUser");
+};
+
+onMounted(async () => {
+  loadStageData(stageId);
 });
 </script>
 

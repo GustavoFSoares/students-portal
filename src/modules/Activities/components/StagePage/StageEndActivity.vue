@@ -51,6 +51,15 @@
       />
 
       <QBtn
+        v-if="isCompleted"
+        class="stage-end-activity__button"
+        color="primary"
+        :label="$t(`${I18N_PATH}.buttons.goBackList`)"
+        @click="handleFisnishActivity"
+      />
+
+      <QBtn
+        v-else
         class="stage-end-activity__button"
         color="primary"
         :label="$t(`${I18N_PATH}.buttons.goBackList`)"
@@ -62,8 +71,13 @@
 
 <script setup>
 import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 const I18N_PATH = "modules.courses.stagePage.endActivity";
+
+const $router = useRouter();
+const $store = useStore();
 
 const props = defineProps({
   trailId: {
@@ -87,6 +101,24 @@ const isCompleted = computed(() => {
 
 const handleRestart = () => {
   $emits("restart");
+};
+
+const handleFisnishActivity = async () => {
+  const nextStageId = await $store.dispatch("ActivitiesModule/completeStage", {
+    trailId: props.trailId,
+    activityId: props.activity.id,
+    trailStudentStageId: props.activity.trailStudentStageId,
+    completed: isCompleted.value,
+  });
+
+  // $router.push({
+  //   name: "activities.stage",
+  //   params: { id: props.trailId, stageId: nextStageId },
+  // });
+  $router.push({
+    name: "activities.stage-list",
+    params: { id: props.trailId },
+  });
 };
 </script>
 

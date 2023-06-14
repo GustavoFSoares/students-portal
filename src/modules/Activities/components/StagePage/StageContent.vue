@@ -17,7 +17,7 @@
 
 <script setup>
 import { useStore } from "vuex";
-import { computed, defineProps, watch } from "vue";
+import { computed, defineProps } from "vue";
 
 import StageInformative from "./StageInformative.vue";
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
@@ -57,17 +57,6 @@ const props = defineProps({
     default: null,
   },
 });
-
-watch(
-  () => props.stageId,
-  async () => {
-    await $store.dispatch("ActivitiesModule/completeStage", {
-      activityId: props.activityId,
-      stageId: props.stageId,
-    });
-  },
-  { immediate: true }
-);
 
 const stageFilesMap = {
   music: StageFileTypeAudio,

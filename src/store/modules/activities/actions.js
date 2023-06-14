@@ -89,7 +89,9 @@ export default {
   getActivityById: async (_, id) => {
     try {
       const {
-        data: { data },
+        data: {
+          data: { trilha: data },
+        },
       } = await api.post("alunos/trilha", { id });
 
       const completeds = [...data.concluidos];
@@ -106,10 +108,10 @@ export default {
         },
         activities: data.atividade
           .filter((activity) => activity.status === "ativo")
-          .map((activity) => {
+          .map((activity, activityIndex) => {
             return {
               id: activity.id,
-              active: activity.id === 3,
+              active: activityIndex === 0,
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
@@ -161,6 +163,7 @@ export default {
           coins: data.moedas,
           points: data.pontos,
         },
+        trailStudentStageId: data.trilhas_alunos_stagios[0],
         stages: data.estagios.map((stage) => {
           return {
             id: stage.id,
@@ -187,16 +190,21 @@ export default {
       console.error("Start activity Error", err);
     }
   },
-  completeStage: async (_, { activityId, stageId }) => {
+  completeStage: async (
+    _,
+    { trailId, activityId, completed, trailStudentStageId }
+  ) => {
     try {
-      console.log("alunos/trilha-aluno-estagio", {
-        trilha_id: activityId,
-        estagio_id: stageId,
+      const {
+        data: { data: data },
+      } = await api.post("alunos/trilha-aluno-estagio", {
+        trilha_id: trailId,
+        estagio_id: activityId,
+        trilhas_alunos_stagios_id: trailStudentStageId,
+        status: completed ? "sucesso" : "em_andamento",
       });
-      // await api.post("alunos/trilha-aluno-estagio", {
-      //   trilha_id: activityId,
-      //   estagio_id: stageId,
-      // });
+
+      return data.id;
     } catch (err) {
       console.error("", err);
     }
