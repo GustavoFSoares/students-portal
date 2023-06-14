@@ -1,0 +1,50 @@
+{
+    "c2array": true,
+    "size": [
+        2,
+        6,
+        1
+    ],
+    "data": [
+        [
+            [
+                "Qual a data da proclamação da república?"
+            ],
+            [
+                "11 de setembro"
+            ],
+            [
+                "15 de novembro"
+            ],
+            [
+                "20 <h1>teste</h1>de setembro"
+            ],
+            [
+                "24 de dezembro"
+            ],
+            [
+                "15 de novembro"
+            ]
+        ],
+        [
+            [
+                "Quem venceu a guerra dos farrapos?"
+            ],
+            [
+                "Os farrapos"
+            ],
+            [
+                "O governo"
+            ],
+            [
+                "Resposta 3"
+            ],
+            [
+                "Resposta 4"
+            ],
+            [
+                "O governo"
+            ]
+        ]
+    ]
+}
