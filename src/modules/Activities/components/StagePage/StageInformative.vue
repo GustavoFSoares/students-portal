@@ -63,6 +63,7 @@ const props = defineProps({
   }
 
   &__text-content {
+    width: 100%;
     max-width: 40%;
     display: flex;
     flex-direction: column;

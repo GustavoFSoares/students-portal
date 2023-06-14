@@ -132,7 +132,7 @@ export default {
   &__container {
     border-radius: $default-border-radius;
     overflow: hidden;
-    background: rgba($primary, 0.8);
+    background: $secondary;
     border: 1px solid transparent;
   }
 

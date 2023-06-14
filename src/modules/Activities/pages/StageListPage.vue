@@ -161,11 +161,9 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-list-page {
-  &--showing-goal {
-    :deep(.av-page-content) {
-      backdrop-filter: blur(10px);
-    }
-  }
+  background-image: url("/activity.c-background.png");
+  background-size: cover;
+  background-position: center;
 
   :deep {
     .av-page-header {
@@ -264,13 +262,13 @@ onMounted(async () => {
     gap: 15px;
 
     &__title {
-      color: $text-color-1;
+      color: $white;
       font-size: 28px;
       font-weight: $font-weight-bold;
     }
 
     &__description {
-      color: $text-color-1;
+      color: $white;
       font-size: 18px;
     }
   }

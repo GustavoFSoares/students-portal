@@ -328,13 +328,13 @@ onMounted(async () => {
     gap: 15px;
 
     &__title {
-      color: $text-color-1;
+      color: $white;
       font-size: 28px;
       font-weight: $font-weight-bold;
     }
 
     &__description {
-      color: $text-color-1;
+      color: $white;
       font-size: 18px;
     }
   }

@@ -29,9 +29,10 @@ export default {
 .stage-file-game-external {
   max-width: 1150px;
   margin: 0 auto;
-  height: 950%;
+  height: 95%;
 
   iframe {
+    width: 100%;
     height: 100%;
   }
 

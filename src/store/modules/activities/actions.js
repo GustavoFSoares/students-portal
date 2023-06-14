@@ -188,7 +188,7 @@ export default {
             time: stage.tempo,
             content: stage.conteudo,
             completed: false,
-            isInformative: stage.id === 9,
+            isInformative: stage.informativo,
             informativeText: "Texto informativo",
           };
         }),
