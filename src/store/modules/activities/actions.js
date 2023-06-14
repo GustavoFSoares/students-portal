@@ -179,7 +179,7 @@ export default {
           coins: data.moedas,
           points: data.pontos,
         },
-        trailStudentStageId: data.trilhas_alunos_stagios[0],
+        // trailStudentStageId: data.trilhas_alunos_stagios[0],
         stages: data.estagios.map((stage) => {
           return {
             id: stage.id,
