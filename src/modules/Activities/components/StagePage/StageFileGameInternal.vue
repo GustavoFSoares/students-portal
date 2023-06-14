@@ -1,10 +1,11 @@
 <template>
   <section class="stage-file-game-internal">
-    <component
-      v-if="gameComponent"
-      :is="gameComponent"
-      :parameters="preparedWords"
+    <iframe
+      :src="`/internal-games/${preparedPath.game}/index.html`"
+      frameborder="0"
     />
+
+    <component v-if="false" :is="gameComponent" :parameters="preparedWords" />
   </section>
 </template>
 
@@ -32,6 +33,11 @@ export default {
     parameters: {
       type: Array,
       default: () => [],
+    },
+  },
+  computed: {
+    preparedPath() {
+      return JSON.parse(this.path);
     },
   },
   setup(props) {
@@ -63,9 +69,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.stage-page__modal:has(.stage-file-game-internal) {
+<style lang="scss" scoped>
+.stage-file-game-internal {
   width: 80vw !important;
+
+  iframe {
+    width: 100%;
+    height: 600px;
+  }
 }
 </style>
 

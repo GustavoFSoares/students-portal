@@ -1,6 +1,11 @@
 <template>
   <section class="stage-file-game-external">
-    <iframe :src="path" frameborder="0" width="100%" height="100%" />
+    <iframe
+      :src="preparedPath.game"
+      frameborder="0"
+      width="100%"
+      height="100%"
+    />
 
     <div class="stage-file-game-external__button">
       <QBtn
@@ -15,6 +20,11 @@
 <script>
 export default {
   name: "StageFileGameExternal",
+  computed: {
+    preparedPath() {
+      return JSON.parse(this.path);
+    },
+  },
   props: {
     path: {
       type: String,
