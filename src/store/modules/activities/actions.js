@@ -89,12 +89,25 @@ export default {
   getActivityById: async (_, id) => {
     try {
       const {
-        data: {
-          data: { trilha: data },
-        },
+        data: { data },
       } = await api.post("alunos/trilha", { id });
+      console.log(data);
+      // console.log(stages);
 
       const completeds = [...data.concluidos];
+
+      const activityIsActive = (activity, activityIndex) => {
+        return true;
+        // console.log("->", activity, activityIndex);
+        if (activityIndex === 0) {
+          return true;
+        }
+
+        return false;
+        // const find = stages.find((stage) => datastage.estagio_id === activity.id);
+        // console.log(find);
+        // return !!find;
+      };
 
       return {
         name: data.nome,
@@ -111,7 +124,7 @@ export default {
           .map((activity, activityIndex) => {
             return {
               id: activity.id,
-              active: activityIndex === 0,
+              active: activityIsActive(activity, activityIndex),
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
@@ -134,6 +147,7 @@ export default {
               position: activity.ordem + "",
               rank: 2,
               completed: !!completeds.find((completedId, completedIndex) => {
+                return false;
                 if (completedId === activity.id) {
                   completeds.splice(completedIndex, 1);
 
@@ -154,6 +168,8 @@ export default {
       } = await api.post("alunos/estagio", {
         id: stageId,
       });
+
+      console.log(data);
 
       return {
         id: data.id,
@@ -200,7 +216,7 @@ export default {
       } = await api.post("alunos/trilha-aluno-estagio", {
         trilha_id: trailId,
         estagio_id: activityId,
-        trilhas_alunos_stagios_id: trailStudentStageId,
+        trilhas_alunos_stagios_id: 4,
         status: completed ? "sucesso" : "em_andamento",
       });
 
@@ -237,6 +253,7 @@ export default {
     }
   },
   getActivityPresentationId({ state, commit }, activityId) {
+    return null;
     // if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
     //   return null;
     // }
