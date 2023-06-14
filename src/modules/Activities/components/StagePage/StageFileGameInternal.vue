@@ -3,8 +3,8 @@
     <iframe
       :src="`/internal-games/${preparedPath.game}/index.html`"
       frameborder="0"
-      height="600"
-      width="650"
+      height="847"
+      width="768"
     />
 
     <component v-if="false" :is="gameComponent" :parameters="preparedWords" />
