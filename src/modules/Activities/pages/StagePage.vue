@@ -224,13 +224,9 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-page {
-  &--showing-goal {
-    :deep {
-      .av-page-content {
-        backdrop-filter: blur(10px);
-      }
-    }
-  }
+  background-image: url("/activity.c-background.png");
+  background-size: cover;
+  background-position: center;
 
   :deep {
     .av-page-content {
