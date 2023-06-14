@@ -6,14 +6,6 @@
       width="100%"
       height="100%"
     />
-
-    <div class="stage-file-game-external__button">
-      <QBtn
-        :label="isLast ? 'Concluir' : 'Avançar'"
-        color="secondary"
-        @click="handleEmitFinish"
-      />
-    </div>
   </section>
 </template>
 
@@ -40,14 +32,9 @@ export default {
 
 <style lang="scss">
 .stage-file-game-external {
-  height: 100vh;
   max-width: 1150px;
   margin: 0 auto;
-
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  height: 950%;
 
   iframe {
     height: 100%;

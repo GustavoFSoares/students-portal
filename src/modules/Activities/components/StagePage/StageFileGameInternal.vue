@@ -71,7 +71,8 @@ export default {
 
 <style lang="scss" scoped>
 .stage-file-game-internal {
-  width: 80vw !important;
+  max-width: 1150px;
+  margin: 0 auto;
 
   iframe {
     width: 100%;
