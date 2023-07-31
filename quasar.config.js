@@ -29,7 +29,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
-    boot: ["app-env", "i18n", "axios", "date-formater"],
+    boot: ["app-env", "i18n", "axios", "date-formater", "vue-avatar-creator"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ["default.scss", "app.scss", "~vue-color-avatar/dist/style.css"],
