@@ -2,103 +2,61 @@
   <AvPage class="edit-user" no-header>
     <template #default>
       <div class="edit-user__wrapper">
-        <div class="user-content">
-          <h1 class="user-content__name">
-            <legend>Nome:</legend>
-            {{ userData.name }}
-          </h1>
-
-          <h2 class="user-content__level">
-            <legend>Nível:</legend>
-            {{ userData.levelName }}
-          </h2>
-
-          <AvReward
-            class="user-content__reward"
-            :points="rewards?.points"
-            :coins="0"
-          />
-        </div>
-
-        <div class="avatar-controller">
-          <AvatarViewer
-            class="avatar-controller__viewer"
-            :option="avatarOptions"
-          />
+        <div class="edit-user__avatar-preview">
+          <AvatarCreatorViewer />
 
           <QBtn
-            color="secondary"
+            class="edit-user__save-avatar-button"
+            color="primary"
             :label="$t(`${I18N_PATH}.submit`)"
-            @click="handleSubmit"
-            :loading="avatarIsLoading"
           />
         </div>
 
-        <AvatarConfigurator
-          class="avatar-configurator"
-          v-model="avatarOptions"
-        />
+        <div class="edit-user__avatar-options">
+          <AvatarCreatorOptions />
+        </div>
       </div>
     </template>
   </AvPage>
 </template>
 
-<script>
+<script setup>
 const I18N_PATH = "modules.user.pages.edit";
 
-import "vue-color-avatar/dist/style.css";
+import "vue-avatar-creator/dist/style.css"
+import { AvatarCreatorOptions, AvatarCreatorViewer, useAvatarCreatorStore } from "vue-avatar-creator"
 
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { AvatarConfigurator, AvatarViewer } from "vue-color-avatar";
 
 import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
-export default {
-  name: "EditUser",
-  components: {
-    AvatarConfigurator,
-    AvReward,
-    AvPage,
-    AvatarViewer,
-    AvatarConfigurator,
-  },
-  setup() {
-    const $store = useStore();
+const $store = useStore();
+const avatarStore = useAvatarCreatorStore();
 
-    const avatarOptions = ref(
-      $store.getters["AuthModule/avatar/avatarOptions"]
-    );
+const avatarOptions = ref(
+  $store.getters["AuthModule/avatar/avatarOptions"]
+);
 
-    const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
+const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
 
-    const userData = computed(() => $store.getters["AuthModule/userData"]);
+const userData = computed(() => $store.getters["AuthModule/userData"]);
 
-    const avatarIsLoading = computed(
-      () => $store.state.AuthModule.avatar.loading
-    );
+const avatarIsLoading = computed(
+  () => $store.state.AuthModule.avatar.loading
+);
 
-    const handleSubmit = async () => {
-      await $store.dispatch(
-        "AuthModule/avatar/sendAvatar",
-        avatarOptions.value
-      );
+const handleSubmit = async () => {
+  await $store.dispatch(
+    "AuthModule/avatar/sendAvatar",
+    avatarOptions.value
+  );
 
-      await $store.dispatch("AuthModule/refreshUser");
-    };
-
-    return {
-      I18N_PATH,
-      rewards,
-      userData,
-      avatarIsLoading,
-      avatarOptions,
-      handleSubmit,
-    };
-  },
+  await $store.dispatch("AuthModule/refreshUser");
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -111,7 +69,27 @@ export default {
     display: flex;
     justify-content: space-between;
     gap: 50px;
-    height: 100%;
+  }
+
+  &__avatar-preview {
+    position: relative;
+    background: $white;
+    border-radius: $default-border-radius;
+  }
+
+  &__avatar-options {
+    width: 100%;
+  }
+
+  &__save-avatar-button {
+    width: 100%;
+    position: absolute;
+    margin-top: 10px;
+    text-transform: initial;
+
+    :deep(span) {
+      font-weight: $font-weight-bold;
+    }
   }
 
   .user-content {

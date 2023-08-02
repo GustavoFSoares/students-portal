@@ -35,7 +35,7 @@ export default {
 
             commit("SET_TOKEN", access_token);
 
-            dispatch("avatar/setAvatar", avatar || { ...defaultAvatar });
+            dispatch("avatar/setAvatar", avatar);
 
             dispatch(
               "AchievementsModule/setAchievements",
