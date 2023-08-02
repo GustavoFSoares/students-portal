@@ -9,6 +9,7 @@
             class="edit-user__save-avatar-button"
             color="primary"
             :label="$t(`${I18N_PATH}.submit`)"
+            @click="handleSubmit"
           />
         </div>
 
@@ -28,12 +29,14 @@ import { AvatarCreatorOptions, AvatarCreatorViewer, useAvatarCreatorStore } from
 
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 import AvReward from "molecules/AvReward.vue";
 
 import AvPage from "organisms/AvPage.vue";
 
 const $store = useStore();
+const $router = useRouter();
 const avatarStore = useAvatarCreatorStore();
 
 const avatarOptions = ref(
@@ -55,6 +58,8 @@ const handleSubmit = async () => {
   );
 
   await $store.dispatch("AuthModule/refreshUser");
+
+  $router.push({ name: "home" });
 };
 
 </script>

@@ -1,7 +1,9 @@
 <template>
   <div :class="['user-card-header', { 'user-card-header--is-close': isClose }]">
     <div class="avatar">
-      <QAvatar color="white" text-color="secondary" icon="person" />
+      <QAvatar color="white">
+        <AvatarCreatorViewer />
+      </QAvatar>
     </div>
 
     <div class="user-card-header__container">
@@ -49,6 +51,7 @@
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed, onMounted, ref, defineProps } from "vue";
+import { AvatarCreatorViewer } from "vue-avatar-creator"
 
 import AvReward from "molecules/AvReward.vue";
 
@@ -190,6 +193,18 @@ $transitionDuration: 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    :deep(.avatar-preview) {
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    :deep(svg) {
+      width: 315px;
+      height: 350px;
+      transform: translate(-10px, -25px);
+    }
 
     .q-avatar {
       font-size: 90px;
