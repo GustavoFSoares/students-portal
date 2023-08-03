@@ -11,6 +11,16 @@
             :label="$t(`${I18N_PATH}.submit`)"
             @click="handleSubmit"
           />
+
+          <QBtn
+            class="edit-avatar__back-button"
+            color="primary"
+            icon="arrow_back"
+            :to="{ name: 'home' }"
+            flat
+            rounded
+            padding="5px"
+          />
         </div>
 
         <div class="edit-avatar__avatar-options">
@@ -113,6 +123,12 @@ onMounted(() => {
     :deep(span) {
       font-weight: $font-weight-bold;
     }
+  }
+
+  &__back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
   }
 
   .user-content {

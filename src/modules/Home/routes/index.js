@@ -8,6 +8,7 @@ import rankingHomeSubpagesRoutes from "modules/Ranking/routes/homeSubpages.route
 import activitiesHomeSubpagesRoutes from "modules/Activities/routes/homeSubpages.routes";
 import achievementsHomeSubpagesRoutes from "modules/Achievements/routes/homeSubpages.routes";
 import certificatesHomeSubpagesRoutes from "modules/Certificates/routes/homeSubpages.routes";
+import userHomeSubpagesRoutes from "modules/User/routes/homeSubpages.routes";
 
 export default [
   {
@@ -21,6 +22,7 @@ export default [
       ...activitiesHomeSubpagesRoutes,
       ...achievementsHomeSubpagesRoutes,
       ...certificatesHomeSubpagesRoutes,
+      ...userHomeSubpagesRoutes,
       // ...coursesHomeSubpagesRoutes,
       // ...feedHomeSubpagesRoutes,
       // ...libraryHomeSubpagesRoutes,

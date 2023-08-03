@@ -1,9 +1,11 @@
 <template>
   <div :class="['user-card-header', { 'user-card-header--is-close': isClose }]">
     <div class="avatar">
-      <QAvatar color="white">
-        <AvatarCreatorViewer view-mode :data="avatarData" />
-      </QAvatar>
+      <router-link :to="{ name: 'user.edit-avatar' }">
+        <QAvatar color="white">
+          <AvatarCreatorViewer view-mode :data="avatarData" />
+        </QAvatar>
+      </router-link>
     </div>
 
     <div class="user-card-header__container">
@@ -19,8 +21,8 @@
             round
             icon="edit"
             color="primary"
-            :to="{ name: 'user.edit-avatar' }"
-            :title="$t(`${I18N_PATH}.editAvatar`)"
+            :to="{ name: 'user.edit' }"
+            :title="$t(`${I18N_PATH}.editUser`)"
           />
         </div>
       </div>
