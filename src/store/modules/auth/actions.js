@@ -137,4 +137,14 @@ export default {
       }, 3000);
     });
   },
+  updateUser: async ({ dispatch, getters }, userData) => {
+    const { id: userId } = getters.userData;
+
+    try {
+      alert("Editar Usuário: ");
+      // await api.put(`/user/${userId}`, userData);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };

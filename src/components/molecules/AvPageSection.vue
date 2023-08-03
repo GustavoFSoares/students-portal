@@ -9,7 +9,7 @@
             <slot name="header-content" />
           </div>
 
-          <div class="av-page-section__close">
+          <div class="av-page-section__close" v-if="!hideCloseIcon">
             <QBtn flat round icon="close" @click="handleClose" />
           </div>
         </slot>

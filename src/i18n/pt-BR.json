@@ -113,9 +113,19 @@
       },
       "pages": {
         "edit": {
+          "title": "Editar Cadastro",
           "legends": {
             "name": "Nome",
             "level": "Nível"
+          },
+          "form": {
+            "name": "Nome",
+            "email": "E-mail",
+            "levelName": "Nível atual"
+          },
+          "buttons": {
+            "submit": "Salvar",
+            "cancel": "Cancelar"
           },
           "submit": "Salvar avatar!"
         }
