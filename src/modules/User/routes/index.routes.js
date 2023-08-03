@@ -1,7 +1,7 @@
 export default [
   {
-    path: "user",
-    name: "user.edit",
-    component: () => import("../pages/EditUser.vue"),
+    path: "user-avatar",
+    name: "user.edit-avatar",
+    component: () => import("../pages/EditAvatar.vue"),
   },
 ];

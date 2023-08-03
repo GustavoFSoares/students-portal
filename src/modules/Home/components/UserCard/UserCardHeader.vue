@@ -1,7 +1,11 @@
 <template>
   <div :class="['user-card-header', { 'user-card-header--is-close': isClose }]">
     <div class="avatar">
-      <QAvatar color="white" text-color="secondary" icon="person" />
+      <router-link :to="{ name: 'user.edit-avatar' }">
+        <QAvatar color="white">
+          <AvatarCreatorViewer view-mode :data="avatarData" />
+        </QAvatar>
+      </router-link>
     </div>
 
     <div class="user-card-header__container">
@@ -49,6 +53,7 @@
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed, onMounted, ref, defineProps } from "vue";
+import { AvatarCreatorViewer } from "vue-avatar-creator"
 
 import AvReward from "molecules/AvReward.vue";
 
@@ -65,6 +70,8 @@ const $store = useStore();
 const $router = useRouter();
 
 const userData = computed(() => $store.getters["AuthModule/userData"]);
+const avatarData = computed(() => $store.getters['AuthModule/avatar/avatarOptions'])
+
 const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
 const indexes = ref({
@@ -88,10 +95,6 @@ const getRewardIcon = (rewardName) => {
 
   return rewards[rewardName] || null;
 };
-
-onMounted(async () => {
-  rewardsData.value = $store.getters["AuthModule/rewardsData"];
-});
 </script>
 
 <style lang="scss" scoped>
@@ -190,6 +193,18 @@ $transitionDuration: 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    :deep(.avatar-preview) {
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    :deep(svg) {
+      width: 315px;
+      height: 350px;
+      transform: translate(-10px, -25px);
+    }
 
     .q-avatar {
       font-size: 90px;

@@ -1,175 +1,102 @@
 <template>
-  <AvPage class="edit-user" no-header>
+  <AvPageSection :title="$t(`${I18N_PATH}.title`)" class="edit-user" hide-close-icon>
     <template #default>
       <div class="edit-user__wrapper">
-        <div class="user-content">
-          <h1 class="user-content__name">
-            <legend>Nome:</legend>
-            {{ userData.name }}
-          </h1>
+        <div class="edit-user__form">
+          <QInput class="edit-user__form-name" outlined v-model="userData.name" :label="$t(`${I18N_PATH}.form.name`)" />
 
-          <h2 class="user-content__level">
-            <legend>Nível:</legend>
-            {{ userData.levelName }}
-          </h2>
-
-          <AvReward
-            class="user-content__reward"
-            :points="rewards?.points"
-            :coins="0"
-          />
+          <QInput class="edit-user__form-email" outlined disable v-model="userData.email" :label="$t(`${I18N_PATH}.form.email`)" />
+          <QInput class="edit-user__form-level" outlined disable v-model="userData.levelName" :label="$t(`${I18N_PATH}.form.levelName`)" />
         </div>
 
-        <div class="avatar-controller">
-          <AvatarViewer
-            class="avatar-controller__viewer"
-            :option="avatarOptions"
+        <div class="edit-user__buttons-wrapper">
+          <QBtn
+            class="edit-user__button"
+            outline
+            dense
+            :label="$t(`${I18N_PATH}.buttons.cancel`)"
+            color="primary"
+            :to="{ name: 'home' }"
           />
 
           <QBtn
-            color="secondary"
-            :label="$t(`${I18N_PATH}.submit`)"
+            class="edit-user__button"
+            :label="$t(`${I18N_PATH}.buttons.submit`)"
+            color="primary"
+            dense
             @click="handleSubmit"
-            :loading="avatarIsLoading"
           />
         </div>
-
-        <AvatarConfigurator
-          class="avatar-configurator"
-          v-model="avatarOptions"
-        />
       </div>
     </template>
-  </AvPage>
+  </AvPageSection>
 </template>
 
-<script>
+<script setup>
 const I18N_PATH = "modules.user.pages.edit";
 
-import "vue-color-avatar/dist/style.css";
-
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
-import { AvatarConfigurator, AvatarViewer } from "vue-color-avatar";
+import { useRouter } from "vue-router";
 
-import AvReward from "molecules/AvReward.vue";
+import AvPageSection from "molecules/AvPageSection.vue";
 
-import AvPage from "organisms/AvPage.vue";
+const $store = useStore();
+const $router = useRouter();
 
-export default {
-  name: "EditUser",
-  components: {
-    AvatarConfigurator,
-    AvReward,
-    AvPage,
-    AvatarViewer,
-    AvatarConfigurator,
-  },
-  setup() {
-    const $store = useStore();
+const userData = ref({});
 
-    const avatarOptions = ref(
-      $store.getters["AuthModule/avatar/avatarOptions"]
-    );
 
-    const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
+const handleSubmit = async () => {
+  await $store.dispatch("AuthModule/updateUser", userData)
 
-    const userData = computed(() => $store.getters["AuthModule/userData"]);
-
-    const avatarIsLoading = computed(
-      () => $store.state.AuthModule.avatar.loading
-    );
-
-    const handleSubmit = async () => {
-      await $store.dispatch(
-        "AuthModule/avatar/sendAvatar",
-        avatarOptions.value
-      );
-
-      await $store.dispatch("AuthModule/refreshUser");
-    };
-
-    return {
-      I18N_PATH,
-      rewards,
-      userData,
-      avatarIsLoading,
-      avatarOptions,
-      handleSubmit,
-    };
-  },
+  console.warn('PARA REDIRECIONAR, olhe aqui')
+  $router.push({ name: "home" });
 };
+
+
+onMounted(() => {
+  const storedData = $store.getters["AuthModule/userData"]
+
+  userData.value = {
+    name: storedData.name,
+    email: storedData.email,
+    levelName: storedData.levelName
+  }
+});
+
 </script>
 
 <style lang="scss" scoped>
 .edit-user {
-  :deep(.av-page-content__container) {
-    height: 100%;
-  }
+  &__form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 
-  &__wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
-    height: 100%;
-  }
-
-  .user-content {
-    width: 25%;
-
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-
-    &__name {
-      legend {
-        color: $text-color-2;
-      }
-
-      font-size: 25px;
-      color: $text-color-3;
-    }
-
-    &__level {
-      legend {
-        color: $text-color-2;
-      }
-
-      font-size: 20px;
-      color: $text-color-3;
-      font-variant-caps: all-small-caps;
-    }
-
-    &__reward {
-      max-width: 200px;
+    &-email {
+      grid-column: 1;
     }
   }
 
-  .avatar {
+  &__buttons-wrapper {
+    margin-top: 30px;
+
+    width: 100%;
     display: flex;
-    gap: 20px;
+    justify-content: flex-end;
+    gap: 5px;
 
-    &-controller {
-      margin-top: 40px;
-
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    :deep(span) {
+      text-transform: initial;
     }
+  }
 
-    &-configurator {
-      overflow-x: auto;
+  &__button {
+    min-width: 200px;
+  }
 
-      &::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 10px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: rgba(#010203, 60%);
-        border-radius: 10px;
-      }
-    }
+  &__submit-button {
   }
 }
 </style>
