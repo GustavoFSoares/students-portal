@@ -19,8 +19,8 @@
             round
             icon="edit"
             color="primary"
-            :to="{ name: 'user.edit' }"
-            :title="$t(`${I18N_PATH}.editUser`)"
+            :to="{ name: 'user.edit-avatar' }"
+            :title="$t(`${I18N_PATH}.editAvatar`)"
           />
         </div>
       </div>

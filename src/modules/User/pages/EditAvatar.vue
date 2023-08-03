@@ -1,19 +1,19 @@
 <template>
-  <AvPage class="edit-user" no-header>
+  <AvPage class="edit-avatar" no-header>
     <template #default>
-      <div class="edit-user__wrapper">
-        <div class="edit-user__avatar-preview">
-          <AvatarCreatorViewer />
+      <div class="edit-avatar__wrapper">
+        <div class="edit-avatar__avatar-preview">
+          <AvatarCreatorViewer :height="480" />
 
           <QBtn
-            class="edit-user__save-avatar-button"
+            class="edit-avatar__save-avatar-button"
             color="primary"
             :label="$t(`${I18N_PATH}.submit`)"
             @click="handleSubmit"
           />
         </div>
 
-        <div class="edit-user__avatar-options">
+        <div class="edit-avatar__avatar-options">
           <AvatarCreatorOptions />
         </div>
       </div>
@@ -79,7 +79,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.edit-user {
+.edit-avatar {
   :deep(.av-page-content__container) {
     height: 100%;
   }
@@ -98,6 +98,10 @@ onMounted(() => {
 
   &__avatar-options {
     width: 100%;
+
+    :deep(.widget-option-list-item__debug) {
+      display: none;
+    }
   }
 
   &__save-avatar-button {
