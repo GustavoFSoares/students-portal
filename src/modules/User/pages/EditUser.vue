@@ -27,7 +27,7 @@ const I18N_PATH = "modules.user.pages.edit";
 import "vue-avatar-creator/dist/style.css"
 import { AvatarCreatorOptions, AvatarCreatorViewer, useAvatarCreatorStore } from "vue-avatar-creator"
 
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
@@ -39,12 +39,7 @@ const $store = useStore();
 const $router = useRouter();
 const avatarStore = useAvatarCreatorStore();
 
-const avatarOptions = ref(
-  $store.getters["AuthModule/avatar/avatarOptions"]
-);
-
 const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
-
 const userData = computed(() => $store.getters["AuthModule/userData"]);
 
 const avatarIsLoading = computed(
@@ -52,15 +47,34 @@ const avatarIsLoading = computed(
 );
 
 const handleSubmit = async () => {
+  const toSubmitAvatarData = avatarStore.items;
+
   await $store.dispatch(
     "AuthModule/avatar/sendAvatar",
-    avatarOptions.value
+    toSubmitAvatarData
   );
 
   await $store.dispatch("AuthModule/refreshUser");
 
   $router.push({ name: "home" });
 };
+
+
+onMounted(() => {
+  const data = $store.state.AuthModule.avatar.avatarOptions
+
+  const avatarData = Object.keys(data).reduce((amount, itemKey) => {
+    if (Array.isArray(data[itemKey])) {
+      amount[itemKey] = [...data[itemKey]]
+    } else {
+      amount[itemKey] = data[itemKey]
+    }
+
+    return amount
+  }, {})
+
+  avatarStore.setAvatar(avatarData);
+});
 
 </script>
 

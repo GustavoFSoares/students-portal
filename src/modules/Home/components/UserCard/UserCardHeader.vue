@@ -2,7 +2,7 @@
   <div :class="['user-card-header', { 'user-card-header--is-close': isClose }]">
     <div class="avatar">
       <QAvatar color="white">
-        <AvatarCreatorViewer />
+        <AvatarCreatorViewer view-mode :data="avatarData" />
       </QAvatar>
     </div>
 
@@ -68,6 +68,8 @@ const $store = useStore();
 const $router = useRouter();
 
 const userData = computed(() => $store.getters["AuthModule/userData"]);
+const avatarData = computed(() => $store.getters['AuthModule/avatar/avatarOptions'])
+
 const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
 const indexes = ref({
@@ -91,10 +93,6 @@ const getRewardIcon = (rewardName) => {
 
   return rewards[rewardName] || null;
 };
-
-onMounted(async () => {
-  rewardsData.value = $store.getters["AuthModule/rewardsData"];
-});
 </script>
 
 <style lang="scss" scoped>

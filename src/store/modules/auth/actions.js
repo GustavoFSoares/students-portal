@@ -1,5 +1,4 @@
 import { api } from "boot/axios";
-import { defaultAvatar } from "vue-color-avatar";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
