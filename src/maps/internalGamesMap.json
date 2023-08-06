@@ -1,5 +1,6 @@
 {
   "word-puzzle": "WordPuzzle",
   "hangman": "HangmanGame",
-  "quiz": "QuizGame"
+  "quiz": "QuizGame",
+  "7-erros": "/games/01 - game-7-erros/game-7-erros"
 }
