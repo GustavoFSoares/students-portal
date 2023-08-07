@@ -169,8 +169,6 @@ export default {
         id: stageId,
       });
 
-      console.log(data);
-
       return {
         id: data.id,
         name: data.nome,
@@ -180,18 +178,44 @@ export default {
           points: data.pontos,
         },
         // trailStudentStageId: data.trilhas_alunos_stagios[0],
-        stages: data.estagios.map((stage) => {
-          return {
-            id: stage.id,
-            description: stage.descricao,
-            type: iconsMapReplations[stage.tipo.descricao],
-            time: stage.tempo,
-            content: stage.conteudo,
-            completed: false,
-            isInformative: stage.informativo,
-            informativeText: stage.titulo,
-          };
-        }),
+        stages: data.estagios
+          .filter((stage) => stage.status === "ativo")
+          .map((stage) => {
+            const type = iconsMapReplations[stage.tipo.descricao];
+
+            if (type === "game-internal") {
+              const gamesImages = stage.games_internos_images;
+
+              switch (stage.conteudo.game) {
+                case "7-erros":
+                  ["left", "right"].forEach((position) => {
+                    stage.conteudo.gameData.forEach((_, gameStageIndex) => {
+                      const [currentImage] = gamesImages.splice(0, 1);
+
+                      stage.conteudo.gameData[gameStageIndex].images[position] =
+                        currentImage.path;
+                    });
+                  });
+                  break;
+
+                default:
+                  console.warn(`Game "${stage.conteudo.game}" not found`);
+                  break;
+              }
+            }
+
+            return {
+              id: stage.id,
+              description: stage.descricao,
+              type,
+              time: stage.tempo,
+              content: stage.conteudo,
+              completed: false,
+              isInformative: stage.informativo,
+              informativeText: stage.titulo,
+              canNext: type !== "game-internal",
+            };
+          }),
       };
     } catch (err) {
       console.error("Stage Data by ID Error", err);

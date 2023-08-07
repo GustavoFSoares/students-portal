@@ -64,12 +64,14 @@
                   :is-informative="currentStage.isInformative"
                   :informative-title="currentStage.informativeText"
                   :informative-description="currentStage.description"
+                  @finish="handleReleaseStage"
                 />
 
                 <QBtn
                   class="stage-wrapper__button"
                   :label="isLast ? 'Concluir' : 'Próximo'"
                   color="secondary"
+                  :disable="!currentStage.canNext"
                   @click="handleNextStep(null)"
                 />
               </div>
@@ -216,6 +218,10 @@ const loadStageData = async (currentStageId) => {
 
   $store.dispatch("AuthModule/refreshUser");
 };
+
+const handleReleaseStage = () => {
+  currentStage.value.canNext = true;
+}
 
 onMounted(async () => {
   loadStageData(stageId);

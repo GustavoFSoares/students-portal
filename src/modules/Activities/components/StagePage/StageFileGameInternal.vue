@@ -1,84 +1,93 @@
 <template>
   <section class="stage-file-game-internal">
-    <iframe
-      :src="`/internal-games/${preparedPath.game}/index.html`"
-      frameborder="0"
-      height="847"
-      width="768"
+    <component
+      :is="gameComponent"
+      :url="gameUrl"
+      :parameters="gameParameters"
+      @finish="handleFinish"
     />
-
-    <component v-if="false" :is="gameComponent" :parameters="preparedWords" />
   </section>
 </template>
 
-<script>
-import { computed } from "vue";
+<script setup>
+import { computed, getCurrentInstance } from "vue";
+
 
 import InternalGamesMap from "maps/internalGamesMap.json";
+
+import SevenErrors from "./InternalGames/SevenErrors.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
 import HangmanGame from "./InternalGames/HangmanGame.vue";
 
-export default {
-  name: "StageFileGameExternal",
-  components: {
-    QuizGame,
-    WordPuzzle,
-    HangmanGame,
+const { appContext } = getCurrentInstance();
+
+const $emit = defineEmits(['finish'])
+
+const props = defineProps({
+  path: {
+    type: Object,
+    required: true,
   },
-  props: {
-    path: {
-      type: String,
-      required: true,
-    },
-    parameters: {
-      type: Array,
-      default: () => [],
-    },
+  parameters: {
+    type: Array,
+    default: () => [],
   },
-  computed: {
-    preparedPath() {
-      return JSON.parse(this.path);
-    },
-  },
-  setup(props) {
-    const isTextGame = (gameName) => {
-      const textGames = ["WordPuzzle", "HangmanGame"];
+})
 
-      return textGames.includes(gameName);
-    };
+const preparedPath = computed(() => {
+  return typeof props.path === 'string' ? JSON.parse(props.path) : props.path;
+})
 
-    const gameComponent = computed(() => {
-      const game = InternalGamesMap[props.path];
+const gameComponent = computed(() => {
+  const gamesMap = {
+    '7-erros': SevenErrors
+  }
 
-      return game || null;
-    });
+  return gamesMap[preparedPath.value.game] || preparedPath.value.game;
+});
 
-    const preparedWords = computed(() => {
-      if (isTextGame(gameComponent.value)) {
-        return props.parameters.map((parameter) => parameter.toUpperCase());
-      }
+const gameUrl = computed(() => {
+  return `${appContext.config.globalProperties.$appPublic}/${InternalGamesMap[preparedPath.value.game]}`
+    || preparedPath.value.game;
+});
 
-      return props.parameters;
-    });
+const gameParameters = computed(() => {
+  return preparedPath.value.gameData
+});
 
-    return {
-      preparedWords,
-      gameComponent,
-    };
-  },
+const handleFinish = () => {
+  $emit('finish')
 };
+// const isTextGame = (gameName) => {
+//   const textGames = ["WordPuzzle", "HangmanGame"];
+
+//   return textGames.includes(gameName);
+// };
+// const preparedWords = computed(() => {
+//   if (isTextGame(gameComponent.value)) {
+//     return props.parameters.map((parameter) => parameter.toUpperCase());
+//   }
+
+//   return props.parameters;
+// });
+
 </script>
 
 <style lang="scss" scoped>
 .stage-file-game-internal {
   max-width: 1150px;
   margin: 0 auto;
+  height: 100%;
+
+  border-radius: $default-border-radius;
+  overflow: hidden;
 
   iframe {
     width: 100%;
     height: 600px;
+    border: none;
   }
 }
 </style>
