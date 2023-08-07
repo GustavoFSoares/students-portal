@@ -1,6 +1,11 @@
 <template>
   <section class="stage-file-game-internal">
-    <component :is="gameComponent" :url="gameUrl" :parameters="gameParameters" />
+    <component
+      :is="gameComponent"
+      :url="gameUrl"
+      :parameters="gameParameters"
+      @finish="handleFinish"
+    />
   </section>
 </template>
 
@@ -18,9 +23,11 @@ import HangmanGame from "./InternalGames/HangmanGame.vue";
 
 const { appContext } = getCurrentInstance();
 
+const $emit = defineEmits(['finish'])
+
 const props = defineProps({
   path: {
-    type: String,
+    type: Object,
     required: true,
   },
   parameters: {
@@ -28,9 +35,6 @@ const props = defineProps({
     default: () => [],
   },
 })
-  // computed: {
-  // },
-  // setup(props) {
 
 const preparedPath = computed(() => {
   return typeof props.path === 'string' ? JSON.parse(props.path) : props.path;
@@ -50,11 +54,12 @@ const gameUrl = computed(() => {
 });
 
 const gameParameters = computed(() => {
-  console.log(preparedPath.value.gameData)
-
-  return {}
+  return preparedPath.value.gameData
 });
 
+const handleFinish = () => {
+  $emit('finish')
+}
 // const isTextGame = (gameName) => {
 //   const textGames = ["WordPuzzle", "HangmanGame"];
 

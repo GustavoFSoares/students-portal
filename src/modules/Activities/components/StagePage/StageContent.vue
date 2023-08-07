@@ -11,12 +11,12 @@
       v-else-if="stageFileTypeComponent"
       :is="stageFileTypeComponent"
       :path="content"
+      @finish="handleFinish"
     />
   </div>
 </template>
 
 <script setup>
-import { useStore } from "vuex";
 import { computed, defineProps } from "vue";
 
 import StageInformative from "./StageInformative.vue";
@@ -27,7 +27,8 @@ import StageFileTypeVideo from "./StageFileTypeVideo.vue";
 import StageFileGameExternal from "./StageFileGameExternal.vue";
 import StageFileGameInternal from "./StageFileGameInternal.vue";
 
-const $store = useStore();
+const $emit = defineEmits(['finish'])
+
 const props = defineProps({
   activityId: {
     type: Number,
@@ -42,6 +43,7 @@ const props = defineProps({
     required: true,
   },
   content: {
+    type: Object,
     required: true,
   },
   isInformative: {
@@ -70,6 +72,10 @@ const stageFilesMap = {
 const stageFileTypeComponent = computed(() => {
   return stageFilesMap[props.type] || null;
 });
+
+const handleFinish = () => {
+  $emit('finish')
+}
 </script>
 
 <style lang="scss" scoped>
