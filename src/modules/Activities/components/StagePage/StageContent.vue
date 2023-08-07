@@ -8,7 +8,7 @@
     />
 
     <component
-      v-else-if="stageFileTypeComponent"
+      v-else-if="renderComponent && stageFileTypeComponent"
       :is="stageFileTypeComponent"
       :path="content"
       @finish="handleFinish"
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps } from "vue";
+import { computed, defineProps, watch, nextTick, ref } from "vue";
 
 import StageInformative from "./StageInformative.vue";
 import StageFileTypeAudio from "./StageFileTypeAudio.vue";
@@ -69,9 +69,22 @@ const stageFilesMap = {
   "game-internal": StageFileGameInternal,
 };
 
+const renderComponent = ref(false);
+
 const stageFileTypeComponent = computed(() => {
   return stageFilesMap[props.type] || null;
 });
+
+watch(
+  () => props.content,
+  (val) => {
+    renderComponent.value = false
+
+    nextTick(() => {
+      renderComponent.value = true
+    })
+  },
+  { deep: true, immediate: true })
 
 const handleFinish = () => {
   $emit('finish')

@@ -59,7 +59,7 @@ const gameParameters = computed(() => {
 
 const handleFinish = () => {
   $emit('finish')
-}
+};
 // const isTextGame = (gameName) => {
 //   const textGames = ["WordPuzzle", "HangmanGame"];
 
