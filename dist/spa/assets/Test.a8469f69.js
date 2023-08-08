@@ -1,1 +1,0 @@
-import{O as e,y as t,z as s,H as o}from"./index.f46a7c19.js";const a={name:"AuthLayout"},n=o("h1",null,"Test",-1),c=[n];function r(_,d,l,p,u,i){return t(),s("div",null,c)}var h=e(a,[["render",r]]);export{h as default};
