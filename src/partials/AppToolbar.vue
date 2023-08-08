@@ -1,6 +1,14 @@
 <template>
   <QToolbar class="app-toolbar">
-    <div class="app-toolbar__logo"></div>
+    <QBtn
+      class="app-toolbar__logo"
+      :to="{ name: 'home' }"
+      flat
+      texted
+      padding="0"
+    >
+      <div class="app-toolbar__logo-content" />
+    </QBtn>
     <!-- <div class="navigation">
       <router-link
         :class="[
@@ -61,9 +69,17 @@ const handleClickNavigationItem = () => {
   align-items: center;
 
   &__logo {
-    height: 100%;
-    width: 120px;
-    background: red;
+    width: fit-content;
+    height: fit-content;
+
+    &-content {
+      width: 80px;
+      height: 40px;
+      background-image: url('/brand.svg');
+      background-repeat: no-repeat;
+      background-size: 90px;
+      background-position: center;
+    }
   }
 
   .controls {

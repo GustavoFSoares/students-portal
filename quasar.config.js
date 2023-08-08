@@ -67,6 +67,7 @@ module.exports = configure(function (/* ctx */) {
         molecules: path.join(__dirname, "src/components/molecules"),
         organisms: path.join(__dirname, "src/components/organisms"),
         libs: path.join(__dirname, "libs"),
+        assets: path.join(__dirname, "src/assets"),
       },
 
       vueRouterMode: "history", // available values: 'hash', 'history'
