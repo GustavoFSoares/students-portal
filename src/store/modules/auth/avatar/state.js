@@ -1,4 +1,21 @@
 export default {
   loading: false,
-  avatarOptions: {},
+  avatarOptions: {
+    "accessibility-item": null,
+    bag: null,
+    beard: null,
+    body: { shape: "body-1  ", fillColor: "#0E202D" },
+    coat: null,
+    dress: null,
+    face: null,
+    gedgets: [],
+    glasses: null,
+    headpiece: null,
+    hair: null,
+    necklace: null,
+    pant: null,
+    shoe: null,
+    soccer: [],
+    tshirt: null,
+  },
 };
