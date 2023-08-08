@@ -115,7 +115,7 @@ export default {
       width: max-content;
       color: $text-color-4 !important;
 
-      :deep(q-btn) {
+      :deep() {
         .q-btn__content {
           font-size: 18px;
           line-height: 18px;

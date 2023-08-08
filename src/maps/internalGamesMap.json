@@ -4,7 +4,7 @@
   "quiz": "QuizGame",
   "7-erros": "games/game_7_erros",
   "jogo-da-velha": "games/jogo_da_velha",
-  "jogo-forca": "games/jogo_da_Forca",
+  "jogo-forca": "games/jogo_da_forca",
   "jogo-memoria": "games/jogo_da_memoria",
   "Quiz--arraste-as-aletras": "games/quiz_arraste_as_letras",
   "Quiz--arraste-palavras-corretas": "games/quiz_arraste_as_palavras_corretas",
