@@ -1,0 +1,1 @@
+import{b as i,i as t,a as e}from"./index.f4d0cf77.js";const a="http://localhost";var r=i(({app:o})=>{o.config.globalProperties.$appPublic=`${a}`,o.config.globalProperties.$appStorage=`${a}/storage`,o.config.globalProperties.$iconsMapReplations=t,o.config.globalProperties.$iconsMap=e,o.config.globalProperties.$defaultActivityCover="/default-trail.jpg"});export{r as default};
