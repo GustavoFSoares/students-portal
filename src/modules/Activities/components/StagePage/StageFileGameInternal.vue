@@ -16,6 +16,7 @@ import { computed, getCurrentInstance } from "vue";
 import InternalGamesMap from "maps/internalGamesMap.json";
 
 import SevenErrors from "./InternalGames/SevenErrors.vue";
+import EmptyGame from "./InternalGames/EmptyGame.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
@@ -45,7 +46,7 @@ const gameComponent = computed(() => {
     '7-erros': SevenErrors
   }
 
-  return gamesMap[preparedPath.value.game] || preparedPath.value.game;
+  return gamesMap[preparedPath.value.game] || EmptyGame;
 });
 
 const gameUrl = computed(() => {

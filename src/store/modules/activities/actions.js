@@ -182,20 +182,29 @@ export default {
           .filter((stage) => stage.status === "ativo")
           .map((stage) => {
             const type = iconsMapReplations[stage.tipo.descricao];
+            const content = stage.conteudo;
+
+            let canNext = true;
 
             if (type === "game-internal") {
               const gamesImages = stage.games_internos_images;
 
               switch (stage.conteudo.game) {
                 case "7-erros":
-                  ["left", "right"].forEach((position) => {
-                    stage.conteudo.gameData.forEach((_, gameStageIndex) => {
+                  canNext = false;
+
+                  [("left", "right")].forEach((position) => {
+                    content.gameData.forEach((_, gameStageIndex) => {
                       const [currentImage] = gamesImages.splice(0, 1);
 
-                      stage.conteudo.gameData[gameStageIndex].images[position] =
+                      content.gameData[gameStageIndex].images[position] =
                         currentImage.path;
                     });
                   });
+                  break;
+
+                case "Quiz":
+                  content.game += `--${content.tipo}`;
                   break;
 
                 default:
@@ -209,11 +218,11 @@ export default {
               description: stage.descricao,
               type,
               time: stage.tempo,
-              content: stage.conteudo,
+              content,
               completed: false,
               isInformative: stage.informativo,
               informativeText: stage.titulo,
-              canNext: type !== "game-internal",
+              canNext,
             };
           }),
       };

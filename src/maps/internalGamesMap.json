@@ -3,9 +3,14 @@
   "hangman": "HangmanGame",
   "quiz": "QuizGame",
   "7-erros": "games/game-7-erros",
-  "jogo-da-velha": "games/02 - jogo-da-velha",
-  "jogo-forca": "games/03 - jogoDaForca",
-  "jogo-memoria": "games/04 - jogo da memoria",
-  "Quiz": "games/09 - quiz - escolha_uma_alternativa",
+  "jogo-da-velha": "games/02 - jogo-da-velha/jogo-da-velha",
+  "jogo-forca": "games/03 - jogoDaForca/jogoDaForca",
+  "jogo-memoria": "games/04 - jogo da memoria/memory-game-app",
+  "Quiz--arraste-as-aletras": "games/05 - quiz - arraste as letras/arraste as palavras",
+  "Quiz--arraste-palavras-corretas": "games/06 - quiz - arraste as palavras corretas",
+  "Quiz--emparedado": "games/07 - quiz - emparedado/07 - quiz - emparedado",
+  "Quiz--escolha-multiplas-palavras": "games/08 - quiz - escolha_multiplas_alternativa",
+  "Quiz--escolha-alternativa": "games/08 - quiz - escolha_multiplas_alternativa",
+  "Quiz--acerte-figura-multipla-escolha": "games/10 - quiz- acerte as figuras multipla_escolha/10 - quiz- acerte as figuras multipla_escolha",
   "quebra-cabeca": "games/11 - quiz - quebra_cabeca"
 }
