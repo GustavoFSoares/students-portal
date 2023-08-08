@@ -77,22 +77,31 @@ const routes = {
     route: "home.activities",
     icon: "o_layers",
   },
-  // feed: {
-  //   route: "home.feed",
-  //   icon: "o_fax",
-  // },
-  // library: {
-  //   route: "home.library",
-  //   icon: "collections_bookmark",
-  // },
-  // events: {
-  //   route: "home.events",
-  //   icon: "o_confirmation_number",
-  // },
-  // missions: {
-  //   route: "home.missions",
-  //   icon: "o_flag",
-  // },
+  feed: {
+    // route: "home.feed",
+    route: "test",
+    icon: "o_fax",
+  },
+  library: {
+    // route: "home.library",
+    route: "test",
+    icon: "collections_bookmark",
+  },
+  events: {
+    // route: "home.events",
+    route: "test",
+    icon: "o_confirmation_number",
+  },
+  missions: {
+    // route: "home.missions",
+    route: "test",
+    icon: "o_flag",
+  },
+  faq: {
+    // route: "home.missions",
+    route: "test",
+    icon: "o_chat_bubble",
+  },
 };
 
 const isMobile = computed(() => {

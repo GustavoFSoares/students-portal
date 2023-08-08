@@ -354,6 +354,11 @@
       "seo": {
         "title": "Missões"
       }
+    },
+    "faq": {
+      "seo": {
+        "title": "FAQ"
+      }
     }
   }
 }
