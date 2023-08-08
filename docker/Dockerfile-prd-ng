@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY docker/nginx/* ./
 RUN yarn global add @quasar/cli
+RUN yarn install -s @vue/cli@3.7.0 -g
 
 COPY . .
 
