@@ -50,6 +50,10 @@ a {
   display: flex;
   flex-direction: column;
 
+  @media (max-width: $breakpoint-mobile) {
+    height: 100%;
+  }
+
   &__wrapper {
     width: 100%;
     height: 100%;
