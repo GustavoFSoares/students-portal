@@ -2,5 +2,10 @@
   "word-puzzle": "WordPuzzle",
   "hangman": "HangmanGame",
   "quiz": "QuizGame",
-  "7-erros": "games/game-7-erros"
+  "7-erros": "games/game-7-erros",
+  "jogo-da-velha": "games/02 - jogo-da-velha",
+  "jogo-forca": "games/03 - jogoDaForca",
+  "jogo-memoria": "games/04 - jogo da memoria",
+  "Quiz": "games/09 - quiz - escolha_uma_alternativa",
+  "quebra-cabeca": "games/11 - quiz - quebra_cabeca"
 }
