@@ -1,8 +1,11 @@
 @import "fonts.scss";
 @import "./components/input";
 
+html, body {
+  background-color: #00e2ff;
+}
+
 body {
-  background-color: #cd2331;
   background-size: cover;
   background-position: center;
   background-image: url("/background.webp");
