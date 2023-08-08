@@ -223,7 +223,7 @@ const handleFisnishActivity = async () => {
     }
 
     &--try-again {
-      :deep {
+      :deep(q-btn) {
         &::before {
           border-width: 2px;
         }

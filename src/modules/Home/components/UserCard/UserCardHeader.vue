@@ -156,7 +156,7 @@ $transitionDuration: 0.3s;
       padding: 0 4px;
     }
 
-    :deep() {
+    :deep {
       .av-reward {
         animation: rewardCloseAnimation 0.5s ease-in-out forwards;
 
