@@ -126,7 +126,7 @@ const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
 
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
-import { computed, getCurrentInstance, onMounted, ref } from "vue";
+import { computed, getCurrentInstance, onMounted, ref, watch } from "vue";
 
 import AvReward from "molecules/AvReward.vue";
 import AvTimer from "molecules/AvTimer.vue";
@@ -201,6 +201,11 @@ const handleStartActivity = () => {
   }, 3 * 100);
 };
 
+const restartTimer = () => {
+  timer.value.restartTimer();
+  timer.value.start();
+}
+
 const handleRestartActivity = () => {
   activityIsFinished.value = false;
 
@@ -222,6 +227,10 @@ const loadStageData = async (currentStageId) => {
 const handleReleaseStage = () => {
   currentStage.value.canNext = true;
 }
+
+watch(() => currentStageIndex.value, () => {
+  restartTimer()
+})
 
 onMounted(async () => {
   loadStageData(stageId);

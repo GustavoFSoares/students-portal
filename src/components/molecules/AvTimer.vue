@@ -81,6 +81,7 @@ watch(
 
 defineExpose({
   start,
+  restartTimer
 });
 </script>
 
