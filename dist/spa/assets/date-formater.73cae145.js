@@ -1,1 +1,0 @@
-import{b as r}from"./index.18d78389.js";var o=r(({app:t})=>{t.config.globalProperties.$filters={...t.config.globalProperties.$filters,dateFormatFullDate:e=>new Date(e).toLocaleString().replace(", "," - "),dateFormat:e=>new Date(e).toLocaleDateString()}});export{o as default};
