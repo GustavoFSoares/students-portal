@@ -2,7 +2,7 @@
   <section class="stage-informative">
     <div class="stage-informative__content">
       <div class="stage-informative__image">
-        <img :src="`${$appStorage}/${path}`" alt="" />
+        <img :src="`${$appStorage}/${path.arquivo}`" alt="" />
       </div>
 
       <div class="stage-informative__text-content">
