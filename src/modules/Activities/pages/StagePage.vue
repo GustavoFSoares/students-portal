@@ -56,6 +56,7 @@
 
             <div v-if="hasStages && currentStage" class="stage-wrapper">
               <div class="stage-wrapper__content">
+                {{ currentStage }}
                 <StageContent
                   :activity-id="activityData.id"
                   :stage-id="currentStage.id"
@@ -197,14 +198,18 @@ const handleStartActivity = () => {
 
   setTimeout(() => {
     stageIsOpening.value = false;
-    timer.value.start();
+    if (timer.value) {
+      timer.value.start();
+    }
   }, 3 * 100);
 };
 
 const restartTimer = () => {
-  timer.value.restartTimer();
-  timer.value.start();
-}
+  if (timer.value) {
+    timer.value.restartTimer();
+    timer.value.start();
+  }
+};
 
 const handleRestartActivity = () => {
   activityIsFinished.value = false;
@@ -226,11 +231,14 @@ const loadStageData = async (currentStageId) => {
 
 const handleReleaseStage = () => {
   currentStage.value.canNext = true;
-}
+};
 
-watch(() => currentStageIndex.value, () => {
-  restartTimer()
-})
+watch(
+  () => currentStageIndex.value,
+  () => {
+    restartTimer();
+  }
+);
 
 onMounted(async () => {
   loadStageData(stageId);
