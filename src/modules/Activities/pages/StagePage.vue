@@ -56,7 +56,6 @@
 
             <div v-if="hasStages && currentStage" class="stage-wrapper">
               <div class="stage-wrapper__content">
-                {{ currentStage }}
                 <StageContent
                   :activity-id="activityData.id"
                   :stage-id="currentStage.id"

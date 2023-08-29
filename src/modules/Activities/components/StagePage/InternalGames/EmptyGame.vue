@@ -1,11 +1,11 @@
 <template>
   <div class="empty-game">
-    <iframe :src="url" @load="handleLoad" />
+    <iframe src="/notfound" @load="handleLoad" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref, onMounted } from "vue";
 
 const props = defineProps({
   url: {
@@ -14,8 +14,8 @@ const props = defineProps({
   },
   parameters: {
     type: [Object, Array],
-    requred: true
-  }
+    requred: true,
+  },
 });
 </script>
 

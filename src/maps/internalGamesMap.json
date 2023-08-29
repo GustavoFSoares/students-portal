@@ -12,5 +12,6 @@
   "Quiz--escolha-multiplas-palavras": "games/quiz_escolha_multiplas_alternativa",
   "Quiz--escolha-alternativa": "games/quiz_escolha_multiplas_alternativa",
   "Quiz--acerte-figura-multipla-escolha": "games/quiz_acerte_as_figuras_multipla_escolha",
+  "Quiz--avaliacao": "games/quiz_provas/avaliacao",
   "quebra-cabeca": "games/quiz_quebra_cabeca"
 }

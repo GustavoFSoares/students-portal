@@ -1,12 +1,13 @@
 <template>
-  <div class="seven-errors">
+  <div class="generic-game">
     <iframe :src="url" ref="iframeElement" @load="handleLoad" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, getCurrentInstance } from "vue";
 
+const { appContext } = getCurrentInstance();
 const $emit = defineEmits(["finish"]);
 
 const iframeElement = ref(null);
@@ -23,23 +24,17 @@ const props = defineProps({
 });
 
 const handleLoad = () => {
-  const gameOptions = props.parameters.map((stage) => {
-    const img = {
-      direita: "/storage/" + stage.images.right,
-      esquerda: "/storage/" + stage.images.left,
-    };
-    const positions = stage.positions.map((positionItem) => ({
-      ...positionItem,
-    }));
+  const gameOptions = JSON.parse(JSON.stringify(props.parameters));
+  gameOptions.avaliacao = gameOptions.avaliacao.map((item) => ({
+    ...item,
+    path: item.path
+      ? `${appContext.config.globalProperties.$appStorage}/${item.path}`
+      : null,
+  }));
 
-    return {
-      positions,
-      img,
-    };
-  });
-
+  console.log("here", { origin: "avag", gameOptions });
   iframeElement.value.contentWindow.postMessage(
-    { origin: "avag", scene: gameOptions },
+    { origin: "avag", gameOptions },
     "*"
   );
 
@@ -52,7 +47,7 @@ const handleLoad = () => {
 </script>
 
 <style lang="scss" scoped>
-.seven-errors {
+.generic-game {
   max-width: 1150px;
   margin: 0 auto;
   height: 100%;

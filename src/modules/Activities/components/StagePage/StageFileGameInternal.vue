@@ -12,10 +12,10 @@
 <script setup>
 import { computed, getCurrentInstance } from "vue";
 
-
 import InternalGamesMap from "maps/internalGamesMap.json";
 
 import SevenErrors from "./InternalGames/SevenErrors.vue";
+import GenericGame from "./InternalGames/GenericGame.vue";
 import EmptyGame from "./InternalGames/EmptyGame.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
@@ -24,7 +24,7 @@ import HangmanGame from "./InternalGames/HangmanGame.vue";
 
 const { appContext } = getCurrentInstance();
 
-const $emit = defineEmits(['finish'])
+const $emit = defineEmits(["finish"]);
 
 const props = defineProps({
   path: {
@@ -35,31 +35,35 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-})
+});
 
 const preparedPath = computed(() => {
-  return typeof props.path === 'string' ? JSON.parse(props.path) : props.path;
-})
+  return typeof props.path === "string" ? JSON.parse(props.path) : props.path;
+});
 
 const gameComponent = computed(() => {
   const gamesMap = {
-    '7-erros': SevenErrors
-  }
+    "7-erros": SevenErrors,
+    "Quiz--avaliacao": GenericGame,
+  };
 
   return gamesMap[preparedPath.value.game] || EmptyGame;
 });
 
 const gameUrl = computed(() => {
-  return `${appContext.config.globalProperties.$appPublic}/${InternalGamesMap[preparedPath.value.game]}`
-    || preparedPath.value.game;
+  return (
+    `${appContext.config.globalProperties.$appPublic}/${
+      InternalGamesMap[preparedPath.value.game]
+    }` || preparedPath.value.game
+  );
 });
 
 const gameParameters = computed(() => {
-  return preparedPath.value.gameData
+  return preparedPath.value.gameData;
 });
 
 const handleFinish = () => {
-  $emit('finish')
+  $emit("finish");
 };
 // const isTextGame = (gameName) => {
 //   const textGames = ["WordPuzzle", "HangmanGame"];
@@ -73,7 +77,6 @@ const handleFinish = () => {
 
 //   return props.parameters;
 // });
-
 </script>
 
 <style lang="scss" scoped>

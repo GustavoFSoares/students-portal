@@ -27,7 +27,7 @@ import StageFileTypeVideo from "./StageFileTypeVideo.vue";
 import StageFileGameExternal from "./StageFileGameExternal.vue";
 import StageFileGameInternal from "./StageFileGameInternal.vue";
 
-const $emit = defineEmits(['finish'])
+const $emit = defineEmits(["finish"]);
 
 const props = defineProps({
   activityId: {
@@ -78,17 +78,18 @@ const stageFileTypeComponent = computed(() => {
 watch(
   () => props.content,
   (val) => {
-    renderComponent.value = false
+    renderComponent.value = false;
 
     nextTick(() => {
-      renderComponent.value = true
-    })
+      renderComponent.value = true;
+    });
   },
-  { deep: true, immediate: true })
+  { deep: true, immediate: true }
+);
 
 const handleFinish = () => {
-  $emit('finish')
-}
+  $emit("finish");
+};
 </script>
 
 <style lang="scss" scoped>
