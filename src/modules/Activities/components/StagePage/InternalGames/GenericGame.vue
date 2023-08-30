@@ -24,13 +24,17 @@ const props = defineProps({
 });
 
 const handleLoad = () => {
-  const gameOptions = JSON.parse(JSON.stringify(props.parameters));
-  gameOptions.avaliacao = gameOptions.avaliacao.map((item) => ({
-    ...item,
-    path: item.path
-      ? `${appContext.config.globalProperties.$appStorage}/${item.path}`
-      : null,
-  }));
+  const params = JSON.parse(JSON.stringify(props.parameters));
+
+  const gameOptions = {
+    avaliacao: params.avaliacao.map((item) => ({
+      ...item,
+      path: item.path
+        ? `${appContext.config.globalProperties.$appStorage}/${item.path}`
+        : null,
+    })),
+    tituloAvaliacao: params.questionTitle,
+  };
 
   console.log("here", { origin: "avag", gameOptions });
   iframeElement.value.contentWindow.postMessage(
