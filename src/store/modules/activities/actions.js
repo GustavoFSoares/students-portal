@@ -204,6 +204,7 @@ export default {
                   break;
 
                 case "Quiz":
+                  canNext = false;
                   content.game += `--${content.tipo}`;
                   break;
 

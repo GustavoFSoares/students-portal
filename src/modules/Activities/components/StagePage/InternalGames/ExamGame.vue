@@ -1,5 +1,5 @@
 <template>
-  <div class="generic-game">
+  <div class="exam-game">
     <iframe :src="url" ref="iframeElement" @load="handleLoad" />
   </div>
 </template>
@@ -43,7 +43,7 @@ const handleLoad = () => {
   );
 
   window.onmessage = ({ data }) => {
-    if (data === "finish") {
+    if (data.status === "finish") {
       $emit("finish");
     }
   };
@@ -51,7 +51,7 @@ const handleLoad = () => {
 </script>
 
 <style lang="scss" scoped>
-.generic-game {
+.exam-game {
   max-width: 1150px;
   margin: 0 auto;
   height: 100%;

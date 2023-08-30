@@ -15,7 +15,7 @@ import { computed, getCurrentInstance } from "vue";
 import InternalGamesMap from "maps/internalGamesMap.json";
 
 import SevenErrors from "./InternalGames/SevenErrors.vue";
-import GenericGame from "./InternalGames/GenericGame.vue";
+import ExamGame from "./InternalGames/ExamGame.vue";
 import EmptyGame from "./InternalGames/EmptyGame.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
@@ -44,7 +44,7 @@ const preparedPath = computed(() => {
 const gameComponent = computed(() => {
   const gamesMap = {
     "7-erros": SevenErrors,
-    "Quiz--avaliacao": GenericGame,
+    "Quiz--avaliacao": ExamGame,
   };
 
   return gamesMap[preparedPath.value.game] || EmptyGame;
