@@ -1,6 +1,6 @@
 <template>
   <section class="stage-file-type-image">
-    <img :src="`${$appStorage}/${path}`" alt="" />
+    <img :src="`${$appStorage}/${path.arquivo}`" alt="" />
   </section>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   emits: ["close"],
   props: {
     path: {
-      type: String,
+      type: Object,
       required: true,
     },
     isLast: {
