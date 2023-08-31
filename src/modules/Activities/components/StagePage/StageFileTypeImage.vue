@@ -1,6 +1,6 @@
 <template>
   <section class="stage-file-type-image">
-    <img :src="`${$appStorage}/${path}`" alt="" />
+    <img :src="`${$appStorage}/${path.arquivo}`" alt="" />
   </section>
 </template>
 
