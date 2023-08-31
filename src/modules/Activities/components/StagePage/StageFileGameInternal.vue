@@ -12,7 +12,7 @@
 <script setup>
 import { computed, getCurrentInstance } from "vue";
 
-import InternalGamesMap from "maps/internalGamesMap.json";
+// import InternalGamesMap from "maps/internalGamesMap.json";
 
 import SevenErrors from "./InternalGames/SevenErrors.vue";
 import ExamGame from "./InternalGames/ExamGame.vue";
@@ -23,6 +23,25 @@ import WordPuzzle from "./InternalGames/WordPuzzle.vue";
 import HangmanGame from "./InternalGames/HangmanGame.vue";
 
 const { appContext } = getCurrentInstance();
+const InternalGamesMap = {
+  "word-puzzle": "WordPuzzle",
+  hangman: "HangmanGame",
+  quiz: "QuizGame",
+  "7-erros": "games/game_7_erros",
+  "jogo-da-velha": "games/jogo_da_velha",
+  "jogo-forca": "games/jogo_da_forca",
+  "jogo-memoria": "games/jogo_da_memoria",
+  "Quiz--arraste-as-aletras": "games/quiz_arraste_as_letras",
+  "Quiz--arraste-palavras-corretas": "games/quiz_arraste_as_palavras_corretas",
+  "Quiz--emparedado": "games/quiz_emparedado",
+  "Quiz--escolha-multiplas-palavras":
+    "games/quiz_escolha_multiplas_alternativa",
+  "Quiz--escolha-alternativa": "games/quiz_escolha_multiplas_alternativa",
+  "Quiz--acerte-figura-multipla-escolha":
+    "games/quiz_acerte_as_figuras_multipla_escolha",
+  "Quiz--avaliacao": "games/quiz_provas/avaliacao",
+  "quebra-cabeca": "games/quiz_quebra_cabeca",
+};
 
 const $emit = defineEmits(["finish"]);
 
