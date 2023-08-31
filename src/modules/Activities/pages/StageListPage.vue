@@ -105,23 +105,23 @@ const activitiesList = ref([]);
 const selectedStage = ref(null);
 const showingGoal = ref($route.query.goal);
 
-const handleOpenStage = (position) => {
+const handleOpenStage = (id) => {
   const stageSelectedStage = selectedStage.value;
   selectedStage.value = null;
 
   if (stageSelectedStage) {
     setTimeout(() => {
-      selectedStage.value = position;
+      selectedStage.value = id;
     }, 350);
   } else {
-    selectedStage.value = position;
+    selectedStage.value = id;
   }
 };
 
 const openStageDetail = computed(() => !!selectedStage.value);
 const selectedStageData = computed(() => {
   const matchStage = activitiesList.value.find(
-    (stage) => stage.position === selectedStage.value
+    (stage) => stage.id === selectedStage.value
   );
 
   return matchStage || {};

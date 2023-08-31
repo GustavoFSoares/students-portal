@@ -10,7 +10,7 @@
         v-for="(stage, stageIndex) in stagesRow"
         :key="stage.id"
         :active="stage.active"
-        :position="(stagesRowIndex * 5) + stageIndex"
+        :position="stagesRowIndex * 5 + stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
         @click="handleClickStage(stage)"
@@ -42,26 +42,26 @@ export default {
 
     const stageList = computed(() => props.stages);
 
-    const handleClickStage = ({ active, position }) => {
+    const handleClickStage = ({ active, id }) => {
       if (!active) {
         return;
       }
 
-      ctx.emit("open-stage", position);
+      ctx.emit("open-stage", id);
     };
 
     const preparedList = computed(() => {
-      const stages = [...props.stages]
+      const stages = [...props.stages];
 
-      const rows = []
-      while(stages.length !== 0) {
-        const stagesRow = stages.splice(0, isMobile.value ? 1 : 5)
+      const rows = [];
+      while (stages.length !== 0) {
+        const stagesRow = stages.splice(0, isMobile.value ? 1 : 5);
 
-        rows.push(stagesRow)
+        rows.push(stagesRow);
       }
 
-      return rows
-    })
+      return rows;
+    });
 
     return {
       isMobile,
@@ -91,7 +91,6 @@ export default {
   }
 
   &__item {
-
     &:first-of-type {
       &::before {
         z-index: -1;
