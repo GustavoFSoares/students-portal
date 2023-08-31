@@ -191,7 +191,7 @@ export default {
 
               switch (stage.conteudo.game) {
                 case "7-erros":
-                  canNext = false;
+                  // canNext = false;
 
                   [("left", "right")].forEach((position) => {
                     content.gameData.forEach((_, gameStageIndex) => {
@@ -204,7 +204,7 @@ export default {
                   break;
 
                 case "Quiz":
-                  canNext = false;
+                  // canNext = false;
                   content.game += `--${content.tipo}`;
                   break;
 

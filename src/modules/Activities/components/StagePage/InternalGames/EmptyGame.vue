@@ -1,6 +1,6 @@
 <template>
   <div class="empty-game">
-    <iframe src="/notfound" @load="handleLoad" />
+    <iframe :src="url" @load="handleLoad" />
   </div>
 </template>
 

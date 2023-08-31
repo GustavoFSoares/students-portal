@@ -6,7 +6,7 @@
       controlsList="nodownload"
       oncontextmenu="return false;"
     >
-      <source :src="`${$appStorage}/${path}`" type="video/mp4" />
+      <source :src="`${$appStorage}/${path.arquivo}`" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   </section>
@@ -18,7 +18,7 @@ export default {
   name: "StageFileTypeVideo",
   props: {
     path: {
-      type: String,
+      type: Object,
       required: true,
     },
     isLast: {

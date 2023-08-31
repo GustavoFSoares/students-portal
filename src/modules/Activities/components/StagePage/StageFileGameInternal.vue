@@ -31,12 +31,12 @@ const InternalGamesMap = {
   "jogo-da-velha": "games/jogo_da_velha",
   "jogo-forca": "games/jogo_da_forca",
   "jogo-memoria": "games/jogo_da_memoria",
-  "Quiz--arraste-as-aletras": "games/quiz_arraste_as_letras",
+  "Quiz--arraste-as-letras": "games/quiz_arraste_as_letras",
   "Quiz--arraste-palavras-corretas": "games/quiz_arraste_as_palavras_corretas",
   "Quiz--emparedado": "games/quiz_emparedado",
   "Quiz--escolha-multiplas-palavras":
     "games/quiz_escolha_multiplas_alternativa",
-  "Quiz--escolha-alternativa": "games/quiz_escolha_multiplas_alternativa",
+  "Quiz--escolha-uma-alternativa": "games/quiz_escolha_uma_alternativa",
   "Quiz--acerte-figura-multipla-escolha":
     "games/quiz_acerte_as_figuras_multipla_escolha",
   "Quiz--avaliacao": "games/quiz_provas/avaliacao",
