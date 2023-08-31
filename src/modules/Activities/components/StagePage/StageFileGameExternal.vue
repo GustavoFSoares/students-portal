@@ -9,12 +9,12 @@ export default {
   name: "StageFileGameExternal",
   computed: {
     preparedPath() {
-      return JSON.parse(this.path);
+      return this.path;
     },
   },
   props: {
     path: {
-      type: String,
+      type: Object,
       required: true,
     },
     isLast: {
