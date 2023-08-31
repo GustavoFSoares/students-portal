@@ -51,6 +51,9 @@ const gameComponent = computed(() => {
 });
 
 const gameUrl = computed(() => {
+  console.log("->", preparedPath.value);
+  console.log("->", InternalGamesMap);
+
   return (
     `${appContext.config.globalProperties.$appPublic}/${
       InternalGamesMap[preparedPath.value.game]
