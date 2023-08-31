@@ -1,7 +1,7 @@
 <template>
   <section class="stage-file-type-pdf">
     <iframe
-      :src="`${$appStorage}/${path}?page=1`"
+      :src="`${$appStorage}/${path.arquivo}?page=1`"
       frameborder="0"
       width="100%"
       height="100%"
@@ -18,6 +18,9 @@ export default {
       required: true,
     },
   },
+  created() {
+    console.log(path)
+  }
 };
 </script>
 
