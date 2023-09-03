@@ -2,8 +2,16 @@
   <div class="certificates-page-card">
     <AvCard shadows>
       <template #header>
-        <div class="certificates-page-card__image">
+        <div class="certificates-page-card__image" v-if="image">
           <img :src="`${$appStorage}/${image}`" :alt="title" :title="title" />
+        </div>
+
+        <div class="certificates-page-card__image" v-else>
+          <img
+            src="~assets/img/certificates/default-certificate.png"
+            :alt="title"
+            :title="title"
+          />
         </div>
       </template>
 
@@ -42,7 +50,7 @@ export default {
   props: {
     image: {
       type: String,
-      required: true,
+      default: null,
     },
     title: {
       type: String,

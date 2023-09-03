@@ -22,6 +22,7 @@
     </QTabs>
 
     <QBtnDropdown
+      v-if="!hideOrders"
       class="certificates-page-header__dropdown"
       flat
       :label="$t(`${I18N_PATH}.orderOptions.${orderSelected}`)"
@@ -64,6 +65,10 @@ export default {
     orderSelected: {
       type: String,
       default: ORDER_OPTIONS[0],
+    },
+    hideOrders: {
+      type: Boolean,
+      defualt: false,
     },
   },
   setup(props, ctx) {

@@ -12,14 +12,10 @@ export default {
 
       const preparedSertificates = data.map((certificate) => {
         return {
-          id: certificate.certificado_trilha.certificado.id,
-          name: certificate.certificado_trilha.certificado.titulo,
-          description: certificate.certificado_trilha.certificado.conteudo,
-          activity: {
-            id: certificate.certificado_trilha.trilha.id,
-            name: certificate.certificado_trilha.trilha.nome,
-          },
-          conclusionDate: new Date(certificate.certificado_trilha.updated_at),
+          id: certificate.id,
+          title: certificate.titulo,
+          description: certificate.conteudo,
+          conclusionDate: new Date(certificate.updated_at),
         };
       });
 

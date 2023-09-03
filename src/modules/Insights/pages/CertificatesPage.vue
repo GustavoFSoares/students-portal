@@ -6,6 +6,7 @@
           class="insights-certificates-page__header"
           v-model:current-tab="currentTab"
           v-model:order-selected="orderSelected"
+          hide-orders
         />
 
         <div class="insights-certificates-page__content">
@@ -16,10 +17,10 @@
             <CertificatesPageCard
               v-for="(certificate, certificateIndex) in certificates"
               :key="`certificate-${certificateIndex}`"
-              :title="certificate.name"
+              :title="certificate.title"
               :description="certificate.description"
+              :completed-date="certificate.conclusionDate"
               :image="certificate.path"
-              :completed-date="certificate.completedDate"
             />
           </div>
 
@@ -34,7 +35,7 @@
   </article>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { computed, onMounted, ref } from "vue";
@@ -44,45 +45,26 @@ import AvPageSection from "molecules/AvPageSection.vue";
 import CertificatesPageCard from "../components/CertificatesPageCard.vue";
 import CertificatesPageHeader from "../partials/CertificatesPageHeader.vue";
 
-const I18N_PATH = "modules.home.insightsPage.pages.certificatesPage";
+const I18N_PATH = "modules.insights.pages.certificatesPage";
 
-export default {
-  name: "InsigtCertificatePage",
-  components: {
-    AvPageSection,
-    CertificatesPageCard,
-    CertificatesPageHeader,
-  },
-  setup() {
-    const $store = useStore();
-    const $route = useRouter();
+const $store = useStore();
+const $route = useRouter();
 
-    const currentTab = ref(undefined);
-    const orderSelected = ref(undefined);
+const currentTab = ref(undefined);
+const orderSelected = ref(undefined);
 
-    const certificates = computed(
-      () => $store.getters["CertificatesModule/getCertificates"]
-    );
-    const hasCertificates = computed(() => certificates.value.length > 0);
+const certificates = computed(
+  () => $store.getters["CertificatesModule/getCertificates"]
+);
+const hasCertificates = computed(() => certificates.value.length > 0);
 
-    const handleGoBackPage = () => {
-      $route.push({ name: "home.insights" });
-    };
-
-    onMounted(async () => {
-      await $store.dispatch("CertificatesModule/loadCertificates");
-    });
-
-    return {
-      I18N_PATH,
-      currentTab,
-      certificates,
-      orderSelected,
-      hasCertificates,
-      handleGoBackPage,
-    };
-  },
+const handleGoBackPage = () => {
+  $route.push({ name: "home.insights" });
 };
+
+onMounted(async () => {
+  await $store.dispatch("CertificatesModule/loadCertificates");
+});
 </script>
 
 <style lang="scss" scoped>

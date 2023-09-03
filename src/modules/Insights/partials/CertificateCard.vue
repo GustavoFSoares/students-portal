@@ -16,16 +16,16 @@
               v-if="certificate.path"
               class="certificate-item__image"
               :src="`${$appStorage}/${certificate.path}`"
-              :alt="certificate.name"
-              :title="certificate.name"
+              :alt="certificate.title"
+              :title="certificate.title"
             />
 
             <img
               v-else
               class="certificate-item__image"
               src="~assets/img/certificates/default-certificate.png"
-              :alt="certificate.name"
-              :title="certificate.name"
+              :alt="certificate.title"
+              :title="certificate.title"
             />
           </li>
         </ul>
