@@ -4,11 +4,13 @@ export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
   },
-  loadCertificates: async ({ commit }) => {
+  loadCertificates: async ({ commit, rootGetters }) => {
     try {
+      const { studentId } = rootGetters["AuthModule/userData"];
+
       const {
         data: { data },
-      } = await api.post("alunos/buscar-certificados");
+      } = await api.post("alunos/buscar-certificados", { aluno_id: studentId });
 
       const preparedSertificates = data.map((certificate) => {
         return {
