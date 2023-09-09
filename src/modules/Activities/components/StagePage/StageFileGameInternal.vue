@@ -16,6 +16,7 @@ import { computed, getCurrentInstance } from "vue";
 
 import SevenErrors from "./InternalGames/SevenErrors.vue";
 import ExamGame from "./InternalGames/ExamGame.vue";
+import MemoryGame from "./InternalGames/MemoryGame.vue";
 import EmptyGame from "./InternalGames/EmptyGame.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
@@ -64,15 +65,13 @@ const gameComponent = computed(() => {
   const gamesMap = {
     "7-erros": SevenErrors,
     "Quiz--avaliacao": ExamGame,
+    "jogo-memoria": MemoryGame,
   };
 
   return gamesMap[preparedPath.value.game] || EmptyGame;
 });
 
 const gameUrl = computed(() => {
-  console.log("->", preparedPath.value);
-  console.log("->", InternalGamesMap);
-
   return (
     `${appContext.config.globalProperties.$appPublic}/${
       InternalGamesMap[preparedPath.value.game]

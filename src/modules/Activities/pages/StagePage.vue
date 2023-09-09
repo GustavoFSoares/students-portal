@@ -173,17 +173,26 @@ const handleClose = () => {
 };
 
 const handleNextStep = (nextStep = null) => {
+  const currentStage = activityData.value.stages[currentStageIndex.value];
+
   if (nextStep !== null) {
-    if (activityData.value.stages[currentStageIndex.value]) {
+    if (currentStage) {
       currentStageIndex.value = nextStep;
     }
 
     return;
   }
 
-  activityData.value.stages[currentStageIndex.value].completed = true;
+  currentStage.completed = true;
 
   if (isLast.value) {
+    $store.dispatch("ActivitiesModule/completeStage", {
+      trailId,
+      activityId: stageId,
+      trailStudentStageId: currentStage.id,
+      completed: true,
+    });
+
     handleClose();
     return;
   }
@@ -223,6 +232,13 @@ const handleRestartActivity = () => {
 const loadStageData = async (currentStageId) => {
   activityData.value = await $store.dispatch("ActivitiesModule/getStagesData", {
     stageId: currentStageId,
+  });
+
+  $store.dispatch("ActivitiesModule/completeStage", {
+    trailId,
+    activityId: stageId,
+    trailStudentStageId: activityData.value.stages[currentStageIndex.value].id,
+    completed: false,
   });
 
   $store.dispatch("AuthModule/refreshUser");

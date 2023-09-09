@@ -249,9 +249,9 @@ export default {
         data: { data: data },
       } = await api.post("alunos/trilha-aluno-estagio", {
         trilha_id: trailId,
-        estagio_id: activityId,
-        trilhas_alunos_stagios_id: 4,
-        status: completed ? "sucesso" : "em_andamento",
+        atividade_id: activityId,
+        trilhas_alunos_stagios_id: trailStudentStageId,
+        status: completed ? "sucesso" : "em andamento",
       });
 
       return data.id;

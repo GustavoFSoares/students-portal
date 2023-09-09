@@ -20,7 +20,7 @@
 <script setup>
 const props = defineProps({
   path: {
-    type: String,
+    type: Object,
     required: true,
   },
   title: {
