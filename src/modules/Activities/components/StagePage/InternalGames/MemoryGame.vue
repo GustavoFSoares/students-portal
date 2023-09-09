@@ -26,24 +26,21 @@ const props = defineProps({
 const handleLoad = () => {
   const params = JSON.parse(JSON.stringify(props.parameters));
 
-  const gameOptions = {
-    avaliacao: params.avaliacao.map((item) => ({
-      ...item,
-      path: item.path
-        ? `${appContext.config.globalProperties.$appStorage}/${item.path}`
-        : null,
-    })),
-    tituloAvaliacao: params.questionTitle,
-  };
+  const gameOptions = params.options.map((item) => ({
+    id: item.id,
+    file: item.file
+      ? `${appContext.config.globalProperties.$appStorage}/${item.file}`
+      : null,
+  }));
 
-  console.log("here", { origin: "avag", gameOptions });
   iframeElement.value.contentWindow.postMessage(
-    { origin: "avag", gameOptions },
+    { avag: { options: gameOptions } },
     "*"
   );
 
   window.onmessage = ({ data }) => {
     if (data.avag && data.avag.status === "finish") {
+      alert("finish");
       $emit("finish", data.data);
     }
   };

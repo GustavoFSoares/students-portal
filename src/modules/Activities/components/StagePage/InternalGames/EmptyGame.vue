@@ -1,12 +1,13 @@
 <template>
   <div class="empty-game">
-    <iframe :src="url" @load="handleLoad" />
+    <iframe :src="url" ref="iframeElement" @load="handleLoad" />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 
+const $emit = defineEmits(["finish"]);
 const props = defineProps({
   url: {
     type: String,
@@ -17,6 +18,20 @@ const props = defineProps({
     requred: true,
   },
 });
+
+const iframeElement = ref(null);
+
+const handleLoad = () => {
+  const params = JSON.parse(JSON.stringify(props.parameters));
+
+  iframeElement.value.contentWindow.postMessage({ avag: { params } }, "*");
+
+  window.onmessage = ({ data }) => {
+    if (data.avag && data.avag.status === "finish") {
+      $emit("finish", data.avag.data);
+    }
+  };
+};
 </script>
 
 <style lang="scss" scoped>
