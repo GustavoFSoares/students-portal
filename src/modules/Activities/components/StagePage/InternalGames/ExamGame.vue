@@ -36,11 +36,7 @@ const handleLoad = () => {
     tituloAvaliacao: params.questionTitle,
   };
 
-  console.log("here", { origin: "avag", gameOptions });
-  iframeElement.value.contentWindow.postMessage(
-    { origin: "avag", gameOptions },
-    "*"
-  );
+  iframeElement.value.contentWindow.postMessage({ avag: { gameOptions } }, "*");
 
   window.onmessage = ({ data }) => {
     if (data.avag && data.avag.status === "finish") {
