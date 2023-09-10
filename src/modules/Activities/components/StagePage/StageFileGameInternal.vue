@@ -22,6 +22,7 @@ import EmptyGame from "./InternalGames/EmptyGame.vue";
 import QuizGame from "./InternalGames/QuizGame.vue";
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
 import HangmanGame from "./InternalGames/HangmanGame.vue";
+import PuzzleGame from "./InternalGames/PuzzleGame.vue";
 
 const { appContext } = getCurrentInstance();
 const InternalGamesMap = {
@@ -66,6 +67,7 @@ const gameComponent = computed(() => {
     "7-erros": SevenErrors,
     "Quiz--avaliacao": ExamGame,
     "jogo-memoria": MemoryGame,
+    "quebra-cabeca": PuzzleGame,
   };
 
   return gamesMap[preparedPath.value.game] || EmptyGame;

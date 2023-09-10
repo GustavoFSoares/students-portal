@@ -1,5 +1,5 @@
 <template>
-  <div class="memory-game">
+  <div class="puzzle-game">
     <iframe :src="url" ref="iframeElement" @load="handleLoad" />
   </div>
 </template>
@@ -8,10 +8,8 @@
 import { ref, onMounted, getCurrentInstance } from "vue";
 
 const { appContext } = getCurrentInstance();
+
 const $emit = defineEmits(["finish"]);
-
-const iframeElement = ref(null);
-
 const props = defineProps({
   url: {
     type: String,
@@ -23,32 +21,32 @@ const props = defineProps({
   },
 });
 
+const iframeElement = ref(null);
+
 const handleLoad = () => {
   const params = JSON.parse(JSON.stringify(props.parameters));
 
-  const gameOptions = params.options.map((item) => ({
-    id: item.id,
-    file: item.file
-      ? `${appContext.config.globalProperties.$appStorage}/${item.file}`
-      : null,
-  }));
+  let [image] = params.options;
+
+  image = image
+    ? `${appContext.config.globalProperties.$appStorage}/${image.file}`
+    : null;
 
   iframeElement.value.contentWindow.postMessage(
-    { avag: { options: gameOptions } },
+    { avag: { params: { image } } },
     "*"
   );
 
   window.onmessage = ({ data }) => {
     if (data.avag && data.avag.status === "finish") {
-      alert("finish");
-      $emit("finish", data.data);
+      $emit("finish", data.avag.data);
     }
   };
 };
 </script>
 
 <style lang="scss" scoped>
-.memory-game {
+.puzzle-game {
   max-width: 1150px;
   margin: 0 auto;
   height: 100%;
