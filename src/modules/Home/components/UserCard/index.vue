@@ -83,8 +83,7 @@ const routes = {
     icon: "o_fax",
   },
   library: {
-    // route: "home.library",
-    route: "test",
+    route: "home.library",
     icon: "collections_bookmark",
   },
   events: {

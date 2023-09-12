@@ -47,6 +47,10 @@ export default {
               }
             );
 
+            dispatch("LibraryModule/buildLibrary", userData.turma.trilhas, {
+              root: true,
+            });
+
             resolve(true);
           }
         )
@@ -105,6 +109,10 @@ export default {
               root: true,
             }
           );
+
+          dispatch("LibraryModule/buildLibrary", userData.turma.trilhas, {
+            root: true,
+          });
 
           dispatch("ActivitiesModule/setProfileActivities", userData.trilhas, {
             root: true,
