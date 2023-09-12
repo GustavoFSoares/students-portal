@@ -10,6 +10,10 @@ export default {
         return {
           name: activity.detail.nome,
           description: activity.detail.descricao,
+          cover: {
+            path: activity.detail.capa?.path,
+            type: activity.detail.capa?.tipo,
+          },
           stages: activity.atividades
             .filter((stage) => stage.biblioteca)
             .map((stage) => ({

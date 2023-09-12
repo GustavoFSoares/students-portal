@@ -1,5 +1,5 @@
 export default {
-  getRankings(state) {
-    return state.rankings;
+  getActivitiesOfLibrary(state) {
+    return state.activitiesLibrary;
   },
 };
