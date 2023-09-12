@@ -91,8 +91,6 @@ export default {
       const {
         data: { data },
       } = await api.post("alunos/trilha", { id });
-      console.log(data);
-      // console.log(stages);
 
       const completeds = [...data.concluidos];
 
@@ -154,6 +152,18 @@ export default {
                   return true;
                 }
               }),
+              library: !activity.biblioteca
+                ? null
+                : {
+                    name: activity.biblioteca.nome,
+                    description: activity.biblioteca.descricao,
+                    itens: activity.biblioteca.items.map((item) => ({
+                      description: item.descricao,
+                      file: item.file.path,
+                      type: iconsMapReplations[item.type],
+                      updatedAt: item.updated_at,
+                    })),
+                  },
             };
           }),
       };

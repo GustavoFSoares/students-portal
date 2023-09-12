@@ -67,6 +67,37 @@
           },
         }"
       />
+
+      <div class="library" v-if="stage.library">
+        <h4 class="library__title">{{ $t(`${I18N_PATH}.library`) }}:</h4>
+        <div class="library__itens">
+          <QBtn
+            v-for="(libraryItem, libraryItemIndex) in stage.library.itens"
+            :key="libraryItemIndex"
+            class="library-item"
+            flat
+            size="sm"
+            padding="6px"
+            @click="handleOpenDocument(libraryItem)"
+          >
+            <QIcon
+              class="library-item__icon"
+              :name="iconsMap[libraryItem.type]"
+              size="10px"
+            />
+
+            <div class="library-item__description">
+              {{ libraryItem.description }}
+            </div>
+
+            <QIcon
+              class="library-item__download-icon"
+              name="fa-solid fa-download"
+              size="10px"
+            />
+          </QBtn>
+        </div>
+      </div>
     </div>
   </q-card>
 </template>
@@ -75,6 +106,8 @@
 const TOTAL_STARS = 3;
 const I18N_PATH = "modules.activities.pages.stageList.detail";
 const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
+
+import { iconsMap } from "maps/iconsMaps.json";
 
 import { computed, getCurrentInstance } from "vue";
 
@@ -111,6 +144,13 @@ const positionLabel = computed(() => Number(props.stage.position) + 1);
 const handleClose = () => {
   ctx.emit("close");
 };
+
+const handleOpenDocument = ({ file }) => {
+  window.open(
+    `${appContext.config.globalProperties.$appStorage}/${file}`,
+    "_blank"
+  );
+};
 </script>
 
 <style lang="scss" scoped>
@@ -130,6 +170,8 @@ const handleClose = () => {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    max-width: 250px;
+    margin: 0 auto;
   }
 
   &__close {
@@ -186,7 +228,6 @@ const handleClose = () => {
 
   &__progress-bar {
     margin-top: 20px;
-    max-width: 250px;
   }
 
   &__types {
@@ -210,6 +251,46 @@ const handleClose = () => {
   &__start-activity {
     text-transform: none !important;
     margin-top: 40px;
+  }
+
+  .library {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    width: 100%;
+
+    &__title {
+      font-size: 12px;
+      font-weight: $font-weight-semibold;
+      color: $text-color-1;
+    }
+
+    &__itens {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+
+      width: 100%;
+    }
+
+    &-item {
+      width: 100%;
+
+      :deep(.q-btn__content) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+
+      &__icon,
+      &__download-icon {
+        color: $text-color-2;
+      }
+    }
   }
 }
 </style>

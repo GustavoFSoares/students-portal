@@ -235,7 +235,8 @@
         "stageList": {
           "activities": "atividades",
           "detail": {
-            "startActivity": "Iniciar atividade"
+            "startActivity": "Iniciar atividade",
+            "library": "Documentos de estudo"
           }
         }
       }
