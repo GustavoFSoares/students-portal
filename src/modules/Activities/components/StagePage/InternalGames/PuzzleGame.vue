@@ -17,14 +17,14 @@ const props = defineProps({
   },
   parameters: {
     type: [Object, Array],
-    requred: true,
+    default: () => {},
   },
 });
 
 const iframeElement = ref(null);
 
 const handleLoad = () => {
-  const params = JSON.parse(JSON.stringify(props.parameters));
+  const params = JSON.parse(JSON.stringify(props.parameters || {}));
 
   let [image] = params.options;
 

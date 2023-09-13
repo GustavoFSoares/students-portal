@@ -19,12 +19,12 @@ const props = defineProps({
   },
   parameters: {
     type: [Object, Array],
-    requred: true,
+    default: () => {},
   },
 });
 
 const handleLoad = () => {
-  const params = JSON.parse(JSON.stringify(props.parameters));
+  const params = JSON.parse(JSON.stringify(props.parameters || {}));
 
   const gameOptions = params.options.map((item) => ({
     id: item.id,

@@ -87,8 +87,8 @@ watch(
   { deep: true, immediate: true }
 );
 
-const handleFinish = () => {
-  $emit("finish");
+const handleFinish = (data) => {
+  $emit("finish", data);
 };
 </script>
 

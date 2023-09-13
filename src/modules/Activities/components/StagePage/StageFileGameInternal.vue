@@ -85,8 +85,8 @@ const gameParameters = computed(() => {
   return preparedPath.value.gameData;
 });
 
-const handleFinish = () => {
-  $emit("finish");
+const handleFinish = (data) => {
+  $emit("finish", data);
 };
 // const isTextGame = (gameName) => {
 //   const textGames = ["WordPuzzle", "HangmanGame"];
