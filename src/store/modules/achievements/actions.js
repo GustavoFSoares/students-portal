@@ -11,7 +11,9 @@ export default {
         path: null,
         goal: {
           target: achievement.objetivo,
-          description: achievement.objetivo_descricao,
+          description: `${
+            achievement.objetivo
+          } ${achievement.objetivo_descricao.trim()}`,
         },
       };
 
