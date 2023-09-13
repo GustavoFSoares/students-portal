@@ -18,6 +18,7 @@ import SevenErrors from "./InternalGames/SevenErrors.vue";
 import ExamGame from "./InternalGames/ExamGame.vue";
 import MemoryGame from "./InternalGames/MemoryGame.vue";
 import EmptyGame from "./InternalGames/EmptyGame.vue";
+import ExamMuptipleChooseGame from "./InternalGames/ExamMuptipleChooseGame.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
@@ -68,6 +69,7 @@ const gameComponent = computed(() => {
     "Quiz--avaliacao": ExamGame,
     "jogo-memoria": MemoryGame,
     "quebra-cabeca": PuzzleGame,
+    "Quiz--acerte-figura-multipla-escolha": ExamMuptipleChooseGame,
   };
 
   return gamesMap[preparedPath.value.game] || EmptyGame;
