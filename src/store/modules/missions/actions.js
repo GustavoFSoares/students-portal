@@ -4,17 +4,29 @@ export default {
   },
   buildMissions: async ({ commit }, missions) => {
     try {
-      console.log(missions);
-      // const feedsData = feeds.map((feed) => ({
-      //   title: feed.titulo,
-      //   subtitle: feed.subtitulo,
-      //   description: feed.descricao,
-      //   image: feed.file.path,
-      //   date: feed.updated_at,
-      //   link: feed.link,
-      // }));
-      // console.log(feedsData);
-      // commit("SET_MISSIONS", feedsData);
+      const data = missions.disponivel
+        .filter((mission) => mission.status === "ativo")
+        .map((mission) => ({
+          id: mission.detail.id,
+          cover: {
+            path: mission.detail.capa?.path,
+            type: mission.detail.capa?.tipo,
+          },
+          name: mission.detail.titulo,
+          description: mission.detail.descricao,
+          activities: mission.detail.trilhas.map((activitie) => {
+            return {
+              id: activitie.tr.id,
+              cover: {
+                path: activitie.tr.capa?.path,
+                type: activitie.tr.capa?.tipo,
+              },
+              name: activitie.tr.nome,
+            };
+          }),
+        }));
+
+      commit("SET_MISSIONS", data);
     } catch (err) {
       console.error("Missions Data Error", err);
     }

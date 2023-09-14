@@ -1,6 +1,6 @@
 <template>
   <div :class="['activities-list', { 'activities-list--is-open': isOpen }]">
-    <div class="activities-list__header">
+    <div v-if="!hideHeader" class="activities-list__header">
       <h2 class="activities-list__title">{{ title }}</h2>
 
       <QBtn
@@ -68,11 +68,14 @@ const $store = useStore();
 const props = defineProps({
   title: {
     type: String,
-    required: true,
+    default: null,
   },
   activities: {
     type: Array,
     required: true,
+  },
+  hideHeader: {
+    type: Boolean,
   },
 });
 
@@ -92,13 +95,13 @@ const mappedActivitiesList = computed(() => {
 const handleStartActivity = async (currentActivityId) => {
   activityId.value = currentActivityId;
 
+  return startActivity();
   let presentationId = await $store.dispatch(
     "ActivitiesModule/getActivityPresentationId",
     activityId.value
   );
 
   if (!presentationId) {
-    return startActivity();
   }
 
   startPresentation(presentationId);

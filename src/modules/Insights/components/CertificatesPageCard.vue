@@ -86,10 +86,13 @@ export default {
     height: 145px;
     border-radius: 0 0 $default-border-radius $default-border-radius;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 50%;
+      height: 80%;
     }
   }
 
