@@ -10,6 +10,7 @@ export default {
         description: feed.descricao,
         image: feed.file.path,
         date: feed.updated_at,
+        link: feed.link,
       }));
 
       console.log(feedsData);

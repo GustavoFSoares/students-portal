@@ -14,9 +14,11 @@
             v-for="(newsData, newsIndex) in newsColum"
             :key="`news-${newsColumnIndex}-${newsIndex}`"
             :title="newsData.title"
+            :subtitle="newsData.subtitle"
             :image="newsData.image"
             :news-date="newsData.date"
-            :content="newsData.content"
+            :content="newsData.description"
+            :link="newsData.link"
           />
         </div>
       </div>
