@@ -1,3 +1,5 @@
+import { api } from "boot/axios";
+
 export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
@@ -26,5 +28,12 @@ export default {
     });
 
     commit("SET_ACHIEVEMENTS", mappedAchievement);
+  },
+  downloadingContent: async () => {
+    try {
+      await api.post("alunos/dowload/material-apoio");
+    } catch (err) {
+      console.error("Error trying set download achievement");
+    }
   },
 };

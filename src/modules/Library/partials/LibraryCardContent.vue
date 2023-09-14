@@ -46,10 +46,12 @@
 
 <script setup>
 import { computed, getCurrentInstance } from "vue";
+import { useStore } from "vuex";
 
 import { iconsMap } from "maps/iconsMaps.json";
 
 const { appContext } = getCurrentInstance();
+const $store = useStore();
 
 const props = defineProps({
   stages: {
@@ -63,6 +65,8 @@ const handleOpenDocument = ({ file }) => {
     `${appContext.config.globalProperties.$appStorage}/${file}`,
     "_blank"
   );
+
+  $store.dispatch("AchievementsModule/downloadingContent");
 };
 </script>
 

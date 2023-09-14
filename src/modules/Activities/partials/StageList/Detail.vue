@@ -110,6 +110,7 @@ const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
 import { iconsMap } from "maps/iconsMaps.json";
 
 import { computed, getCurrentInstance } from "vue";
+import { useStore } from "vuex";
 
 import AvReward from "molecules/AvReward.vue";
 import AvProgressBar from "atoms/AvProgressBar.vue";
@@ -121,6 +122,7 @@ const props = defineProps({
   },
 });
 const $emits = defineEmits(["close"]);
+const $store = useStore();
 
 const { appContext } = getCurrentInstance();
 
@@ -150,6 +152,8 @@ const handleOpenDocument = ({ file }) => {
     `${appContext.config.globalProperties.$appStorage}/${file}`,
     "_blank"
   );
+
+  $store.dispatch("AchievementsModule/downloadingContent");
 };
 </script>
 
