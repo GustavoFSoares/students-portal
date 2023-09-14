@@ -158,6 +158,7 @@ export default {
                     name: activity.biblioteca.nome,
                     description: activity.biblioteca.descricao,
                     itens: activity.biblioteca.items.map((item) => ({
+                      id:item.id,
                       description: item.descricao,
                       file: item.file.path,
                       type: iconsMapReplations[item.type],

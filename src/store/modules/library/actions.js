@@ -20,6 +20,7 @@ export default {
               name: stage.biblioteca.nome,
               description: stage.biblioteca.descricao,
               itens: stage.biblioteca.items.map((libraryItem) => ({
+                id: libraryItem.id,
                 description: libraryItem.descricao,
                 type: iconsMapReplations[libraryItem.type],
                 file: libraryItem.file.path,
