@@ -91,8 +91,7 @@ const routes = {
     icon: "o_confirmation_number",
   },
   missions: {
-    // route: "home.missions",
-    route: "test",
+    route: "home.missions",
     icon: "o_flag",
   },
   faq: {

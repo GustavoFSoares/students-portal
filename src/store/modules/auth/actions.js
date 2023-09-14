@@ -55,6 +55,10 @@ export default {
               root: true,
             });
 
+            dispatch("MissionsModule/buildMissions", userData.missoes, {
+              root: true,
+            });
+
             resolve(true);
           }
         )
@@ -119,6 +123,10 @@ export default {
           });
 
           dispatch("FeedModule/buildFeeds", userData.feeds, {
+            root: true,
+          });
+
+          dispatch("MissionsModule/buildMissions", userData.missoes, {
             root: true,
           });
 

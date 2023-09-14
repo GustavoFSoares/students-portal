@@ -4,7 +4,7 @@ import { createStore } from "vuex";
 import AuthModule from "./modules/auth";
 import FeedModule from "./modules/feed";
 import RankingModule from "./modules/ranking";
-// import ConquestsModule from "./modules/conquests";
+import MissionsModule from "./modules/missions";
 import ActivitiesModule from "./modules/activities";
 import AchievementsModule from "./modules/achievements";
 import CertificatesModule from "./modules/certificates";
@@ -25,7 +25,7 @@ export default store(function (/* { ssrContext } */) {
       AuthModule,
       FeedModule,
       RankingModule,
-      // ConquestsModule,
+      MissionsModule,
       ActivitiesModule,
       AchievementsModule,
       CertificatesModule,

@@ -3,7 +3,7 @@ import insightHomeSubpagesRoutes from "modules/Insights/routes/homeSubpages.rout
 import feedHomeSubpagesRoutes from "modules/Feed/routes/homeSubpages.routes";
 import libraryHomeSubpagesRoutes from "modules/Library/routes/homeSubpages.routes";
 // import eventsHomeSubpagesRoutes from "modules/Events/routes/homeSubpages.routes";
-// import missionsHomeSubpagesRoutes from "modules/Missions/routes/homeSubpages.routes";
+import missionsHomeSubpagesRoutes from "modules/Missions/routes/homeSubpages.routes";
 import rankingHomeSubpagesRoutes from "modules/Ranking/routes/homeSubpages.routes";
 import activitiesHomeSubpagesRoutes from "modules/Activities/routes/homeSubpages.routes";
 import achievementsHomeSubpagesRoutes from "modules/Achievements/routes/homeSubpages.routes";
@@ -27,7 +27,7 @@ export default [
       ...feedHomeSubpagesRoutes,
       ...libraryHomeSubpagesRoutes,
       // ...eventsHomeSubpagesRoutes,
-      // ...missionsHomeSubpagesRoutes,
+      ...missionsHomeSubpagesRoutes,
     ],
   },
 ];

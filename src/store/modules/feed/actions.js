@@ -13,8 +13,6 @@ export default {
         link: feed.link,
       }));
 
-      console.log(feedsData);
-
       commit("SET_FEEDS", feedsData);
     } catch (err) {
       console.error("Feeds Data Error", err);
