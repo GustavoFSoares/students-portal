@@ -2,7 +2,7 @@ import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
 
 import AuthModule from "./modules/auth";
-// import CourseModule from "./modules/courses";
+import FeedModule from "./modules/feed";
 import RankingModule from "./modules/ranking";
 // import ConquestsModule from "./modules/conquests";
 import ActivitiesModule from "./modules/activities";
@@ -23,7 +23,7 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       AuthModule,
-      // CourseModule,
+      FeedModule,
       RankingModule,
       // ConquestsModule,
       ActivitiesModule,

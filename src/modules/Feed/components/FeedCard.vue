@@ -3,7 +3,7 @@
     <AvCard rounded-header>
       <template #header>
         <div class="feed-card__image">
-          <img :src="image" :alt="title" />
+          <img :src="`${$appStorage}/${image}`" :alt="title" />
         </div>
       </template>
 
