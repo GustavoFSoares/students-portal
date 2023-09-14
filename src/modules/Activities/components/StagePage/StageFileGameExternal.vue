@@ -5,6 +5,9 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { onMounted } from "vue";
+
 export default {
   name: "StageFileGameExternal",
   computed: {
@@ -21,6 +24,13 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  setup() {
+    onMounted(() => {
+      const $store = useStore();
+
+      $store.dispatch("AchievementsModule/accessingGames");
+    });
   },
 };
 </script>

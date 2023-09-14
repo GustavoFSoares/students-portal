@@ -10,7 +10,8 @@
 </template>
 
 <script setup>
-import { computed, getCurrentInstance } from "vue";
+import { computed, getCurrentInstance, onMounted } from "vue";
+import { useStore } from "vuex";
 
 // import InternalGamesMap from "maps/internalGamesMap.json";
 
@@ -46,6 +47,7 @@ const InternalGamesMap = {
   "quebra-cabeca": "games/quiz_quebra_cabeca",
 };
 
+const $store = useStore();
 const $emit = defineEmits(["finish"]);
 
 const props = defineProps({
@@ -90,18 +92,10 @@ const gameParameters = computed(() => {
 const handleFinish = (data) => {
   $emit("finish", data);
 };
-// const isTextGame = (gameName) => {
-//   const textGames = ["WordPuzzle", "HangmanGame"];
 
-//   return textGames.includes(gameName);
-// };
-// const preparedWords = computed(() => {
-//   if (isTextGame(gameComponent.value)) {
-//     return props.parameters.map((parameter) => parameter.toUpperCase());
-//   }
-
-//   return props.parameters;
-// });
+onMounted(() => {
+  $store.dispatch("AchievementsModule/accessingGames");
+});
 </script>
 
 <style lang="scss" scoped>

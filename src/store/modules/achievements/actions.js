@@ -36,4 +36,11 @@ export default {
       console.error("Error trying set download achievement");
     }
   },
+  accessingGames: async () => {
+    try {
+      await api.post("alunos/conquista/mini-game");
+    } catch (err) {
+      console.error("Error trying set mini-games");
+    }
+  },
 };
