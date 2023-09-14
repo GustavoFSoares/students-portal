@@ -29,9 +29,10 @@ export default {
 
     commit("SET_ACHIEVEMENTS", mappedAchievement);
   },
-  downloadingContent: async () => {
+  downloadingContent: async (_, id) => {
+    console.log(id, " +++ actions");
     try {
-      await api.post("alunos/dowload/material-apoio");
+      await api.post("alunos/dowload/material-apoio", {id: id});
     } catch (err) {
       console.error("Error trying set download achievement");
     }

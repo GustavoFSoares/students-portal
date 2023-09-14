@@ -60,13 +60,13 @@ const props = defineProps({
   },
 });
 
-const handleOpenDocument = ({ file }) => {
+const handleOpenDocument = ({id,file}) => {
   window.open(
     `${appContext.config.globalProperties.$appStorage}/${file}`,
     "_blank"
   );
 
-  $store.dispatch("AchievementsModule/downloadingContent");
+  $store.dispatch("AchievementsModule/downloadingContent", id);
 };
 </script>
 

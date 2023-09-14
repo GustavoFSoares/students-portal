@@ -147,13 +147,14 @@ const handleClose = () => {
   ctx.emit("close");
 };
 
-const handleOpenDocument = ({ file }) => {
+const handleOpenDocument = ({id,file }) => {
+  console.log(id, "  ++ Detail")
   window.open(
     `${appContext.config.globalProperties.$appStorage}/${file}`,
     "_blank"
   );
 
-  $store.dispatch("AchievementsModule/downloadingContent");
+  $store.dispatch("AchievementsModule/downloadingContent", id);
 };
 </script>
 
