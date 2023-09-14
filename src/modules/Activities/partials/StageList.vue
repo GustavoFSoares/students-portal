@@ -9,11 +9,11 @@
         class="stage-list__item"
         v-for="(stage, stageIndex) in stagesRow"
         :key="stage.id"
-        :active="stage.active"
+        :active="stage.released"
         :position="stagesRowIndex * 5 + stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
-        @click="handleClickStage(stage)"
+        @clickStage="handleClickStage(stage)"
       />
     </ol>
   </div>

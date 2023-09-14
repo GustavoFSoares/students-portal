@@ -7,6 +7,7 @@
         'stage-item--blocked': !active,
       },
     ]"
+    @click.prevent="handleClick"
   >
     <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
       <QIcon name="check" rounded color="white" size="xs" />
@@ -28,6 +29,12 @@
       <div class="stage-item__content">
         <div class="stage-item__position">{{ positionLabel }}</div>
         <div class="stage-item__badgse"></div>
+
+        <div v-if="!active" class="stage-item__locked">
+          <div class="stage-item__locked-icon">
+            <QIcon name="fa-solid fa-lock" size="25px" />
+          </div>
+        </div>
       </div>
     </div>
   </li>
@@ -59,16 +66,23 @@ export default {
       required: true,
     },
   },
-  setup(props) {
+  setup(props, ctx) {
     const isMobile = computed(() => Screen.xs);
     const itemProgress = computed(() => (100 * props.rank) / TOTAL_STARS);
     const positionLabel = computed(() => Number(props.position) + 1);
+
+    const handleClick = (ev) => {
+      if (props.active) {
+        ctx.emit("click-stage");
+      }
+    };
 
     return {
       TOTAL_STARS,
       isMobile,
       itemProgress,
       positionLabel,
+      handleClick,
     };
   },
 };
@@ -90,6 +104,11 @@ export default {
   border-radius: 0px 55%;
   border-bottom: double;
 
+  &--blocked,
+  &--blocked &__content {
+    cursor: not-allowed !important;
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -100,9 +119,14 @@ export default {
   }
 
   &__content {
+    position: relative;
+
     cursor: pointer;
     background-color: rgb(205, 0, 41);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px inset, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px,
+      rgba(50, 50, 93, 0.25) 0px 50px 100px -20px inset,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 
     border: 13px solid $white;
     border-radius: 100%;
@@ -121,6 +145,21 @@ export default {
     align-items: center;
 
     user-select: none;
+  }
+
+  &__locked {
+    position: absolute;
+    top: 85%;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &-icon {
+      background: $white;
+      border-radius: 100%;
+      padding: 8px;
+    }
   }
 }
 </style>

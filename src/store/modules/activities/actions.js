@@ -92,20 +92,7 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
-      const completeds = [...data.concluidos];
-
-      const activityIsActive = (activity, activityIndex) => {
-        return true;
-        // console.log("->", activity, activityIndex);
-        if (activityIndex === 0) {
-          return true;
-        }
-
-        return false;
-        // const find = stages.find((stage) => datastage.estagio_id === activity.id);
-        // console.log(find);
-        // return !!find;
-      };
+      const releaseds = [...data.liberados];
 
       return {
         name: data.nome,
@@ -122,7 +109,6 @@ export default {
           .map((activity, activityIndex) => {
             return {
               id: activity.id,
-              active: activityIsActive(activity, activityIndex),
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
@@ -144,10 +130,9 @@ export default {
               }, []),
               position: activity.ordem + "",
               rank: 2,
-              completed: !!completeds.find((completedId, completedIndex) => {
-                return false;
-                if (completedId === activity.id) {
-                  completeds.splice(completedIndex, 1);
+              released: !!releaseds.find((releasedId, releasedIndex) => {
+                if (releasedId === activity.id) {
+                  releaseds.splice(releasedIndex, 1);
 
                   return true;
                 }
@@ -158,7 +143,7 @@ export default {
                     name: activity.biblioteca.nome,
                     description: activity.biblioteca.descricao,
                     itens: activity.biblioteca.items.map((item) => ({
-                      id:item.id,
+                      id: item.id,
                       description: item.descricao,
                       file: item.file.path,
                       type: iconsMapReplations[item.type],
