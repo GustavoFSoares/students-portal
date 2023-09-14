@@ -10,7 +10,8 @@
 </template>
 
 <script setup>
-import { computed, getCurrentInstance } from "vue";
+import { computed, getCurrentInstance, onMounted } from "vue";
+import { useStore } from "vuex";
 
 // import InternalGamesMap from "maps/internalGamesMap.json";
 
@@ -18,6 +19,7 @@ import SevenErrors from "./InternalGames/SevenErrors.vue";
 import ExamGame from "./InternalGames/ExamGame.vue";
 import MemoryGame from "./InternalGames/MemoryGame.vue";
 import EmptyGame from "./InternalGames/EmptyGame.vue";
+import ExamMuptipleChooseGame from "./InternalGames/ExamMuptipleChooseGame.vue";
 
 import QuizGame from "./InternalGames/QuizGame.vue";
 import WordPuzzle from "./InternalGames/WordPuzzle.vue";
@@ -45,6 +47,7 @@ const InternalGamesMap = {
   "quebra-cabeca": "games/quiz_quebra_cabeca",
 };
 
+const $store = useStore();
 const $emit = defineEmits(["finish"]);
 
 const props = defineProps({
@@ -68,6 +71,7 @@ const gameComponent = computed(() => {
     "Quiz--avaliacao": ExamGame,
     "jogo-memoria": MemoryGame,
     "quebra-cabeca": PuzzleGame,
+    "Quiz--acerte-figura-multipla-escolha": ExamMuptipleChooseGame,
   };
 
   return gamesMap[preparedPath.value.game] || EmptyGame;
@@ -85,21 +89,13 @@ const gameParameters = computed(() => {
   return preparedPath.value.gameData;
 });
 
-const handleFinish = () => {
-  $emit("finish");
+const handleFinish = (data) => {
+  $emit("finish", data);
 };
-// const isTextGame = (gameName) => {
-//   const textGames = ["WordPuzzle", "HangmanGame"];
 
-//   return textGames.includes(gameName);
-// };
-// const preparedWords = computed(() => {
-//   if (isTextGame(gameComponent.value)) {
-//     return props.parameters.map((parameter) => parameter.toUpperCase());
-//   }
-
-//   return props.parameters;
-// });
+onMounted(() => {
+  $store.dispatch("AchievementsModule/accessingGames");
+});
 </script>
 
 <style lang="scss" scoped>

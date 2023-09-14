@@ -1,9 +1,5 @@
 <template>
-  <ChannelsContainerSection
-    class="feed-page"
-    :channels="channels"
-    v-model:channel="currentChannel"
-  >
+  <ChannelsContainerSection class="feed-page" hide-channels>
     <template #top-bar></template>
 
     <template #default>
@@ -18,9 +14,11 @@
             v-for="(newsData, newsIndex) in newsColum"
             :key="`news-${newsColumnIndex}-${newsIndex}`"
             :title="newsData.title"
+            :subtitle="newsData.subtitle"
             :image="newsData.image"
             :news-date="newsData.date"
-            :content="newsData.content"
+            :content="newsData.description"
+            :link="newsData.link"
           />
         </div>
       </div>
@@ -28,67 +26,45 @@
   </ChannelsContainerSection>
 </template>
 
-<script>
+<script setup>
 import { useQuasar } from "quasar";
-import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
 import { computed, ref } from "vue";
 
 import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
 
 import FeedCard from "../components/FeedCard.vue";
 
-import FeedsData from "../data/feeds.json";
-
 const I18N_PATH = "modules.feed";
-export default {
-  name: "feed-page",
-  components: {
-    ChannelsContainerSection,
-    FeedCard,
-  },
-  setup() {
-    const $q = useQuasar();
-    const $i18n = useI18n();
+const $q = useQuasar();
+const $store = useStore();
 
-    const newsList = ref(FeedsData);
-    const channels = ref([
-      { label: $i18n.t(`${I18N_PATH}.channels.all`), id: "all" },
-      { label: $i18n.t(`${I18N_PATH}.channels.news`), id: "news" },
-    ]);
-    const currentChannel = ref(null);
+const newsList = computed(() => $store.getters["FeedModule/getFeeds"]);
 
-    const isMobile = computed(() => {
-      return $q.screen.xs;
-    });
+const isMobile = computed(() => {
+  return $q.screen.xs;
+});
 
-    const newsColums = computed(() => {
-      if (isMobile.value) {
-        return {
-          u: newsList.value,
-        };
+const newsColums = computed(() => {
+  if (isMobile.value) {
+    return {
+      u: newsList.value,
+    };
+  }
+
+  return newsList.value.reduce(
+    (amount, newsItem, newsIndex) => {
+      if (newsIndex % 2 !== 0) {
+        amount.r.push(newsItem);
+      } else {
+        amount.l.push(newsItem);
       }
 
-      return newsList.value.reduce(
-        (amount, newsItem, newsIndex) => {
-          if (newsIndex % 2 === 0) {
-            amount.r.push(newsItem);
-          } else {
-            amount.l.push(newsItem);
-          }
-
-          return amount;
-        },
-        { l: [], r: [] }
-      );
-    });
-
-    return {
-      channels,
-      currentChannel,
-      newsColums,
-    };
-  },
-};
+      return amount;
+    },
+    { l: [], r: [] }
+  );
+});
 </script>
 
 <style lang="scss" scoped>

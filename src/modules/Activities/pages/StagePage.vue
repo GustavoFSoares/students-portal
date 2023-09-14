@@ -244,8 +244,17 @@ const loadStageData = async (currentStageId) => {
   $store.dispatch("AuthModule/refreshUser");
 };
 
-const handleReleaseStage = () => {
+const handleReleaseStage = (gameAnswer) => {
   currentStage.value.canNext = true;
+
+  if (gameAnswer) {
+    $store.dispatch("ActivitiesModule/gameResponse", {
+      trailId,
+      activityId: stageId,
+      stageId: currentStage.value.id,
+      gameAnswer,
+    });
+  }
 };
 
 watch(

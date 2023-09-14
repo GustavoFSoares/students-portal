@@ -250,6 +250,14 @@ export default {
       console.error("Start activity Error", err);
     }
   },
+  gameResponse: async (_, { trailId, ativityId, stageId, gameAnswer }) => {
+    await api.post("alunos/trilha-aluno-resposta", {
+      trilha_id: trailId,
+      atividade_id: ativityId,
+      estagio_id: stageId,
+      jogo_resposta: gameAnswer,
+    });
+  },
   completeStage: async (
     _,
     { trailId, activityId, completed, trailStudentStageId }

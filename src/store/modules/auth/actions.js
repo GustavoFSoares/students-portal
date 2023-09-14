@@ -51,6 +51,10 @@ export default {
               root: true,
             });
 
+            dispatch("LibraryModule/buildFeeds", userData.feeds, {
+              root: true,
+            });
+
             resolve(true);
           }
         )
@@ -111,6 +115,10 @@ export default {
           );
 
           dispatch("LibraryModule/buildLibrary", userData.turma.trilhas, {
+            root: true,
+          });
+
+          dispatch("FeedModule/buildFeeds", userData.feeds, {
             root: true,
           });
 

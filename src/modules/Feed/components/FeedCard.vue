@@ -2,8 +2,8 @@
   <div class="feed-card">
     <AvCard rounded-header>
       <template #header>
-        <div class="feed-card__image">
-          <img :src="image" :alt="title" />
+        <div class="feed-card__image" @click="handleOpenFeedLink">
+          <img :src="`${$appStorage}/${image}`" :alt="title" />
         </div>
       </template>
 
@@ -14,14 +14,20 @@
           </span>
         </div>
 
-        <h6 class="feed-card__title">
+        <h5 class="feed-card__title">
           {{ title }}
+        </h5>
+
+        <h6 class="feed-card__subtitle">
+          {{ subtitle }}
         </h6>
 
         <div
+          ref="contentElement"
           :class="[
             'feed-card__content',
             { 'feed-card__content--active': isOpen },
+            { 'feed-card__content--active': showText },
           ]"
         >
           <p class="feed-card__content-text">
@@ -29,6 +35,7 @@
           </p>
 
           <QBtn
+            v-if="!showText"
             class="feed-card__content-button"
             color="primary"
             flat
@@ -62,6 +69,14 @@ export default {
       type: String,
       required: true,
     },
+    subtitle: {
+      type: String,
+      required: true,
+    },
+    link: {
+      type: String,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
@@ -72,20 +87,32 @@ export default {
   },
   setup(props) {
     const isOpen = ref(false);
+    const contentElement = ref(null);
 
     const preparedNewsDate = computed(() => {
       return new Date(props.newsDate).toLocaleDateString();
+    });
+
+    const showText = computed(() => {
+      return contentElement.value?.clientHeight < 20;
     });
 
     const handleOpenNews = () => {
       isOpen.value = !isOpen.value;
     };
 
+    const handleOpenFeedLink = () => {
+      window.open(props.link, "__blank");
+    };
+
     return {
       I18N_PATH,
       isOpen,
+      contentElement,
+      showText,
       preparedNewsDate,
       handleOpenNews,
+      handleOpenFeedLink,
     };
   },
 };
@@ -95,6 +122,7 @@ export default {
 .feed-card {
   &__image {
     height: 190px;
+    cursor: pointer;
 
     img {
       width: 100%;
@@ -125,9 +153,17 @@ export default {
     color: $secondary;
   }
 
+  &__subtitle {
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    color: $secondary;
+  }
+
   &__content {
     position: relative;
-    margin-top: 20px;
+    margin-top: 10px;
 
     display: flex;
     flex-direction: column;

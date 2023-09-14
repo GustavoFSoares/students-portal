@@ -78,8 +78,7 @@ const routes = {
     icon: "o_layers",
   },
   feed: {
-    // route: "home.feed",
-    route: "test",
+    route: "home.feed",
     icon: "o_fax",
   },
   library: {
