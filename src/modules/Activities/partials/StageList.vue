@@ -13,7 +13,7 @@
         :position="stagesRowIndex * 5 + stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
-        @clickStage="handleClickStage(stage)"
+        @click-stage="handleClickStage(stage)"
       />
     </ol>
   </div>
@@ -42,8 +42,8 @@ export default {
 
     const stageList = computed(() => props.stages);
 
-    const handleClickStage = ({ active, id }) => {
-      if (!active) {
+    const handleClickStage = ({ released, id }) => {
+      if (!released) {
         return;
       }
 

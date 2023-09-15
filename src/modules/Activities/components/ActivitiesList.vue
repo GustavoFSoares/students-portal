@@ -102,6 +102,7 @@ const handleStartActivity = async (currentActivityId) => {
   );
 
   if (!presentationId) {
+    return startActivity();
   }
 
   startPresentation(presentationId);

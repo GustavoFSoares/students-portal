@@ -7,7 +7,7 @@
         'stage-item--blocked': !active,
       },
     ]"
-    @click.prevent="handleClick"
+    @click="handleClick"
   >
     <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
       <QIcon name="check" rounded color="white" size="xs" />
@@ -63,7 +63,7 @@ export default {
     },
     completed: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   setup(props, ctx) {
