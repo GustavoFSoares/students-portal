@@ -92,7 +92,7 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
-      const releaseds = [...data.liberados];
+      const releaseds = [...data.em_andamento, ...data.sucesso];
 
       return {
         name: data.nome,
@@ -248,6 +248,7 @@ export default {
     _,
     { trailId, activityId, completed, trailStudentStageId }
   ) => {
+
     try {
       const {
         data: { data: data },
