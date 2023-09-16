@@ -51,7 +51,7 @@ export default {
               root: true,
             });
 
-            dispatch("LibraryModule/buildFeeds", userData.feeds, {
+            dispatch("FeedModule/buildFeeds", userData.feeds, {
               root: true,
             });
 

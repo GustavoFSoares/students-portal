@@ -185,19 +185,26 @@ const handleNextStep = (nextStep = null) => {
 
   currentStage.completed = true;
 
-  if (isLast.value) {
-    $store.dispatch("ActivitiesModule/completeStage", {
-      trailId,
-      activityId: stageId,
-      trailStudentStageId: currentStage.id,
-      completed: true,
-    });
+  $store.dispatch("ActivitiesModule/completeStage", {
+    trailId,
+    activityId: stageId,
+    trailStudentStageId: currentStage.id,
+    completed: true,
+  });
 
+  if (isLast.value) {
     handleClose();
     return;
   }
 
   currentStageIndex.value += 1;
+
+  $store.dispatch("ActivitiesModule/completeStage", {
+    trailId,
+    activityId: stageId,
+    trailStudentStageId: activityData.value.stages[currentStageIndex.value].id,
+    completed: false,
+  });
 };
 
 const handleStartActivity = () => {

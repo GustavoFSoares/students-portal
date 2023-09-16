@@ -130,13 +130,15 @@ export default {
               }, []),
               position: activity.ordem + "",
               rank: 2,
-              released: !!releaseds.find((releasedId, releasedIndex) => {
-                if (releasedId === activity.id) {
-                  releaseds.splice(releasedIndex, 1);
+              released:
+                activityIndex === 0 ||
+                !!releaseds.find((releasedId, releasedIndex) => {
+                  if (releasedId === activity.id) {
+                    releaseds.splice(releasedIndex, 1);
 
-                  return true;
-                }
-              }),
+                    return true;
+                  }
+                }),
               library: !activity.biblioteca
                 ? null
                 : {
@@ -236,10 +238,10 @@ export default {
       console.error("Start activity Error", err);
     }
   },
-  gameResponse: async (_, { trailId, ativityId, stageId, gameAnswer }) => {
-    await api.post("alunos/trilha-aluno-resposta", {
+  gameResponse: async (_, { trailId, activityId, stageId, gameAnswer }) => {
+    await api.post("alunos/trilha-aluno-estagio-resposta", {
       trilha_id: trailId,
-      atividade_id: ativityId,
+      atividade_id: activityId,
       estagio_id: stageId,
       jogo_resposta: gameAnswer,
     });
@@ -248,7 +250,6 @@ export default {
     _,
     { trailId, activityId, completed, trailStudentStageId }
   ) => {
-
     try {
       const {
         data: { data: data },
