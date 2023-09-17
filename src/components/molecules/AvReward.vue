@@ -26,11 +26,11 @@ const I18N_PATH = "components.molecules.rewards";
 export default {
   props: {
     coins: {
-      type: Number,
+      type: [Number, String],
       default: 0,
     },
     points: {
-      type: Number,
+      type: [Number, String],
       default: 0,
     },
     column: {
