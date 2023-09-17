@@ -40,8 +40,7 @@ const handleLoad = () => {
 
   window.onmessage = ({ data }) => {
     if (data.avag && data.avag.status === "finish") {
-      alert("finish");
-      $emit("finish", data.data);
+      $emit("finish", data.avag.data);
     }
   };
 };
