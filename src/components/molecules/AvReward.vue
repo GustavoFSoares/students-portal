@@ -44,10 +44,10 @@ export default {
         route: "home",
         value: props.points,
       },
-      coins: {
-        route: "home",
-        value: props.coins,
-      },
+      // coins: {
+      //   route: "home",
+      //   value: props.coins,
+      // },
     }));
 
     const getRewardIcon = (rewardName) => {
