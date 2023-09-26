@@ -21,10 +21,15 @@ export default {
           }) => {
             const { avatar, ...userProfile } = userData.user;
 
+            const [startRange, endRange] = userData.profile.intervalo;
             commit("SET_USER", {
               ...userProfile,
               studentId: userProfile.aluno.id,
               nivel: userData.profile.nivel,
+              range: {
+                start: startRange,
+                end: endRange,
+              },
             });
 
             commit("SET_REWARDS", {
@@ -94,10 +99,15 @@ export default {
         .then(({ data: { data: userData } }) => {
           const { avatar, ...userProfile } = userData.user;
 
+          const [startRange, endRange] = userData.profile.intervalo;
           commit("SET_USER", {
             ...userProfile,
             studentId: userData.user.aluno.id,
             nivel: userData.profile.nivel,
+            range: {
+              start: startRange,
+              end: endRange,
+            },
           });
 
           commit("SET_REWARDS", {

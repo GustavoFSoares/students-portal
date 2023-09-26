@@ -53,7 +53,7 @@
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed, onMounted, ref, defineProps } from "vue";
-import { AvatarCreatorViewer } from "vue-avatar-creator"
+import { AvatarCreatorViewer } from "vue-avatar-creator";
 
 import AvReward from "molecules/AvReward.vue";
 
@@ -70,14 +70,16 @@ const $store = useStore();
 const $router = useRouter();
 
 const userData = computed(() => $store.getters["AuthModule/userData"]);
-const avatarData = computed(() => $store.getters['AuthModule/avatar/avatarOptions'])
+const avatarData = computed(
+  () => $store.getters["AuthModule/avatar/avatarOptions"]
+);
 
 const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
-const indexes = ref({
-  start: 1000,
-  end: 2000,
-});
+const indexes = computed(() => ({
+  start: userData.value.range.start,
+  end: userData.value.range.end,
+}));
 
 const barProgress = computed(
   () => (rewardsData.value.points / indexes.value.end) * 100

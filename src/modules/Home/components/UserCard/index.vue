@@ -85,20 +85,20 @@ const routes = {
     route: "home.library",
     icon: "collections_bookmark",
   },
-  events: {
-    // route: "home.events",
-    route: "test",
-    icon: "o_confirmation_number",
-  },
+  // events: {
+  //   // route: "home.events",
+  //   route: "test",
+  //   icon: "o_confirmation_number",
+  // },
   missions: {
     route: "home.missions",
     icon: "o_flag",
   },
-  faq: {
-    // route: "home.missions",
-    route: "test",
-    icon: "o_chat_bubble",
-  },
+  // faq: {
+  //   // route: "home.missions",
+  //   route: "test",
+  //   icon: "o_chat_bubble",
+  // },
 };
 
 const isMobile = computed(() => {
