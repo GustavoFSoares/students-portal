@@ -100,9 +100,9 @@ const handleStartActivity = async (currentActivityId) => {
     activityId.value
   );
 
-  if (!presentationId) {
+  // if (!presentationId) {
     return startActivity();
-  }
+  // }
 
   startPresentation(presentationId);
 };
@@ -154,7 +154,9 @@ const handleActivitiesList = () => {
 
 onMounted(() => {
   handleActivitiesList();
+
 });
+
 </script>
 
 <style lang="scss" scoped>
