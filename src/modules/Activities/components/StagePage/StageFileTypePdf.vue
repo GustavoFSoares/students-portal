@@ -19,7 +19,7 @@ export default {
     },
   },
   created() {
-    console.log(path)
+    // console.log(path)
   }
 };
 </script>

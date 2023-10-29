@@ -1,7 +1,7 @@
 <template>
   <section class="stage-file-type-audio">
     <audio controls="" ref="player">
-      <source :src="`${$appStorage}/${path}`" type="audio/mpeg" />
+      <source :src="`${$appStorage}/${path.arquivo}`" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
   </section>
