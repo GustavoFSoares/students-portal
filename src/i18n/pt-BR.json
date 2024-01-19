@@ -60,6 +60,7 @@
     },
     "home": {
       "userCard": {
+        "editUser": "Editar Usuário",
         "rewards": {
           "coins": "moedas",
           "points": "pontos"
@@ -81,46 +82,6 @@
         },
         "completedTrails": {
           "title": "Concluídos"
-        }
-      },
-      "insightsPage": {
-        "rankingCard": {
-          "title": "Ranking",
-          "moreItems": "Ranking",
-          "isYou": "(você)"
-        },
-        "conquestCard": {
-          "title": "Últimas Conquistas",
-          "moreItems": "Conquistas"
-        },
-        "certificateCard": {
-          "title": "Últimos Certificados",
-          "moreItems": "Certificados"
-        },
-        "pages": {
-          "rankingPage": {
-            "title": "Ranking",
-            "isYou": "(você)"
-          },
-          "conquestPage": {
-            "title": "Conquistas"
-          },
-          "certificatesPage": {
-            "title": "Meus Certificados",
-            "header": {
-              "tabs": {
-                "inProgress": "Em andamento",
-                "completed": "Conquistados"
-              },
-              "orderOptions": {
-                "relevance": "Relevancia",
-                "dateGrowing": "Data: Crescente",
-                "dateDescending": "Data: Decrestente",
-                "default": "Sem filtro"
-              }
-            },
-            "noCertificates": "Nenhum certificado foi encontrado"
-          }
         }
       }
     },
@@ -152,11 +113,69 @@
       },
       "pages": {
         "edit": {
+          "title": "Editar Cadastro",
           "legends": {
             "name": "Nome",
             "level": "Nível"
           },
-          "submit": "Atualizar"
+          "form": {
+            "name": "Nome",
+            "email": "E-mail",
+            "levelName": "Nível atual"
+          },
+          "buttons": {
+            "submit": "Salvar",
+            "cancel": "Cancelar"
+          },
+          "submit": "Salvar avatar!"
+        }
+      }
+    },
+    "insights": {
+      "seo": {
+        "title": "Insights"
+      },
+      "rankingCard": {
+        "title": "Ranking",
+        "moreItems": "Ranking",
+        "isYou": "(você)"
+      },
+      "achievementCard": {
+        "title": "Últimas Conquistas",
+        "moreItems": "Conquistas",
+        "noConquest": "sem conquistas"
+      },
+      "certificateCard": {
+        "title": "Último Certificado",
+        "moreItems": "Certificados",
+        "noCertificate": "Nenhuma certificado conquistado"
+      },
+      "pages": {
+        "rankingPage": {
+          "title": "Ranking",
+          "isYou": "(você)"
+        },
+        "achievements": {
+          "title": "Conquistas",
+          "achievementCard": {
+            "howGet": "Como obter"
+          }
+        },
+        "certificatesPage": {
+          "title": "Meus Certificados",
+          "header": {
+            "tabs": {
+              "inProgress": "Em andamento",
+              "completed": "Conquistados"
+            },
+            "orderOptions": {
+              "relevance": "Relevancia",
+              "dateGrowing": "Data: Crescente",
+              "dateDescending": "Data: Decrestente",
+              "default": "Sem filtro"
+            }
+          },
+          "noCertificates": "Nenhum certificado foi encontrado"
         }
       }
     },
@@ -172,6 +191,11 @@
         "game-internal": "Jogo interno",
         "game-external": "Jogo externo"
       },
+      "activitiesSteps": {
+        "available": "Cursos disponíveis",
+        "inProgress": "Em Andamento",
+        "completed": "Concluídos"
+      },
       "components": {
         "activityCard": {
           "access": "Acessar Trilha",
@@ -180,6 +204,10 @@
             "inProgress": "em andamento",
             "completed": "concluído"
           }
+        },
+        "activitiesList": {
+          "seeMore": "Ver mais",
+          "seeLess": "Ver menos"
         }
       },
       "partials": {
@@ -207,7 +235,8 @@
         "stageList": {
           "activities": "atividades",
           "detail": {
-            "startActivity": "Iniciar atividade"
+            "startActivity": "Iniciar atividade",
+            "library": "Documentos de estudo"
           }
         }
       }
@@ -228,11 +257,6 @@
         "title": "Certificados"
       },
       "title": "Certificados"
-    },
-    "insights": {
-      "seo": {
-        "title": "Insights"
-      }
     },
     "courses": {
       "seo": {
@@ -274,6 +298,20 @@
           "video": "Produção visual",
           "document": "Documentos",
           "external-game": "Jogo"
+        },
+        "goal": {
+          "title": "Objetivos"
+        },
+        "benefits": {
+          "title": "Benefícios"
+        },
+        "endActivity": {
+          "completed": "Atividade completa",
+          "uncompleted": "Atividade incompleta",
+          "buttons": {
+            "tryAgain": "Tentar novamente",
+            "goBackList": "Voltar para lista"
+          }
         }
       }
     },
@@ -316,6 +354,11 @@
     "missions": {
       "seo": {
         "title": "Missões"
+      }
+    },
+    "faq": {
+      "seo": {
+        "title": "FAQ"
       }
     }
   }

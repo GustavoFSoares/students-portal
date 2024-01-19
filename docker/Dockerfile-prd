@@ -4,14 +4,14 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY docker/nginx/* ./
-RUN yarn global add @quasar/cli
+# RUN yarn global add @quasar/cli
 
 COPY . .
 
 # build stage
 FROM develop-stage as build-stage
 RUN yarn
-RUN quasar build
+RUN yarn quasar build
 RUN ls .
 
 # production stage

@@ -1,131 +1,73 @@
 <template>
-  <ChannelsContainerSection
-    class="library-page"
-    :channels="channels"
-    v-model:channel="currentChannel"
-  >
-    <template #top-bar>
-      <QBtnToggle
-        class="library-page__filter-buttons"
-        color="secondary"
-        toggle-text-color="secondary"
-        size="sm"
-        flat
-        :options="filtersList"
-        v-model="filterSelected"
-      />
-    </template>
-
-    <template #default>
-      <div class="library-page__list">
-        <LibraryCard
-          v-for="(course, courseIndex) in coursesList"
-          :key="`course-${courseIndex}`"
-          :title="course.title"
-          :image="course.image"
-          :date="course.date"
-          :type="course.type"
-          :bookbarked="course.bookbarked"
-          @click-course="handleClickItem(courseIndex)"
-          @bookmarked="handleBookmarkItem(courseIndex, $event)"
+  <div class="library-page">
+    <q-expansion-item
+      class="activity-library"
+      v-for="(activity, activityIndex) in activitiesOfLibrary"
+      :key="activityIndex"
+      group="somegroup"
+    >
+      <template #header>
+        <LibraryCardHeader
+          :name="activity.name"
+          :description="activity.description"
+          :cover="activity.cover"
         />
-      </div>
-    </template>
-  </ChannelsContainerSection>
+      </template>
+
+      <template #default>
+        <q-card>
+          <q-card-section>
+            <p
+              class="library-page__no-data"
+              v-if="activity.stages.length === 0"
+            >
+              sem documentos para baixar
+            </p>
+
+            <div v-else>
+              <LibraryCardContent :stages="activity.stages" />
+            </div>
+          </q-card-section>
+        </q-card>
+      </template>
+    </q-expansion-item>
+  </div>
 </template>
 
-<script>
+<script setup>
+import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 
-import ChannelsContainerSection from "organisms/ChannelsContainerSection.vue";
-
-import LibraryCard from "../components/LibraryCard.vue";
-
-import Courses from "../data/courses.json";
-import IconsLibrary from "../data/iconsLibrary.json";
+import LibraryCardHeader from "../partials/LibraryCardHeader.vue";
+import LibraryCardContent from "../partials/LibraryCardContent.vue";
 
 const I18N_PATH = "modules.library";
-export default {
-  name: "library-page",
-  components: {
-    ChannelsContainerSection,
-    LibraryCard,
-  },
-  setup() {
-    const $i18n = useI18n();
 
-    const channels = ref([
-      { label: $i18n.t(`${I18N_PATH}.channels.all`), id: "all" },
-      { label: $i18n.t(`${I18N_PATH}.channels.bockmarks`), id: "bockmarks" },
-      { label: $i18n.t(`${I18N_PATH}.channels.handbooks`), id: "handbooks" },
-      { label: $i18n.t(`${I18N_PATH}.channels.videos`), id: "videos" },
-    ]);
-    const coursesList = ref(Courses);
-    const currentChannel = ref(null);
-    const filterSelected = ref("all");
+const $store = useStore();
 
-    const filtersList = computed(() =>
-      Object.entries(IconsLibrary).map(([ItemIndex, itemIcon]) => ({
-        value: ItemIndex,
-        title: ItemIndex,
-        icon: itemIcon,
-      }))
-    );
-
-    const handleClickItem = (courseIndex) => {
-      alert("ClickItem: " + courseIndex);
-    };
-
-    const handleBookmarkItem = (courseIndex, value) => {
-      alert(`BookmarkItem: ${courseIndex} -> ${value}`);
-    };
-
-    return {
-      channels,
-      coursesList,
-      currentChannel,
-      filterSelected,
-      filtersList,
-      handleClickItem,
-      handleBookmarkItem,
-    };
-  },
-};
+const activitiesOfLibrary = computed(
+  () => $store.getters["LibraryModule/getActivitiesOfLibrary"]
+);
 </script>
 
 <style lang="scss" scoped>
 .library-page {
-  &__filter-buttons {
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
-    :deep(.q-btn) {
-      padding: 4px 10px;
-
-      .q-icon {
-        font-size: 17px;
-      }
-
-      &[aria-pressed="true"] {
-        background: rgba(#6e7273, 0.2);
-      }
-    }
+  .activity-library {
+    background: $white;
+    border-radius: $default-border-radius;
+    overflow: hidden;
   }
 
-  &__list {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr;
-
-    @media (min-width: $breakpoint-tablet) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    &-column {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+  &__no-data {
+    font-size: 18px;
+    font-weight: $font-weight-semibold;
+    color: $text-color-1;
+    text-align: center;
   }
 }
 </style>

@@ -22,6 +22,7 @@
     </QTabs>
 
     <QBtnDropdown
+      v-if="!hideOrders"
       class="certificates-page-header__dropdown"
       flat
       :label="$t(`${I18N_PATH}.orderOptions.${orderSelected}`)"
@@ -50,7 +51,7 @@
 <script>
 import { onBeforeMount, ref } from "vue";
 
-const I18N_PATH = "modules.home.insightsPage.pages.certificatesPage.header";
+const I18N_PATH = "modules.insights.pages.certificatesPage.header";
 const ORDER_OPTIONS = ["relevance", "dateGrowing", "dateDescending", "default"];
 
 export default {
@@ -64,6 +65,10 @@ export default {
     orderSelected: {
       type: String,
       default: ORDER_OPTIONS[0],
+    },
+    hideOrders: {
+      type: Boolean,
+      defualt: false,
     },
   },
   setup(props, ctx) {

@@ -1,9 +1,11 @@
 {
   "iconsMapReplations": {
     "pdf": "document",
+    "doc": "document",
     "áudio": "music",
     "video": "video",
     "imagens": "image",
+    "img": "image",
     "jogos internos": "game-internal",
     "jogos externos": "game-external"
   },

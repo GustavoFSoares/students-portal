@@ -1,13 +1,19 @@
 <template>
   <div class="stage-list">
-    <ol class="stage-list__list">
+    <ol
+      class="stage-list__list-column"
+      v-for="(stagesRow, stagesRowIndex) in preparedList"
+      :key="stagesRowIndex"
+    >
       <StageItem
-        v-for="stage in stageList"
+        class="stage-list__item"
+        v-for="(stage, stageIndex) in stagesRow"
         :key="stage.id"
-        :position="stage.position"
+        :active="stage.released"
+        :position="stagesRowIndex * 5 + stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
-        @click="handleClickStage(stage.position)"
+        @click-stage="handleClickStage(stage)"
       />
     </ol>
   </div>
@@ -36,13 +42,31 @@ export default {
 
     const stageList = computed(() => props.stages);
 
-    const handleClickStage = (position) => {
-      ctx.emit("open-stage", position);
+    const handleClickStage = ({ released, id }) => {
+      if (!released) {
+        return;
+      }
+
+      ctx.emit("open-stage", id);
     };
+
+    const preparedList = computed(() => {
+      const stages = [...props.stages];
+
+      const rows = [];
+      while (stages.length !== 0) {
+        const stagesRow = stages.splice(0, isMobile.value ? 1 : 5);
+
+        rows.push(stagesRow);
+      }
+
+      return rows;
+    });
 
     return {
       isMobile,
       stageList,
+      preparedList,
       handleClickStage,
     };
   },
@@ -52,19 +76,25 @@ export default {
 <style lang="scss" scoped>
 .stage-list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  margin: 0 auto;
+
+  gap: 30px;
 
   ol {
     list-style: none;
   }
 
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px 70px;
+  &__list-column {
+    display: flex;
+  }
 
-    @media (min-width: $breakpoint-tablet) {
-      grid-template-columns: repeat(5, 1fr);
+  &__item {
+    &:first-of-type {
+      &::before {
+        z-index: -1;
+      }
     }
   }
 }

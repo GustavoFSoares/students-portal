@@ -1,23 +1,23 @@
 <template>
   <section class="stage-file-game-external">
-    <iframe :src="path" frameborder="0" width="100%" height="100%" />
-
-    <div class="stage-file-game-external__button">
-      <QBtn
-        :label="isLast ? 'Concluir' : 'Avançar'"
-        color="secondary"
-        @click="handleEmitFinish"
-      />
-    </div>
+    <iframe :src="preparedPath.game" frameborder="0" height="600" />
   </section>
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { onMounted } from "vue";
+
 export default {
   name: "StageFileGameExternal",
+  computed: {
+    preparedPath() {
+      return this.path;
+    },
+  },
   props: {
     path: {
-      type: String,
+      type: Object,
       required: true,
     },
     isLast: {
@@ -25,21 +25,24 @@ export default {
       default: false,
     },
   },
+  setup() {
+    onMounted(() => {
+      const $store = useStore();
+
+      $store.dispatch("AchievementsModule/accessingGames");
+    });
+  },
 };
 </script>
 
 <style lang="scss">
 .stage-file-game-external {
-  height: 100vh;
   max-width: 1150px;
   margin: 0 auto;
-
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  height: 95%;
 
   iframe {
+    width: 100%;
     height: 100%;
   }
 

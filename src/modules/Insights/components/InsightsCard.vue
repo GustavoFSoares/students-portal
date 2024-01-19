@@ -14,8 +14,8 @@
 
         <div class="insights-card__footer">
           <QBtn
+            class="insights-card__more-button"
             flat
-            size="sm"
             padding="xs"
             :to="{ name: seeMoreUrl }"
             :label="seeMoreText"
@@ -71,12 +71,27 @@ export default {
 
     &-title {
       font-size: 14px;
+      line-height: 16px;
+      font-weight: 700;
     }
   }
 
   &__footer {
     display: flex;
     justify-content: flex-end;
+  }
+
+  &__more-button {
+    text-transform: none;
+
+    :deep(.q-btn__content) {
+      font-size: 14px;
+      line-height: 16px;
+
+      span {
+        font-weight: 700;
+      }
+    }
   }
 }
 </style>

@@ -9,7 +9,7 @@
             <slot name="header-content" />
           </div>
 
-          <div class="av-page-section__close">
+          <div class="av-page-section__close" v-if="!hideCloseIcon">
             <QBtn flat round icon="close" @click="handleClose" />
           </div>
         </slot>
@@ -72,7 +72,7 @@ export default {
   }
 
   &__title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: $font-weight-bold;
   }
 

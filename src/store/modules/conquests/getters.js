@@ -1,5 +1,9 @@
 export default {
   conquestsPreview(state) {
+    if (!state.conquests || state.conquests.length === 0) {
+      return null;
+    }
+
     const obtainedConquests = state.conquests.filter(
       (conquest) => conquest.obtained
     );

@@ -1,17 +1,9 @@
 <template>
   <section class="stage-file-type-audio">
     <audio controls="" ref="player">
-      <source :src="`${$appStorage}/${path}`" type="audio/mpeg" />
+      <source :src="`${$appStorage}/${path.arquivo}`" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
-
-    <div class="stage-file-type-audio__button">
-      <QBtn
-        :label="isLast ? 'Concluir' : 'Avançar'"
-        color="secondary"
-        @click="handleEmitFinish"
-      />
-    </div>
   </section>
 </template>
 
@@ -32,17 +24,12 @@ export default {
   setup(_, ctx) {
     const player = ref();
 
-    const handleEmitFinish = () => {
-      ctx.emit("finish");
-    };
-
     onMounted(() => {
       player.value?.play();
     });
 
     return {
       player,
-      handleEmitFinish,
     };
   },
 };
@@ -59,16 +46,15 @@ export default {
 .stage-file-type-audio {
   background: transparent !important;
 
+  height: 100%;
+  max-width: 400px;
+
+  display: flex;
+  align-items: center;
+  margin: auto;
+
   audio {
     width: 100%;
-  }
-
-  &__button {
-    margin-top: 5px;
-    width: 100%;
-
-    display: flex;
-    justify-content: flex-end;
   }
 }
 </style>

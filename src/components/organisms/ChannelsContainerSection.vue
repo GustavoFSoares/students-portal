@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="channels-container-section__channels-list">
+    <div class="channels-container-section__channels-list" v-if="!hideChannels">
       <AvCard class="channel-card">
         <div
           class="channel-card__title"
@@ -96,9 +96,12 @@ export default {
   props: {
     channels: {
       type: Array,
-      required: true,
+      default: null,
     },
     hideOrderButton: {
+      type: Boolean,
+    },
+    hideChannels: {
       type: Boolean,
     },
   },
@@ -125,8 +128,9 @@ export default {
     const channelsList = ref(null);
 
     if (
-      !$route.hash ||
-      !props.channels.find((channel) => `#${channel.id}` === $route.hash)
+      !props.hideChannels &&
+      (!$route.hash ||
+        !props.channels.find((channel) => `#${channel.id}` === $route.hash))
     ) {
       $router.push(`#${props.channels[0].id}`);
     }

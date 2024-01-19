@@ -1,5 +1,14 @@
 <template>
-  <li :class="['stage-item', { 'stage-item--completed': completed }]">
+  <li
+    :class="[
+      'stage-item',
+      {
+        'stage-item--completed': completed,
+        'stage-item--blocked': !active,
+      },
+    ]"
+    @click="handleClick"
+  >
     <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
       <QIcon name="check" rounded color="white" size="xs" />
     </QBadge>
@@ -20,6 +29,12 @@
       <div class="stage-item__content">
         <div class="stage-item__position">{{ positionLabel }}</div>
         <div class="stage-item__badgse"></div>
+
+        <div v-if="!active" class="stage-item__locked">
+          <div class="stage-item__locked-icon">
+            <QIcon name="fa-solid fa-lock" size="25px" />
+          </div>
+        </div>
       </div>
     </div>
   </li>
@@ -35,28 +50,39 @@ export default {
   name: "StageItem",
   props: {
     position: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
     rank: {
       type: Number,
       required: true,
     },
-    completed: {
+    active: {
       type: Boolean,
       required: true,
     },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
+  setup(props, ctx) {
     const isMobile = computed(() => Screen.xs);
     const itemProgress = computed(() => (100 * props.rank) / TOTAL_STARS);
     const positionLabel = computed(() => Number(props.position) + 1);
+
+    const handleClick = (ev) => {
+      if (props.active) {
+        ctx.emit("click-stage");
+      }
+    };
 
     return {
       TOTAL_STARS,
       isMobile,
       itemProgress,
       positionLabel,
+      handleClick,
     };
   },
 };
@@ -64,78 +90,75 @@ export default {
 
 <style lang="scss" scoped>
 .stage-item {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
   position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  width: 180px;
+  height: 180px;
 
-  &:hover {
-    transform: scale(1.03);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  transition: all 0.5s ease 0s;
+  border-top: thick groove white;
+  border-width: thick thick thick;
+  border-radius: 0px 55%;
+  border-bottom: double;
+
+  &--blocked,
+  &--blocked &__content {
+    cursor: not-allowed !important;
   }
 
-  &__completed-flag {
+  &::before {
+    content: "";
     position: absolute;
-    top: -6px;
-    right: -6px;
-    padding: 2px;
-  }
-
-  &__stars {
-    display: flex;
-    gap: 4px;
-    bottom: calc(100% + 6px);
-
-    &-icon {
-      font-size: 18px;
-      stroke: $white;
-      fill: $secondary;
-
-      &:nth-of-type(2) {
-        transform: translateY(-5px);
-      }
-
-      &--checked {
-        stroke: $secondary;
-        fill: $secondary;
-      }
-    }
-  }
-
-  &--completed & {
-    &__container {
-      border-color: $secondary;
-      background: rgba($secondary, 0.5);
-    }
-  }
-
-  &__container {
-    border-radius: $default-border-radius;
-    overflow: hidden;
-    background: $card-background;
-    border: $card-border-line;
+    width: 68px;
+    height: 14px;
+    background: $white;
+    left: -2px;
   }
 
   &__content {
-    padding: 3px;
+    position: relative;
+
+    cursor: pointer;
+    background-color: rgb(205, 0, 41);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px,
+      rgba(50, 50, 93, 0.25) 0px 50px 100px -20px inset,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+    border: 13px solid $white;
+    border-radius: 100%;
   }
 
   &__position {
-    width: 50px;
-    height: 50px;
+    color: $white;
+    font-size: 48px;
+    line-height: 91px;
 
-    color: $text-color-3;
-    padding: 2px;
+    width: 91px;
+    height: 91px;
 
     display: flex;
+    justify-content: center;
     align-items: center;
+
+    user-select: none;
+  }
+
+  &__locked {
+    position: absolute;
+    top: 85%;
+
+    width: 100%;
+    display: flex;
     justify-content: center;
 
-    @media (min-width: $breakpoint-tablet) {
-      width: 72px;
-      height: 72px;
+    &-icon {
+      background: $white;
+      border-radius: 100%;
+      padding: 8px;
     }
   }
 }

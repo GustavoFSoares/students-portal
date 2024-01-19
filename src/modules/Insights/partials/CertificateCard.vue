@@ -6,29 +6,40 @@
       :see-more-text="$t(`${I18N_PATH}.moreItems`)"
     >
       <template #default>
-        <ul class="certificate-card__certificate-list">
+        <ul v-if="certificateData" class="certificate-card__certificate-list">
           <li
             class="certificate-item"
-            v-for="(certificate, certificateKey) in certificateList"
+            v-for="(certificate, certificateKey) in certificateData"
             :key="`certificate-${certificateKey}`"
           >
             <img
               v-if="certificate.path"
               class="certificate-item__image"
               :src="`${$appStorage}/${certificate.path}`"
-              :alt="certificate.name"
-              :title="certificate.name"
+              :alt="certificate.title"
+              :title="certificate.title"
             />
 
             <img
               v-else
               class="certificate-item__image"
               src="~assets/img/certificates/default-certificate.png"
-              :alt="certificate.name"
-              :title="certificate.name"
+              :alt="certificate.title"
+              :title="certificate.title"
             />
           </li>
         </ul>
+
+        <div v-else class="certificate-card__no-certificate">
+          <QIcon
+            class="certificate-card__no-certificate-icon"
+            name="fa-solid fa-award"
+          />
+
+          <h5 class="certificate-card__no-certificate-text">
+            {{ $t(`${I18N_PATH}.noCertificate`) }}
+          </h5>
+        </div>
       </template>
     </InsightsCard>
   </div>
@@ -40,7 +51,7 @@ import { computed, onMounted } from "vue";
 
 import InsightsCard from "../components/InsightsCard.vue";
 
-const I18N_PATH = "modules.home.insightsPage.certificateCard";
+const I18N_PATH = "modules.insights.certificateCard";
 
 export default {
   components: {
@@ -49,7 +60,7 @@ export default {
   setup() {
     const $store = useStore();
 
-    const certificateList = computed(
+    const certificateData = computed(
       () => $store.getters["CertificatesModule/certificatesPreview"]
     );
 
@@ -59,7 +70,7 @@ export default {
 
     return {
       I18N_PATH,
-      certificateList,
+      certificateData,
     };
   },
 };
@@ -86,6 +97,26 @@ export default {
     &__image {
       // width: 100%;
       height: 100%;
+    }
+  }
+
+  &__no-certificate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    color: $text-color-1;
+
+    gap: 25px;
+
+    &-icon {
+      font-size: 60px;
+    }
+
+    &-text {
+      font-size: 12px;
+      font-weight: 700;
     }
   }
 }

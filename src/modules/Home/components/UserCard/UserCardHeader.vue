@@ -1,11 +1,15 @@
 <template>
-  <div class="user-card-header">
+  <div :class="['user-card-header', { 'user-card-header--is-close': isClose }]">
     <div class="avatar">
-      <QAvatar size="90px" color="white" text-color="secondary" icon="person" />
+      <router-link :to="{ name: 'user.edit-avatar' }">
+        <QAvatar color="white">
+          <AvatarCreatorViewer view-mode :data="avatarData" />
+        </QAvatar>
+      </router-link>
     </div>
 
     <div class="user-card-header__container">
-      <div class="user">
+      <div :class="['user', { 'user--is-close': isClose }]">
         <div class="user-info">
           <h5 class="user-info__name">{{ userData.name }}</h5>
           <h6 class="user-info__level">{{ userData.levelName }}</h6>
@@ -15,15 +19,18 @@
           <QBtn
             flat
             round
-            icon="logout"
+            icon="edit"
             color="primary"
-            @click="handleLogoutUser"
-            title="Logout"
+            :to="{ name: 'user.edit' }"
+            :title="$t(`${I18N_PATH}.editUser`)"
           />
         </div>
       </div>
 
-      <div class="level-bar" :style="{ '--bar-progress': `${barProgress}%` }">
+      <div
+        :class="['level-bar', { 'level-bar--is-close': isClose }]"
+        :style="{ '--bar-progress': `${barProgress}%` }"
+      >
         <div class="level-bar-progress" />
 
         <div class="level-bar-index">
@@ -42,79 +49,133 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, defineProps } from "vue";
+import { AvatarCreatorViewer } from "vue-avatar-creator";
 
 import AvReward from "molecules/AvReward.vue";
 
 const I18N_PATH = "modules.home.userCard";
 
-export default {
-  name: "UserCardHeader",
-  components: {
-    AvReward,
+const props = defineProps({
+  isClose: {
+    type: Boolean,
+    required: true,
   },
-  setup() {
-    const $store = useStore();
-    const $router = useRouter();
+});
 
-    const userData = computed(() => $store.getters["AuthModule/userData"]);
-    const rewardsData = ref({ points: 0, coints: 0 });
+const $store = useStore();
+const $router = useRouter();
 
-    const indexes = ref({
-      start: 1000,
-      end: 2000,
-    });
+const userData = computed(() => $store.getters["AuthModule/userData"]);
+const avatarData = computed(
+  () => $store.getters["AuthModule/avatar/avatarOptions"]
+);
 
-    const barProgress = computed(
-      () => (rewardsData.value.points / indexes.value.end) * 100
-    );
+const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
-    const levelFormatter = (val) => {
-      return val.toLocaleString("pt-BR");
-    };
+const indexes = computed(() => ({
+  start: userData.value.range.start,
+  end: userData.value.range.end,
+}));
 
-    const getRewardIcon = (rewardName) => {
-      const rewards = {
-        coins: "o_paid",
-        points: "o_grade",
-      };
+const barProgress = computed(
+  () => (rewardsData.value.points / indexes.value.end) * 100
+);
 
-      return rewards[rewardName] || null;
-    };
+const levelFormatter = (val) => {
+  return val.toLocaleString("pt-BR");
+};
 
-    const handleLogoutUser = async () => {
-      await $store.dispatch("AuthModule/invalidateUser");
+const getRewardIcon = (rewardName) => {
+  const rewards = {
+    coins: "o_paid",
+    points: "o_grade",
+  };
 
-      $router.push({ name: "auth.login" });
-    };
-
-    onMounted(async () => {
-      rewardsData.value = $store.getters["AuthModule/rewardsData"];
-    });
-
-    return {
-      userData,
-      indexes,
-      barProgress,
-      rewardsData,
-      levelFormatter,
-      getRewardIcon,
-      handleLogoutUser,
-      I18N_PATH,
-    };
-  },
+  return rewards[rewardName] || null;
 };
 </script>
 
 <style lang="scss" scoped>
+@keyframes closeAnimation {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+
+  to {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes openAnimation {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes rewardCloseAnimation {
+  0% {
+    display: flex;
+    flex-direction: row;
+  }
+
+  50%,
+  100% {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+$transitionDuration: 0.3s;
+
 .user-card-header {
-  padding: 20px 0;
+  padding: 16px 0;
+
+  &--is-close {
+    .avatar {
+      .q-avatar {
+        font-size: 48px !important;
+      }
+    }
+
+    .user,
+    .level-bar {
+      display: none !important;
+    }
+
+    .user-card-header__container {
+      padding: 0 4px;
+    }
+
+    :deep {
+      .av-reward {
+        animation: rewardCloseAnimation 0.5s ease-in-out forwards;
+
+        &-item {
+          display: flex;
+          justify-content: center;
+
+          &__label {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 
   &__container {
-    padding: 0 20px;
+    padding: 0 16px;
     width: 100%;
 
     display: flex;
@@ -129,10 +190,29 @@ export default {
     position: relative;
 
     width: 100%;
-    height: 100%;
+    height: 90px;
 
     display: flex;
+    align-items: center;
     justify-content: center;
+
+    :deep(.avatar-preview) {
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    :deep(svg) {
+      width: 315px;
+      height: 350px;
+      transform: translate(-10px, -25px);
+    }
+
+    .q-avatar {
+      font-size: 90px;
+
+      transition: ease-in font-size 0.3s;
+    }
 
     &:before {
       content: "";
@@ -165,7 +245,7 @@ export default {
 
       &__level {
         font-size: 12px;
-        color: $secondary;
+        color: $text-color-1;
         font-weight: $font-weight-bold;
 
         &::first-letter {
@@ -205,6 +285,16 @@ export default {
       justify-content: space-between;
       color: $secondary;
       font-weight: $font-weight-bold;
+    }
+  }
+
+  .user,
+  .level-bar {
+    animation: openAnimation $transitionDuration ease-in-out forwards;
+
+    &--is-closed {
+      background: red;
+      animation: closeAnimation $transitionDuration ease-in-out forwards;
     }
   }
 }

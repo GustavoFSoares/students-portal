@@ -14,7 +14,7 @@ services:
   caddy:
       image: caddy:2.4.3-alpine
       restart: unless-stopped
-      command: caddy reverse-proxy --from https://www.avag.agr.br:443 --to avag:80
+      command: caddy reverse-proxy --from https://www.hom.avag.agr.br:443 --to avag:80
       ports:
         - "80:80"
         - "443:443"

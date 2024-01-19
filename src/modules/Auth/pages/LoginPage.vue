@@ -1,7 +1,10 @@
 <template>
   <section class="login-page">
     <AvCard @keyup.enter="handleSubmit" class="login-page__card">
-      <div class="login-page__wrapper">
+      <div class="login-page__wrapper ">
+        <div class="login-page__wrapper__avg">
+        <div class="login-page__wrapper__avg__logo"></div>
+        </div>
         <article class="login-page__form">
           <QInput
             v-model="email"
@@ -59,9 +62,9 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
 
 import AvCard from "atoms/AvCard.vue";
 
@@ -103,7 +106,7 @@ export default {
         return;
       }
 
-      $route.push({ name: "home" });
+      $route.push({name: "home"});
     };
 
     return {
@@ -130,6 +133,35 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    align-content: center;
+    position: relative;
+
+
+
+
+    &__avg {
+      width: 220px;
+      height: 100px;
+      background-image: url(/brand.svg);
+      background-repeat: no-repeat;
+      background-size: 220px;
+      background-position: center;
+      align-self: center;
+
+      &__logo {
+        top: 5px;
+        background-image: url(/img.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 126%;
+        height: 35%;
+        position: absolute;
+        z-index: 0;
+        opacity: 0.3;
+
+      }
+    }
   }
 
   &__form {
@@ -137,6 +169,7 @@ export default {
     flex-direction: column;
     gap: 8px;
   }
+
   &__error-message {
     color: $negative;
     font-weight: $font-weight-bold;
@@ -168,6 +201,7 @@ export default {
     &-enter-active {
       animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     }
+
     &-leave-active {
       transition: opacity 0.4s cubic-bezier(1, 0.5, 0.8, 1);
       opacity: 0;

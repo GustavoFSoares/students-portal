@@ -28,24 +28,37 @@
         />
       </div>
 
-      <div v-if="stageType" class="stage-list-detail__type">
-        <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
+      <div v-if="stageTypes" class="stage-list-detail__types">
+        <div
+          class="stage-list-detail__type"
+          v-for="stageType in stageTypes"
+          :key="stageType"
+        >
+          <QTooltip>
+            {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageType.name}`) }}
+          </QTooltip>
 
-        <h4 class="stage-list-detail__type-name">
-          {{ $t(`${I18N_STAGE_TYPE_PATH}.${stageType.name}`) }}
-        </h4>
+          <QIcon class="stage-list-detail__type-icon" :name="stageType.icon" />
+        </div>
       </div>
+
+      <AvProgressBar
+        class="stage-list-detail__progress-bar"
+        :progress="stage.progress"
+      />
 
       <AvReward
         v-if="stage.reward"
+        class="stage-list-detail__rewards"
         :points="stage.reward.points"
         :coins="stage.reward.coins"
+        column
       />
 
       <QBtn
         class="stage-list-detail__start-activity"
         :label="$t(`${I18N_PATH}.startActivity`)"
-        color="secondary"
+        color="primary"
         :to="{
           name: 'activities.stage',
           params: {
@@ -54,62 +67,94 @@
           },
         }"
       />
+
+      <div class="library" v-if="stage.library">
+        <h4 class="library__title">{{ $t(`${I18N_PATH}.library`) }}:</h4>
+        <div class="library__itens">
+          <QBtn
+            v-for="(libraryItem, libraryItemIndex) in stage.library.itens"
+            :key="libraryItemIndex"
+            class="library-item"
+            flat
+            size="sm"
+            padding="6px"
+            @click="handleOpenDocument(libraryItem)"
+          >
+            <QIcon
+              class="library-item__icon"
+              :name="iconsMap[libraryItem.type]"
+              size="10px"
+            />
+
+            <div class="library-item__description">
+              {{ libraryItem.description }}
+            </div>
+
+            <QIcon
+              class="library-item__download-icon"
+              name="fa-solid fa-download"
+              size="10px"
+            />
+          </QBtn>
+        </div>
+      </div>
     </div>
   </q-card>
 </template>
 
-<script>
+<script setup>
 const TOTAL_STARS = 3;
 const I18N_PATH = "modules.activities.pages.stageList.detail";
 const I18N_STAGE_TYPE_PATH = "modules.activities.stageType";
 
+import { iconsMap } from "maps/iconsMaps.json";
+
 import { computed, getCurrentInstance } from "vue";
+import { useStore } from "vuex";
 
 import AvReward from "molecules/AvReward.vue";
+import AvProgressBar from "atoms/AvProgressBar.vue";
 
-export default {
-  emits: ["close"],
-  name: "StageListDetail",
-  components: {
-    AvReward,
+const props = defineProps({
+  stage: {
+    type: Object,
+    default: () => ({ progress: 0 }),
   },
-  props: {
-    stage: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  setup(props, ctx) {
-    const { appContext } = getCurrentInstance();
+});
+const $emits = defineEmits(["close"]);
+const $store = useStore();
 
-    const stageType = computed(() => {
-      if (!props.stage.type) {
-        return null;
-      }
+const { appContext } = getCurrentInstance();
 
-      return {
-        icon:
-          appContext.config.globalProperties.$iconsMap[props.stage.type] ||
-          props.stage.type,
-        name: props.stage.type,
-      };
-    });
+const stageTypes = computed(() => {
+  if (!props.stage.types) {
+    return null;
+  }
 
-    const positionLabel = computed(() => Number(props.stage.position) + 1);
-
-    const handleClose = () => {
-      ctx.emit("close");
-    };
-
+  const icons = props.stage.types.map((type) => {
     return {
-      TOTAL_STARS,
-      I18N_PATH,
-      I18N_STAGE_TYPE_PATH,
-      stageType,
-      positionLabel,
-      handleClose,
+      icon: appContext.config.globalProperties.$iconsMap[type] || type,
+      name: type,
     };
-  },
+  });
+
+  return icons;
+});
+
+const positionLabel = computed(() => Number(props.stage.position) + 1);
+
+const handleClose = () => {
+  ctx.emit("close");
+};
+
+const handleOpenDocument = ({id,file }) => {
+  console.log(id, "  ++ Detail")
+  window.open(
+    `${appContext.config.globalProperties.$appStorage}/${file}`,
+    "_blank"
+  );
+
+  $store.dispatch("AchievementsModule/downloadingContent", id);
 };
 </script>
 
@@ -130,6 +175,8 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    max-width: 250px;
+    margin: 0 auto;
   }
 
   &__close {
@@ -146,9 +193,8 @@ export default {
     border-radius: $default-border-radius;
 
     border: $card-border-line;
-    border-color: $secondary;
-    // background: rgba($secondary, 0.5);
-    background: $card-background;
+    border-color: $primary;
+    background: $primary;
     color: $text-color-3;
 
     padding: 2px;
@@ -162,7 +208,7 @@ export default {
   &__title {
     font-size: 14px;
     font-weight: $font-weight-semibold;
-    color: $text-color-3;
+    color: $text-color-1;
   }
 
   &__stars {
@@ -181,13 +227,23 @@ export default {
     }
   }
 
-  &__type {
+  &__rewards {
+    max-width: 200px;
+  }
+
+  &__progress-bar {
+    margin-top: 20px;
+  }
+
+  &__types {
     display: flex;
     gap: 15px;
     justify-content: center;
     align-items: center;
     color: $text-color-2;
+  }
 
+  &__type {
     &-name {
       font-size: 12px;
     }
@@ -200,6 +256,46 @@ export default {
   &__start-activity {
     text-transform: none !important;
     margin-top: 40px;
+  }
+
+  .library {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    width: 100%;
+
+    &__title {
+      font-size: 12px;
+      font-weight: $font-weight-semibold;
+      color: $text-color-1;
+    }
+
+    &__itens {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+
+      width: 100%;
+    }
+
+    &-item {
+      width: 100%;
+
+      :deep(.q-btn__content) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+
+      &__icon,
+      &__download-icon {
+        color: $text-color-2;
+      }
+    }
   }
 }
 </style>

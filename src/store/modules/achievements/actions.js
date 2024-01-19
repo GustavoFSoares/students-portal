@@ -1,3 +1,5 @@
+import { api } from "boot/axios";
+
 export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
@@ -11,7 +13,9 @@ export default {
         path: null,
         goal: {
           target: achievement.objetivo,
-          description: achievement.objetivo_descricao,
+          description: `${
+            achievement.objetivo
+          } ${achievement.objetivo_descricao.trim()}`,
         },
       };
 
@@ -24,5 +28,20 @@ export default {
     });
 
     commit("SET_ACHIEVEMENTS", mappedAchievement);
+  },
+  downloadingContent: async (_, id) => {
+    console.log(id, " +++ actions");
+    try {
+      await api.post("alunos/dowload/material-apoio", {id: id});
+    } catch (err) {
+      console.error("Error trying set download achievement");
+    }
+  },
+  accessingGames: async () => {
+    try {
+      await api.post("alunos/conquista/mini-game");
+    } catch (err) {
+      console.error("Error trying set mini-games");
+    }
   },
 };

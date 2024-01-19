@@ -29,10 +29,10 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
-    boot: ["app-env", "i18n", "axios", "date-formater"],
+    boot: ["app-env", "i18n", "axios", "date-formater", "vue-avatar-creator"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: ["default.scss", "app.scss", "~vue-color-avatar/dist/style.css"],
+    css: ["default.scss", "app.scss", "~vue-avatar-creator/dist/style.css"],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
@@ -67,6 +67,7 @@ module.exports = configure(function (/* ctx */) {
         molecules: path.join(__dirname, "src/components/molecules"),
         organisms: path.join(__dirname, "src/components/organisms"),
         libs: path.join(__dirname, "libs"),
+        assets: path.join(__dirname, "src/assets"),
       },
 
       vueRouterMode: "history", // available values: 'hash', 'history'
@@ -104,9 +105,9 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      // https: true
+      https: false,
       open: true, // opens browser window automatically,
-      proxy: "http://localhost:9000",
+      proxy: "http://192.168.0.2:9000",
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
@@ -137,6 +138,7 @@ module.exports = configure(function (/* ctx */) {
           "QToolbarTitle",
           "QTab",
           "QTabs",
+          "QTooltip",
           "QCheckbox",
           "QBtnDropdown",
           "QList",

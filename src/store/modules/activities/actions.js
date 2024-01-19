@@ -2,6 +2,8 @@ import { api } from "boot/axios";
 import ActivitiesStatusMap from "maps/activitiesStatusMap.json";
 import { iconsMapReplations } from "maps/iconsMaps.json";
 
+const MAX_PRESENTATIONS = 4;
+
 export default {
   setLoading: ({ commit }, isLoading) => {
     commit("SET_LOADING", isLoading);
@@ -90,35 +92,66 @@ export default {
         data: { data },
       } = await api.post("alunos/trilha", { id });
 
-      const completeds = [...data.concluidos];
+      const releaseds = [...data.em_andamento, ...data.sucesso];
 
       return {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
-        stages: data.stage
-          .filter((stage) => stage.status === "ativo")
-          .map((stage) => {
+        goal: data.objetivo,
+        progress: 50,
+        reward: {
+          coins: 12,
+          points: 50,
+        },
+        activities: data.atividade
+          .filter((activity) => activity.status === "ativo")
+          .map((activity, activityIndex) => {
             return {
-              id: stage.id,
-              trailId: stage.trilha_id,
-              name: stage.nome,
+              id: activity.id,
+              trailId: activity.trilha_id,
+              name: activity.nome,
+              progress: 20,
               reward: {
-                coins: stage.moedas,
-                points: stage.pontos,
+                coins: activity.moedas,
+                points: activity.pontos,
               },
-              type:
-                iconsMapReplations[stage.tipo.descricao] ||
-                stage.tipo.descricao,
-              position: stage.ordem + "",
-              rank: 2,
-              completed: !!completeds.find((completedId, completedIndex) => {
-                if (completedId === stage.id) {
-                  completeds.splice(completedIndex, 1);
-
-                  return true;
+              types: activity.estagios.reduce((amount, stage) => {
+                if (
+                  amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !==
+                  -1
+                ) {
+                  return amount;
                 }
-              }),
+
+                amount.push(iconsMapReplations[stage.tipo.descricao]);
+
+                return amount;
+              }, []),
+              position: activity.ordem + "",
+              rank: 2,
+              released:
+                activityIndex === 0 ||
+                !!releaseds.find((releasedId, releasedIndex) => {
+                  if (releasedId === activity.id) {
+                    releaseds.splice(releasedIndex, 1);
+
+                    return true;
+                  }
+                }),
+              library: !activity.biblioteca
+                ? null
+                : {
+                    name: activity.biblioteca.nome,
+                    description: activity.biblioteca.descricao,
+                    itens: activity.biblioteca.items.map((item) => ({
+                      id: item.id,
+                      description: item.descricao,
+                      file: item.file.path,
+                      type: iconsMapReplations[item.type],
+                      updatedAt: item.updated_at,
+                    })),
+                  },
             };
           }),
       };
@@ -126,7 +159,7 @@ export default {
       console.error("Courses Data by ID Error", err);
     }
   },
-  getStageData: async (_, { stageId }) => {
+  getStagesData: async (_, { stageId }) => {
     try {
       const {
         data: { data },
@@ -135,18 +168,62 @@ export default {
       });
 
       return {
+        id: data.id,
         name: data.nome,
-        files: data.files.map((file) => ({
-          path: file.path,
-          name: file.name,
-          id: file.id,
-          parameters: file.parameters ? JSON.parse(file.parameters) : null,
-        })),
-        type: data.tipo.descricao,
-        type: iconsMapReplations[data.tipo.descricao] || data.tipo.descricao,
-        cover: data.tipo.path,
-        coins: data.moedas,
-        points: data.pontos,
+        description: data.descricao,
+        reward: {
+          coins: data.moedas,
+          points: data.pontos,
+        },
+        // trailStudentStageId: data.trilhas_alunos_stagios[0],
+        stages: data.estagios
+          .filter((stage) => stage.status === "ativo")
+          .map((stage) => {
+            const type = iconsMapReplations[stage.tipo.descricao];
+            const content = stage.conteudo;
+
+            let canNext = true;
+
+            if (type === "game-internal") {
+              const gamesImages = stage.games_internos_images;
+
+              switch (stage.conteudo.game) {
+                case "7-erros":
+                  // canNext = false;
+
+                  [("left", "right")].forEach((position) => {
+                    content.gameData.forEach((_, gameStageIndex) => {
+                      const [currentImage] = gamesImages.splice(0, 1);
+
+                      content.gameData[gameStageIndex].images[position] =
+                        currentImage.path;
+                    });
+                  });
+                  break;
+
+                case "Quiz":
+                  // canNext = false;
+                  content.game += `--${content.tipo}`;
+                  break;
+
+                default:
+                  console.warn(`Game "${stage.conteudo.game}" not found`);
+                  break;
+              }
+            }
+
+            return {
+              id: stage.id,
+              description: stage.descricao,
+              type,
+              time: stage.tempo,
+              content,
+              completed: false,
+              isInformative: stage.informativo,
+              informativeText: stage.titulo,
+              canNext,
+            };
+          }),
       };
     } catch (err) {
       console.error("Stage Data by ID Error", err);
@@ -161,12 +238,29 @@ export default {
       console.error("Start activity Error", err);
     }
   },
-  completeStage: async ({ dispatch }, { activityId, stageId }) => {
+  gameResponse: async (_, { trailId, activityId, stageId, gameAnswer }) => {
+    await api.post("alunos/trilha-aluno-estagio-resposta", {
+      trilha_id: trailId,
+      atividade_id: activityId,
+      estagio_id: stageId,
+      jogo_resposta: gameAnswer,
+    });
+  },
+  completeStage: async (
+    _,
+    { trailId, activityId, completed, trailStudentStageId }
+  ) => {
     try {
-      await api.post("alunos/trilha-aluno-estagio", {
-        trilha_id: activityId,
-        estagio_id: stageId,
+      const {
+        data: { data: data },
+      } = await api.post("alunos/trilha-aluno-estagio", {
+        trilha_id: trailId,
+        atividade_id: activityId,
+        trilhas_alunos_stagios_id: trailStudentStageId,
+        status: completed ? "sucesso" : "em andamento",
       });
+
+      return data.id;
     } catch (err) {
       console.error("", err);
     }
@@ -189,8 +283,6 @@ export default {
         }
       );
 
-      console.log(data);
-
       // return {
       //   files: data.files,
       //   type: data.tipo.descricao,
@@ -199,5 +291,17 @@ export default {
     } catch (err) {
       console.error("Stage PDF Error", err);
     }
+  },
+  getActivityPresentationId({ state, commit }, activityId) {
+    // if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
+    //   return null;
+    // }
+
+    // commit("AD_TO_WATCHED_LIST", activityId);
+
+    const randomPresentation =
+      Math.floor(Math.random() * MAX_PRESENTATIONS) + 1;
+
+    return randomPresentation;
   },
 };

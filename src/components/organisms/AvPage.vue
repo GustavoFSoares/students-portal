@@ -1,16 +1,29 @@
 <template>
-  <section :class="['av-page', { 'av-page--no-header': noHeader }]">
-    <header class="av-page-header" v-if="!noHeader">
-      <div class="av-page-header__title-wrapper">
+  <section
+    :class="[
+      'av-page',
+      { 'av-page--no-header': noHeader },
+      { 'av-page--no-content-padding': noContentPadding },
+    ]"
+  >
+    <header
+      :class="[
+        'av-page-header',
+        `bg-${headerBackground}`,
+        { 'av-page-header--column': columnHeader },
+      ]"
+      v-if="!noHeader"
+    >
+      <div class="av-page-header__title-wrapper" v-if="title || goBackRoute">
         <QBtn
           v-if="goBackRoute"
           class="av-page-header__back-button"
           :to="goBackRoute"
-          icon="chevron_left"
+          icon="fas fa-arrow-left-long"
           size="md"
           padding="xs"
           flat
-          text-color="white"
+          text-color="red"
           :label="title"
         />
 
@@ -42,9 +55,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    columnHeader: {
+      type: Boolean,
+      default: false,
+    },
+    noContentPadding: {
+      type: Boolean,
+      default: false,
+    },
     goBackRoute: {
       type: Object,
       default: null,
+    },
+    headerBackground: {
+      type: String,
+      default: "transparent",
     },
   },
 };
@@ -56,14 +81,25 @@ export default {
   display: flex;
   flex-direction: column;
 
+  &--no-content-padding & {
+    &-content {
+      &__container {
+        padding: initial;
+      }
+    }
+  }
+
   &-header {
     display: flex;
-    border-bottom: $border-line;
     min-height: 53px;
+
+    &--column {
+      flex-direction: column;
+    }
 
     &__title {
       font-size: 15px;
-      color: $text-color-3;
+      color: $text-color-1;
       font-weight: $font-weight-normal;
 
       &-wrapper {
@@ -77,6 +113,23 @@ export default {
 
     &__back-button {
       width: max-content;
+      color: $text-color-4 !important;
+
+      :deep() {
+        .q-btn__content {
+          font-size: 18px;
+          line-height: 18px;
+          text-transform: initial;
+
+          span {
+            font-weight: $font-weight-semibold;
+          }
+        }
+
+        .q-icon {
+          font-size: 20px;
+        }
+      }
     }
 
     &__content {
@@ -101,12 +154,9 @@ export default {
   }
 
   &-content {
-    background-color: $default-background;
     height: 100%;
     padding: 4px 0;
     position: relative;
-
-    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 8px;

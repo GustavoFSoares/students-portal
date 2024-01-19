@@ -1,33 +1,34 @@
 <template>
-  <AvPage class="activity-page" :title="$t(`${I18N_PATH}.title`)">
+  <AvPage class="activity-page" no-content-padding>
     <template #header>
-      <ActivityPageHeader @filter="handleFilter" />
+      <SearchBar v-model="searchInput" />
     </template>
 
     <template #default>
       <div class="activity-list__wrapper">
-        <TrailKnowledge />
+        <ActivitiesList
+          v-if="activiesGroups?.inProgress && activiesGroups.inProgress.length"
+          :title="$t(`${I18N_PATH}.activitiesSteps.inProgress`)"
+          :activities="activiesGroups.inProgress"
+        />
 
-        <ul v-if="currentActivies.length" class="activity-list">
-          <ActivityCard
-            class="activity-item"
-            v-for="(activity, activityKey) in currentActivies"
-            :key="`activity-${activityKey}`"
-            :title="activity.name"
-            :description="activity.description"
-            :cover="activity.cover"
-            :status="activity.status"
-            @startNow="handleStartActivity(activity.id)"
-          />
-        </ul>
+        <ActivitiesList
+          v-if="activiesGroups?.available && activiesGroups.available.length"
+          :title="$t(`${I18N_PATH}.activitiesSteps.available`)"
+          :activities="activiesGroups.available"
+        />
 
-        <NoActivities v-else />
+        <ActivitiesList
+          v-if="activiesGroups?.completed && activiesGroups.completed.length"
+          :title="$t(`${I18N_PATH}.activitiesSteps.completed`)"
+          :activities="activiesGroups.completed"
+        />
       </div>
     </template>
   </AvPage>
 </template>
 
-<script>
+<script setup>
 const I18N_PATH = "modules.activities";
 
 import { useStore } from "vuex";
@@ -36,70 +37,48 @@ import { computed, onMounted, ref } from "vue";
 
 import AvPage from "organisms/AvPage.vue";
 
-import ActivityCard from "../components/ActivityCard.vue";
-import NoActivities from "../partials/NoActivities.vue";
-import TrailKnowledge from "../partials/TrailKnowledge.vue";
-import ActivityPageHeader from "../partials/ActivityPageHeader.vue";
+import SearchBar from "../components/SearchBar.vue";
+import ActivitiesList from "../components/ActivitiesList.vue";
 
-export default {
-  name: "ActivityPage",
-  components: {
-    AvPage,
-    ActivityCard,
-    NoActivities,
-    TrailKnowledge,
-    ActivityPageHeader,
-  },
-  setup() {
-    const $store = useStore();
-    const $router = useRouter();
+const $store = useStore();
+const $router = useRouter();
 
-    const currentState = ref();
-    const activiesGroups = ref({
-      available: [],
-      inProgress: [],
-      completed: [],
-    });
+const searchInput = ref();
+const currentState = ref();
+const activiesGroups = ref({
+  available: [],
+  inProgress: [],
+  completed: [],
+});
 
-    const currentActivies = computed(() => {
-      if (!currentState.value) {
-        return [];
-      }
+const currentActivies = computed(() => {
+  if (!currentState.value) {
+    return [];
+  }
 
-      return activiesGroups.value[currentState.value] || [];
-    });
+  return activiesGroups.value[currentState.value] || [];
+});
 
-    const handleFilter = (state) => {
-      currentState.value = state;
-    };
-
-    const handleStartActivity = (activityId) => {
-      $router.push({
-        name: "activities.stage-list",
-        params: {
-          id: activityId,
-        },
-      });
-    };
-
-    onMounted(async () => {
-      const activiesData = await $store.dispatch(
-        "ActivitiesModule/getActivities"
-      );
-      activiesGroups.value = activiesData;
-
-      $store.dispatch("AuthModule/refreshUser");
-    });
-
-    return {
-      I18N_PATH,
-      currentState,
-      currentActivies,
-      handleFilter,
-      handleStartActivity,
-    };
-  },
+const handleFilter = (state) => {
+  currentState.value = state;
 };
+
+const handleStartActivity = (activityId) => {
+  $router.push({
+    name: "activities.stage-list",
+    params: {
+      id: activityId,
+    },
+  });
+};
+
+onMounted(async () => {
+  const activiesData = await $store.dispatch("ActivitiesModule/getActivities");
+
+  activiesGroups.value = activiesData;
+
+  $store.dispatch("AuthModule/refreshUser");
+});
 </script>
 
 <style lang="scss" scoped>

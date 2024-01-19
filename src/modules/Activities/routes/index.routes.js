@@ -1,11 +1,11 @@
 export default [
   {
-    path: "/activities/:id",
+    path: "/trilha/:id",
     name: "activities.stage-list",
     component: () => import("../pages/StageListPage.vue"),
   },
   {
-    path: "/activities/:id/stage/:stageId",
+    path: "/trilha/:id/atividade/:stageId",
     name: "activities.stage",
     component: () => import("../pages/StagePage.vue"),
   },
