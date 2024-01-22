@@ -22,10 +22,6 @@
     </div>
 
     <div class="stage-item__container">
-      <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
-        <QIcon name="check" rounded color="white" size="xs" />
-      </QBadge>
-
       <div class="stage-item__content">
         <div class="stage-item__position">{{ positionLabel }}</div>
         <div class="stage-item__badgse"></div>
@@ -33,6 +29,12 @@
         <div v-if="!active" class="stage-item__locked">
           <div class="stage-item__locked-icon">
             <QIcon name="fa-solid fa-lock" size="25px" />
+          </div>
+        </div>
+
+        <div v-if="completed" class="stage-item__completed-flag">
+          <div class="stage-item__completed-flag-icon">
+            <QIcon name="check" color="green-9" size="25px" />
           </div>
         </div>
       </div>
@@ -143,12 +145,6 @@ export default {
     border-radius: 100%;
   }
 
-  &__completed-flag {
-    position: absolute;
-    z-index: 2;
-    top: 25px;
-  }
-
   &__position {
     color: $white;
     font-size: 48px;
@@ -164,7 +160,7 @@ export default {
     user-select: none;
   }
 
-  &__locked {
+  &__locked, &__completed-flag {
     position: absolute;
     top: 85%;
 
