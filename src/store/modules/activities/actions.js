@@ -112,6 +112,7 @@ export default {
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
+              completed: data.sucesso?.includes(activity.id),
               reward: {
                 coins: activity.moedas,
                 points: activity.pontos,

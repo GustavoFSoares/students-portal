@@ -9,10 +9,6 @@
     ]"
     @click="handleClick"
   >
-    <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
-      <QIcon name="check" rounded color="white" size="xs" />
-    </QBadge>
-
     <div class="stage-item__stars" v-if="false">
       <QIcon
         :class="[
@@ -26,6 +22,10 @@
     </div>
 
     <div class="stage-item__container">
+      <QBadge v-if="completed" class="stage-item__completed-flag" color="green-9">
+        <QIcon name="check" rounded color="white" size="xs" />
+      </QBadge>
+
       <div class="stage-item__content">
         <div class="stage-item__position">{{ positionLabel }}</div>
         <div class="stage-item__badgse"></div>
@@ -109,6 +109,12 @@ export default {
     cursor: not-allowed !important;
   }
 
+  &--completed & {
+    &__content {
+      background-color: $positive;
+    }
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -116,6 +122,11 @@ export default {
     height: 14px;
     background: $white;
     left: -2px;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
   }
 
   &__content {
@@ -130,6 +141,12 @@ export default {
 
     border: 13px solid $white;
     border-radius: 100%;
+  }
+
+  &__completed-flag {
+    position: absolute;
+    z-index: 2;
+    top: 25px;
   }
 
   &__position {
