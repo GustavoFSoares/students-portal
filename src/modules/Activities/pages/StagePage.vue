@@ -252,8 +252,6 @@ const loadStageData = async (currentStageId) => {
 };
 
 const handleReleaseStage = (gameAnswer) => {
-  currentStage.value.canNext = true;
-
   if (gameAnswer) {
     $store.dispatch("ActivitiesModule/gameResponse", {
       trailId,
@@ -262,6 +260,8 @@ const handleReleaseStage = (gameAnswer) => {
       gameAnswer,
     });
   }
+
+  handleNextStep()
 };
 
 watch(
