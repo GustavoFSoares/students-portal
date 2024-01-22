@@ -53,7 +53,7 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       env: {
-        BASE_URL: env.BASE_URL.replace(/\/$/, "") || "http://localhost:8000",
+        BASE_URL: env.BASE_URL?.replace(/\/$/, "") || "http://localhost:8000",
       },
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
@@ -104,11 +104,11 @@ module.exports = configure(function (/* ctx */) {
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
-    devServer: {
-      https: false,
-      open: true, // opens browser window automatically,
-      proxy: "http://192.168.0.2:9000",
-    },
+    // devServer: {
+    // https: false,
+    // open: true, // opens browser window automatically,
+    // proxy: "http://192.168.0.2:9000",
+    // },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
