@@ -165,7 +165,7 @@ const currentStage = computed(() => {
 });
 
 const handleEndTime = () => {
-  handleClose();
+  currentStage.value.canNext = true;
 };
 
 const handleClose = () => {
