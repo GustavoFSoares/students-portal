@@ -11,7 +11,7 @@
       track-color="transparent"
     >
       <div class="av-timer__value">
-        {{ currentTime }}
+        {{ currentTime > 0 ? currentTime : 'Acabou!' }}
       </div>
     </QCircularProgress>
   </div>
@@ -44,6 +44,8 @@ const currentPercentage = computed(
 );
 
 const handleStart = () => {
+  currentTime.value = props.startTime;
+
   interval = setInterval(() => {
     currentTime.value -= 1;
 
@@ -64,7 +66,6 @@ const restartTimer = () => {
   }
 
   interval = null;
-  currentTime.value = props.startTime;
 };
 
 watch(
@@ -96,6 +97,7 @@ defineExpose({
   }
 
   &__value {
+    font-size: 12px;
     font-weight: $font-weight-bold;
   }
 }

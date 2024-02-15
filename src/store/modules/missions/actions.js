@@ -9,8 +9,8 @@ export default {
         .map((mission) => ({
           id: mission.detail.id,
           cover: {
-            path: mission.detail.capa?.path,
-            type: mission.detail.capa?.tipo,
+            path: mission.detail.file?.path,
+            type: mission.detail.file?.tipo,
           },
           name: mission.detail.titulo,
           description: mission.detail.descricao,

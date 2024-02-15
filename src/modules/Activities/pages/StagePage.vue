@@ -57,6 +57,7 @@
             <div v-if="hasStages && currentStage" class="stage-wrapper">
               <div class="stage-wrapper__content">
                 <StageContent
+                  v-if="!timedOut"
                   :activity-id="activityData.id"
                   :stage-id="currentStage.id"
                   :content="currentStage.content"
@@ -66,6 +67,16 @@
                   :informative-description="currentStage.description"
                   @finish="handleReleaseStage"
                 />
+
+                <section class="timed-out-image" v-else>
+                  <img
+                    class="timed-out-image__image"
+                    src="~assets/img/activities/timeout.webp"
+                    :alt="title"
+                  />
+
+                  <h3>Tempo esgotado!</h3>
+                </section>
 
                 <QBtn
                   class="stage-wrapper__button"
@@ -145,6 +156,7 @@ const { id: trailId, stageId } = $route.params;
 
 const currentStageIndex = ref(0);
 const timer = ref(null);
+const timedOut = ref(false);
 const activityData = ref(null);
 const selectedFile = ref(null);
 const activityIsFinished = ref(false);
@@ -165,7 +177,18 @@ const currentStage = computed(() => {
 });
 
 const handleEndTime = () => {
-  handleClose();
+  currentStage.value.canNext = true;
+  timedOut.value = true;
+
+  if (stageId && trailId) {
+    $store.dispatch("ActivitiesModule/timeOut", {
+      trailId,
+      activityId: stageId,
+      stageId: currentStage.value.id,
+      trailStudentStageId:
+        activityData.value.stages[currentStageIndex.value].id,
+    });
+  }
 };
 
 const handleClose = () => {
@@ -214,6 +237,7 @@ const handleStartActivity = () => {
   setTimeout(() => {
     stageIsOpening.value = false;
     if (timer.value) {
+      timedOut.value = false;
       timer.value.start();
     }
   }, 3 * 100);
@@ -221,6 +245,7 @@ const handleStartActivity = () => {
 
 const restartTimer = () => {
   if (timer.value) {
+    timedOut.value = false;
     timer.value.restartTimer();
     timer.value.start();
   }
@@ -252,8 +277,6 @@ const loadStageData = async (currentStageId) => {
 };
 
 const handleReleaseStage = (gameAnswer) => {
-  currentStage.value.canNext = true;
-
   if (gameAnswer) {
     $store.dispatch("ActivitiesModule/gameResponse", {
       trailId,
@@ -262,6 +285,8 @@ const handleReleaseStage = (gameAnswer) => {
       gameAnswer,
     });
   }
+
+  handleNextStep();
 };
 
 watch(
@@ -297,7 +322,7 @@ onMounted(async () => {
   &__container {
     max-width: 1366px;
     margin: 0 auto;
-    width: 100%;
+    width: 99%;
     height: 100%;
     position: relative;
 
@@ -400,6 +425,19 @@ onMounted(async () => {
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+  }
+
+  .timed-out-image {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__image {
+      width: 250px;
+      height: 250px;
     }
   }
 

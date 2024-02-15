@@ -112,6 +112,7 @@ export default {
               trailId: activity.trilha_id,
               name: activity.nome,
               progress: 20,
+              completed: data.sucesso?.includes(activity.id),
               reward: {
                 coins: activity.moedas,
                 points: activity.pontos,
@@ -185,6 +186,8 @@ export default {
             let canNext = true;
 
             if (type === "game-internal") {
+              canNext = false;
+
               const gamesImages = stage.games_internos_images;
 
               switch (stage.conteudo.game) {
@@ -260,10 +263,32 @@ export default {
         status: completed ? "sucesso" : "em andamento",
       });
 
-      return data.id;
+      if (data) {
+        return data.id;
+      }
+
+      console.warn("completeStage resposta");
     } catch (err) {
       console.error("", err);
     }
+  },
+  timeOut: async (
+    _,
+    { trailId, activityId, stageId, trailStudentStageId  }
+  ) => {
+    console.log("TIME OUT", {
+      trilha_id: trailId,
+      atividade_id: activityId,
+      estagio_id: stageId,
+      trilhas_alunos_stagios_id: trailStudentStageId,
+    })
+
+    // await api.post("alunos/URL_ATIVIDADE_TEMPO_ESGOTADO", {
+      // trilha_id: trailId,
+      // atividade_id: activityId,
+      // estagio_id: stageId,
+      // trilhas_alunos_stagios_id: trailStudentStageId,
+    // });
   },
   getPdfData: async (_, path) => {
     try {
